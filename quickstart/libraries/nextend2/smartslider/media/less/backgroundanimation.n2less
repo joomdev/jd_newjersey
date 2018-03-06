@@ -1,0 +1,34 @@
+(~'div@{id}') {
+
+  .n2-ss-background-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+
+    .n2-ss-slide-background {
+      z-index: auto;
+    }
+
+    img {
+      max-width: none;
+    }
+
+    .n2-3d-side {
+      position: absolute;
+      left: 0;
+      top: 0;
+      overflow: hidden;
+      background: #333;
+      outline: 1px solid rgba(0, 0, 0, 0);
+    }
+
+    .n2-ff-3d,
+    .tile {
+      outline: 1px solid rgba(0, 0, 0, 0);
+    }
+  }
+
+}

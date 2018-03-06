@@ -1,0 +1,248 @@
+/**
+ * @author    JoomShaper http://www.joomshaper.com
+ * @copyright Copyright (C) 2010 - 2012 JoomShaper
+ * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2
+ */
+ 
+ 
+.control-group ul{list-style: none;} 
+
+.sp-sliders-tab >.accordion-body >.accordion-inner >.control-group> .controls,
+.sp-layout-settings-tab >.accordion-body >.accordion-inner >.control-group> .controls{
+	margin-left:0!important;
+}
+
+#moduleOptions.accordion .controls >ul{
+	margin:0;
+}
+ 
+#sliders-slide-addnew > li, #sliders-slide-list > li {
+	margin:0;
+	padding:0;
+}
+
+#sliders-slide-addnew ul li, #sliders-slide-list ul li {
+	padding:5px 0
+}
+
+#sliders-slide-addnew li .sp-toggler, #sliders-slide-addnew li .sp-toggler-main, #sliders-slide-list > li {
+	background:#f4f4f4;
+	background: -moz-linear-gradient(top, #f9f9f9 0%, #f4f4f4 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f9f9f9), color-stop(100%, #f4f4f4));
+	background: -webkit-linear-gradient(top, #f9f9f9 0%, #f4f4f4 100%);
+	background: -o-linear-gradient(top, #f9f9f9 0%, #f4f4f4 100%);
+	background: -ms-linear-gradient(top, #f9f9f9 0%, #f4f4f4 100%);
+	background: linear-gradient(top, #f9f9f9 0%, #f4f4f4 100%);
+	border-top:1px solid #fff;
+	border-left:1px solid #fff;
+	border-bottom:1px solid #d7d7d7;
+	border-right:1px solid #d7d7d7;
+	padding:10px;
+	border-radius:4px;
+	color: #868686;
+	font-size: 13px;
+}
+#sliders-slide-list > li {
+	padding:0 10px
+}
+.sp-toggle-element-main {
+	background:#f8f8f8;
+	padding:10px;
+	
+}
+.sp-toggler-open .sp-toggle-element-main {
+	margin:0;
+	border-top:1px solid #fff !important;
+	border-left:1px solid #fff;
+	border-bottom:1px solid #d7d7d7 !important;
+	border-right:1px solid #d7d7d7;
+}
+ul.adminformlist li ul.sp-element li {
+	clear:both;
+	display:block;
+	font-size:12px;
+	padding:10px;
+}
+
+#options-sliders ul, #options-animation ul { list-style:none}
+
+#options-sliders .control-label, #options-animation .control-label { width:166px}
+
+ul.adminformlist li ul.sp-element li, .sp-toggle-element {
+	background-image:url(images/sep1.png);
+	background-repeat:repeat-x;
+	background-position:0 0
+}
+
+
+
+
+
+.sp-toggler-open .sp-toggle-element {
+	margin:0 -10px!important
+}
+.sp-toggler-open .sp-element li {
+	margin:0!important
+}
+.sp-toggler-open .sp-toggle-element-main .sp-element li {
+	margin:0 -10px!important
+}
+ul.adminformlist li ul.sp-element li:first-child {
+	background:none
+}
+ul.adminformlist li ul.sp-element li input, ul.adminformlist li ul.sp-element li select {
+	margin:0!important
+}
+ul.adminformlist li ul.sp-element li input[type=text] {
+	width:180px;
+}
+ul.adminformlist li ul.sp-element li select {
+	width:194px
+}
+/*Icons*/
+#sliders-slide-list li span.sp-move, #sliders-slide-list li span.sp-edit, #sliders-slide-list li span.sp-published, #sliders-slide-list li span.sp-unpublished, #sliders-slide-list li span.sp-delete {
+	display:inline-block;
+	width:14px;
+	height:30px;
+	cursor:pointer
+}
+.sp-flt-left {
+	float:left
+}
+.sp-flt-right {
+	float:right
+}
+strong.sp-header {
+	margin:6px 0 0 0;
+	font-size:16px;
+	color:#28abdb;
+	text-shadow:0 1px #fff;
+	cursor:pointer
+}
+a.btn.btn-primary, a.btn.btn-success {
+	text-decoration:none;
+	color:#fff
+}
+div.sp-slider-option-container fieldset.panelform {
+	background:none !important
+}
+.sp-add-slide {
+	display: inline-block;
+	margin-right: 60%;
+	padding: 10px 0;
+	border-radius: 4px;
+	border-bottom: 1px solid #D0D0D0;
+}
+.sp-toggler-main .sp-title {
+	border-right: 1px solid #D0D0D0;
+}
+.sp-save-slide {
+	display:inline;
+	background:#7cc576;
+	padding:10px 0 10px 20px;
+	border-radius: 4px;
+	border-bottom: 1px solid #549e4e;
+}
+.sp-element li span {
+	display: inline-block;
+	width: 150px;
+}
+.sp-element li label {
+	float:none;
+	display:inline-block;
+	min-width:100px!important;
+}
+.sp-element input, .sp-element select, .sp-element textarea, .sp-element-main input, .sp-element-main select, .sp-element-main textarea {
+	float:none !important;
+	vertical-align:middle
+}
+#sliders-slide-list li span.sp-move {
+	background:url(images/move.png) no-repeat left;
+	cursor:move
+}
+#sliders-slide-addnew li span.sp-new {
+	background:url(images/new.png) no-repeat left;
+}
+#sliders-slide-addnew li span.sp-title {
+	cursor:pointer
+}
+#sliders-slide-addnew li span.sp-close {
+	background:url(images/close.png) no-repeat left;
+}
+#sliders-slide-list li span.sp-delete {
+	background:url(images/delete.png) no-repeat left;
+}
+#sliders-slide-list li span.sp-edit {
+	background:url(images/edit.png) no-repeat left;
+}
+#sliders-slide-list li span.sp-published {
+	background:url(images/published.png) no-repeat left;
+}
+#sliders-slide-list li span.sp-unpublished {
+	background:url(images/unpublished.png) no-repeat left;
+}
+#sliders-slide-list li span.sp-title {
+	display: inline-block;
+	margin:0 10px;
+	line-height:30px;
+	width: 80%;
+	overflow: hidden;
+	height: 30px;
+}
+#sliders-slide-list > li {
+	border-color: #fff #EDEDED #5AB7FD #fff;
+	border-style: solid;
+	border-width: 1px;
+}
+#sp-animation-setting-panel fieldset {
+	
+}
+
+#sp-animation-setting-panel label {
+	display:inline-block;
+	
+}
+
+#sp-animation-setting-panel li > label {
+	display:inline-block;
+	width:160px
+}
+
+.sp-animation-unit {
+	font-style:italic;
+	clear:right;
+	line-height: 25px;
+	display:inline-block
+}
+#sp-animation-setting-panel fieldset li input[type="checkbox"] {
+	float:none;
+	margin-left:150px;
+	vertical-align:middle
+}
+#sp-animation-setting-panel fieldset li input[type="checkbox"] ~ .sp-animation-unit {
+clear:none
+}
+
+
+/* Joomla 3.2 */
+
+#attrib-sliders > .control-label,
+#attrib-animation > .control-label{
+	display: none;
+}
+
+
+#attrib-sliders .controls,
+#attrib-animation .controls{
+	margin-left: 0 !important;
+}
+
+#attrib-sliders .controls > ul{
+	margin: 0;
+	padding: 0;
+}
+
+
+#attrib-animation #sp-animation-setting-panel .controls{
+	margin-left: 200px !important
+}

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension version="2.5" type="plugin" group="vmuserfield" method="upgrade">
+    <name>Realex_hpp_api</name>
+    <creationDate>November 21 2017</creationDate>
+    <author>The VirtueMart Development Team</author>
+    <authorUrl>https://virtuemart.net</authorUrl>
+    <copyright>Copyright (C) 2004 - 2017 Virtuemart Team. All rights reserved.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <version>3.2.6</version>
+    <description>Card storage plugin for Realex</description>
+    <files>
+        <filename plugin="realex_hpp_api">realex_hpp_api.php</filename>
+        <folder>realex_hpp_api</folder>
+    </files>
+    <params addpath="/plugins/vmuserfield/realex_hpp_api/realex_hpp_api/elements"/>
+    <params addpath="/administrator/components/com_virtuemart/elements"/>
+
+    <updateservers>
+        <!-- Note: No spaces or linebreaks allowed between the server tags -->
+        <server type="extension" name="VirtueMart plg_vmuserfield_realex_hpp_api Update Site">
+            <![CDATA[http://virtuemart.net/releases/vm3/plg_vmuserfield_realex_hpp_api_update.xml]]></server>
+    </updateservers>
+</extension>

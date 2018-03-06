@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<style>
+  <name>shotter</name>
+  <author>Joomshaper</author>
+  <description>shotter layout for SP Smart Slider</description>
+  <version>1.0</version>
+  <files>
+    <public>
+      <filename type="javascript">shotter/js/sp-smart-slider.js</filename>
+      <filename type="stylesheet">shotter/css/istoreii.slider.css</filename>
+    </public>
+    <admin>
+    </admin>
+  </files>
+  <config>
+  <fieldset name="Basic">
+
+    <field name="height" type="text" default="500" label="Height" description="Set height. eg. 500" />
+
+    <field name="tablet_height" type="text" default="400" label="Tablet Height" description="Set height. eg. 500" />
+
+    <field name="mobile_height" type="text" default="300" label="Mobile Height" description="Set height. eg. 500" />
+
+
+    <field name="width" type="text" default="1170" label="Width" description="Set Width. eg. 1170" />
+
+    <field name="tablet_width" type="text" default="940" label="Tablet Width" description="Set Width. eg. 940" />
+
+    <field name="bgcolor" type="text" default="#fff" label="Background" description="Set background color. eg. #fff" />    
+
+    <field name="autoplay" type="list" default="1" label="Auto Play" description="Whether to enable or disable autoplay">
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </field>
+    <field name="interval" type="text" default="5000" label="Interval" description="Set the slide interval between two slides in ms." />
+
+    </fieldset>
+  </config>  
+ </style>

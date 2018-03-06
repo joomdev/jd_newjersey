@@ -1,0 +1,29 @@
+<root>
+  <params name="horizontal-bar" label="Horizontal settings" hidetitle="1">
+    <param name="widget-bar-position" type="widgetposition" label="Position"/>
+    <param type="onoff" name="widget-bar-animate" label="Animate"/>
+    <param name="widget-bar-style" type="style" previewmode="simple" font="sliderwidget-bar-font-title" label="Style" font2="sliderwidget-bar-font-description" set="1900">
+      <![CDATA[ <div style="width:100%;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;" class="{styleClassName}"><span href="#" class="{fontClassName}">Slide title</span><span class="{fontClassName2}">{$('#sliderwidget-bar-separator').val()}Slide description which is longer than the title</span></div> ]]>
+    </param>
+    <param type="group" label="Title">
+      <param type="onoff" label="Shows" name="widget-bar-show-title"/>
+      <param name="widget-bar-font-title" type="font" previewmode="simple" style="sliderwidget-bar-style" label="Font" set="1100">
+        <![CDATA[ <div style="width:100%;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;" class="{styleClassName}"><span href="#" class="{fontClassName}">Slide title</span></div> ]]>
+      </param>
+    </param>
+    <param type="group" label="Description">
+      <param type="onoff" label="Shows" name="widget-bar-show-description"/>
+      <param name="widget-bar-font-description" type="font" previewmode="simple" style="sliderwidget-bar-style" label="Font" set="1100">
+        <![CDATA[ <div style="width:100%;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;" class="{styleClassName}"><span href="#" class="{fontClassName}">Slide description which is longer than the title</span></div> ]]>
+      </param>
+    </param>
+    <param type="group" label="Size">
+      <param type="onoff" label="Full width" name="widget-bar-full-width"/></param>
+    <param type="text" label="Separator" name="widget-bar-separator"/>
+    <param name="widget-bar-align" type="radio" label="Align">
+      <option value="left">Left</option>
+      <option value="center">Center</option>
+      <option value="right">Right</option>
+    </param>
+  </params>
+</root>

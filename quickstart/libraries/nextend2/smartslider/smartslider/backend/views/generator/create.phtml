@@ -1,0 +1,26 @@
+<?php
+/**
+ * @var $_class N2SmartsliderBackendGeneratorView
+ */
+N2SmartsliderBackendGeneratorView::loadSources();
+?>
+
+<div class="n2-form-tab ">
+    <div class="n2-h2 n2-content-box-title-bg"><?php n2_e('Choose dynamic source'); ?></div>
+    <?php
+    $_class->_renderSourceList(N2SmartsliderBackendGeneratorView::$sources['available']);
+    ?>
+    <div class="n2-clear"></div>
+</div>
+
+<?php if (count(N2SmartsliderBackendGeneratorView::$sources['notavailable'])): ?>
+    <div class="n2-form-tab ">
+        <div class="n2-h2 n2-content-box-title-bg"><?php n2_e('Not installed'); ?></div>
+        <?php
+        $_class->_renderSourceList(N2SmartsliderBackendGeneratorView::$sources['notavailable']);
+        ?>
+        <div class="n2-clear"></div>
+    </div>
+<?php endif; ?>
+
+<div style="height: 200px"></div>

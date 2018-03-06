@@ -1,0 +1,37 @@
+<root>
+    <params name="google-fonts" label="" hidetitle="1">
+        <param type="onoff" name="google-enabled" label="Enabled" default="1"/>
+        <param type="group" label="Style">
+            <param type="onoff" name="google-style-100" label="100" default="0"/>
+            <param type="onoff" name="google-style-100italic" label="100 Italic" default="0"/>
+            <param type="onoff" name="google-style-200" label="200" default="0"/>
+            <param type="onoff" name="google-style-200italic" label="200 Italic" default="0"/>
+            <param type="onoff" name="google-style-300" label="300" default="1"/>
+            <param type="onoff" name="google-style-300italic" label="300 Italic" default="0"/>
+            <param type="onoff" name="google-style-400" label="Normal" default="1"/>
+            <param type="onoff" name="google-style-400italic" label="Normal Italic" default="0"/>
+            <param type="onoff" name="google-style-500" label="500" default="0"/>
+            <param type="onoff" name="google-style-500italic" label="500 Italic" default="0"/>
+            <param type="onoff" name="google-style-600" label="600" default="0"/>
+            <param type="onoff" name="google-style-600italic" label="600 Italic" default="0"/>
+            <param type="onoff" name="google-style-700" label="Bold" default="0"/>
+            <param type="onoff" name="google-style-700italic" label="Bold Italic" default="0"/>
+            <param type="onoff" name="google-style-800" label="800" default="0"/>
+            <param type="onoff" name="google-style-800italic" label="800 Italic" default="0"/>
+            <param type="onoff" name="google-style-900" label="900" default="0"/>
+            <param type="onoff" name="google-style-900italic" label="900 Italic" default="0"/>
+        </param>
+        <param type="group" label="Character set">
+            <param type="onoff" name="google-set-latin" label="Latin" default="1"/>
+            <param type="onoff" name="google-set-latin-ext" label="Latin Extended" default="0"/>
+            <param type="onoff" name="google-set-greek" label="Greek" default="0"/>
+            <param type="onoff" name="google-set-greek-ext" label="Greek Extended" default="0"/>
+            <param type="onoff" name="google-set-cyrillic" label="Cyrillic" default="0"/>
+            <param type="onoff" name="google-set-devanagari" label="Devanagari" default="0"/>
+            <param type="onoff" name="google-set-arabic" label="Arabic" default="0"/>
+            <param type="onoff" name="google-set-khmer" label="Khmer" default="0"/>
+            <param type="onoff" name="google-set-telugu" label="Telugu" default="0"/>
+            <param type="onoff" name="google-set-vietnamese" label="Vietnamese" default="0"/>
+        </param>
+    </params>
+</root>

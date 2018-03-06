@@ -1,0 +1,75 @@
+<root>
+  <params name="slide-settings" type="tabbedwithhide" external="1" active="1" underlined="1">
+    <params name="background" type="groupped" label="Background">
+      <params name="background-top" label="" hidetitle="1">
+        <param name="background-type" type="background" default="image"/>
+        <param type="group" label="Background" class="n2-ss-background-image-param">
+          <param name="backgroundImage" type="imagemanager" label="Image" default=""/>
+          <param name="backgroundFocusX" type="text" label="Focus X" default="50" max="100" min="0" style="width: 22px;">
+            <unit value="%">%</unit>
+          </param>
+          <param name="backgroundFocusY" type="text" label="Focus Y" default="50" max="100" min="0" style="width: 22px;">
+            <unit value="%">%</unit>
+          </param>
+          <param name="backgroundImageOpacity" label="Opacity" type="numberautocompleteslider" default="100" style="width: 22px;" min="0" max="100" slmax="100" step="1">
+            <unit value="%">%</unit>
+          </param>
+          <param name="backgroundImageBlur" label="Blur" type="numberautocompleteslider" default="0" style="width: 22px;" min="0" max="50" slmax="50" step="1">
+            <unit value="px">px</unit>
+          </param>
+          <param name="backgroundAlt" type="text" label="Alt tag" default=""/></param>
+        <param type="group" label="Background color">
+          <param name="backgroundColor" type="color" alpha="1" label="Color" default="ffffff00"/>
+          <param name="backgroundGradient" type="list" label="Gradient" default="off" translateable="1">
+            <option value="off">Off</option>
+            <option value="vertical">&#x2193;</option>
+            <option value="horizontal">&#x2192;</option>
+            <option value="diagonal1">&#x2197;</option>
+            <option value="diagonal2">&#x2198;</option>
+          </param>
+          <param name="backgroundColorEnd" type="color" alpha="1" label="Color end" default="ffffff00"/></param>
+        <param name="backgroundMode" type="imagelistlabel" label="Fill mode" default="default" class="n2-ss-background-image-param" translateable="1">
+          <option value="default" image="$ss$/images/fillmode/default.png">Slider&apos;s default</option>
+          <option value="fill" image="$ss$/images/fillmode/fill.png">Fill</option>
+          <option value="fit" image="$ss$/images/fillmode/fit.png">Fit</option>
+          <option value="stretch" image="$ss$/images/fillmode/stretch.png">Stretch</option>
+          <option value="center" image="$ss$/images/fillmode/center.png">Center</option>
+          <option value="tile" image="$ss$/images/fillmode/tile.png">Tile</option>
+        </param>
+        <param name="ligthboxImage" type="imagemanager" label="Custom lightbox image" default="" test="N2_SS_SLIDER_CUSTOM_LIGHTBOX"/>
+      </params>
+    </params>
+    <params name="settings" type="groupped" label="Settings">
+      <params name="details-top" label="" hidetitle="1">
+        <param name="title" type="text" label="Name" default="Slide 1" style="width: 400px;"/>
+        <param name="description" type="textarea" label="Description" default="" style="display: block;" style2="width:100%; resize: vertical; height: 50px;"/>
+        <param type="group" label="Thumbnail">
+          <param name="thumbnail" type="image" label="Image" default=""/>
+          <param name="thumbnailType" type="list" label="Type" default="default" translateable="1">
+            <option value="default">Default</option>
+            <option value="videoDark">Video</option>
+          </param>
+        </param>
+        <param type="mixed" name="link" label="Link" default="|*|_self">
+          <param type="url" label="Link"/>
+          <param type="list" label="Target" translateable="1">
+            <option value="_self">Self</option>
+            <option value="_blank">Blank</option>
+          </param>
+        </param>
+        <param name="slide" type="hidden" label="Slide" default="W10=" class="n2-hidden"/>
+        <param name="guides" type="hidden" label="Guides" default="e30=" class="n2-hidden"/>
+        <param type="group" label="Properties" class="n2-expert">
+          <param name="published" type="onoff" label="Published" default="1"/>
+          <param name="first" type="onoff" label="First" default="0" class="n2-hidden"/>
+          <param type="onoff" name="static-slide" label="Static slide" default="0" class="n2-expert"/></param>
+        <param name="publishdates" type="mixed" label="Published between" class="n2-expert" default="0000-00-00 00:00:00|*|0000-00-00 00:00:00">
+          <param type="date" label="Publish up"/>
+          <param type="date" label="Publish down"/></param>
+        <param name="slide-duration" type="text" label="Slide duration" style="width:40px;" default="0">
+          <unit value="ms">ms</unit>
+        </param>
+      </params>
+    </params>
+  </params>
+</root>

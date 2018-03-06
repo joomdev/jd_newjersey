@@ -1,0 +1,30 @@
+<root>
+  <params name="options" label="Options">
+    <param type="onoff" name="protocol-relative" label="Use protocol-relative URL" default="1"/>
+    <param type="onoff" name="force-english-backend" label="Force english backend" default="0"/>
+    <param type="onoff" name="frontend-accessibility" label="Improved frontend accessibility" default="1"/>
+    <param type="onoff" name="show-joomla-admin-footer" label="Show Joomla admin footer" default="0"/>
+  </params>
+  <params name="javascript" label="JavaScript">
+    <param type="token"/>
+    <param type="onoff" name="jquery" label="Load jQuery on frontend" default="1"/>
+    <param type="onoff" name="gsap" label="Load GSAP on frontend" default="1"/>
+    <param type="onoff" name="async" label="Async" default="0"/>
+    <param type="onoff" name="combine-js" label="Combine" default="0"/>
+    <param type="onoff" name="minify-js" label="Minify" default="0"/>
+    <param type="text" name="scriptattributes" label="Script attributes" default=""/>
+  </params>
+  <params name="css" label="CSS">
+    <param type="radio" name="css-mode" label="CSS mode" default="normal">
+      <option value="normal">Normal</option>
+      <option value="combine">Combine</option>
+      <option value="inline">Inline</option>
+      <option value="async">Async</option>
+    </param>
+    <param type="onoff" name="icon-fa" label="Load Font Awesome on frontend when required" default="1"/>
+  </params>
+  <params name="requests" label="API requests">
+    <param type="onoff" name="curl" label="Curl" default="1"/>
+    <param type="onoff" name="curl-clean-proxy" label="Clean Curl proxy" default="0"/>
+  </params>
+</root> 

@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_VIRTUEMART_CATEGORY_VIEW_DEFAULT_TITLE">
+		<message><![CDATA[COM_VIRTUEMART_CATEGORY_VIEW_DEFAULT_DESC]]></message>
+	</layout>
+    <fields name="request" addfieldpath="/administrator/components/com_virtuemart/fields">
+        <fieldset name="request" >
+    <field name="virtuemart_category_id" type="vmcategory"
+                   default="0"
+                   label="COM_VIRTUEMART_CATEGORY_FIELD_SELECT_TITLE" required="true"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_CATEGORY_FIELD_SELECT_TITLE_DESC" />
+            <field name="virtuemart_manufacturer_id" type="manufacturer"
+                   default="0"
+                   label="COM_VIRTUEMART_MANUFACTURER_FIELD_SELECT_TITLE" required="true"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_MANUFACTURER_FIELD_SELECT_TITLE_DESC" />
+        </fieldset>
+    </fields>
+    <fields name="params" addfieldpath="/administrator/components/com_virtuemart/fields">
+        <fieldset name="DISPLAY" >
+
+            <field name="storefront" type="radio" default=""
+                   label="COM_VIRTUEMART_CATEGORY_FIELD_SELECT_STOREFRONT"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_CATEGORY_FIELD_SELECT_STOREFRONT_DESC" >
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+            <field name="show_store_desc" type="list" default=""
+                   label="COM_VIRTUEMART_ADMIN_CFG_SHOW_STORE_DESC"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_ADMIN_CFG_SHOW_STORE_DESC_TIP" >
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+            <field name="categorylayout" type="vmlayout" view="category"
+                   label="COM_VIRTUEMART_CATEGORY_FIELD_SELECT_LAYOUT"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_CATEGORY_FIELD_SELECT_LAYOUT_DESC" />
+            <field name="showcategory_desc" type="list" default=""
+                   label="COM_VIRTUEMART_ADMIN_CFG_SHOW_CATEGORYDESC"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_ADMIN_CFG_SHOW_CATEGORYDESC_TIP" >
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+            <field name="showcategory" type="list" default=""
+                   label="COM_VIRTUEMART_CATEGORY_FIELD_SELECT_SHOWCAT"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_CATEGORY_FIELD_SELECT_SHOWCAT_DESC" >
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+            <field name="categories_per_row" type="text"
+                   label="COM_VIRTUEMART_ADMIN_CFG_CATEGORIES_PER_ROW"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_ADMIN_CFG_PER_ROW_TIP" />
+            <field name="showproducts" type="list" default=""
+                   label="COM_VIRTUEMART_ADMIN_CFG_SHOW_PRODUCTS"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_ADMIN_CFG_SHOW_PRODUCTS_TIP" >
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+            <field name="showsearch" type="list" default=""
+                   label="COM_VM_CATEGORY_FIELD_SELECT_SHOWSEARCH"
+                   extension="com_virtuemart"
+                   description="COM_VM_CATEGORY_FIELD_SELECT_SHOWSEARCH_TIP" >
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+            <field name="productsublayout" type="vmproductsublayout"
+                   label="COM_VIRTUEMART_CFG_PRODUCTS_SUBLAYOUT"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_CFG_PRODUCTS_SUBLAYOUT_TIP" />
+
+            <field name="products_per_row" type="text"
+                   label="COM_VIRTUEMART_ADMIN_CFG_PRODUCTS_PER_ROW"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_ADMIN_CFG_PER_ROW_TIP" />
+
+            <field name="featured" type="list"
+                   label="COM_VIRTUEMART_ADMIN_CFG_SHOW_FEATURED"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_ADMIN_CFG_SHOW_FEATURED_TIP" >
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+            <field name="featured_rows" type="text"
+                   label="COM_VIRTUEMART_ADMIN_CFG_FEAT_PROD_ROWS"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_ADMIN_CFG_PER_ROW_TIP" />
+
+            <field name="discontinued" type="list"
+                   label="COM_VIRTUEMART_ADMIN_CFG_SHOW_DISCONTINUED"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_ADMIN_CFG_SHOW_DISCONTINUED_TIP" >
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+            <field name="discontinued_rows" type="text"
+                   label="COM_VIRTUEMART_ADMIN_CFG_DISC_PROD_ROWS"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_ADMIN_CFG_PER_ROW_TIP" />
+
+            <field name="latest" type="list"
+                   label="COM_VIRTUEMART_ADMIN_CFG_SHOW_LATEST"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_ADMIN_CFG_SHOW_LATEST_TIP" >
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+            <field name="latest_rows" type="text"
+                   label="COM_VIRTUEMART_ADMIN_CFG_LAT_PROD_ROWS"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_ADMIN_CFG_PER_ROW_TIP" />
+
+            <field name="topten" type="list"
+                   label="COM_VIRTUEMART_ADMIN_CFG_SHOW_TOPTEN"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_ADMIN_CFG_SHOW_TOPTEN_TIP" >
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+            <field name="topten_rows" type="text"
+                   label="COM_VIRTUEMART_ADMIN_CFG_TOPTEN_PROD_ROWS"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_ADMIN_CFG_PER_ROW_TIP" />
+
+            <field name="recent" type="list"
+                   label="COM_VIRTUEMART_ADMIN_CFG_SHOW_RECENT"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_ADMIN_CFG_SHOW_RECENT_TIP" >
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+            <field name="recent_rows" type="text"
+                   label="COM_VIRTUEMART_ADMIN_CFG_REC_PROD_ROWS"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_ADMIN_CFG_PER_ROW_TIP" />
+        </fieldset>
+        <fieldset name="STOREFRONT" >
+            <field name="COM_VIRTUEMART_STOREFRONT_HELP" type="vmhelptext"
+                   label="COM_VIRTUEMART_STOREFRONT_HELP_TITLE"
+                   description="COM_VIRTUEMART_STOREFRONT_HELP_DESC" />
+            <field name="stf_itemid" type="text"
+                   label="COM_VIRTUEMART_CATEGORY_FIELD_SELECT_ITEMID"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_CATEGORY_FIELD_SELECT_ITEMID_TIP" />
+            <field name="stf_categorylayout" type="vmlayout" view="category"
+                   label="COM_VIRTUEMART_CATEGORY_FIELD_SELECT_LAYOUT"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_CATEGORY_FIELD_SELECT_LAYOUT_DESC" />
+            <field name="stf_show_store_desc" type="list" default=""
+                   label="COM_VIRTUEMART_ADMIN_CFG_SHOW_STORE_DESC"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_ADMIN_CFG_SHOW_STORE_DESC_TIP" >
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+            <field name="stf_showcategory_desc" type="list"
+                   label="COM_VIRTUEMART_ADMIN_CFG_SHOW_CATEGORYDESC"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_ADMIN_CFG_SHOW_CATEGORYDESC_TIP" >
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+            <field name="stf_showcategory" type="list"
+                   label="COM_VIRTUEMART_CATEGORY_FIELD_SELECT_SHOWCAT"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_CATEGORY_FIELD_SELECT_SHOWCAT_DESC" >
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+            <field name="stf_categories_per_row" type="text"
+                   label="COM_VIRTUEMART_ADMIN_CFG_CATEGORIES_PER_ROW"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_ADMIN_CFG_PER_ROW_TIP" />
+            <field name="stf_showproducts" type="list" default=""
+                   label="COM_VIRTUEMART_ADMIN_CFG_SHOW_PRODUCTS"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_ADMIN_CFG_SHOW_PRODUCTS_TIP" >
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+            <field name="stf_showsearch" type="list"
+                   label="COM_VM_CATEGORY_FIELD_SELECT_SHOWSEARCH"
+                   extension="com_virtuemart"
+                   description="COM_VM_CATEGORY_FIELD_SELECT_SHOWSEARCH_TIP" >
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+            <field name="stf_productsublayout" type="vmproductsublayout"
+                   label="COM_VIRTUEMART_CFG_PRODUCTS_SUBLAYOUT"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_CFG_PRODUCTS_SUBLAYOUT_TIP" />
+            <field name="stf_products_per_row" type="text"
+                   label="COM_VIRTUEMART_ADMIN_CFG_PRODUCTS_PER_ROW"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_ADMIN_CFG_PER_ROW_TIP" />
+
+            <field name="stf_featured" type="list"
+                   label="COM_VIRTUEMART_ADMIN_CFG_SHOW_FEATURED"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_ADMIN_CFG_SHOW_FEATURED_TIP" >
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+            <field name="stf_featured_rows" type="text"
+                   label="COM_VIRTUEMART_ADMIN_CFG_FEAT_PROD_ROWS"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_ADMIN_CFG_PER_ROW_TIP" />
+
+            <field name="stf_discontinued" type="list"
+                   label="COM_VIRTUEMART_ADMIN_CFG_SHOW_DISCONTINUED"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_ADMIN_CFG_SHOW_DISCONTINUED_TIP" >
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+            <field name="stf_discontinued_rows" type="text"
+                   label="COM_VIRTUEMART_ADMIN_CFG_DISC_PROD_ROWS"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_ADMIN_CFG_PER_ROW_TIP" />
+
+            <field name="stf_latest" type="list"
+                   label="COM_VIRTUEMART_ADMIN_CFG_SHOW_LATEST"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_ADMIN_CFG_SHOW_LATEST_TIP" >
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+            <field name="stf_latest_rows" type="text"
+                   label="COM_VIRTUEMART_ADMIN_CFG_LAT_PROD_ROWS"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_ADMIN_CFG_PER_ROW_TIP" />
+
+            <field name="stf_topten" type="list"
+                   label="COM_VIRTUEMART_ADMIN_CFG_SHOW_TOPTEN"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_ADMIN_CFG_SHOW_TOPTEN_TIP" >
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+            <field name="stf_topten_rows" type="text"
+                   label="COM_VIRTUEMART_ADMIN_CFG_TOPTEN_PROD_ROWS"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_ADMIN_CFG_PER_ROW_TIP" />
+
+            <field name="stf_recent" type="list"
+                   label="COM_VIRTUEMART_ADMIN_CFG_SHOW_RECENT"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_ADMIN_CFG_SHOW_RECENT_TIP" >
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+            <field name="stf_recent_rows" type="text"
+                   label="COM_VIRTUEMART_ADMIN_CFG_REC_PROD_ROWS"
+                   extension="com_virtuemart"
+                   description="COM_VIRTUEMART_ADMIN_CFG_PER_ROW_TIP" />
+        </fieldset>
+	</fields>
+</metadata>
+

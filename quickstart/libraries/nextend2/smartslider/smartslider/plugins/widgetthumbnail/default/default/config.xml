@@ -1,0 +1,51 @@
+<root>
+  <params name="thumbnail" label="Thumbnail settings" hidetitle="1">
+    <param name="widget-thumbnail-minimum-thumbnail-count" type="number" label="Minimum thumbnail count" style="width:30px;">
+      <unit>Slides</unit>
+    </param>
+    <param name="widget-thumbnail-position" type="widgetposition" label="Position"/>
+    <param name="widget-thumbnail-align-content" type="radio" label="Align thumbnails" default="start">
+      <option value="start">Start</option>
+      <option value="center">Center</option>
+      <option value="end">End</option>
+      <option value="space-between">Space between</option>
+      <option value="space-around">Space around</option>
+    </param>
+    <param type="group" label="Style">
+      <param name="widget-thumbnail-style-bar" type="style" previewmode="simple" style2="sliderwidget-thumbnail-style-slides" label="Bar" set="1900">
+        <![CDATA[ <div class="{styleClassName}" style="overflow: hidden; width:{$('#sliderwidget-thumbnail-width').val()*2.5}px;"><div style="width:200%"><div class="{styleClassName2}" style="display: inline-block; vertical-align:top; width:{$('#sliderwidget-thumbnail-width').val()}px; height: {$('#sliderwidget-thumbnail-height').val()}px; background: url('$system$/images/placeholder/imageback.png');"></div><div class="{styleClassName2} n2-active" style="display: inline-block; vertical-align:top; width:{$('#sliderwidget-thumbnail-width').val()}px; height: {$('#sliderwidget-thumbnail-height').val()}px; background: url('$system$/images/placeholder/image.png');"></div><div class="{styleClassName2}" style="display: inline-block; vertical-align:top; width:{$('#sliderwidget-thumbnail-width').val()}px; height: {$('#sliderwidget-thumbnail-height').val()}px; background: url('$system$/images/placeholder/imagefront.png');"></div></div></div> ]]>
+      </param>
+      <param name="widget-thumbnail-style-slides" type="style" previewmode="dot" style2="sliderwidget-thumbnail-style-bar" label="Thumbnail" class="n2-expert" set="1900">
+        <![CDATA[ <div class="{styleClassName2}" style="overflow: hidden;width: 480px;"><div style="width:200%"><div class="{styleClassName}" style="display: inline-block; vertical-align:top; width:{$('#sliderwidget-thumbnail-width').val()}px; height: {$('#sliderwidget-thumbnail-height').val()}px; background: url('$system$/images/placeholder/imageback.png');"></div><div class="{styleClassName} n2-active" style="display: inline-block; vertical-align:top; width:{$('#sliderwidget-thumbnail-width').val()}px; height: {$('#sliderwidget-thumbnail-height').val()}px; background: url('$system$/images/placeholder/image.png');"></div><div class="{styleClassName}" style="display: inline-block; vertical-align:top; width:{$('#sliderwidget-thumbnail-width').val()}px; height: {$('#sliderwidget-thumbnail-height').val()}px; background: url('$system$/images/placeholder/imagefront.png');"></div></div></div> ]]>
+      </param>
+    </param>
+    <param type="onoff" label="Show arrow" name="widget-thumbnail-arrow"/>
+    <param type="group" label="Caption">
+      <param name="widget-thumbnail-title-style" type="style" previewmode="simple" font="sliderwidget-thumbnail-title-font" label="Style" post="break" set="1900">
+        <![CDATA[ <span class="{styleClassName} {fontClassName}">Slide title</span> ]]>
+      </param>
+      <param type="group">
+        <param type="onoff" label="Title" name="widget-thumbnail-title"/>
+        <param name="widget-thumbnail-title-font" type="font" previewmode="simple" style="sliderwidget-thumbnail-title-style" label="Font" set="1000">
+          <![CDATA[ <span class="{styleClassName} {fontClassName}">Slide title</span> ]]>
+        </param>
+      </param>
+      <param type="group" post="break">
+        <param type="onoff" label="Description" name="widget-thumbnail-description"/>
+        <param name="widget-thumbnail-description-font" type="font" previewmode="simple" style="sliderwidget-thumbnail-title-style" label="Font" set="1000">
+          <![CDATA[ <span class="{styleClassName} {fontClassName}">Slide description with long long text...</span> ]]>
+        </param>
+      </param>
+      <param type="group">
+        <param type="radio" name="widget-thumbnail-caption-placement" label="Placement">
+          <option value="before">Before</option>
+          <option value="overlay">Overlay</option>
+          <option value="after">After</option>
+        </param>
+        <param type="text" name="widget-thumbnail-caption-size" label="Height (horizontal) or Width (vertical)" style="width:40px;">
+          <unit>px</unit>
+        </param>
+      </param>
+    </param>
+  </params>
+</root>

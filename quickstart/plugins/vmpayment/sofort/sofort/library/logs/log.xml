@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<transactions>
+    <transaction_details>
+        <project_id>156252</project_id>
+        <transaction>71365-156252-51CCAA6F-F942</transaction>
+        <test>1</test>
+        <time>2013-06-27T23:11:34+02:00</time>
+        <status>pending</status>
+        <status_reason>not_credited_yet</status_reason>
+        <status_modified>2013-06-27T23:11:34+02:00</status_modified>
+        <payment_method>su</payment_method>
+        <language_code>fr</language_code>
+        <amount>1.00</amount>
+        <amount_refunded>0.00</amount_refunded>
+        <currency_code>EUR</currency_code>
+        <reasons>
+            <reason>83650107</reason>
+        </reasons>
+        <user_variables/>
+        <sender>
+            <holder>Musterman, Petra</holder>
+            <account_number>2345678902</account_number>
+            <bank_code>88888888</bank_code>
+            <bank_name>Demo Bank</bank_name>
+            <bic>PNAGDE00000</bic>
+            <iban>DE96888888882345678902</iban>
+            <country_code>DE</country_code>
+        </sender>
+        <recipient>
+            <holder>Testaccount SOFORT</holder>
+            <account_number>9999999999</account_number>
+            <bank_code>70011110</bank_code>
+            <bank_name>SOFORT Bank</bank_name>
+            <bic>DEKTDE71002</bic>
+            <iban>DE71700111109999999999</iban>
+            <country_code>DE</country_code>
+        </recipient>
+        <email_customer/>
+        <phone_customer/>
+        <exchange_rate>1.0000</exchange_rate>
+        <costs>
+            <fees>0.00</fees>
+            <currency_code>EUR</currency_code>
+            <exchange_rate>1.0000</exchange_rate>
+        </costs>
+        <su>
+            <consumer_protection>0</consumer_protection>
+        </su>
+        <status_history_items>
+            <status_history_item>
+                <status>pending</status>
+                <status_reason>not_credited_yet</status_reason>
+                <time>2013-06-27T23:11:34+02:00</time>
+            </status_history_item>
+        </status_history_items>
+    </transaction_details>
+</transactions>

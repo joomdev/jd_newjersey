@@ -1,0 +1,128 @@
+.remote_cc_form .vmpayment_label {
+    width: 30%;
+    display: inline-table;
+}
+
+.remote_cc_form  .vmpayment_cardinfo {
+    font-size: 100% !important;
+    line-height: 170%;
+}
+
+.remote_cc_form  .vmpayment_cardinfo_text {
+    font-weight: bold;
+    border-bottom: 1px solid #CCC;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.vmpayment_cc_cvv_realvault .vmpayment_label {
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.creditcardsDropDown input {
+    margin: 5px;
+}
+
+.remote_cc_form .inputbox {
+    width: 220px;
+    background-position: 0 -160px;
+    border: solid lightgray 1px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    display: inline-block;
+    text-decoration: none;
+    padding: 3px 12px 1px;
+}
+
+.remote_cc_form .cc_cvv {
+    width: 100px;
+
+}
+
+.remote_cc_form .remote_save_card {
+    font-weight: bold;
+}
+
+.vmpayment_enter_cc {
+    color: #00a000;
+}
+
+.vmpayment_description {
+    display: block;
+    font-size: 100%;
+
+}
+
+.vmpayment_selected_cc {
+    color: gray;
+}
+
+div.dcc_card_payment_button {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.dcc_offer_title, .realex_payment_name {
+    font-weight: bold;
+    border-bottom: 1px solid #CCC;
+    margin-top: 15px;
+}
+
+.dcc_box, .realex_response {
+    min-height: 20px;
+    padding: 19px;
+    margin-bottom: 20px;
+    border: 1px solid #e3e3e3;
+    line-height: 20px;
+}
+
+.dcc_offer_legal {
+    color: #898989;
+    text-align: center;
+    font-style: italic;
+    font-size: 70%;
+    padding-bottom: 0;
+    margin-bottom: -10px;
+}
+
+.dcc_offer_exchange_rate {
+    margin: 10px 0;
+}
+
+.dcc_choices {
+    text-align: center;
+}
+
+.dcc_choice {
+    background: #e8e8e8;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    letter-spacing: 1px;
+    display: inline-block;
+    text-decoration: none;
+    margin: 20px;
+    padding: 6px 12px 3px;
+    font-weight: bold;
+}
+
+.dcc_card_payment_button span.addtocart-button {
+    float: none;
+}
+
+.dcc_choice input {
+    margin-right: 10px;
+}
+
+.realex_vieworder {
+    margin-top: 10px;
+}

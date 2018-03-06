@@ -1,0 +1,35 @@
+<install type="phocapdffonts" version="1.5" client="both" method="upgrade">
+    <name>Free Mono</name>
+	<tag>freemono</tag>
+    <creationDate>01/01/2009</creationDate>
+    <author>Jan Pavelka</author>
+    <authorEmail>info[at]phoca[dot]cz</authorEmail>
+    <authorUrl>http://www.phoca.cz</authorUrl>
+    <copyright>(C) 2008 Jan Pavelka</copyright>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	
+	<authorFont>see free_AUTHORS.txt and free_CREDITS.txt file in this package</authorFont>
+    <copyrightFont>see free_AUTHORS.txt and free_CREDITS.txt file in this package</copyrightFont>
+    <licenseFont>see free_COPYING.txt file in this package</licenseFont>
+	
+    <description>Free Mono Font for Phoca PDF component</description>
+
+    <files>
+          <filename>free_AUTHORS.txt</filename>
+          <filename>free_COPYING.txt</filename>        
+          <filename>free_CREDITS.txt</filename>
+		  <filename>freemono.php</filename>
+		  <filename>freemono.z</filename>
+		  <filename>freemono.ctg.z</filename>
+		  <filename>freemonob.php</filename>
+		  <filename>freemonob.z</filename>
+		  <filename>freemonob.ctg.z</filename>
+		  <filename>freemonobi.php</filename>
+		  <filename>freemonobi.z</filename>
+		  <filename>freemonobi.ctg.z</filename>
+		  <filename>freemonoi.php</filename>
+		  <filename>freemonoi.z</filename>
+		  <filename>freemonoi.ctg.z</filename>
+		  <filename>index.html</filename>
+    </files>
+</install>

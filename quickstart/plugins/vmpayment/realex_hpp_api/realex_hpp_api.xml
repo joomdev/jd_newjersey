@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension version="2.5" type="plugin" group="vmpayment" method="upgrade">
+    <description>Realex HPP and API</description>
+    <name>realex_hpp_api</name>
+    <creationDate>November 21 2017</creationDate>
+    <author>The VirtueMart Development Team</author>
+    <authorUrl>https://virtuemart.net</authorUrl>
+    <copyright>Copyright (C) 2004 - 2017 Virtuemart Team. All rights reserved.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <version>3.2.6</version>
+    <description><![CDATA[<a href="http://realex.com" target="_blank">realex</a> is a popular
+	payment provider and available in many countries. ]]>
+    </description>
+    <files>
+        <filename plugin="realex_hpp_api">realex_hpp_api.php</filename>
+        <folder>language</folder>
+    </files>
+    <vmconfig>
+        <fields name="params">
+
+            <fieldset name="Realex" addfieldpath="/plugins/vmpayment/realex_hpp_api/realex_hpp_api/fields">
+                <field type="getrealex" />
+                <field class="level1" type="vmtitle" default="VMPAYMENT_REALEX_HPP_API_ACCOUNT_PARAMS"/>
+                <field name="integration" type="list" default="redirect" label="VMPAYMENT_REALEX_HPP_API_INTEGRATION"
+                       description="VMPAYMENT_REALEX_HPP_API_INTEGRATION_TIP">
+                    <option value="redirect">VMPAYMENT_REALEX_HPP_API_INTEGRATION_REDIRECT</option>
+                    <option value="remote">VMPAYMENT_REALEX_HPP_API_INTEGRATION_REMOTE</option>
+                </field>
+                <field class="sandbox" name="shop_mode" type="radio" default="sandbox"
+                       label="VMPAYMENT_REALEX_HPP_API_SHOP_MODE"
+                       description="VMPAYMENT_REALEX_HPP_API_SHOP_MODE_TIP">
+                    <option value="live">VMPAYMENT_REALEX_HPP_API_LIVE</option>
+                    <option value="sandbox">VMPAYMENT_REALEX_HPP_API_SANDBOX</option>
+                </field>
+
+                <!-- REDIRECT PARAMETERS -->
+                <field class="required" name="merchant_id" type="text" size="40" default=""
+                       label="VMPAYMENT_REALEX_HPP_API_MERCHANT_ID" description="VMPAYMENT_REALEX_HPP_API_MERCHANT_ID_TIP"/>
+                <field class="required" name="shared_secret" type="password" size="40" default=""
+                       label="VMPAYMENT_REALEX_HPP_API_SHARED_SECRET" description="VMPAYMENT_REALEX_HPP_API_SHARED_SECRET_TIP"/>
+
+                <field class="required redirect remote" name="subaccount" type="text" size="40" default=""
+                       label="VMPAYMENT_REALEX_HPP_API_SUBACCOUNT"/>
+
+
+                <field class="level1" type="vmtitle" default="VMPAYMENT_REALEX_HPP_API_ACCOUNT_OPTIONS"/>
+
+                <field name="creditcards" type="creditcards" multiple="multiple" default="" label="VMPAYMENT_REALEX_HPP_API_CREDITCARDS"
+                       description="VMPAYMENT_REALEX_HPP_API_CREDITCARDS_TIP"/>
+
+
+                <field class="nodcc" name="settlement" type="list" default="1" label="VMPAYMENT_REALEX_HPP_API_SETTLEMENT"
+                       description="VMPAYMENT_REALEX_HPP_API_SETTLEMENT_TIP">
+                    <option value="auto">VMPAYMENT_REALEX_HPP_API_SETTLEMENT_AUTO</option>
+                    <option value="delayed">VMPAYMENT_REALEX_HPP_API_SETTLEMENT_DELAYED</option>
+                </field>
+                <field class="dcc" name="settlement_warning" type="list" default="auto"
+                       label="VMPAYMENT_REALEX_HPP_API_SETTLEMENT"
+                       description="VMPAYMENT_REALEX_HPP_API_SETTLEMENT_TIP">
+                    <option value="auto">VMPAYMENT_REALEX_HPP_API_SETTLEMENT_AUTO</option>
+                </field>
+                <field class="dcc" type="vmtitle" default="" description="VMPAYMENT_REALEX_HPP_API_SETTLEMENT_WARNING"/>
+                <field class="level2" type="vmtitle" default="VMPAYMENT_REALEX_HPP_API_ACCOUNT_OPTIONS_REALVAULT"/>
+
+                <field class="redirect remote" name="realvault" type="list" default="0"
+                       label="VMPAYMENT_REALEX_HPP_API_REALVAULT"
+                       description="VMPAYMENT_REALEX_HPP_API_REALVAULT_TIP">
+                    <option value="0">COM_VIRTUEMART_NO</option>
+                    <option value="1">COM_VIRTUEMART_YES</option>
+                </field>
+                <field class="realvault-param" name="offer_save_card" type="list" default="0"
+                       label="VMPAYMENT_REALEX_HPP_API_OFFER_SAVE_CARD"
+                       description="VMPAYMENT_REALEX_HPP_API_OFFER_SAVE_CARD_TIP">
+                    <option value="0">COM_VIRTUEMART_NO</option>
+                    <option value="1">COM_VIRTUEMART_YES</option>
+                </field>
+                <field class="realvault-param" name="cvn_checking" type="list" default="0"
+                       label="VMPAYMENT_REALEX_HPP_API_CVN_CHECKING"
+                       description="VMPAYMENT_REALEX_HPP_API_CVN_CHECKING_TIP">
+                    <option value="0">COM_VIRTUEMART_NO</option>
+                    <option value="1">COM_VIRTUEMART_YES</option>
+                </field>
+                <field class="level2" type="vmtitle" default="VMPAYMENT_REALEX_HPP_API_ACCOUNT_OPTIONS_3DSECURE"/>
+                <field class="redirect-norealvault" type="vmtitle"
+                       description="VMPAYMENT_REALEX_HPP_API_ACCOUNT_OPTIONS_3DSECURE_REALEX"/>
+                <field class="redirect-realvault" type="vmtitle"
+                       default="VMPAYMENT_REALEX_HPP_API_ACCOUNT_OPTIONS_3DSECURE_REALVAULT"/>
+
+                <field class="redirect-realvault realvault" name="threedsecure" type="list" default="1"
+                       label="VMPAYMENT_REALEX_HPP_API_3DSECURE"
+                       description="VMPAYMENT_REALEX_HPP_API_3DSECURE_TIP">
+                    <option value="0">COM_VIRTUEMART_NO</option>
+                    <option value="1">COM_VIRTUEMART_YES</option>
+                </field>
+
+                <field class="redirect-realvault threedsecure" name="require_liability" type="list" default="0"
+                       label="VMPAYMENT_REALEX_HPP_API_REQUIRE_LIABILITY"
+                       description="VMPAYMENT_REALEX_HPP_API_REQUIRE_LIABILITY_TIP">
+                    <option value="0">COM_VIRTUEMART_NO</option>
+                    <option value="1">COM_VIRTUEMART_YES</option>
+                </field>
+
+
+                <field class="level2" type="vmtitle" default="VMPAYMENT_REALEX_HPP_API_FRAUD_SECTION"/>
+
+                <field name="tss" type="list" default="0"
+                       label="VMPAYMENT_REALEX_HPP_API_TSS"
+                       description="VMPAYMENT_REALEX_HPP_API_TSS_TIP">
+                    <option value="0">COM_VIRTUEMART_NO</option>
+                    <option value="1">COM_VIRTUEMART_YES</option>
+                </field>
+                <field class="level2" type="vmtitle" default="VMPAYMENT_REALEX_HPP_API_ACCOUNT_OPTIONS_DCC"/>
+
+                <field name="dcc" type="list" default="0"
+                       label="VMPAYMENT_REALEX_HPP_API_DCC"
+                       description="VMPAYMENT_REALEX_HPP_API_DCC_TIP">
+                    <option value="0">COM_VIRTUEMART_NO</option>
+                    <option value="1">COM_VIRTUEMART_YES</option>
+                </field>
+
+                <field class="remote dcc" name="dcc_service" type="list" default="1"
+                       label="VMPAYMENT_REALEX_HPP_API_DCC_SERVICE"
+                       description="VMPAYMENT_REALEX_HPP_API_DCC__CHOICE_TIP">
+                    <option value="fexco">VMPAYMENT_REALEX_HPP_API_DCC_FEXCO</option>
+                    <option value="euroconex">VMPAYMENT_REALEX_HPP_API_DCC_EUROCONEX</option>
+                </field>
+                <field class="level1 redirect" type="vmtitle" default="VMPAYMENT_REALEX_HPP_API_URLS_SECTION"/>
+
+                <field class="redirect" name="referring_url" type="referringurl" size="100" default="" editable="true"
+                       label="VMPAYMENT_REALEX_HPP_API_REFERRING_URL"
+                       description="VMPAYMENT_REALEX_HPP_API_REFERRING_URL_TIP"/>
+
+                <field class="redirect" name="gateway_url" type="text" size="100"
+                       default="https://hpp.realexpayments.com/pay"
+                       editable="true"
+                       label="VMPAYMENT_REALEX_HPP_API_GATEWAY_URL" description="VMPAYMENT_REALEX_HPP_API_GATEWAY_URL_TIP"/>
+                <field class="redirect" name="sandbox_gateway_url" type="text" size="100"
+                       default="https://hpp.sandbox.realexpayments.com/pay" editable="true"
+                       label="VMPAYMENT_REALEX_HPP_API_SANDBOX_GATEWAY_URL"
+                       description="VMPAYMENT_REALEX_HPP_API_SANDBOX_GATEWAY_URL_TIP"/>
+
+                <field class="level1" type="vmtitle" default="VMPAYMENT_REALEX_HPP_API_ORDER_STATUS_SECTION"
+                       description=""/>
+
+
+                <field name="status_success" type="vmorderstate" scope="com_virtuemart" default="C"
+                       label="VMPAYMENT_REALEX_HPP_API_STATUS_SUCCESS" description="VMPAYMENT_REALEX_HPP_API_STATUS_SUCCESS_TIP"/>
+                <field name="status_canceled" type="vmorderstate" scope="com_virtuemart" default="X"
+                       label="VMPAYMENT_REALEX_HPP_API_STATUS_CANCEL" description="VMPAYMENT_REALEX_HPP_API_STATUS_CANCEL_TIP"/>
+                <field class="settlement" name="status_capture" type="vmorderstate" scope="com_virtuemart" default="S"
+                       label="VMPAYMENT_REALEX_HPP_API_STATUS_CAPTURE" description="VMPAYMENT_REALEX_HPP_API_STATUS_CAPTURE_TIP"/>
+
+                <field name="status_rebate" type="vmorderstate" scope="com_virtuemart" default="R"
+                       label="VMPAYMENT_REALEX_HPP_API_STATUS_REBATE" description="VMPAYMENT_REALEX_HPP_API_STATUS_REBATE_TIP"/>
+
+                <field class="required dcc_choice" name="rebate_password" type="password" size="40" default=""
+                       label="VMPAYMENT_REALEX_HPP_API_REBATE_PASSWORD" description="VMPAYMENT_REALEX_HPP_API_REBATE_PASSWORD_TIP"/>
+
+                <field name="status_partial_refunded" type="vmorderstate" scope="com_virtuemart" default="R"
+                       label="VMPAYMENT_REALEX_HPP_API_STATUS_PARTIAL_REFUND"
+                       description="VMPAYMENT_REALEX_HPP_API_STATUS_PARTIAL_REFUND_TIP"/>
+
+                <field class="level1" type="vmtitle" default="VMPAYMENT_REALEX_HPP_API_OPTIONAL_PARAMS"/>
+
+
+                <!-- Restrictions -->
+                <!-- ============ -->
+                <field class="level2" type="vmtitle" default="VMPAYMENT_REALEX_HPP_API_RESTRICTIONS_SECTION"
+                       description=""/>
+                <field name="countries" type="vmcountries" scope="com_virtuemart" default=""
+                       label="VMPAYMENT_REALEX_HPP_API_COUNTRIES" description="VMPAYMENT_REALEX_HPP_API_COUNTRIES_DESC"/>
+                <field name="min_amount" type="text" label="VMPAYMENT_REALEX_HPP_API_MIN_AMOUNT"
+                       description="VMPAYMENT_REALEX_HPP_API_MIN_AMOUNT_TIP"/>
+                <field name="max_amount" type="text" label="VMPAYMENT_REALEX_HPP_API_MAX_AMOUNT"
+                       description="VMPAYMENT_REALEX_HPP_API_MAX_AMOUNT_TIP"/>
+
+                <!-- Currencies -->
+                <!-- ============ -->
+                <field class="level2" type="vmtitle" default="VMPAYMENT_REALEX_HPP_API_CURRENCIES_SECTION"
+                       description=""/>
+
+                <field name="payment_currency" type="vmacceptedcurrency" default="" label="VMPAYMENT_REALEX_HPP_API_CURRENCY"
+                       description="VMPAYMENT_REALEX_HPP_API_CURRENCY_DESC"/>
+                <field name="email_currency" type="list" default="vendor" label="VMPAYMENT_REALEX_HPP_API_EMAIL_CURRENCY"
+                       description="VMPAYMENT_REALEX_HPP_API_EMAIL_CURRENCY_DESC">
+                    <option value="vendor">VMPAYMENT_REALEX_HPP_API_EMAIL_CURRENCY_VENDOR</option>
+                    <option value="payment">VMPAYMENT_REALEX_HPP_API_EMAIL_CURRENCY_PAYMENT</option>
+                </field>
+
+
+                <!-- Discounts -->
+                <!-- ============ -->
+                <field class="level2" type="vmtitle" default="VMPAYMENT_REALEX_HPP_API_DISCOUNT_FEE_SECTION"
+                       description=""/>
+                <field name="cost_per_transaction" type="text" label="VMPAYMENT_REALEX_HPP_API_COST_PER_TRANSACTION"
+                       description="VMPAYMENT_REALEX_HPP_API_COST_PER_TRANSACTION_TIP"/>
+                <field name="cost_percent_total" type="text" label="VMPAYMENT_REALEX_HPP_API_COST_PERCENT_TOTAL"
+                       description="VMPAYMENT_REALEX_HPP_API_COST_PERCENT_TOTAL_TIP"/>
+                <field name="tax_id" type="vmtaxes" scope="com_virtuemart" label="VMPAYMENT_REALEX_HPP_API_TAX"
+                       description="VMPAYMENT_REALEX_HPP_API_TAX_TIP"/>
+
+
+                <field class="level1" type="vmtitle" default="VMPAYMENT_REALEX_HPP_API_TEMPLATE_SECTION"
+                       description=""/>
+                <field name="payment_logos" type="vmfiles" multiple="true" label="VMPAYMENT_REALEX_HPP_API_LOGOS"
+                       description="VMPAYMENT_REALEX_HPP_API_LOGOS_DESC"
+                       directory="/images/virtuemart/payment"
+                       default="default" hide_default="1" hide_none="1"
+                       stripext="0" exclude="^_"/>
+                <field name="card_payment_button" type="text" size="40" maxlength="25" default=""
+                       label="VMPAYMENT_REALEX_HPP_API_CARD_PAYMENT_BUTTON"
+                       description="VMPAYMENT_REALEX_HPP_API_CARD_PAYMENT_BUTTON_TIP"/>
+                <field class="remote" name="cvv_images" type="vmfiles" label="VMPAYMENT_REALEX_HPP_API_CVV_IMAGES"
+                       description="VMPAYMENT_REALEX_HPP_API_CVV_IMAGES_DESC"
+                       directory="/images/virtuemart/payment"
+                       default="default" hide_default="1" hide_none="1"
+                       stripext="0" exclude="^_"/>
+
+
+                <field class="level1" type="vmtitle" default="VMPAYMENT_REALEX_HPP_API_DEBUG_SECTION"
+                       description=""/>
+                <field name="debug" type="radio" default="0" label="VMPAYMENT_REALEX_HPP_API_DEBUG_SECTION">
+                    <option value="0">COM_VIRTUEMART_NO</option>
+                    <option value="1">COM_VIRTUEMART_YES</option>
+                </field>
+                <field name="log" type="radio" default="0" label="VMPAYMENT_REALEX_HPP_API_LOG"
+                       description="VMPAYMENT_REALEX_HPP_API_LOG_DESC">
+                    <option value="0">COM_VIRTUEMART_NO</option>
+                    <option value="1">COM_VIRTUEMART_YES</option>
+                </field>
+
+            </fieldset>
+        </fields>
+    </vmconfig>
+    <updateservers>
+        <!-- Note: No spaces or linebreaks allowed between the server tags -->
+        <server type="extension" name="VirtueMart plg_vmpayment_realex_hpp_api Update Site"><![CDATA[http://virtuemart.net/releases/vm3/plg_vmpayment_realex_hpp_api_update.xml]]></server>
+    </updateservers>
+
+</extension>

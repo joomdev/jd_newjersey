@@ -1,0 +1,13 @@
+<root>
+  <params name="import-from-server" label="Restore slider from server - delete the slider with the same ID">
+    <param name="import-file" type="tmplist" extension="ss3" label="Import file"/>
+    <param name="image-mode" type="radio" label="Image mode" default="clone" class="n2-expert">
+      <option value="clone">Clone</option>
+      <option value="update">Old site url</option>
+      <option value="original">Original</option>
+    </param>
+    <param name="linked-visuals" type="onoff" label="Use linked visuals" default="1" class="n2-expert"/>
+    <param name="delete" type="onoff" label="Delete file after import" default="0"/>
+    <param type="token"/>
+  </params>
+</root>

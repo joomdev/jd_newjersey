@@ -1,0 +1,11 @@
+<root>
+  <params name="image" label="Image settings" hidetitle="1">
+    <param type="group" label="Play">
+      <param type="imagelistfromfolder" name="widget-autoplay-play" label="Shape" folder="play" required="1" post="break"/>
+      <param type="color" name="widget-autoplay-play-color" label="Color" alpha="1"/></param>
+    <param name="widget-autoplay-style" type="style" previewmode="button" set="1900" label="Style">
+      <![CDATA[ <div class="{styleClassName}" style="display: inline-block;"><img style="display: block;" src="{nextend.imageHelper.fixed($('#sliderwidget-autoplay-play-image').val() || N2Color.colorizeSVG($('[data-image="'+$('#sliderwidget-autoplay-play').val()+'"]').attr('src'), $('#sliderwidget-autoplay-play-color').val()));}" /></div> ]]>
+    </param>
+    <param type="widgetposition" name="widget-autoplay-position" label="Position"/>
+  </params>
+</root>

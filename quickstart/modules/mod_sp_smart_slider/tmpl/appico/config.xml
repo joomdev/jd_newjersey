@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<style>
+  <name>Appico</name>
+  <author>Joomshaper</author>
+  <description>appico layout for SP Smart Slider</description>
+  <version>1.0</version>
+  <files>
+    <public>
+      <filename type="javascript">appico/js/appico.slider.js</filename>
+      <filename type="stylesheet">appico/css/sp-smart-appico.css</filename>
+    </public>
+    <admin>
+    </admin>
+  </files>
+  <config>
+	<fieldset name="Basic">
+
+    <field name="height" type="text" default="500" label="Height" description="Set height. eg. 500" />
+
+    <field name="tablet_height" type="text" default="400" label="Tablet Height" description="Set height. eg. 500" />
+
+    <field name="mobile_height" type="text" default="300" label="Mobile Height" description="Set height. eg. 500" />
+
+    <field name="background" type="text" default="#FFFFFF" label="Background Color" description="Background color. eg. #FFFFFF" />
+
+		<field name="autoplay" type="list" default="1" label="Auto Play" description="Whether to enable or disable autoplay">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</field>
+		<field name="interval" type="text" default="5000" label="Interval" description="Set the slide interval between two slides in ms." />
+
+    </fieldset>
+  </config>  
+ </style>

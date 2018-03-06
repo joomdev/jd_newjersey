@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<access component="com_virtuemart">
+	<section name="component">
+		<action name="core.admin" title="COM_VM_ACL_ADMIN" description="COM_VM_ACL_ADMIN_TIP" />
+		<action name="core.manage" title="COM_VM_MANAGE" description="JACTION_MANAGE_COMPONENT_TIP" />
+		<action name="vm.manage" title="COM_VM_MANAGE_FE" description="COM_VM_ACL_MANAGE_FE_TIP" />
+		<action name="vm.managevendors" title="COM_VM_MANAGE_VENDORS" description="COM_VM_ACL_MANAGE_VENDORS_TIP" />
+		<!-- action name="core.edit.own" title="JACTION_EDITOWN" description="COM_CONFIG_ACTION_EDITOWN_TIP" /-->
+		<action name="vm.raw" title="COM_VM_ALRAW" description="COM_VM_ALRAW_TIP" />
+		<action name="vm.html" title="COM_VM_ALHTML" description="COM_VM_ALHTML_TIP" />
+	</section>
+	<section name="component">
+		<action name="vm.category" title="COM_VM_CAT_MANAGE" description="COM_VM_CAT_MANAGE_TIP" />
+		<action name="vm.category.edit" title="COM_VM_CAT_EDIT" description="COM_VM_CAT_EDIT_TIP" />
+		<action name="vm.category.create" title="COM_VM_CAT_CREATE" description="COM_VM_CAT_CREATE_TIP" />
+		<action name="vm.category.delete" title="COM_VM_CAT_DELETE" description="COM_VM_CAT_DELETE_TIP" />
+		<action name="vm.category.edit.state" title="COM_VM_CAT_EDITSTATE" description="COM_VM_CAT_EDITSTATE_TIP" />
+	</section>
+	<section name="component">
+		<action name="vm.product" title="COM_VM_PROD_MANAGE" description="COM_VM_PROD_MANAGE_TIP" />
+		<action name="vm.product.edit" title="COM_VM_PROD_EDIT" description="COM_VM_PROD_EDIT_TIP" />
+		<action name="vm.product.create" title="COM_VM_PROD_CREATE" description="COM_VM_PROD_CREATE_TIP" />
+		<action name="vm.product.delete" title="COM_VM_PROD_DELETE" description="COM_VM_PROD_DELETE_TIP" />
+		<action name="vm.product.edit.state" title="COM_VM_PROD_EDITSTATE" description="COM_VM_PROD_EDITSTATE_TIP" />
+		<action name="vm.inventory" title="COM_VM_INV_MANAGE" description="COM_VM_INV_MANAGE_TIP" />
+		<action name="vm.ratings" title="COM_VM_RATING_MANAGE" description="COM_VM_RATING_MANAGE_TIP" />
+		<action name="vm.ratings.edit" title="COM_VM_RATING_EDIT" description="COM_VM_RATING_EDIT_TIP" />
+		<action name="vm.ratings.delete" title="COM_VM_RATING_DELETE" description="COM_VM_RATING_DELETE_TIP" />
+		<action name="vm.ratings.edit.state" title="COM_VM_RATING_EDITSTATE" description="COM_VM_RATING_EDITSTATE_TIP" />
+	</section>
+	<section name="component">
+		<action name="vm.custom" title="COM_VM_CUSTOM_MANAGE" description="COM_VM_CUSTOM_MANAGE_TIP" />
+		<action name="vm.custom.edit" title="COM_VM_CUSTOM_EDIT" description="COM_VM_CUSTOM_EDIT_TIP" />
+		<action name="vm.custom.create" title="COM_VM_CUSTOM_CREATE" description="COM_VM_CUSTOM_CREATE_TIP" />
+		<action name="vm.custom.delete" title="COM_VM_CUSTOM_DELETE" description="COM_VM_CUSTOM_DELETE_TIP" />
+		<action name="vm.custom.edit.state" title="COM_VM_CUSTOM_EDITSTATE" description="COM_VM_CUSTOM_EDITSTATE_TIP" />
+	</section>
+	<section name="component">
+		<action name="vm.calc" title="COM_VM_CALC_MANAGE" description="COM_VM_CALC_MANAGE_TIP" />
+		<action name="vm.calc.edit" title="COM_VM_CALC_EDIT" description="COM_VM_CALC_EDIT_TIP" />
+		<action name="vm.calc.create" title="COM_VM_CALC_CREATE" description="COM_VM_CALC_CREATE_TIP" />
+		<action name="vm.calc.delete" title="COM_VM_CALC_DELETE" description="COM_VM_CALC_DELETE_TIP" />
+		<action name="vm.calc.edit.state" title="COM_VM_CALC_EDITSTATE" description="COM_VM_CALC_EDITSTATE_TIP" />
+	</section>
+	<section name="component">
+		<action name="vm.manufacturer" title="COM_VM_MANU_MANAGE" description="COM_VM_MANU_MANAGE_TIP" />
+		<action name="vm.manufacturer.edit" title="COM_VM_MANU_EDIT" description="COM_VM_MANU_EDIT_TIP" />
+		<action name="vm.manufacturer.create" title="COM_VM_MANU_CREATE" description="COM_VM_MANU_CREATE_TIP" />
+		<action name="vm.manufacturer.delete" title="COM_VM_MANU_DELETE" description="COM_VM_MANU_DELETE_TIP" />
+		<action name="vm.manufacturer.edit.state" title="COM_VM_MANU_EDITSTATE" description="COM_VM_MANU_EDITSTATE_TIP" />
+		<action name="vm.manufacturercategories" title="COM_VM_MANUCAT_MANAGE" description="COM_VM_MANUCAT_MANAGE_TIP" />
+	</section>
+	<section name="component">
+		<action name="vm.orders" title="COM_VM_ORDERS_MANAGE" description="COM_VM_ORDERS_MANAGE_TIP" />
+		<action name="vm.orders.edit" title="COM_VM_ORDERS_EDIT" description="COM_VM_ORDERS_EDIT_TIP" />
+		<action name="vm.orders.status" title="COM_VM_ORDERS_CHANGE_OS" description="COM_VM_ORDERS_CHANGE_OS_TIP" />
+		<action name="vm.report" title="COM_VM_REPORT_MANAGE" description="COM_VM_REPORT_MANAGE_TIP" />
+	</section>
+	<section name="component">
+		<action name="vm.user" title="COM_VM_USER_MANAGE" description="COM_VM_USER_MANAGE_TIP" />
+		<action name="vm.user.edit" title="COM_VM_USER_EDIT" description="COM_VM_USER_EDIT_TIP" />
+		<action name="vm.user.editshop" title="COM_VM_USER_EDITSHOP" description="COM_VM_USER_EDITSHOP_TIP" />
+		<action name="vm.shoppergroup" title="COM_VM_SHOPPERGROUP_MANAGE" description="COM_VM_SHOPPERGROUP_MANAGE_TIP" />
+		<action name="vm.shoppergroup.edit" title="COM_VM_SHOPPERGROUP_EDIT" description="COM_VM_SHOPPERGROUP_EDIT_TIP" />
+		<action name="vm.coupon" title="COM_VM_COUPON_MANAGE" description="COM_VM_COUPON_MANAGE_TIP" />
+		<action name="vm.coupon.edit" title="COM_VM_COUPON_EDIT" description="COM_VM_COUPON_EDIT_TIP" />
+		<action name="vm.coupon.create" title="COM_VM_COUPON_CREATE" description="COM_VM_COUPON_CREATE_TIP" />
+		<action name="vm.coupon.delete" title="COM_VM_COUPON_DELETE" description="COM_VM_COUPON_DELETE_TIP" />
+	</section>
+	<section name="component">
+		<action name="vm.media" title="COM_VM_MEDIA_MANAGE" description="COM_VM_MEDIA_MANAGE_TIP" />
+		<action name="vm.media.edit" title="COM_VM_MEDIA_EDIT" description="COM_VM_MEDIA_EDIT_TIP" />
+		<action name="vm.media.create" title="COM_VM_MEDIA_CREATE" description="COM_VM_MEDIA_CREATE_TIP" />
+		<action name="vm.media.delete" title="COM_VM_MEDIA_DELETE" description="COM_VM_MEDIA_DELETE_TIP" />
+		<action name="vm.media.potdang" title="COM_VIRTUEMART_MEDIA_POTENTIAL_DANGEROUS" description="COM_VIRTUEMART_MEDIA_POTENTIAL_DANGEROUS_TIP" />
+		<action name="vm.media.trusteduploader" title="COM_VM_MEDIA_POTENTIAL_TRUSTED_UPLOADER" description="COM_VM_MEDIA_POTENTIAL_TRUSTED_UPLOADER_TIP" />
+	</section>
+	<section name="component">
+		<action name="vm.shipmentmethod" title="COM_VIRTUEMART_SHIPMENTMETHOD_S" description="" />
+		<action name="vm.shipmentmethod.edit" title="COM_VIRTUEMART_SHIPMENTMETHOD_EDIT" description="" />
+		<action name="vm.shipmentmethod.create" title="COM_VIRTUEMART_SHIPMENTMETHOD_CREATE" description="" />
+		<action name="vm.shipmentmethod.delete" title="COM_VIRTUEMART_SHIPMENTMETHOD_DELETE" description="" />
+		<action name="vm.paymentmethod" title="COM_VIRTUEMART_PAYMENTMETHOD_S" description="" />
+		<action name="vm.paymentmethod.edit" title="COM_VIRTUEMART_PAYMENTMETHOD_EDIT" description="" />
+		<action name="vm.paymentmethod.create" title="COM_VIRTUEMART_PAYMENTMETHOD_CREATE" description="" />
+		<action name="vm.paymentmethod.delete" title="COM_VIRTUEMART_PAYMENTMETHOD_DELETE" description="" />
+	</section>
+	<section name="component">
+		<action name="vm.config" title="COM_VM_CONFIG_MANAGE" description="COM_VM_CONFIG_MANAGE_TIP" />
+		<action name="vm.userfields" title="COM_VM_USERFIELD_MANAGE" description="COM_VM_USERFIELD_MANAGE_TIP" />
+		<action name="vm.orderstatus" title="COM_VM_ORDERSTATUS_MANAGE" description="COM_VM_ORDERSTATUS_MANAGE_TIP" />
+		<action name="vm.currency" title="COM_VM_CURRENCY_MANAGE" description="COM_VM_CURRENCY_MANAGE_TIP" />
+		<action name="vm.country" title="COM_VM_COUNTRY_MANAGE" description="COM_VM_COUNTRY_MANAGE_TIP" />
+		<action name="vm.updatesmigration" title="COM_VM_MIGRATION_UPDATE_MANAGE" description="COM_VM_MIGRATION_UPDATE_MANAGE_TIP" />
+		<action name="vm.about" title="COM_VM_ABOUT_MANAGE" description="COM_VM_ABOUT_MANAGE_TIP" />
+	</section>
+</access>
+

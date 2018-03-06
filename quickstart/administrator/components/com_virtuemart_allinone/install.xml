@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension method="upgrade" type="component" version="2.5">
+    <name>VirtueMart_allinone</name>
+    <creationDate>November 10 2015</creationDate>
+    <copyright>Copyright (C) 2004-2015 Virtuemart Team. All rights reserved.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <author>The VirtueMart Development Team</author>
+    <authorUrl>http://www.virtuemart.net</authorUrl>
+    <version status="MINOR">3.0.12</version>
+
+    <scriptfile>script.vmallinone.php</scriptfile>
+	<installfile>script.vmallinone.php</installfile>
+	<uninstallfile>script.vmallinone.php</uninstallfile>
+	
+    <administration>
+        <menu>VirtueMart AIO</menu>
+        <files folder="admin">
+            <filename>admin.virtuemart_allinone.php</filename>
+            <folder>libraries</folder>
+            <folder>plugins</folder>
+            <folder>modules</folder>
+            <folder>modulesBE</folder>
+        </files>
+    </administration>
+    <updateservers>
+        <!-- Note: No spaces or linebreaks allowed between the server tags -->
+        <server type="extension" name="VirtueMart3 AIO Update Site"><![CDATA[http://virtuemart.net/releases/vm3/virtuemart_aio_update.xml]]></server>
+    </updateservers>
+</extension>

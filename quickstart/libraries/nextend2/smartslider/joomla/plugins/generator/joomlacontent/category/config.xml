@@ -1,0 +1,28 @@
+<root>
+    <params name="joomlacategory" label="Filter">
+        <param type="group" label="Source">
+            <param name="sourcecategory" label="Parent category" type="joomlacategories" default=""/>
+            <param name="sourcetags" label="Tags" type="joomlatags" default="0" multiple="1"
+                   size="10"/>
+        </param>
+        <param type="group" label="Limit" class="n2-expert">
+            <param name="sourcelanguage" label="Language filter" type="text" default="*"/>
+        </param>
+    </params>
+    <params name="order" label="Order by">
+        <param name="joomlacartegoryorder" type="mixed" label="Order" default="cat.created_time|*|desc">
+            <param type="list" label="Field" translateable="1">
+                <option value="">None</option>
+                <option value="cat.title">Title</option>
+                <option value="cat.lft">Ordering</option>
+                <option value="cat.created_time">Creation time</option>
+                <option value="cat.modified_time">Modification time</option>
+                <option value="cat.hits">Hits</option>
+            </param>
+            <param type="radio" label="order">
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+            </param>
+        </param>
+    </params>
+</root>

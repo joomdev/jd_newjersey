@@ -1,0 +1,269 @@
+/**
+* @author    JoomShaper http://www.joomshaper.com
+* @copyright Copyright (C) 2010 - 2012 JoomShaper
+* @license   http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2
+*/
+
+/*-- Responsive --*/
+
+
+.sp-optima-layout{
+    position: relative;
+    color:#000;
+    z-index:0;
+    background:#fff;
+}
+
+/*-- Slider Item --*/
+
+.sp-optima-layout .sp-slider-item {
+  left: 0;
+  opacity: 0;
+  top: 0;
+  position: absolute;
+  width: 100%;
+  display: block;
+  -webkit-transition: opacity ease-in-out 500ms;
+  -moz-transition: opacity ease-in-out 500ms;
+  -o-transition: opacity ease-in-out 500ms;
+  transition: opacity ease-in-out 500ms;
+  text-align: center;
+}
+
+
+.sp-slider-item .sp-slider-image{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.sp-optima-layout .sp-slider-item:first-child {
+  top: auto;
+  position: relative;
+}
+
+.sp-optima-layout .sp-slider-item.animate-in {
+  opacity: 1;
+  -webkit-transition: opacity ease-in-out 500ms;
+  -moz-transition: opacity ease-in-out 500ms;
+  -o-transition: opacity ease-in-out 500ms;
+  transition: opacity ease-in-out 500ms;
+  z-index: 1;
+}
+
+.sp-optima-layout .btn-more{
+  display: inline-block;
+}
+
+.sp-optima-layout,
+.sp-optima-layout h1,
+.sp-optima-layout h2,
+.sp-optima-layout h3{
+  color: #fff;
+}
+
+.sp-optima-layout .sp-slider-content .sp-introtext{
+  margin: 20px 0 40px;
+  max-width: 750px;
+  display: inline-block;
+}
+
+.sp-optima-layout .sp-full-text{
+  margin-bottom: 35px;
+}
+
+
+.sp-optima-layout .sp-slider-thumb{
+  position: absolute;
+  width:100%;
+  z-index: 999;
+}
+
+/*-- Slider Animation --*/
+.sp-optima-layout .animate-in .sp-animation-1 {
+  -webkit-animation: fadeInDown 300ms linear 300ms both;
+  -moz-animation: fadeInDown 300ms linear 300ms both;
+  -o-animation: fadeInDown 300ms linear 300ms both;
+  -ms-animation: fadeInDown 300ms linear 300ms both;
+  animation: fadeInDown 300ms linear 300ms both;
+}
+.sp-optima-layout .animate-in .sp-animation-2 {
+  -webkit-animation: fadeInDown 300ms linear 500ms both;
+  -moz-animation: fadeInDown 300ms linear 500ms both;
+  -o-animation: fadeInDown 300ms linear 500ms both;
+  -ms-animation: fadeInDown 300ms linear 500ms both;
+  animation: fadeInDown 300ms linear 500ms both;
+}
+.sp-optima-layout .animate-in .sp-animation-3 {
+  -webkit-animation: fadeInDown 300ms linear 800ms both;
+  -moz-animation: fadeInDown 300ms linear 800ms both;
+  -o-animation: fadeInDown 300ms linear 800ms both;
+  -ms-animation: fadeInDown 300ms linear 800ms both;
+  animation: fadeInDown 300ms linear 800ms both;
+}
+.sp-optima-layout .animate-in .sp-animation-4 {
+  -webkit-animation: fadeInUp 500ms linear 1100ms both;
+  -moz-animation: fadeInUp 500ms linear 1100ms both;
+  -o-animation: fadeInUp 500ms linear 1100ms both;
+  -ms-animation: fadeInUp 500ms linear 1100ms both;
+  animation: fadeInUp 500ms linear 1100ms both;
+}
+
+.sp-optima-layout .animate-in .sp-animation-5 {
+  -webkit-animation: fadeInUp 300ms linear 1500ms both;
+  -moz-animation: fadeInUp 300ms linear 1500ms both;
+  -o-animation: fadeInUp 300ms linear 1500ms both;
+  -ms-animation: fadeInUp 300ms linear 1500ms both;
+  animation: fadeInUp 300ms linear 1500ms both;
+}
+/*-- Slider Arrow Navigation --*/
+
+.sp-optima-layout .sp-slider-controllers{
+  z-index:2;
+  text-align:center;
+}
+.sp-optima-layout .sp-slider-controllers .controller-prev,
+.sp-optima-layout .sp-slider-controllers .controller-next{
+  position:absolute;
+  top: 50%;
+  margin-top: -45px;
+  z-index: 2;
+}
+.rtl .sp-optima-layout .sp-slider-controllers .controller-next{
+  left:0
+}
+.ltr .sp-optima-layout .sp-slider-controllers .controller-next{
+  right:0
+}
+.ltr .sp-optima-layout .sp-slider-controllers >a{
+  background:#fff;
+  width: 60px;
+  height: 75px;
+  line-height: 80px;
+  display: block;
+  float: left;
+}
+.rtl .sp-optima-layout .sp-slider-controllers >a{
+  background:#fff;
+  width: 60px;
+  height: 80px;
+  line-height:80px;
+  display: block;
+  float: right
+}
+.sp-optima-layout .sp-slider-controllers >a{
+  color:#555;
+  margin:0;
+  padding:0;
+  cursor:pointer
+}
+
+.sp-optima-layout .sp-slider-controllers >a span{
+  display:block;
+  font-family: "Helvetica Neue";
+  font-size: 70px;
+  line-height: 70px;
+}
+
+/*Animation*/
+@-webkit-keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(5px);
+  }
+  
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+  }
+}
+
+@-moz-keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    -moz-transform: translateY(5px);
+  }
+  
+  100% {
+    opacity: 1;
+    -moz-transform: translateY(0);
+  }
+}
+
+@-o-keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    -o-transform: translateY(5px);
+  }
+  
+  100% {
+    opacity: 1;
+    -o-transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@-webkit-keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-50px);
+  }
+  
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+  }
+}
+
+@-moz-keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    -moz-transform: translateY(-50px);
+  }
+  
+  100% {
+    opacity: 1;
+    -moz-transform: translateY(0);
+  }
+}
+
+@-o-keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    -o-transform: translateY(-50px);
+  }
+  
+  100% {
+    opacity: 1;
+    -o-transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

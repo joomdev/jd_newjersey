@@ -1,0 +1,14 @@
+<root>
+  <params name="image" label="Image settings" hidetitle="1">
+    <param type="group" label="Previous">
+      <param type="imagelistfromfolder" name="widget-arrow-previous" label="Shape" folder="previous" post="break"/>
+      <param type="color" name="widget-arrow-previous-color" label="Color" alpha="1"/>
+      <param type="onoff" name="widget-arrow-previous-hover" label="Hover"/>
+      <param type="color" name="widget-arrow-previous-hover-color" label="Hover color" alpha="1"/></param>
+    <param name="widget-arrow-style" type="style" previewmode="button" set="1900" label="Style">
+      <![CDATA[ <div><div class="{styleClassName}" style="display: inline-block;"><img style="display: block;" src="{nextend.imageHelper.fixed($('#sliderwidget-arrow-previous-image').val() || N2Color.colorizeSVG($('[data-image="'+$('#sliderwidget-arrow-previous').val()+'"]').attr('src'), $('#sliderwidget-arrow-previous-color').val()));}" /></div></div> ]]>
+    </param>
+    <param type="widgetposition" name="widget-arrow-previous-position" label="Previous position"/>
+    <param type="widgetposition" name="widget-arrow-next-position" label="Next position"/>
+  </params>
+</root>

@@ -1,0 +1,23 @@
+<root>
+    <params name="smartslider-responsive-auto" label="Responsive - Auto width" >
+        <param type="group" label="Mode" default="1|*|0"
+               >
+            <param name="responsiveScaleDown" type="onoff" label="Down scale" default="1"/>
+            <param name="responsiveScaleUp" type="onoff" label="Up scale" default="1"/>
+        </param>
+        <param type="group" label="Slider height">
+            <param name="responsiveSliderHeightMin" type="number" label="Min" style="width:40px" default="0">
+                <unit>px</unit>
+            </param>
+            <param name="responsiveSliderHeightMax" type="number" label="Max" style="width:40px" default="3000">
+                <unit>px</unit>
+            </param>
+        </param>
+        <param type="group" label="Slide width" >
+            <param name="responsiveSlideWidthMax" type="numberautocomplete" label="Max" default="3000" values="3000,980"
+                   style="width:40px">
+                <unit>px</unit>
+            </param>
+        </param>
+    </params>
+</root>

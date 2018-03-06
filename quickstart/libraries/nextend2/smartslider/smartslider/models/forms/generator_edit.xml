@@ -1,0 +1,12 @@
+<root>
+  <params name="generator" label="Generator settings">
+    <param type="number" name="record-slides" label="Slides" default="1" style="width:30px;">
+      <unit>slides</unit>
+    </param>
+    <param type="button" name="record-viewer" label="Record viewer" default="View records"/>
+    <param type="number" name="cache-expiration" label="Cache expiration" default="24" style="width:30px;">
+      <unit>hours</unit>
+    </param>
+    <param type="token"/>
+  </params>
+</root>

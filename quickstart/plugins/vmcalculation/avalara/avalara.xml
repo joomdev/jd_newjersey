@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension version="2.5.0" type="plugin" group="vmcalculation" method="upgrade">
+    <name>VM - Calculation Avalara Tax</name>
+    <creationDate>November 21 2017</creationDate>
+    <author>Max Milbers</author>
+    <authorUrl>https://virtuemart.net</authorUrl>
+    <copyright>Copyright (C) 2013 iStraxx UG (haftungsbeschränkt). All rights reserved</copyright>
+    <license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
+    <version>3.2.6</version>
+    <description>VM - Calculation Avalara Tax; On demand tax calculation for whole U.S.A.</description>
+    <languages>
+		<language tag="en-GB">en-GB.plg_vmcalculation_avalara.ini</language>
+    </languages>
+    <files>
+        <filename plugin="avalara">avalara.php</filename>
+        <filename>AvaTax.php</filename>
+        <folder>classes</folder>
+        <folder>language</folder>
+    </files>
+    <updateservers>
+        <!-- Note: No spaces or linebreaks allowed between the server tags -->
+        <server type="extension" name="VirtueMart3 plg_vmcalculation_avalara Update Site"><![CDATA[http://virtuemart.net/releases/vm3/plg_vmcalculation_avalara_update.xml]]></server>
+    </updateservers>
+</extension>

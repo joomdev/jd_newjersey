@@ -1,0 +1,277 @@
+/**
+* @author    JoomShaper http://www.joomshaper.com
+* @copyright Copyright (C) 2010 - 2012 JoomShaper
+* @license   http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2
+*/
+
+/*-- Responsive --*/
+
+
+.sp-awetive-layout{
+    position: relative;
+    color:#000;
+    z-index:0;
+    background:#fff;
+    overflow: hidden;
+}
+
+/*-- Slider Item --*/
+
+.sp-awetive-layout .sp-slider-item {
+  left: 0;
+  opacity: 0;
+  top: 0;
+  position: absolute;
+  width: 100%;
+  display: block;
+  -webkit-transition: opacity ease-in-out 500ms;
+  -moz-transition: opacity ease-in-out 500ms;
+  -o-transition: opacity ease-in-out 500ms;
+  transition: opacity ease-in-out 500ms;
+}
+
+
+.sp-slider-item .sp-slider-image{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.sp-awetive-layout .sp-slider-item:first-child {
+  top: auto;
+  position: relative;
+}
+
+.sp-awetive-layout .sp-slider-item.animate-in {
+  opacity: 1;
+  -webkit-transition: opacity ease-in-out 500ms;
+  -moz-transition: opacity ease-in-out 500ms;
+  -o-transition: opacity ease-in-out 500ms;
+  transition: opacity ease-in-out 500ms;
+  z-index: 1;
+}
+
+.sp-awetive-layout .btn-more{
+  display: inline-block;
+}
+
+.sp-awetive-layout,
+.sp-awetive-layout h1,
+.sp-awetive-layout h2,
+.sp-awetive-layout h3{
+  color: #fff;
+}
+
+.sp-awetive-layout .sp-slider-content{
+  background: #27ae60;
+  display: inline-block;
+  width: 30%;
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  padding: 20px;
+  color: #fff;
+}
+
+.sp-awetive-layout .sp-slider-content:after{
+  content: " ";
+  position: absolute;
+  height: 0;
+  width: 0;
+  top: 0;
+  right: -400px;
+  border-left: 400px solid #27ae60;
+  border-bottom: 400px solid transparent;
+  border-top: 0 solid transparent;
+  border-right: 0 solid transparent;
+  z-index: 2;
+}
+
+.sp-awetive-layout .sp-slider-content .sp-introtext{
+  margin: 20px 0 40px;
+  max-width: 750px;
+  display: inline-block;
+}
+
+.sp-awetive-layout .sp-full-text{
+  margin-bottom: 35px;
+}
+
+
+.sp-awetive-layout .sp-slider-thumb{
+  position: absolute;
+  width:100%;
+  z-index: 999;
+}
+
+/*-- Slider Animation --*/
+.sp-awetive-layout .animate-in .sp-animation-1 {
+  -webkit-animation: fadeInDown 300ms linear 300ms both;
+  -moz-animation: fadeInDown 300ms linear 300ms both;
+  -o-animation: fadeInDown 300ms linear 300ms both;
+  -ms-animation: fadeInDown 300ms linear 300ms both;
+  animation: fadeInDown 300ms linear 300ms both;
+}
+.sp-awetive-layout .animate-in .sp-animation-2 {
+  -webkit-animation: fadeInDown 300ms linear 500ms both;
+  -moz-animation: fadeInDown 300ms linear 500ms both;
+  -o-animation: fadeInDown 300ms linear 500ms both;
+  -ms-animation: fadeInDown 300ms linear 500ms both;
+  animation: fadeInDown 300ms linear 500ms both;
+}
+.sp-awetive-layout .animate-in .sp-animation-3 {
+  -webkit-animation: fadeInDown 300ms linear 800ms both;
+  -moz-animation: fadeInDown 300ms linear 800ms both;
+  -o-animation: fadeInDown 300ms linear 800ms both;
+  -ms-animation: fadeInDown 300ms linear 800ms both;
+  animation: fadeInDown 300ms linear 800ms both;
+}
+.sp-awetive-layout .animate-in .sp-animation-4 {
+  -webkit-animation: fadeInUp 500ms linear 1100ms both;
+  -moz-animation: fadeInUp 500ms linear 1100ms both;
+  -o-animation: fadeInUp 500ms linear 1100ms both;
+  -ms-animation: fadeInUp 500ms linear 1100ms both;
+  animation: fadeInUp 500ms linear 1100ms both;
+}
+
+.sp-awetive-layout .animate-in .sp-animation-5 {
+  -webkit-animation: fadeInDown 300ms linear 1100ms both;
+  -moz-animation: fadeInDown 300ms linear 1100ms both;
+  -o-animation: fadeInDown 300ms linear 1100ms both;
+  -ms-animation: fadeInDown 300ms linear 1500ms both;
+  animation: fadeInDown 300ms linear 1100ms both;
+}
+
+
+/*-- Slider Arrow Navigation --*/
+.sp-awetive-layout .slide-indicators {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  z-index: 15;
+  width: 12px;
+  padding-left: 0;
+  margin-top: -28px;
+  text-align: center;
+  list-style: none;
+}
+
+.sp-awetive-layout .slide-indicators li {
+  display: block;
+  width: 12px;
+  height: 12px;
+  margin: 5px 0;
+  text-indent: -999px;
+  cursor: pointer;
+  background: #27ae60;
+  border-radius: 10px;
+}
+
+.sp-awetive-layout .slide-indicators .active {
+  background-color: #fff;
+}
+
+/*Animation*/
+@-webkit-keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(5px);
+  }
+  
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+  }
+}
+
+@-moz-keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    -moz-transform: translateY(5px);
+  }
+  
+  100% {
+    opacity: 1;
+    -moz-transform: translateY(0);
+  }
+}
+
+@-o-keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    -o-transform: translateY(5px);
+  }
+  
+  100% {
+    opacity: 1;
+    -o-transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@-webkit-keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-50px);
+  }
+  
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+  }
+}
+
+@-moz-keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    -moz-transform: translateY(-50px);
+  }
+  
+  100% {
+    opacity: 1;
+    -moz-transform: translateY(0);
+  }
+}
+
+@-o-keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    -o-transform: translateY(-50px);
+  }
+  
+  100% {
+    opacity: 1;
+    -o-transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

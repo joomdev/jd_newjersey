@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension version="2.5" type="plugin" group="vmpayment" method="upgrade">
+    <name>Standard</name>
+    <creationDate>November 21 2017</creationDate>
+    <author>The VirtueMart Development Team</author>
+    <authorUrl>https://virtuemart.net</authorUrl>
+    <copyright>Copyright (C) 2004 - 2017 Virtuemart Team. All rights reserved.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <version>3.2.6</version>
+    <description>Standard payment plugin</description>
+
+    <files>
+        <filename plugin="standard">standard.php</filename>
+        <folder>language</folder>
+    </files>
+
+    <vmconfig>
+        <fields name="params">
+            <fieldset name="payment"  addfieldpath="/administrator/components/com_virtuemart/fields">
+
+                <field name="payment_currency" type="vmacceptedcurrency" default="" label="VMPAYMENT_STANDARD_CURRENCY"
+                       description="VMPAYMENT_STANDARD_CURRENCY_TIP"/>
+                <field name="status_pending" type="vmorderstate" scope="com_virtuemart" default="U"
+                       label="VMPAYMENT_STANDARD_STATUS_PENDING" description="VMPAYMENT_STANDARD_STATUS_PENDING_TIP"/>
+                <field name="send_invoice_on_order_null" type="radio" scope="com_virtuemart" default="1"
+                       label="VMPAYMENT_STANDARD_SEND_INVOICE_ON_ORDER_NULL"
+                       description="VMPAYMENT_STANDARD_SEND_INVOICE_ON_ORDER_NULL_TIP">
+                    <option value="0">COM_VIRTUEMART_NO</option>
+                    <option value="1">COM_VIRTUEMART_YES</option>
+                </field>
+            </fieldset>
+            <fieldset name="template">
+                <field name="payment_logos" type="vmfiles" multiple="true" directory="/images/virtuemart/payment"
+                       hide_none="1" label="VMPAYMENT_STANDARD_LOGOS"
+                       size="40"
+                       description="VMPAYMENT_STANDARD_LOGOS_TIP"/>
+                <field name="payment_info" type="textarea" cols="35" rows="5" label="VMPAYMENT_STANDARD_PAYMENTINFO"
+                       description="VMPAYMENT_STANDARD_PAYMENTINFO_TIP"/>
+            </fieldset>
+            <fieldset name="restrictions" >
+                <field name="countries" multiple="true" type="vmcountries" scope="com_virtuemart" default=""
+                       label="VMPAYMENT_STANDARD_COUNTRIES" description="VMPAYMENT_STANDARD_COUNTRIES_TIP"/>
+                <field name="min_amount" type="text" label="VMPAYMENT_STANDARD_MIN_AMOUNT"
+                       description="VMPAYMENT_STANDARD_MIN_AMOUNT_TIP"/>
+                <field name="max_amount" type="text" label="VMPAYMENT_STANDARD_MAX_AMOUNT"
+                       description="VMPAYMENT_STANDARD_MAX_AMOUNT_TIP"/>
+            </fieldset>
+            <fieldset name="fee">
+                <field name="cost_per_transaction" type="text" label="VMPAYMENT_STANDARD_COST_PER_TRANSACTION"
+                       description="VMPAYMENT_STANDARD_COST_PER_TRANSACTION_TIP"/>
+                <field name="cost_min_transaction" type="text" label="VMPAYMENT_STANDARD_COST_MIN_TRANSACTION"
+                       description="VMPAYMENT_STANDARD_COST_MIN_TRANSACTION_TIP"/>
+                <field name="cost_percent_total" type="text" label="VMPAYMENT_STANDARD_COST_PERCENT_TOTAL"
+                       description="VMPAYMENT_STANDARD_COST_PERCENT_TOTAL_TIP"/>
+                <field name="tax_id" type="vmtaxes" scope="com_virtuemart" label="VMPAYMENT_STANDARD_TAX"
+                       description="VMPAYMENT_STANDARD_TAX_TIP"/>
+            </fieldset>
+        </fields>
+    </vmconfig>
+    <updateservers>
+        <!-- Note: No spaces or linebreaks allowed between the server tags -->
+        <server type="extension" name="VirtueMart plg_vmpayment_standard Update Site"><![CDATA[http://virtuemart.net/releases/vm3/plg_vmpayment_standard_update.xml]]></server>
+    </updateservers>
+
+</extension>

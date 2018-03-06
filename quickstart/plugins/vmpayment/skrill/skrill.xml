@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension version="2.5" type="plugin" group="vmpayment">
+    <name>Skrill</name>
+    <creationDate>November 21 2017</creationDate>
+    <author>Skrill Holdings Limited</author>
+    <authorUrl>http://www.skrill.com</authorUrl>
+    <copyright>Copyright (C) 2004 - 2017 Virtuemart Team. All rights reserved.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
+    <version>3.2.6</version>
+    <description><![CDATA[<a href="http://www.skrill.com" target="_blank">skrill</a> is a popular
+	payment provider authorised by the Financial Services Authority of the United Kingdom (FSA). ]]>
+    </description>
+
+    <files>
+        <filename plugin="skrill">skrill.php</filename>
+    </files>
+    <languages>
+        <language tag="en-GB">en-GB.plg_vmpayment_skrill.ini</language>
+    </languages>
+    <vmconfig>
+        <fields name="params">
+            <fieldset name="basic" addfieldpath="/administrator/components/com_virtuemart/fields">
+                <field type="vmtitle" default="VMPAYMENT_SKRILL_ACCOUNT_PARAMS"/>
+
+                <field type="list" name="product" label="VMPAYMENT_SKRILL_PRODUCT"
+                       default="" description="VMPAYMENT_SKRILL_PRODUCT_TIP">
+                    <option value="acc">VMPAYMENT_SKRILL_PRODUCT_ACC</option>
+                    <option value="did">VMPAYMENT_SKRILL_PRODUCT_DID</option>
+                    <option value="gir">VMPAYMENT_SKRILL_PRODUCT_GIR</option>
+                    <option value="idl">VMPAYMENT_SKRILL_PRODUCT_IDL</option>
+                    <option value="obt">VMPAYMENT_SKRILL_PRODUCT_OBT</option>
+                    <option value="pwt">VMPAYMENT_SKRILL_PRODUCT_PWY</option>
+                    <option value="sft">VMPAYMENT_SKRILL_PRODUCT_SFT</option>
+                    <option value="wlt">VMPAYMENT_SKRILL_PRODUCT_WLT</option>
+                </field>
+                <field type="text" required="true" name="pay_to_email" size="50" label="VMPAYMENT_SKRILL_PAY_TO_EMAIL"
+                       default="" description="VMPAYMENT_SKRILL_PAY_TO_EMAIL_TIP"/>
+                <field type="password" required="true" name="secret_word" size="50" label="VMPAYMENT_SKRILL_SECRET_WORD"
+                       default="" description="VMPAYMENT_SKRILL_SECRET_WORD_TIP"/>
+
+                <field type="vmtitle" default="VMPAYMENT_SKRILL_ORDER_STATUS_SECTION"
+                       description=""/>
+                <field name="status_pending" type="vmorderstate" scope="com_virtuemart" default="U"
+                           label="VMPAYMENT_SKRILL_STATUS_PENDING" description="VMPAYMENT_SKRILL_STATUS_PENDING_TIP"/>
+                <field name="status_success" type="vmorderstate" scope="com_virtuemart" default="C"
+                       label="VMPAYMENT_SKRILL_STATUS_SUCCESS" description="VMPAYMENT_SKRILL_STATUS_SUCCESS_TIP"/>
+                <field name="status_canceled" type="vmorderstate" scope="com_virtuemart" default="X"
+                       label="VMPAYMENT_SKRILL_STATUS_FAILED" description="VMPAYMENT_SKRILL_STATUS_FAILED_TIP"/>
+
+                <!-- Currencies -->
+                <!-- ============ -->
+                <field type="vmtitle" default="VMPAYMENT_SKRILL_CURRENCIES_SECTION" />
+
+                <field name="payment_currency" type="vmacceptedcurrency" default="" label="VMPAYMENT_SKRILL_CURRENCY"
+                       description="VMPAYMENT_SKRILL_CURRENCY_DESC"/>
+                <!--field name="email_currency" type="list" default="vendor" label="VMPAYMENT_SKRILL_EMAIL_CURRENCY"
+                       description="VMPAYMENT_SKRILL_EMAIL_CURRENCY_DESC">
+                    <option value="vendor">VMPAYMENT_SKRILL_EMAIL_CURRENCY_VENDOR</option>
+                    <option value="payment">VMPAYMENT_SKRILL_EMAIL_CURRENCY_PAYMENT</option>
+                </field-->
+
+                <field   type="vmtitle" default="VMPAYMENT_SKRILL_TEMPLATE_SECTION"
+                       description=""/>
+                <field name="payment_logos" type="imagelist" label="VMPAYMENT_SKRILL_LOGOS" multiple="true"
+                           description="VMPAYMENT_SKRILL_LOGOS_TIP"
+                           directory="/images/virtuemart/payment"
+                           default="" hide_default="1" hide_none="1"
+                           stripext="0" exclude="^_"/>
+
+                    <field type="text" name="logo_url" size="50" label="VMPAYMENT_SKRILL_LOGOURL"
+                           default="" description="VMPAYMENT_SKRILL_LOGOURL_TIP"/>
+
+
+                <field  type="vmtitle" default="VMPAYMENT_SKRILL_RESTRICTIONS_SECTION"
+                       description=""/>
+                <field name="countries" multiple="true" type="vmcountries" scope="com_virtuemart" default=""
+                           label="VMPAYMENT_SKRILL_COUNTRIES" description="VMPAYMENT_SKRILL_COUNTRIES_TIP"/>
+                    <field name="min_amount" type="text" label="VMPAYMENT_SKRILL_MIN_AMOUNT"
+                           description="VMPAYMENT_SKRILL_MIN_AMOUNT_TIP"/>
+                    <field name="max_amount" type="text" label="VMPAYMENT_SKRILL_MAX_AMOUNT"
+                           description="VMPAYMENT_SKRILL_MAX_AMOUNT_TIP"/>
+
+                <field  type="vmtitle" default="VMPAYMENT_SKRILL_DISCOUNT_FEE_SECTION"
+                       description=""/>
+                    <field name="cost_per_transaction" type="text" label="VMPAYMENT_SKRILL_COST_PER_TRANSACTION"
+                           description="VMPAYMENT_SKRILL_COST_PER_TRANSACTION_TIP"/>
+                    <field name="cost_percent_total" type="text" label="VMPAYMENT_SKRILL_COST_PERCENT_TOTAL"
+                           description="VMPAYMENT_SKRILL_COST_PERCENT_TOTAL_TIP"/>
+                    <field name="tax_id" type="vmtaxes" scope="com_virtuemart" label="VMPAYMENT_SKRILL_TAX"
+                           description="VMPAYMENT_SKRILL_TAX_TIP"/>
+
+                <field  type="vmtitle" default="VMPAYMENT_SKRILL_DEBUG_SECTION"
+                       description=""/>
+                <field name="debug" type="list" default="0" label="VMPAYMENT_SKRILL_DEBUG_SECTION" >
+                    <option value="0">COM_VIRTUEMART_NO</option>
+                    <option value="1">COM_VIRTUEMART_YES</option>
+                </field>
+                <field name="log" type="list" default="0" label="VMPAYMENT_SKRILL_LOG"
+                       description="VMPAYMENT_SKRILL_LOG_TIP">
+                    <option value="0">COM_VIRTUEMART_NO</option>
+                    <option value="1">COM_VIRTUEMART_YES</option>
+                </field>
+            </fieldset>
+        </fields>
+    </vmconfig>
+    <updateservers>
+        <!-- Note: No spaces or linebreaks allowed between the server tags -->
+        <server type="extension" name="VirtueMart3 plg_vmpayment_skrill Update Site"><![CDATA[http://virtuemart.net/releases/vm3/plg_vmpayment_skrill_update.xml]]></server>
+    </updateservers>
+</extension>

@@ -1,0 +1,38 @@
+<root>
+  <params name="heading-item" label="Heading item settings" hidetitle="1">
+    <param name="heading" type="textarea" label="Text" default="Heading" style2="width: 230px;resize: vertical;"/>
+    <param name="link" type="mixed" default="#|*|_self">
+      <param type="url" label="Link" style="width:236px;"/>
+      <param type="list" label="Target" translateable="1">
+        <option value="_self">Self</option>
+        <option value="_blank">Blank</option>
+      </param>
+      <param type="list" label="Rel">
+        <option value=""/>
+        <option value="nofollow">nofollow</option>
+        <option value="noreferrer">noreferrer</option>
+        <option value="author">author</option>
+        <option value="external">external</option>
+        <option value="help">help</option>
+      </param>
+    </param>
+    <param type="group">
+      <param name="priority" type="list" label="Tag" default="2">
+        <option value="div">div</option>
+        <option value="1">H1</option>
+        <option value="2">H2</option>
+        <option value="3">H3</option>
+        <option value="4">H4</option>
+        <option value="5">H5</option>
+        <option value="6">H6</option>
+      </param>
+      <param name="fullwidth" type="onoff" label="Full width" default="1"/>
+      <param name="nowrap" type="onoff" label="No wrap" default="0"/></param>
+    <param name="font" type="font" previewmode="hover" set="1000" style="item_headingstyle" label="Font" css="width: 140px;" class="n2-hidden">
+      <![CDATA[ <div style="width:{nextend.activeLayer.prop('style').width};"><div class="{styleClassName} {fontClassName}">{$('#item_headingheading').val().replace(/\\n/g, '<br />');}</div></div> ]]>
+    </param>
+    <param name="style" type="style" previewmode="heading" set="1000" font="item_headingfont" label="Style" css="width: 140px;" class="n2-hidden">
+      <![CDATA[ <div style="width:{nextend.activeLayer.prop('style').width};"><div class="{styleClassName} {fontClassName}">{$('#item_headingheading').val().replace(/\\n/g, '<br />');}</div></div> ]]>
+    </param>
+  </params>
+</root>

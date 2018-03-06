@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+    <layout title="COM_VIRTUEMART_MANUFACTURER_VIEW_DETAILS_TITLE">
+        <message><![CDATA[COM_VIRTUEMART_MANUFACTURER_VIEW_DETAILS_DESC]]></message>
+
+    </layout>
+
+    <fields name="request" >
+        <fieldset name="request" addfieldpath="/administrator/components/com_virtuemart/fields">
+            <field name="virtuemart_manufacturer_id" type="manufacturer"
+				label="COM_VIRTUEMART_MANUFACTURER_FIELD_SELECT_TITLE"
+				required="true"
+				description="COM_VIRTUEMART_MANUFACTURER_FIELD_SELECT_TITLE_DESC"
+			/>
+        </fieldset>
+    </fields>
+</metadata>

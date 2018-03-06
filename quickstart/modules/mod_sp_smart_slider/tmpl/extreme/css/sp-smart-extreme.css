@@ -1,0 +1,341 @@
+/**
+* @author    JoomShaper http://www.joomshaper.com
+* @copyright Copyright (C) 2010 - 2013 JoomShaper
+* @license   http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2
+*/
+
+/*Extreme Layout*/
+.sp-smart-slider-extreme {
+	position:relative;
+	min-height:200px;
+	background:#fff url(../images/loading.gif) no-repeat 50% 50%
+}
+
+/* Navigation Next & Previous */
+	.sp-smart-slider-extreme .nivo-controlNav {
+	text-align:left;
+	padding:0;
+	position:absolute;
+	top:80px;
+	left:0;
+	z-index:999
+}
+.sp-smart-slider-extreme .nivo-directionNav a {
+	display:block;
+	background:url(../images/arrow.png) no-repeat 0 0;
+	height:35px;
+	width:35px;
+	text-indent:-999em;
+	opacity:1;
+	border:0;
+	top:50%;
+	margin-top:-17.5px;
+}
+.sp-smart-slider-extreme a.nivo-prevNav {
+	left:20px
+}
+.sp-smart-slider-extreme a.nivo-nextNav {
+	right:20px;
+	background-position:-35px 0
+}
+.sp-smart-slider-extreme a.nivo-nextNav:hover, .sp-smart-slider-extreme a.nivo-prevNav:hover {
+	opacity:.8
+}
+/*Navigation Controls*/
+	.sp-smart-slider-extreme a.nivo-control {
+	display:block
+}
+.sp-smart-slider-extreme a:hover.nivo-control {
+	background:none !important
+}
+.sp-smart-slider-extreme a.nivo-control.active {
+	font-weight:400;
+}
+.sp-smart-slider-extreme .sp-smart-slider-item {
+	position:relative;
+	background:#fff;
+	display:inline-block;
+	margin:5px 0;
+	height:60px;
+	padding:10px;
+	cursor:pointer
+}
+.sp-smart-slider-extreme .sp-smart-slider-item::after {
+	content:"";
+	position:absolute;
+	width:0;
+	height:0;
+	right:-40px;
+	top:0;
+	border-width:80px 0 0 40px;
+	border-style:solid;
+}
+.sp-smart-slider-extreme .sp-smart-slider-item::after {
+	border-color:transparent #fff #fff #fff
+}
+.sp-smart-slider-extreme a.nivo-control h2 {
+	font-size:18px;
+	line-height:18px;
+	font-weight:400;
+	margin:8px 0 5px;
+	padding:0;
+	color:#000
+}
+.sp-smart-slider-extreme a.nivo-control p {
+	font-size:13px;
+	font-weight:400;
+	margin:0;
+	padding:0;
+	color:#666
+}
+.sp-smart-slider-extreme a.nivo-control:hover .sp-smart-slider-item, .sp-smart-slider-extreme a.nivo-control.active .sp-smart-slider-item {
+	background:#333
+}
+.sp-smart-slider-extreme a.nivo-control:hover .sp-smart-slider-item::after, .sp-smart-slider-extreme a.nivo-control.active .sp-smart-slider-item::after {
+	border-color:transparent #333 #333 #333
+}
+.sp-smart-slider-extreme a.nivo-control:hover h2, .sp-smart-slider-extreme a.nivo-control.active h2 {
+	color:#ccc;
+	opacity:1;
+	text-shadow:0 1px rgba(0,0,0,.4);
+}
+.sp-smart-slider-extreme a.nivo-control:hover p, .sp-smart-slider-extreme a.nivo-control.active p {
+	color:#fff;
+	opacity:1;
+}
+/*Caption*/
+	.sp-smart-slider-extreme .nivo-caption {
+	background:none;
+	left:auto!important;
+	right:30px;
+	bottom:50px;
+	width:auto!important;
+	height:auto!important;
+	opacity:1;
+	-moz-opacity:1
+}
+a.sp-extreme-readon {
+	display:inline-block!important;
+	background:#000;
+	font-size:24px;
+	font-weight:400;
+	color:#fff;
+	border-radius:4px;
+	position:relative;
+	text-shadow:0 1px rgba(0,0,0,.4);
+	-webkit-box-shadow:1px 1px 2px rgba(0,0,0,0.5);
+	-moz-box-shadow:1px 1px 2px rgba(0,0,0,0.5);
+	box-shadow:1px 1px 2px rgba(0,0,0,0.5);
+	padding:10px 100px 10px 20px
+}
+a.sp-extreme-readon span {
+	display:block;
+	font-size:12px;
+}
+a.sp-extreme-readon span.sp-extreme-arrow {
+	width:15px;
+	height:17px;
+	background:url(../images/btn-arrow.png) no-repeat 0 0;
+	display:inline-block;
+	position:absolute;
+	right:20px;
+	top:50%;
+	margin-top:-8.5px;
+}
+
+/*RTL*/
+.rtl a.sp-extreme-readon{
+	padding:10px 20px 10px 100px;
+}
+.rtl a.sp-extreme-readon span.sp-extreme-arrow {
+		background-position:0 -18px;
+		padding:10px 20px 10px 100px;
+		right:70px;
+		left:auto;
+}
+
+/*Responsive*/
+@media only screen and ( min-width: 767px ) {
+	.sp-smart-slider-extreme .nivo-directionNav a {
+		display:none !important
+	}
+}
+/*CSS3 Animation*/
+	.sp-smart-slider-extreme .nivo-directionNav a, .sp-smart-slider-extreme a.sp-extreme-readon {
+	-webkit-transition:all 200ms ease-in-out;
+	-moz-transition:all 200ms ease-in-out;
+	-o-transition:all 200ms ease-in-out;
+	transition:all 200ms ease-in-out
+}
+/**
+* @author    JoomShaper http://www.joomshaper.com
+* @copyright Copyright (C) 2010 - 2013 JoomShaper
+* @license   http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2
+*/
+
+/*Extreme Layout*/
+.sp-smart-slider-extreme {
+	position:relative;
+	min-height:200px;
+	background:#fff url(../images/loading.gif) no-repeat 50% 50%
+}
+
+/* Navigation Next & Previous */
+	.sp-smart-slider-extreme .nivo-controlNav {
+	text-align:left;
+	padding:0;
+	position:absolute;
+	top:80px;
+	left:0;
+	z-index:999
+}
+.sp-smart-slider-extreme .nivo-directionNav a {
+	display:block;
+	background:url(../images/arrow.png) no-repeat 0 0;
+	height:35px;
+	width:35px;
+	text-indent:-999em;
+	opacity:1;
+	border:0;
+	top:50%;
+	margin-top:-17.5px;
+}
+.sp-smart-slider-extreme a.nivo-prevNav {
+	left:20px
+}
+.sp-smart-slider-extreme a.nivo-nextNav {
+	right:20px;
+	background-position:-35px 0
+}
+.sp-smart-slider-extreme a.nivo-nextNav:hover, .sp-smart-slider-extreme a.nivo-prevNav:hover {
+	opacity:.8
+}
+/*Navigation Controls*/
+	.sp-smart-slider-extreme a.nivo-control {
+	display:block
+}
+.sp-smart-slider-extreme a:hover.nivo-control {
+	background:none !important
+}
+.sp-smart-slider-extreme a.nivo-control.active {
+	font-weight:400;
+}
+.sp-smart-slider-extreme .sp-smart-slider-item {
+	position:relative;
+	background:#fff;
+	display:inline-block;
+	margin:5px 0;
+	height:60px;
+	padding:10px;
+	cursor:pointer
+}
+.sp-smart-slider-extreme .sp-smart-slider-item::after {
+	content:"";
+	position:absolute;
+	width:0;
+	height:0;
+	right:-40px;
+	top:0;
+	border-width:80px 0 0 40px;
+	border-style:solid;
+}
+.sp-smart-slider-extreme .sp-smart-slider-item::after {
+	border-color:transparent #fff #fff #fff
+}
+.sp-smart-slider-extreme a.nivo-control h2 {
+	font-size:18px;
+	line-height:18px;
+	font-weight:400;
+	margin:8px 0 5px;
+	padding:0;
+	color:#000
+}
+.sp-smart-slider-extreme a.nivo-control p {
+	font-size:13px;
+	font-weight:400;
+	margin:0;
+	padding:0;
+	color:#666
+}
+.sp-smart-slider-extreme a.nivo-control:hover .sp-smart-slider-item, .sp-smart-slider-extreme a.nivo-control.active .sp-smart-slider-item {
+	background:#333
+}
+.sp-smart-slider-extreme a.nivo-control:hover .sp-smart-slider-item::after, .sp-smart-slider-extreme a.nivo-control.active .sp-smart-slider-item::after {
+	border-color:transparent #333 #333 #333
+}
+.sp-smart-slider-extreme a.nivo-control:hover h2, .sp-smart-slider-extreme a.nivo-control.active h2 {
+	color:#ccc;
+	opacity:1;
+	text-shadow:0 1px rgba(0,0,0,.4);
+}
+.sp-smart-slider-extreme a.nivo-control:hover p, .sp-smart-slider-extreme a.nivo-control.active p {
+	color:#fff;
+	opacity:1;
+}
+/*Caption*/
+	.sp-smart-slider-extreme .nivo-caption {
+	background:none;
+	left:auto!important;
+	right:30px;
+	bottom:50px;
+	width:auto!important;
+	height:auto!important;
+	opacity:1;
+	-moz-opacity:1
+}
+a.sp-extreme-readon {
+	display:inline-block!important;
+	background:#000;
+	font-size:24px;
+	font-weight:400;
+	color:#fff;
+	border-radius:4px;
+	position:relative;
+	text-shadow:0 1px rgba(0,0,0,.4);
+	-webkit-box-shadow:1px 1px 2px rgba(0,0,0,0.5);
+	-moz-box-shadow:1px 1px 2px rgba(0,0,0,0.5);
+	box-shadow:1px 1px 2px rgba(0,0,0,0.5);
+	padding:10px 100px 10px 20px
+}
+a.sp-extreme-readon:hover{
+	background:#444;
+}
+a.sp-extreme-readon span {
+	display:block;
+	font-size:12px;
+}
+a.sp-extreme-readon span.sp-extreme-arrow {
+	width:15px;
+	height:17px;
+	background:url(../images/btn-arrow.png) no-repeat 0 0;
+	display:inline-block;
+	position:absolute;
+	right:20px;
+	top:50%;
+	margin-top:-8.5px;
+}
+
+/*RTL*/
+.rtl a.sp-extreme-readon{
+	padding:10px 20px 10px 100px;
+}
+.rtl a.sp-extreme-readon span.sp-extreme-arrow {
+		background-position:0 -18px;
+		padding:10px 20px 10px 100px;
+		right:70px;
+		left:auto;
+}
+
+/*Responsive*/
+@media only screen and ( min-width: 767px ) {
+	.sp-smart-slider-extreme .nivo-directionNav a {
+		display:none !important
+	}
+}
+/*CSS3 Animation*/
+	.sp-smart-slider-extreme .nivo-directionNav a, .sp-smart-slider-extreme a.sp-extreme-readon {
+	-webkit-transition:all 200ms ease-in-out;
+	-moz-transition:all 200ms ease-in-out;
+	-o-transition:all 200ms ease-in-out;
+	transition:all 200ms ease-in-out
+}

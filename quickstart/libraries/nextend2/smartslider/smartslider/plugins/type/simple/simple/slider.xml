@@ -1,0 +1,28 @@
+<root>
+  <params name="simpledefaultslidertypeanimation" label="Animation settings">
+    <param name="animation" type="radio" label="Main animation" default="horizontal" translateable="1" tip="This animation moves the slides.">
+      <option value="no">No animation</option>
+      <option value="fade">Fade</option>
+      <option value="crossfade">Crossfade</option>
+      <option value="horizontal">Horizontal</option>
+      <option value="vertical">Vertical</option>
+      <option value="horizontal-reversed">Horizontal - reversed</option>
+      <option value="vertical-reversed">Vertical - reversed</option>
+    </param>
+    <param type="group" label="Main animation properties">
+      <param name="animation-duration" type="numberautocomplete" label="Duration" style="width:35px;" default="800" values="800,1500,2000">
+        <unit>ms</unit>
+      </param>
+    </param>
+    <param type="group" label="Background animation">
+      <param type="backgroundanimation" name="background-animation" label="Animation(s)" default=""/>
+      <param type="list" name="background-animation-speed" label="Speed" default="normal" translateable="1">
+        <option value="superSlow">Super slow</option>
+        <option value="slow">Slow</option>
+        <option value="normal">Normal</option>
+        <option value="fast">Fast</option>
+        <option value="superFast">Super fast</option>
+      </param>
+    </param>
+  </params>
+</root>

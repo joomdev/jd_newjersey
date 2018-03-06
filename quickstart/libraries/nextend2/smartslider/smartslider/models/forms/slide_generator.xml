@@ -1,0 +1,9 @@
+<root>
+    <params name="generator" type="groupped" label="Generator">
+        <params name="generator-parameters" label="" hidetitle="1">
+            <param type="number" name="record-slides" label="Slides" default="1" style="width:30px;">
+                <unit>slides</unit>
+            </param>
+        </params>
+    </params>
+</root>

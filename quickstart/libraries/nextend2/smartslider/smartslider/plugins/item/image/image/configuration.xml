@@ -1,0 +1,27 @@
+<root>
+  <params name="image-item" label="Image item settings" hidetitle="1">
+    <param name="image" type="image" label="Image" default="" fixed="1" style="width:236px;" alt="item_imagealt"/>
+    <param name="link" type="mixed" default="#|*|_self">
+      <param type="url" label="Link" style="width:236px;"/>
+      <param type="list" label="Target" translateable="1">
+        <option value="_self">Self</option>
+        <option value="_blank">Blank</option>
+      </param>
+      <param type="list" label="Rel">
+        <option value=""/>
+        <option value="nofollow">nofollow</option>
+        <option value="noreferrer">noreferrer</option>
+        <option value="author">author</option>
+        <option value="external">external</option>
+        <option value="help">help</option>
+      </param>
+    </param>
+    <param type="group">
+      <param name="alt" type="text" label="Alt" style="width:125px;" default=""/></param>
+    <param type="group">
+      <param name="size" type="mixed" default="auto|*|auto">
+        <param type="text" style="width:60px;" label="Width"/>
+        <param type="text" style="width:60px;" label="Height"/></param>
+    </param>
+  </params>
+</root>

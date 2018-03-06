@@ -1,0 +1,6 @@
+<root>
+  <params name="widgetsshadow" label="" hidetitle="1">
+    <param name="widgetshadow" type="widgetpluginmatrix" ajaxurl="slider/renderform" label="Shadow" group="sswidgetshadow" method="shadow" file="config.xml" default="disabled"/>
+  </params>
+  <params name="widget-shadow-placeholder" label="" id="nextend-widgetshadow-panel" type="placeholder"></params>
+</root>

@@ -1,0 +1,14 @@
+/**
+ * Kunena Component
+ * @package Kunena.Administrator
+ *
+ * @copyright (C) 2008 - 2018 Kunena Team. All rights reserved.
+ * @license https://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * @link https://www.kunena.org
+ **/
+
+#kunena.admin.override #dashboard-icons .btn {
+	background-image: none;
+	border-color: transparent;
+	box-shadow: none;
+}

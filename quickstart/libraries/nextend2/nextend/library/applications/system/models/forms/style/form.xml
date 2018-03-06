@@ -1,0 +1,63 @@
+<root>
+    <params name="firstrow" type="horizontal">
+        <param name="backgroundcolor" label="Background color" type="color" alpha="1" default="000000FF"/>
+
+        <param name="opacity" label="Opacity" type="numberautocomplete" default="100" values="0,50,90,100"
+               style="width: 22px;">
+            <unit value="%">%</unit>
+        </param>
+
+        <param name="padding" label="Padding" type="connected" default="0|*|0|*|0|*|0|*|px" translateable="0">
+            <param type="numberautocomplete" style="width: 22px;" values="0,5,10,20,30"/>
+            <param type="numberautocomplete" style="width: 22px;" values="0,5,10,20,30"/>
+            <param type="numberautocomplete" style="width: 22px;" values="0,5,10,20,30"/>
+            <param type="numberautocomplete" style="width: 22px;" values="0,5,10,20,30"/>
+            <param type="units">
+                <unit value="px">px</unit>
+                <unit value="em">em</unit>
+                <unit value="%">%</unit>
+            </param>
+        </param>
+
+        <param name="border" label="Border" type="mixed" default="0|*|solid|*|000000ff"
+               translateable="0">
+            <param type="number" style="width: 22px;">
+                <unit value="px">px</unit>
+            </param>
+            <param type="list" translateable="1">
+                <option value="none">None</option>
+                <option value="dotted">Dotted</option>
+                <option value="dashed">Dashed</option>
+                <option value="solid">Solid</option>
+                <option value="double">Double</option>
+                <option value="groove">Groove</option>
+                <option value="ridge">Ridge</option>
+                <option value="inset">Inset</option>
+                <option value="outset">Outset</option>
+            </param>
+            <param type="color" alpha="1"/>
+        </param>
+
+        <param name="borderradius" label="Border radius" type="numberautocomplete" default="0" values="0,3,5,10,99"
+               style="width: 22px;">
+            <unit value="px">px</unit>
+        </param>
+        <param name="boxshadow" label="Box shadow" type="mixed" default="0|*|0|*|0|*|0|*|000000ff" translateable="0">
+            <param type="number" style="width: 22px;">
+                <unit value="px">px</unit>
+            </param>
+            <param type="number" style="width: 22px;">
+                <unit value="px">px</unit>
+            </param>
+            <param type="number" style="width: 22px;">
+                <unit value="px">px</unit>
+            </param>
+            <param type="number" style="width: 22px;">
+                <unit value="px">px</unit>
+            </param>
+            <param type="color" alpha="1"/>
+        </param>
+
+
+    </params>
+</root>

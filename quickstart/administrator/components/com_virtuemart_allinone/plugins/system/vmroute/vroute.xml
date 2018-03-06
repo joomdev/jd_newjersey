@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="system">
+	<name>plg_vm_route</name>
+	<author>VirtueMart Team</author>
+	<creationDate>April 2015</creationDate>
+	<copyright>Copyright (C) 2005 - 2014 Open Source Matters, 2015 VirtueMart Team. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>team@virtuemart.net</authorEmail>
+	<authorUrl>virtuemart.net</authorUrl>
+	<version>2.5.0</version>
+	<description>PLG_SEF_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="sef">route.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_vm_route.ini</language>
+		<language tag="en-GB">en-GB.plg_vm_route.sys.ini</language>
+	</languages>
+</extension>

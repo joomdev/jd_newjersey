@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<style>
+   <name>Sportson Slider</name>
+   <author>Joomshaper</author>
+   <description>Sportson Slider</description>
+   <version>1.0</version>
+   <files>
+      <public>
+         <filename type="javascript">nivo_slider/jquery.nivo.slider.pack.js</filename>
+         <filename type="stylesheet">sportson/sportson.css</filename>
+      </public>
+      <admin />
+   </files>
+   <config>
+      <fieldset name="Basic">
+         <field type="text" name="pauseTime" id="pauseTime" label="Pause Time" description="How long each slide will show" default="3000" unit="" />
+      </fieldset>
+   </config>
+</style>

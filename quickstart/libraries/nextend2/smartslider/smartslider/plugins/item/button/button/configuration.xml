@@ -1,0 +1,30 @@
+<root>
+  <params name="button-item" label="Button item settings" hidetitle="1">
+    <param name="content" type="text" label="Text" default="Button" style="width:280px;"/>
+    <param name="font" type="font" previewmode="link" set="1100" style="item_buttonstyle" label="Font" class="n2-hidden">
+      <![CDATA[ <div class="{fontClassName}" style="width:{nextend.activeLayer.prop('style').width};"><a style="display:{$('#item_buttonfullwidth').val() == 1 ? 'block' : 'inline-block'};" href="#" class="{styleClassName}" onclick="return false;">{$('#item_buttoncontent').val();}</a></div> ]]>
+    </param>
+    <param name="style" type="style" previewmode="button" set="1100" font="item_buttonfont" label="Style" class="n2-hidden">
+      <![CDATA[ <div class="{fontClassName}" style="width:{nextend.activeLayer.prop('style').width};"><a style="display:{$('#item_buttonfullwidth').val() == 1 ? 'block' : 'inline-block'};" href="#" class="{styleClassName}" onclick="return false;">{$('#item_buttoncontent').val();}</a></div> ]]>
+    </param>
+    <param name="link" type="mixed" default="#|*|_self">
+      <param type="url" label="Link" style="width:236px;"/>
+      <param type="list" label="Target" translateable="1">
+        <option value="_self">Self</option>
+        <option value="_blank">Blank</option>
+        <option value="_top">Top</option>
+      </param>
+      <param type="list" label="Rel">
+        <option value=""/>
+        <option value="nofollow">nofollow</option>
+        <option value="noreferrer">noreferrer</option>
+        <option value="author">author</option>
+        <option value="external">external</option>
+        <option value="help">help</option>
+      </param>
+    </param>
+    <param type="group">
+      <param name="fullwidth" type="onoff" label="Full width" default="1"/>
+      <param name="nowrap" type="onoff" label="No wrap" default="1"/></param>
+  </params>
+</root>

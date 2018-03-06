@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="2.5.0">
+  <name>mod_virtuemart_currencies</name>
+  <creationDate>November 21 2017</creationDate>
+  <author>The VirtueMart Development Team</author>
+  <authorUrl>https://virtuemart.net</authorUrl>
+  <copyright>Copyright (C) 2004 - 2017 Virtuemart Team. All rights reserved.</copyright>
+  <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+  <version>3.2.6</version>
+  <description>MOD_VIRTUEMART_CURRENCIES_DESC</description>
+  <files>
+    <filename module="mod_virtuemart_currencies">mod_virtuemart_currencies.php</filename>
+    <filename>tmpl/default.php</filename>
+    <folder>language</folder>
+  </files>
+  <config>
+    <fields name="params">
+      <fieldset name="basic">
+        <field
+          name="text_before"
+          type="textarea"
+          cols="40"
+          rows="3"
+          default=""
+          label="MOD_VIRTUEMART_CURRENCIES_PRE_TEXT"
+          description="MOD_VIRTUEMART_CURRENCIES_PRE_TEXT_DESC"
+        />
+        <field
+          name="product_currency"
+          type="text"
+          default=""
+          label="MOD_VIRTUEMART_CURRENCIES_DISPLAY"
+          description="MOD_VIRTUEMART_CURRENCIES_DISPLAY_DESC"
+        />
+      </fieldset>
+      <fieldset name="advanced">
+				<field
+					name="layout"
+					type="modulelayout"
+					label="JFIELD_ALT_LAYOUT_LABEL"
+					description="JFIELD_ALT_MODULE_LAYOUT_DESC"
+        />
+        <field
+          name="cache"
+          type="radio"
+          default="0"
+          label="Enable Cache"
+          description="Select whether to cache the content of this module"
+          >
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </field>
+        <field
+          name="moduleclass_sfx"
+          type="text"
+          default=""
+          label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+          description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"
+        />
+        <field
+          name="class_sfx"
+          type="text"
+          default=""
+          label="Menu Class Suffix"
+          description="A suffix to be applied to the css class of the menu items"
+        />
+      </fieldset>
+    </fields>
+  </config>
+  <updateservers>
+      <!-- Note: No spaces or linebreaks allowed between the server tags -->
+      <server type="extension" name="VirtueMart3 mod_virtuemart_currencies Update Site"><![CDATA[http://virtuemart.net/releases/vm3/mod_virtuemart_currencies_update.xml]]></server>
+  </updateservers>
+</extension>

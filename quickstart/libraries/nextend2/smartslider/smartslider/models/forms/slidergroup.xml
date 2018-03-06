@@ -1,0 +1,18 @@
+<root>
+    <params name="slidergroup-settings" type="tabbed" active="1" underlined="1">
+        <params name="publish" type="groupped" label="Publish">
+            <params name="publish" label="Publish" hidetitle="1">
+                <param type="publishslider"/>
+            </params>
+        </params>
+
+        <params name="general" type="groupped" label="General">
+            <params name="slider" label="Group settings" hidetitle="1">
+                <param name="title" type="text" label="Name" default="Group" style="width:200px;"/>
+
+                <param name="thumbnail" label="Thumbnail" type="image" default=""/>
+                <param name="type" type="hidden" default="group" class="n2-hidden"/>
+            </params>
+        </params>
+    </params>
+</root>

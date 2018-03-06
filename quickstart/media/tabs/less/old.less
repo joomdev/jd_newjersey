@@ -1,0 +1,199 @@
+/**
+ * @package         Tabs
+ * @version         5.1.12
+ * 
+ * @author          Peter van Westen <peter@nonumber.nl>
+ * @link            http://www.nonumber.nl
+ * @copyright       Copyright © 2016 NoNumber All Rights Reserved
+ * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+ */
+/*
+ * You can override this stylesheet by creating your own in:
+ * /templates/[YOUR TEMPLATE]/css/tabs/old.min.css
+ */
+@import "../../nnframework/less/init.less";
+@import "bootstrap.less";
+
+.nn_tabs.oldschool {
+	> ul {
+		margin: 5px 10px 0 10px !important;
+		line-height: 1em;
+		zoom: 1; // Fix for IE height issue
+		padding: 0 !important;
+		list-style: none !important;
+		list-style-image: none !important;
+		background: none !important;
+		border: none !important;
+
+		> li {
+			float: left;
+			margin: 5px 2px 0 0 !important;
+			padding: 0;
+			list-style: none !important;
+			list-style-image: none !important;
+			background: none !important;
+			&:before {
+				content: "";
+				margin: 0;
+				padding: 0;
+			}
+			&.active {
+				margin-top: 0 !important;
+			}
+			// Tabs
+			> a,
+			> a:link,
+			> a:visited,
+			> a:active,
+			> a:hover {
+				color: #666666;
+				outline: 0;
+				text-decoration: none;
+			}
+			> a,
+			> a:hover {
+				display: block;
+				width: auto;
+				_width: 0;
+				padding: 5px 5px 0 5px;
+				height: 20px;
+				_height: 25px;
+				font-size: 14px;
+				line-height: 1em !important;
+				font-weight: bold;
+				white-space: nowrap;
+				border: solid 1px @btnBorder;
+				border-bottom: none;
+				text-decoration: none !important;
+				#gradient > .vertical(@white, @white);
+				.border-radius(10px 10px 0 0);
+			}
+			&.blue > a, &.blue > a:hover,
+			&.green > a, &.green > a:hover,
+			&.red > a, &.red > a:hover,
+			&.orange > a, &.orange > a:hover,
+			&.grey > a, &.grey > a:hover,
+			&.gray > a, &.gray > a:hover,
+			&.primary > a, &.primary > a:hover,
+			&.info > a, &.info > a:hover,
+			&.success > a, &.success > a:hover,
+			&.warning > a, &.warning > a:hover,
+			&.danger > a, &.danger > a:hover,
+			&.error > a, &.error > a:hover {
+				padding: 5px 5px 0 5px;
+				border: solid 1px @btnBorder !important;
+				border-bottom: none !important;
+				.border-radius(10px 10px 0 0);
+			}
+
+			@bgcolor: @btnPrimaryBackground;
+			// Active state
+			&.active > a,
+			&.active > a:hover {
+				color: @white;
+				#gradient > .vertical(lighten(@bgcolor, 15%), lighten(@bgcolor, 0%));
+			}
+			// Hover state
+			> a:hover {
+				color: @grayDark;
+				#gradient > .vertical(lighten(@bgcolor, 30%), lighten(@bgcolor, 20%));
+			}
+			// Active state
+			&.active > a,
+			&.active > a:hover {
+				padding-bottom: 5px;
+			}
+
+			span.nn_tabs-title-inactive {
+				display: inherit;
+			}
+			span.nn_tabs-title-active {
+				display: none;
+			}
+			&.active {
+				span.nn_tabs-title-inactive {
+					display: none;
+				}
+				span.nn_tabs-title-active {
+					display: inherit;
+				}
+			}
+		}
+	}
+
+	// Content area
+	> .tab-content {
+		margin: 0;
+		padding: 0;
+		margin-bottom: 10px;
+		border: none !important;
+		> .tab-pane {
+			margin: 0;
+			margin-bottom: 10px;
+			clear: left;
+			padding: 10px 20px;
+			border: 1px solid @btnBorder;
+			.border-radius(10px);
+		}
+	}
+
+	.nn_tabs-scroll {
+		position: relative;
+		visibility: hidden;
+		padding: 0;
+	}
+
+	.nav-tabs-sm {
+		display: none;
+	}
+	.nn_tabs-title {
+		display: none;
+	}
+
+	.tabColor(@name, @color) {
+		> li.@{name} {
+			// Normal state
+			> a {
+				#gradient > .vertical(lighten(@color, 40%), lighten(@color, 30%));
+
+				// Hover state
+				&:hover {
+					#gradient > .vertical(lighten(@color, 30%), lighten(@color, 15%));
+				}
+			}
+			// Active state
+			&.active {
+				> a,
+				> a:hover {
+					#gradient > .vertical(lighten(@color, 15%), lighten(@color, 0%));
+				}
+			}
+		}
+	}
+
+	> ul {
+		// Style: blue
+		.tabColor(~'blue', @btnPrimaryBackground);
+		.tabColor(~'primary', @btnPrimaryBackground);
+
+		// Style: info
+		.tabColor(~'info', @btnInfoBackgroundHighlight);
+
+		// Style: green / success
+		.tabColor(~'green', @btnSuccessBackgroundHighlight);
+		.tabColor(~'success', @btnSuccessBackgroundHighlight);
+
+		// Style: orange / warning
+		.tabColor(~'orange', @btnWarningBackgroundHighlight);
+		.tabColor(~'warning', @btnWarningBackgroundHighlight);
+
+		// Style: red / danger
+		.tabColor(~'red', @btnDangerBackgroundHighlight);
+		.tabColor(~'danger', @btnDangerBackgroundHighlight);
+		.tabColor(~'error', @btnDangerBackgroundHighlight);
+
+		// Style: grey / gray
+		.tabColor(~'grey', #777777);
+		.tabColor(~'gray', #777777);
+	}
+}

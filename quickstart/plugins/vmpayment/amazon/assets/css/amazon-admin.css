@@ -1,0 +1,43 @@
+.amazon_title {
+    margin: 10px 0 5px 0;
+    font-weight: bold;
+    padding: 5px;
+    float: none;
+    clear: both;
+    background-color: #FFFFFF !important;
+    background: url(https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_37x23.jpg) no-repeat;
+    height: 40px;
+    padding-left: 100px !important;
+}
+
+.level1 {
+    background-color: #cacaca !important;
+}
+
+.level2, .level1 {
+    margin: 15px 0 5px 0;
+    font-weight: bold;
+    padding: 5px;
+    float: none;
+    clear: both;
+}
+
+.level2 {
+    background-color: #f0f0f0;
+}
+
+.level3 {
+    font-weight: bold;
+}
+
+.level4 {
+    color: #f0f0f0;
+}
+
+
+.warning {
+    margin-bottom:10px;
+}
+.ipnurl {
+    margin-top:10px;
+}

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension version="2.5" type="plugin" group="vmpayment" method="upgrade">
+    <name>VM Payment - klikandpay</name>
+    <creationDate>November 21 2017</creationDate>
+    <author>The VirtueMart Development Team</author>
+    <authorUrl>https://virtuemart.net</authorUrl>
+    <copyright>Copyright (C) 2004 - 2017 Virtuemart Team. All rights reserved.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <!--version>3.2.6</version-->
+    <version>3.2.6</version>
+    <description><![CDATA[<a href="http://klikandpay.com" target="_blank">klikandpay</a> ]]>
+    </description>
+
+    <files>
+        <filename plugin="klikandpay">klikandpay.php</filename>
+        <folder>klikandpay</folder>
+        <folder>language</folder>
+    </files>
+
+
+    <vmconfig>
+        <fields name="params">
+            <fieldset name="fields" addfieldpath="/administrator/components/com_virtuemart/fields"/>
+            <fieldset name="klikandpay" addfieldpath="/plugins/vmpayment/klikandpay/klikandpay/fields">
+
+                <field type="getklikandpay" level="level1"/>
+                <field class="level1" type="vmtitle" default="VMPAYMENT_KLIKANDPAY_CONF_ACCOUNT_PARAMS"/>
+
+                <field name="shop_mode" type="list" default="N" label="VMPAYMENT_KLIKANDPAY_CONF_SHOP_MODE"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_SHOP_MODE_TIP">
+                    <option value="test">VMPAYMENT_KLIKANDPAY_CONF_SHOP_MODE_TEST</option>
+                    <option value="production">VMPAYMENT_KLIKANDPAY_CONF_SHOP_MODE_PRODUCTION</option>
+                </field>
+                <field class="shop_mode" type="vmtitle" default=""
+                       description="VMPAYMENT_KLIKANDPAY_CONF_SHOP_MODE_WARNING"/>
+
+                <field name="account" class="required" type="text" size="20" default=""
+                       label="VMPAYMENT_KLIKANDPAY_CONF_ACCOUNT" description="VMPAYMENT_KLIKANDPAY_CONF_ACCOUNT_TIP"/>
+
+                <field class="level1" type="vmtitle" default="VMPAYMENT_KLIKANDPAY_CONF_URLS"/>
+
+                <field name="dynamic_return_url" class="required" type="urls" label=""/>
+
+                <field class="level1" type="vmtitle" default="VMPAYMENT_KLIKANDPAY_CONF_ACCOUNT_CONFIGURATION"/>
+
+                <field class="" name="integration" type="list" default="standard"
+                       label="VMPAYMENT_KLIKANDPAY_CONF_INTEGRATION"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_INTEGRATION_TIP">
+                    <option value="standard">VMPAYMENT_KLIKANDPAY_CONF_INTEGRATION_STANDARD</option>
+                    <option value="recurring">VMPAYMENT_KLIKANDPAY_CONF_INTEGRATION_RECURRING</option>
+                    <option value="subscribe">VMPAYMENT_KLIKANDPAY_CONF_INTEGRATION_SUBSCRIBE</option>
+                </field>
+                <field class="integration recurring subscribe" type="vmtitle" default=""
+                       description="VMPAYMENT_KLIKANDPAY_CONF_INTEGRATION_WARNING"/>
+
+                <!-- begin recurring -->
+
+                <field class="integration recurring" name="recurring_number" type="list" default="3"
+                       label="VMPAYMENT_KLIKANDPAY_CONF_RECURRING_NUMBER"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_RECURRING_NUMBER_TIP">
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </field>
+                <field class="integration recurring" name="recurring_deposit" type="text" default=""
+                       label="VMPAYMENT_KLIKANDPAY_CONF_RECURRING_DEPOSIT"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_RECURRING_DEPOSIT_TIP"/>
+
+                <field class="integration recurring" name="recurring_date" type="text" default=""
+                       label="VMPAYMENT_KLIKANDPAY_CONF_RECURRING_DATE"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_RECURRING_DATE_TIP"/>
+                <!-- end recurring -->
+
+                <!-- Subscribe -->
+                <field class="integration subscribe" name="subscribe_number" type="list" default="2"
+                       label="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_NUMBER"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_NUMBER_TIP">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </field>
+                <field
+                        name="subscribe_customfield"
+                        type="subscribe"
+                        label="VMPAYMENT_KLIKANDPAY_CONF_INTEGRATION_SUBSCRIBE_CUSTOMFIELD"
+                        description="VMPAYMENT_KLIKANDPAY_CONF_INTEGRATION_SUBSCRIBE_CUSTOMFIELD_TIP"
+                        class="integration subscribe"
+                        />
+                <field class="subscribe_number subscribe_number_1 level2" type="vmtitle"
+                       default="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_1"/>
+                <field class="subscribe_number subscribe_number_1 required" name="subscribe_id_1" type="text" size="50"
+                       default="" label="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_ID"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_ID_TIP"/>
+                <field class="subscribe_number subscribe_number_1" name="subscribe_test_amount_1" type="text" size="50"
+                       default="" label="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_TEST_AMOUNT"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_TEST_AMOUNT_TIP"/>
+                <field class="subscribe_number subscribe_number_1" name="subscribe_test_period_1" type="text" size="50"
+                       default="" label="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_TEST_PERIOD"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_TEST_PERIOD_TIP"/>
+                <field class="subscribe_number subscribe_number_1" name="subscribe_due_date_amount_1" type="text"
+                       size="50"
+                       default="" label="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_DUE_DATE_AMOUNT"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_DUE_DATE_AMOUNT_TIP"/>
+                <field class="subscribe_number subscribe_number_1" name="subscribe_frequency_1" type="text" size="50"
+                       default=""
+                       label="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_FREQUENCY"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_FREQUENCY_TIP"/>
+
+                <field class="subscribe_number subscribe_number_2 level2" type="vmtitle"
+                       default="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_2"/>
+                <field class="subscribe_number subscribe_number_2 required" name="subscribe_id_2" type="text" size="50"
+                       default="" label="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_ID"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_ID_TIP"/>
+                <field class="subscribe_number subscribe_number_2" name="subscribe_test_amount_2" type="text" size="50"
+                       default="" label="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_TEST_AMOUNT"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_TEST_AMOUNT_TIP"/>
+                <field class="subscribe_number subscribe_number_2" name="subscribe_test_period_2" type="text" size="50"
+                       default="" label="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_TEST_PERIOD"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_TEST_PERIOD_TIP"/>
+                <field class="subscribe_number subscribe_number_2" name="subscribe_due_date_amount_2" type="text"
+                       size="50"
+                       default="" label="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_DUE_DATE_AMOUNT"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_DUE_DATE_AMOUNT_TIP"/>
+                <field class="subscribe_number subscribe_number_2" name="subscribe_frequency_2" type="text" size="50"
+                       default=""
+                       label="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_FREQUENCY"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_FREQUENCY_TIP"/>
+
+                <field class="subscribe_number subscribe_number_3 level2" type="vmtitle"
+                       default="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_3"/>
+                <field class="subscribe_number subscribe_number_3 required" name="subscribe_id_3" type="text" size="50"
+                       default="" label="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_ID"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_ID_TIP"/>
+                <field class="subscribe_number subscribe_number_3" name="subscribe_test_amount_3" type="text" size="50"
+                       default="" label="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_TEST_AMOUNT"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_TEST_AMOUNT_TIP"/>
+                <field class="subscribe_number subscribe_number_3" name="subscribe_test_period_3" type="text" size="50"
+                       default="" label="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_TEST_PERIOD"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_TEST_PERIOD_TIP"/>
+                <field class="subscribe_number subscribe_number_3" name="subscribe_due_date_amount_3" type="text"
+                       size="50"
+                       default="" label="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_DUE_DATE_AMOUNT"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_DUE_DATE_AMOUNT_TIP"/>
+                <field class="subscribe_number subscribe_number_3" name="subscribe_frequency_3" type="text" size="50"
+                       default=""
+                       label="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_FREQUENCY"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_FREQUENCY_TIP"/>
+
+                <!-- end subscribe -->
+
+                <field class="level1" type="vmtitle" default="VMPAYMENT_KLIKANDPAY_CONF_ORDERSTATUS_OPTIONS"/>
+
+                <field class="" name="status_success" type="vmorderstate" scope="com_virtuemart"
+                       default="C"
+                       label="VMPAYMENT_KLIKANDPAY_CONF_STATUS_SUCCESS"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_STATUS_SUCCESS_TIP"/>
+
+                <field class="" name="status_waiting" type="vmorderstate" scope="com_virtuemart"
+                       default="U"
+                       label="VMPAYMENT_KLIKANDPAY_CONF_STATUS_WAITING"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_STATUS_WAITING_TIP"/>
+
+
+                <field class="integration recurring" name="status_success_recurring" type="vmorderstate"
+                       scope="com_virtuemart"
+                       default="C"
+                       label="VMPAYMENT_KLIKANDPAY_CONF_STATUS_RECURRING"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_STATUS_RECURRING_TIP"/>
+                <field class="integration recurring" name="status_success_recurring_end" type="vmorderstate"
+                       scope="com_virtuemart" default="C"
+                       label="VMPAYMENT_KLIKANDPAY_CONF_STATUS_RECURRING_END"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_STATUS_RECURRING_END_TIP"/>
+
+
+                <field class="integration subscribe" name="status_success_subscribe" type="vmorderstate"
+                       scope="com_virtuemart"
+                       default="C"
+                       label="VMPAYMENT_KLIKANDPAY_CONF_STATUS_RECURRING"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_STATUS_SUBSCRIBE_TIP"/>
+                <field class="integration subscribe" type="vmtitle" default=""
+                       description="VMPAYMENT_KLIKANDPAY_CONF_ORDERSTATUS_CREATE_WARNING"/>
+
+
+                <field class="" name="status_canceled" type="vmorderstate" scope="com_virtuemart" default="X"
+                       label="VMPAYMENT_KLIKANDPAY_CONF_STATUS_CANCEL"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_STATUS_CANCEL_TIP"/>
+
+
+                <field class="level1" type="vmtitle" default="VMPAYMENT_KLIKANDPAY_CONF_OPTIONAL_PARAMS"/>
+
+                <!-- Restrictions -->
+                <!-- ============ -->
+                <field type="vmtitle" default="VMPAYMENT_KLIKANDPAY_CONF_RESTRICTIONS_SECTION"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_RESTRICTIONS_SECTION_TIP"/>
+                <field name="countries" type="vmcountries" scope="com_virtuemart" default=""
+                       label="VMPAYMENT_KLIKANDPAY_CONF_COUNTRIES"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_COUNTRIES_TIP"/>
+                <field name="min_amount" type="text" label="VMPAYMENT_KLIKANDPAY_CONF_MIN_AMOUNT"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_MIN_AMOUNT_TIP"/>
+                <field name="max_amount" type="text" label="VMPAYMENT_KLIKANDPAY_CONF_MAX_AMOUNT"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_MAX_AMOUNT_TIP"/>
+
+                <!-- Currencies -->
+                <!-- ============ -->
+                <field type="vmtitle" default="VMPAYMENT_KLIKANDPAY_CONF_CURRENCIES_SECTION"/>
+
+                <field name="payment_currency" type="vmacceptedcurrency" default=""
+                       label="VMPAYMENT_KLIKANDPAY_CONF_CURRENCY"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_CURRENCY_TIP"/>
+                <field name="email_currency" type="list" default="vendor"
+                       label="VMPAYMENT_KLIKANDPAY_CONF_EMAIL_CURRENCY"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_EMAIL_CURRENCY_TIP">
+                    <option value="vendor">VMPAYMENT_KLIKANDPAY_CONF_EMAIL_CURRENCY_VENDOR</option>
+                    <option value="payment">VMPAYMENT_KLIKANDPAY_CONF_EMAIL_CURRENCY_PAYMENT</option>
+                </field>
+
+
+                <!-- Discounts -->
+                <!-- ============ -->
+                <field type="vmtitle" default="VMPAYMENT_KLIKANDPAY_CONF_DISCOUNT_FEE_SECTION"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_DISCOUNT_FEE_SECTION_TIP"/>
+                <field name="cost_per_transaction" type="text" label="VMPAYMENT_KLIKANDPAY_CONF_COST_PER_TRANSACTION"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_COST_PER_TRANSACTION_TIP"/>
+                <field name="cost_percent_total" type="text" label="VMPAYMENT_KLIKANDPAY_CONF_COST_PERCENT_TOTAL"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_COST_PERCENT_TOTAL_TIP"/>
+                <field name="tax_id" type="vmtaxes" scope="com_virtuemart" label="VMPAYMENT_KLIKANDPAY_CONF_TAX"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_TAX_TIP"/>
+
+
+                <field type="vmtitle" default="VMPAYMENT_KLIKANDPAY_CONF_TEMPLATE_SECTION"
+                       description=""/>
+                <field name="payment_logos" type="vmfiles" multiple="true" label="VMPAYMENT_KLIKANDPAY_CONF_LOGOS"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_LOGOS_TIP"
+                       directory="/images/virtuemart/payment"
+                       default="default" hide_default="1" hide_none="1"
+                       stripext="0" exclude="^_"/>
+
+                <field type="vmtitle" default="VMPAYMENT_KLIKANDPAY_CONF_DEBUG_SECTION"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_DEBUG_SECTION_TIP"/>
+                <field name="debug" type="radio" default="0" label="VMPAYMENT_KLIKANDPAY_CONF_DEBUG_SECTION">
+                    <option value="0">COM_VIRTUEMART_NO</option>
+                    <option value="1">COM_VIRTUEMART_YES</option>
+                </field>
+                <field name="log" type="radio" default="0" label="VMPAYMENT_KLIKANDPAY_CONF_LOG"
+                       description="VMPAYMENT_KLIKANDPAY_CONF_LOG_TIP">
+                    <option value="0">COM_VIRTUEMART_NO</option>
+                    <option value="1">COM_VIRTUEMART_YES</option>
+                </field>
+            </fieldset>
+        </fields>
+    </vmconfig>
+    <updateservers>
+        <!-- Note: No spaces or linebreaks allowed between the server tags -->
+        <server type="extension" name="VirtueMart plg_vmpayment_klikandpay Update Site"><![CDATA[http://virtuemart.net/releases/vm3/plg_vmpayment_klikandpay_update.xml]]></server>
+    </updateservers>
+</extension>

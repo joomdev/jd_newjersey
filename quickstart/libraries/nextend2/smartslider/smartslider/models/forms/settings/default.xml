@@ -1,0 +1,70 @@
+<root>
+    <params name="general" label="General settings">
+        <param type="token"/>
+        <param type="onoff" name="beacon" label="Show help beacon" default="1"/>
+        <param type="onoff" name="discover" label="Show discover modal" default="1"/>
+        <param type="onoff" name="autoupdatecheck" label="Automatic update check" default="1"/>
+        <param type="mixed" label="Translate url" name="translate-url" default="|*|">
+            <param type="text" label="From" style="width:200px;"/>
+            <param type="text" label="To" style="width:200px;"/>
+        </param>
+        <param type="textarea" name="external-css-files" label="Editor - additional CSS files" default=""
+               style2="width:300px; height: 100px; resize: vertical;"/>
+        <param type="onoff" name="hardware-acceleration" label="Hardware acceleration on sliders" default="1"/>
+        <param type="onoff" name="slide-as-file" label="Send slide as file" default="0"/>
+        <param type="onoff" name="preview-new-window" label="Open preview in new window" default="0"/>
+        <param type="onoff" name="editor-icon" label="Show editor icon" default="1"/>
+        <param type="onoff" name="wp-adminbar" label="Show in WordPress admin bar" default="1"/>
+        <param type="onoff" name="yoast-sitemap" label="YOAST SEO sitemap - add images" default="1"/>
+        <param type="onoff" name="force-rtl-backend" label="Force Joomla RTL backend" default="0"/>
+    </params>
+    <params name="reponsive" label="Responsive mode">
+        <param type="radio" label="Based on" name="responsive-basedon" default="combined">
+            <option value="device">Real device detection</option>
+            <option value="screen">Maximum screen width</option>
+            <option value="combined">Combined</option>
+        </param>
+        <param type="group" label="Maximum screen width">
+            <param type="text" name="responsive-screen-width-desktop-portrait" label="Desktop portrait"
+                   style="width:40px;" default="1200">
+                <unit>px</unit>
+            </param>
+            <param type="text" name="responsive-screen-width-tablet-landscape" label="Tablet landscape"
+                   style="width:40px;" default="1024">
+                <unit>px</unit>
+            </param>
+            <param type="text" name="responsive-screen-width-tablet-portrait" label="Tablet portrait"
+                   style="width:40px;" default="800">
+                <unit>px</unit>
+            </param>
+            <param type="text" name="responsive-screen-width-mobile-LANDSCAPE" label="Mobile landscape"
+                   style="width:40px;" default="740">
+                <unit>px</unit>
+            </param>
+            <param type="text" name="responsive-screen-width-mobile-portrait" label="Mobile portrait"
+                   style="width:40px;" default="440">
+                <unit>px</unit>
+            </param>
+        </param>
+        <param type="group" label="Default width percentage">
+            <param type="number" name="responsive-default-ratio-tablet-portrait" label="Tablet portrait"
+                   style="width:40px;" default="70" max="100" min="0">
+                <unit>%</unit>
+            </param>
+            <param type="number" name="responsive-default-ratio-mobile-portrait" label="Mobile portrait"
+                   style="width:40px;" default="50" max="100" min="0">
+                <unit>%</unit>
+            </param>
+        </param>
+        <param type="onoff" name="serversidemobiledetect" label="Server side mobile detect" default="0"/>
+    </params>
+    <params name="cache" label="Cache">
+        <param type="button" label="Clear" name="clear-cache" default="Clear cache">
+            <app>smartslider</app>
+            <queries>
+                <controller>settings</controller>
+                <action>clearcache</action>
+            </queries>
+        </param>
+    </params>
+</root>

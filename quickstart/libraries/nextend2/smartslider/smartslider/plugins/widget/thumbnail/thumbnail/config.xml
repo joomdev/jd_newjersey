@@ -1,0 +1,16 @@
+<root>
+  <params name="widgetsthumbnail" label="" hidetitle="1">
+    <param name="widgetthumbnail" type="widgetpluginmatrix" ajaxurl="slider/renderform" label="Thumbnail" group="sswidgetthumbnail" method="thumbnail" file="config.xml" default="disabled"/>
+    <param type="group" label="Shows on">
+      <param name="widget-thumbnail-display-hover" type="onoff" label="Hover" default="0"/></param>
+    <param type="group" label="Thumbnail size">
+      <param name="widget-thumbnail-width" type="numberautocomplete" label="Width" default="100" style="width:30px" values="60,100,150,200">
+        <unit>px</unit>
+      </param>
+      <param name="widget-thumbnail-height" type="numberautocomplete" label="Height" default="60" style="width:30px" values="60,100,150,200">
+        <unit>px</unit>
+      </param>
+    </param>
+  </params>
+  <params name="widget-thumbnail-placeholder" label="" id="nextend-widgetthumbnail-panel" type="placeholder"></params>
+</root>

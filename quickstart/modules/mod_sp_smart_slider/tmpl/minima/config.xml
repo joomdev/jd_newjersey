@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<style>
+  <name>Minima</name>
+  <author>Joomshaper</author>
+  <description>Minima layout for SP Smart Slider</description>
+  <version>1.0</version>
+  <files>
+    <public>
+      <filename type="javascript">minima/js/minima.slider.js</filename>
+      <filename type="stylesheet">minima/css/sp-smart-minima.css</filename>
+    </public>
+    <admin>
+    </admin>
+  </files>
+  <config>
+	<fieldset name="Basic">
+		<field name="autoplay" type="list" default="1" label="Auto Play" description="Whether to enable or disable autoplay">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</field>
+		<field name="interval" type="text" default="5000" label="Interval" description="Set the slide interval between two slides in ms." />
+    </fieldset>
+  </config>  
+ </style>

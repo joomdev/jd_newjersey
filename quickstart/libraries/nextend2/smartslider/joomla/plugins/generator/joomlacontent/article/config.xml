@@ -1,0 +1,45 @@
+<root>
+    <params name="joomlacontent" label="Filter">
+        <param type="group" label="Source">
+            <param name="sourcecategories" label="Categories" type="joomlacategories" default="0" multiple="1"
+                   size="10"/>
+            <param name="sourcetags" label="Tags" type="joomlatags" default="0" multiple="1"
+                   size="10"/>
+        </param>
+        <param type="group" label="Limit" class="n2-expert">
+            <param name="sourcefeatured" label="Featured" type="filter" default="0"/>
+            <param name="sourceuserid" label="User id" type="text" default=""/>
+            <param name="sourcearticleids" label="Included article ids" type="text" default=""/>
+            <param name="sourcearticleidsexcluded" label="Excluded article ids" type="text" default=""/>
+            <param name="sourcelanguage" label="Language filter" type="text" default="*"/>
+            <param name="sourceaccesslevels" label="Joomla access level" type="joomlaaccesslevels" default="0" multiple="1"
+                   size="6"/>
+            <param name="sourcefields" label="Ask down fields" type="onoff" default="0" tip="Joomla 3.7.0 introduced 'Fields' into articles, to let you create custom fields, where you can enter your text, image or other content. If you turn this option on, with your articles those will be asked down too."/>
+        </param>
+        <param type="group" label="Date and time">
+            <param name="sourcedateformat" label="Date format" type="text" default="Y-m-d"/>
+            <param name="sourcetimeformat" label="Time format" type="text" default="G:i"/>
+            <param name="sourcetranslatedate" default="January->January||February->February||March->March" type="textarea" style2="width:300px;height: 100px;" label="Translate date and time"/>
+        </param>
+    </params>
+    <params name="order" label="Order by">
+        <param name="joomlaorder" type="mixed" label="Order" default="con.created|*|desc">
+            <param type="list" label="Field" translateable="1">
+                <option value="">None</option>
+                <option value="con.title">Title</option>
+                <option value="cat_title">Category title</option>
+                <option value="created_by_alias">User name</option>
+                <option value="con.featured">Featured</option>
+                <option value="con.ordering">Ordering</option>
+                <option value="con.hits">Hits</option>
+                <option value="con.created">Creation time</option>
+                <option value="con.modified">Modification time</option>
+                <option value="cf.ordering">Featured article ordering</option>
+            </param>
+            <param type="radio" label="order">
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+            </param>
+        </param>
+    </params>
+</root>

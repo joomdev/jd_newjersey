@@ -1,0 +1,169 @@
+/**
+ * @package JD-NEW-JERSEY
+ * @author JoomDev https://www.joomdev.com/
+ * @copyright Copyright (C) 2008 - 2017 Joomdev.com. All rights reserved.
+ * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
+*/
+
+/*----- START START Jevents  -----*/
+
+#jevents{
+	ul.actions{
+		li{
+			[class^="icon-"], .jevbootstrap [class*=" icon-"]{
+				background:none;
+			}
+			a{
+				color: fade(@secondary_color, 80%);
+				&:hover{
+					color: @major_color;
+				}
+			}
+		}
+	}
+	#jevents_header{
+		h2.contentheading{
+			font-size: 35px;
+			font-weight: normal;
+			letter-spacing: normal;
+			line-height: normal;
+			margin-bottom: 0px;
+			margin-top: 0;
+			padding-bottom: 0px;
+		}
+	}
+	div.ev_adminpanel{
+		display:none;
+	}
+	#jevents_body{
+		background-color: transparent;
+		border:none;
+		.month_date{
+			text-align: center;
+			padding: 0px 0px 30px;
+		}
+		.new-navigation{
+			background: @pre-bg;
+			border: 1px solid fade(@secondary_color, 80%)2;
+			border-radius: 6px;
+			color: fade(@secondary_color, 80%);
+			margin-bottom: 10px;
+			padding: 10px 0;
+			.nav-items{
+				div{
+					border: none;
+					border-radius: 0;
+					a{
+						border-bottom: 2px solid rgba(0, 0, 0, 0);
+						color: fade(@secondary_color, 80%);
+						margin: 0 6px;
+						padding: 8px 5px;
+						text-decoration: none;
+						font-size: 18px;
+						font-weight: 600;
+						&:hover{
+							background: rgba(0, 0, 0, 0);
+							border-color: currentcolor currentcolor @major_color;
+							border-radius: 0;
+							border-style: none none solid;
+							border-width: medium medium 2px;
+						}
+						&:focus{
+							outline:none;
+						}
+					}
+				}
+				div.active{
+					a{
+						background: rgba(0, 0, 0, 0);
+						border-color: currentcolor currentcolor @major_color;
+						border-radius: 0;
+						border-style: none none solid;
+						border-width: medium medium 2px;
+						&:focus{
+							outline: none;
+						}
+					}
+				}
+			}
+		}
+		.jev_toprow{
+			.jev_header2{
+				background: transparent;
+			}
+			.currentmonth{
+				border: none;
+				padding: 10px 0;
+				display: inline-block;
+				width: 100%;
+			}
+			.previousmonth,.nextmonth{
+				display: none;
+			}
+		}
+		.event_legend_container{
+			div{
+				a{
+					&:hover,&:focus{
+						opacity: 0.5;
+					}
+				}
+			}
+		}
+		.jev_pagination{
+			input.button{
+				background: @major_color;
+				border: 2px solid rgba(0, 0, 0, 0);
+				border-radius: 0;
+				box-shadow: none;
+				color: #fff;
+				font-size: 15px;
+				font-weight: bold;
+				height: auto;
+				line-height: 19px;
+				padding: 9px 20px;
+				text-shadow: none;
+				text-transform: uppercase;
+				&:hover{
+					background: fade(@major_color, 80%);
+					border: 2px solid rgba(0, 0, 0, 0);
+					color: #fff;
+				}
+			}
+			ul.pagination-list{
+				li{
+					[class^="icon-"], .jevbootstrap [class*=" icon-"]{
+						background: none;
+					}
+				}
+			}
+		}
+		#jumpto{
+			margin: 35px 0 0;
+			button{
+				background: @major_color;
+				border: 2px solid rgba(0, 0, 0, 0);
+				border-radius: 0;
+				box-shadow: none;
+				color: #fff;
+				font-size: 15px;
+				font-weight: bold;
+				height: auto;
+				line-height: 19px;
+				padding: 9px 20px;
+				text-shadow: none;
+				text-transform: uppercase;
+				line-height: normal;
+				position: relative;
+				top: -4px;
+				&:hover{
+					background: fade(@major_color, 80%);
+					border: 2px solid rgba(0, 0, 0, 0);
+					color: #fff;
+				}
+			}
+		}
+	}
+}
+
+/* End */ 

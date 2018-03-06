@@ -1,0 +1,25 @@
+/*
+# mod_sp_tweet - Twitter Module by JoomShaper.com
+# -----------------------------------------------
+# Author    JoomShaper http://www.joomshaper.com
+# Copyright (C) 2010 - 2014 JoomShaper.com. All Rights Reserved.
+# license - GNU/GPL V2 or Later
+# Websites: http://www.joomshaper.com
+*/
+.sp-tweet-list {padding:0;margin:5px 0;}
+.sp-tweet-list .bubble-tl{background:url(../images/list.png) no-repeat 0 0}
+.sp-tweet-list .bubble-tr{background:url(../images/list.png) no-repeat 100% -7px;padding:0 7px 0 14px}
+.sp-tweet-list .bubble-tm{background:url(../images/list.png) repeat-x 0 -14px;height:7px}
+.sp-tweet-list .bubble-l{background:url(../images/list-lr.png) no-repeat 0 0}
+.sp-tweet-list .bubble-r{background:url(../images/list-lr.png) no-repeat 100% 0;padding:0 7px 0 14px}
+.sp-tweet-list .bubble-m{background:#FFF;overflow:hidden;padding:5px 10px}
+.sp-tweet-list .bubble-bl{background:url(../images/list.png) no-repeat 0 -21px}
+.sp-tweet-list .bubble-br{background:url(../images/list.png) no-repeat 100% -28px;padding:0 7px 0 14px}
+.sp-tweet-list .bubble-bm{background:url(../images/list.png) repeat-x 0 -35px;height:7px}
+.sp-tweet-list .tweet-user-info{float:left;margin-top:10px;overflow:hidden}
+.sp-tweet-list .tweet-user-info img.tweet-avatar{background:#FFF;border:1px solid #C4C4C4;display:block;float:left;margin:0 5px;padding:3px}
+.sp-tweet-list .date,.sp-tweet-list .source{font-size:10px}
+.sp-tweet-list .date{float:left}
+.sp-tweet-list .source{float:right}
+a.followme {display:block;float:right;background:url(../images/followme.png) no-repeat 0 5px;margin-top:10px;padding-left:20px;line-height:140%;margin:5px}
+.sp-tweet-clr {clear:both}

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.2" client="site" method="upgrade">
+	<name>Skillset</name>
+	<author>Joomla Bamboo</author>
+	<creationDate>March 19, 2014</creationDate>
+	<copyright>Copyright (c) 2014 Copyright (C), Joomlabamboo. All Rights Reserved.. All rights reserved.</copyright>
+		<license>GNU General Public License version 2 or later</license>
+	<authorEmail>design@joomlabamboo.com</authorEmail>
+	<authorUrl>www.joomlabamboo.com</authorUrl>
+	<version>v1.2.0</version>
+	<description><![CDATA[
+	
+
+		<h3>A css3 and jQuery animated skillset graph.</h3>
+		<p style="color:#555; margin-bottom:60px">Based on the script by <a href="http://w3lessons.info/2013/06/04/skill-bar-with-jquery-css3/">W3 LEssons</a> and brought to you by <a href="http://www.joomlabamboo.com">Joomlabamboo</a>.</p>
+	]]>
+	</description>
+	<files>
+		<filename module="mod_skillset">mod_skillset.php</filename>
+		<folder>css</folder>
+		<filename>index.html</filename>
+		<filename>helper.php</filename>
+		<folder>tmpl</folder>
+		<folder>fields</folder>
+		<folder>js</folder>
+	</files>
+	<config>
+		<fields name="params" addfieldpath="/modules/mod_skillset/fields">
+			<fieldset  name="basic" group="general" label="General Settings">
+				<field name="display" type="radio" default="1" label="Display" description="Determines whether the output of the module is in a line graph or counts through numbers." class="btn-group">
+				  <option value="skills">Skills</option>
+				  <option value="count">Count</option>
+				  <option value="circular">Circular</option>
+				</field>
+				<field name="color" type="color" label="" description="" />
+            	<field name="scripts" type="scripts" label="" description="" />
+				<field name="skills" type="text" default="" label="Skills" description=""></field>
+			</fieldset>
+			<fieldset  name="advanced" group="advanced" label="Advanced Settings">
+				<field name="jquery-load" type="radio" default="1" label="Load jQuery?" description="When enabled the module triggers the jQuery behaviour in Joomla 3 and loads an instance of the jQuery library in Joomla 2.5. You need to have jQuery loaded on the page once in your template so if you already have this then ensure this option is disabled. If using Joomla3 and your template or another extension has already called this behaviour this setting will have no effect." class="btn-group">
+				  <option value="0">No</option>
+				  <option value="1">Yes</option>
+				</field>
+				<field name="css-load" type="radio" default="1" label="Load CSS?" description="When enabled the module loads a small css file with the styling required for the module. If you want to cut down on css fiels loaded on your site then you can disable this option and copy the contents of the /mod_skillset/css/skillset.css file into your template." class="btn-group">
+				  <option value="0">No</option>
+				  <option value="1">Yes</option>
+				</field>
+				<field name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="PARAMMODULECLASSSUFFIX" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

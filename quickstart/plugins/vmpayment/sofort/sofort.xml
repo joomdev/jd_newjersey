@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension version="2.5" type="plugin" group="vmpayment" method="upgrade">
+    <name>Sofort</name>
+    <creationDate>November 21 2017</creationDate>
+    <author>The VirtueMart Development Team</author>
+    <authorUrl>https://virtuemart.net</authorUrl>
+    <copyright>Copyright (C) 2004 - 2017 Virtuemart Team. All rights reserved.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <version>3.2.6</version>
+    <description><![CDATA[<a href="http:/www.sofort.com" target="_blank">Sofort</a> is a popular
+	payment provider and available in many countries. ]]>
+    </description>
+
+    <files>
+        <filename plugin="sofort">sofort.php</filename>
+        <folder>language</folder>
+    </files>
+    <languages>
+        <language tag="en-GB">en-GB.plg_vmpayment_sofort.ini</language>
+    </languages>
+    <vmconfig>
+    <fields name="params">
+
+    <fieldset name="basic" addfieldpath="/plugins/vmpayment/sofort/sofort/fields">
+         <field type="spacer" default="VMPAYMENT_SOFORT_PAYMENT_TITLE" level="level1"/>
+         <field type="getsofort" level="level1"/>
+
+         <field type="spacer" default="" level="level1"/>
+         <field type="vmtitle" default="VMPAYMENT_SOFORT_PAYMENT_SETTINGS" level="level1"/>
+         <field name="payment_logos" type="vmfiles" multiple="true" label="VMPAYMENT_SOFORT_LOGOS"
+               description="VMPAYMENT_SOFORT_LOGOS_DESC"
+               directory="/images/virtuemart/payment"
+               default="default" hide_default="1" hide_none="1"
+               stripext="0" exclude="^_"/>
+         <field type="vmtitle" default="VMPAYMENT_SOFORT_PARAMS" level="level1"/>
+         <field type="text" name="configuration_key" size="100" label="VMPAYMENT_SOFORT_CONFIGURATION_KEY"
+               default="" description="VMPAYMENT_SOFORT_CONFIGURATION_KEY_DESC"/>
+         <field name="buyer_protection" type="radio" default="0" label="VMPAYMENT_SOFORT_BUYER_PROTECTION"
+               description="VMPAYMENT_SOFORT_BUYER_PROTECTION_DESC">
+            <option value="0">COM_VIRTUEMART_NO</option>
+            <option value="1">COM_VIRTUEMART_YES</option>
+         </field>
+
+         <field type="vmtitle" default="VMPAYMENT_SOFORT_PAYMENT_PAGE" level="level1"/>
+         <field name="status_pending" type="vmorderstate" scope="com_virtuemart" default="U"
+               label="VMPAYMENT_SOFORT_STATUS_PENDING" description="VMPAYMENT_SOFORT_STATUS_PENDING_DESC"/>
+         <field name="status_received" type="vmorderstate" scope="com_virtuemart" default="C"
+               label="VMPAYMENT_SOFORT_STATUS_RECEIVED" description="VMPAYMENT_SOFORT_STATUS_RECEIVED_DESC"/>
+         <field name="status_loss" type="vmorderstate" scope="com_virtuemart" default="X"
+               label="VMPAYMENT_SOFORT_STATUS_LOSS" description="VMPAYMENT_SOFORT_STATUS_LOSS_DESC"/>
+         <field name="status_refunded" type="vmorderstate" scope="com_virtuemart" default="R"
+               label="VMPAYMENT_SOFORT_STATUS_REFUNDED" description="VMPAYMENT_SOFORT_STATUS_REFUNDED_DESC"/>
+
+
+
+         <field type="spacer" default="VMPAYMENT_SOFORT_CURRENCIES" level="level1"/>
+        <!-- BY DEFAULT paypal currency= vendor currency -->
+         <field name="payment_currency" type="vmacceptedcurrency" default="" label="VMPAYMENT_SOFORT_CURRENCY"
+               description="VMPAYMENT_SOFORT_CURRENCY_DESC"/>
+         <field name="email_currency" type="list" default="vendor" label="VMPAYMENT_SOFORT_EMAIL_CURRENCY"
+               description="VMPAYMENT_SOFORT_EMAIL_CURRENCY_DESC">
+            <option value="vendor">VMPAYMENT_SOFORT_EMAIL_CURRENCY_VENDOR</option>
+            <option value="payment">VMPAYMENT_SOFORT_EMAIL_CURRENCY_PAYMENT</option>
+         </field>
+
+
+         <field type="vmtitle" default="VMPAYMENT_SOFORT_RESTRICTIONS" level="level1"/>
+         <field name="countries" type="vmcountries" scope="com_virtuemart" default="" multiple="true" label="VMPAYMENT_SOFORT_COUNTRIES"
+               description="VMPAYMENT_SOFORT_COUNTRIES_DESC"/>
+         <field name="min_amount" type="text" label="VMPAYMENT_SOFORT_MIN_AMOUNT"
+               description="VMPAYMENT_SOFORT_MIN_AMOUNT_DESC"/>
+         <field name="max_amount" type="text" label="VMPAYMENT_SOFORT_MAX_AMOUNT"
+               description="VMPAYMENT_SOFORT_MAX_AMOUNT_DESC"/>
+         <field name="cost_per_transaction" type="text" label="VMPAYMENT_SOFORT_COST_PER_TRANSACTION"
+               description="VMPAYMENT_SOFORT_COST_PER_TRANSACTION_DESC"/>
+         <field name="cost_percent_total" type="text" label="VMPAYMENT_SOFORT_COST_PERCENT_TOTAL"
+               description="VMPAYMENT_SOFORT_COST_PERCENT_TOTAL_DESC"/>
+         <field name="tax_id" type="vmtaxes" scope="com_virtuemart" label="VMPAYMENT_SOFORT_TAX"
+               description="VMPAYMENT_SOFORT_TAX_DESC"/>
+         <field type="spacer" default="" level="level1"/>
+
+         <field name="debug" type="radio" default="0" label="VMPAYMENT_SOFORT_DEBUG"
+               description="VMPAYMENT_SOFORT_DEBUG_DESC">
+            <option value="0">COM_VIRTUEMART_NO</option>
+            <option value="1">COM_VIRTUEMART_YES</option>
+         </field>
+        <field name="log" type="radio" default="0" label="VMPAYMENT_SOFORT_LOG"
+               description="VMPAYMENT_SOFORT_LOG_DESC">
+            <option value="0">COM_VIRTUEMART_NO</option>
+            <option value="1">COM_VIRTUEMART_YES</option>
+        </field>
+        <field name="sofort_log" type="radio" default="0" label="VMPAYMENT_SOFORT_NOTIFICATION_LOG"
+               description="VMPAYMENT_SOFORT_NOTIFICATION_LOG_TIP">
+            <option value="0">COM_VIRTUEMART_NO</option>
+            <option value="1">COM_VIRTUEMART_YES</option>
+        </field>
+    </fieldset>
+    </fields>
+    </vmconfig>
+
+    <updateservers>
+        <!-- Note: No spaces or linebreaks allowed between the server tags -->
+        <server type="extension" name="VirtueMart plg_vmpayment_sofort Update Site"><![CDATA[http://virtuemart.net/releases/vm3/plg_vmpayment_sofort_update.xml]]></server>
+    </updateservers>
+
+</extension>

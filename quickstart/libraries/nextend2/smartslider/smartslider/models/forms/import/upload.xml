@@ -1,0 +1,9 @@
+<root>
+  <params name="import" label="Import slider">
+    <param name="import-file" type="upload" label="Import file"/>
+    <param name="local-import-file" type="tmplist" extension="ss3" label="Local import file"/>
+    <param name="restore" type="onoff" label="Restore slider" default="0" tip="Delete the slider with the same ID"/>
+    <param name="delete" type="onoff" label="Delete file after import" default="0"/>
+    <param type="token"/>
+  </params>
+</root>

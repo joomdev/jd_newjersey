@@ -1,0 +1,353 @@
+<root>
+  <params name="slide-editor-settings" classes="n2-sidebar-tab-switcher n2-tab-bordered n2-sidebar-tab-bg" type="tabbedsidebar" active="1" underlined="1">
+    <params name="item" type="grouppedsidebar" tip="Layer" icon="n2-i-window-layer">
+      <params name="itemproperties" type="raw" hidetitle="1">
+        <param name="items" type="items" label="" default=""/>
+      </params>
+    </params>
+    <params name="row" type="grouppedsidebar" tip="Row" icon="n2-i-window-layer">
+      <params name="row-properties" hidetitle="1">
+        <param type="columns" name="row-columns" label="Columns" default="1"/>
+        <param type="group">
+          <param name="row-gutter" label="Gutter" type="numberautocompleteslider" style="width: 22px;" min="0" max="300" slmax="160" step="1">
+            <attribute type="data-devicespecific"/>
+            <unit value="px">px</unit>
+          </param>
+          <param name="row-padding" label="Padding" type="marginpadding" default="10|*|10|*|10|*|10|*|px+" translateable="0">
+            <attribute type="data-devicespecific"/>
+            <param type="numberautocomplete" style="width: 22px;" values="0,5,10,20,30"/>
+            <param type="numberautocomplete" style="width: 22px;" values="0,5,10,20,30"/>
+            <param type="numberautocomplete" style="width: 22px;" values="0,5,10,20,30"/>
+            <param type="numberautocomplete" style="width: 22px;" values="0,5,10,20,30"/>
+            <param type="units">
+              <unit value="px+">px+</unit>
+              <unit value="px">px</unit>
+            </param>
+          </param>
+        </param>
+        <param type="columns" name="row-columns" label="Columns" default="1"/>
+        <param type="group">
+          <param name="row-wrap-after" label="Wrap after" type="numberautocompleteslider" style="width: 22px;" min="0" max="10" slmax="10" step="1">
+            <attribute type="data-devicespecific"/>
+            <unit value="columns">columns</unit>
+          </param>
+          <param name="row-fullwidth" type="onoff" label="Full width" default="1"/>
+          <param name="row-stretch" type="onoff" label="Stretch" default="0"/></param>
+        <param type="group">
+          <param name="row-inneralign" type="inneralign" label="Inner align" default="inherit">
+            <attribute type="data-devicespecific"/>
+          </param>
+        </param>
+        <param type="group">
+          <param name="row-background-image" type="image" label="Background image" default=""/>
+          <param name="row-background-focus-x" type="text" label="Focus X" default="50" max="100" min="0" style="width: 22px;">
+            <unit value="%">%</unit>
+          </param>
+          <param name="row-background-focus-y" type="text" label="Focus Y" default="50" max="100" min="0" style="width: 22px;">
+            <unit value="%">%</unit>
+          </param>
+          <param name="row-background-parallax" type="onoff" label="Parallax" default="0"/></param>
+        <param type="group">
+          <param name="row-background-color" type="color" alpha="1" label="Background color" default="ffffff00"/>
+          <param name="row-background-gradient" type="list" label="Gradient" default="off" translateable="1">
+            <option value="off">Off</option>
+            <option value="vertical">&#x2193;</option>
+            <option value="horizontal">&#x2192;</option>
+            <option value="diagonal1">&#x2197;</option>
+            <option value="diagonal2">&#x2198;</option>
+          </param>
+          <param name="row-background-color-end" type="color" alpha="1" label="Color end" default="ffffff00"/></param>
+        <param name="row-border-radius" label="Border radius" type="numberautocomplete" default="0" values="0,3,5,10,99" style="width: 22px;">
+          <unit value="px">px</unit>
+        </param>
+        <param name="row-boxshadow" label="Box shadow" type="connected" default="0|*|0|*|0|*|0|*|00000080" translateable="0">
+          <param type="numberautocomplete" style="width: 22px;" values="0"/>
+          <param type="numberautocomplete" style="width: 22px;" values="0"/>
+          <param type="numberautocomplete" style="width: 22px;" values="0"/>
+          <param type="numberautocomplete" style="width: 22px;" values="0"/>
+          <param type="color" alpha="1"/></param>
+        <param name="row-opened" type="hidden" default="1"/>
+      </params>
+    </params>
+    <params name="column" type="grouppedsidebar" tip="Column" icon="n2-i-window-layer">
+      <params name="column-properties" hidetitle="1">
+        <param name="col-order" type="hidden" default="0"/>
+        <param type="group">
+          <param name="col-inneralign" type="inneralign" label="Inner align" default="inherit">
+            <attribute type="data-devicespecific"/>
+          </param>
+          <param name="col-verticalalign" type="verticalalign" label="Vertical align" default="flex-start"/></param>
+        <param type="group">
+          <param name="col-padding" label="Padding" type="marginpadding" default="5|*|5|*|5|*|5|*|px+" translateable="0">
+            <attribute type="data-devicespecific"/>
+            <param type="numberautocomplete" style="width: 22px;" values="0,5,10,20,30"/>
+            <param type="numberautocomplete" style="width: 22px;" values="0,5,10,20,30"/>
+            <param type="numberautocomplete" style="width: 22px;" values="0,5,10,20,30"/>
+            <param type="numberautocomplete" style="width: 22px;" values="0,5,10,20,30"/>
+            <param type="units">
+              <unit value="px+">px+</unit>
+              <unit value="px">px</unit>
+            </param>
+          </param>
+          <param name="col-maxwidth" type="number" label="Max width" default="0" style="width:32px">
+            <attribute type="data-devicespecific"/>
+            <unit>px</unit>
+          </param>
+        </param>
+        <param name="col-link" type="mixed" default="#|*|_self">
+          <param type="url" label="Link" style="width:160px;"/>
+          <param type="list" label="Target" translateable="1">
+            <option value="_self">Self</option>
+            <option value="_blank">Blank</option>
+          </param>
+        </param>
+        <param type="group" class="n2-ss-background-image-param">
+          <param name="col-background-image" type="image" label="Background image" default=""/>
+          <param name="col-background-focus-x" type="text" label="Focus X" default="50" max="100" min="0" style="width: 22px;">
+            <unit value="%">%</unit>
+          </param>
+          <param name="col-background-focus-y" type="text" label="Focus Y" default="50" max="100" min="0" style="width: 22px;">
+            <unit value="%">%</unit>
+          </param>
+          <param name="col-background-parallax" type="onoff" label="Parallax" default="0"/></param>
+        <param type="group">
+          <param name="col-background-color" type="color" alpha="1" label="Background color" default="ffffff00"/>
+          <param name="col-background-gradient" type="list" label="Gradient" default="off" translateable="1">
+            <option value="off">Off</option>
+            <option value="vertical">&#x2193;</option>
+            <option value="horizontal">&#x2192;</option>
+            <option value="diagonal1">&#x2197;</option>
+            <option value="diagonal2">&#x2198;</option>
+          </param>
+          <param name="col-background-color-end" type="color" alpha="1" label="Color end" default="ffffff00"/></param>
+        <param type="group">
+          <param label="Border" name="col-border-width" type="marginpadding" default="0|*|0|*|0|*|0">
+            <param type="numberautocomplete" style="width: 22px;" values="0,1,2,3,5"/>
+            <param type="numberautocomplete" style="width: 22px;" values="0,1,2,3,5"/>
+            <param type="numberautocomplete" style="width: 22px;" values="0,1,2,3,5"/>
+            <param type="numberautocomplete" style="width: 22px;" values="0,1,2,3,5"/></param>
+          <param label="Style" name="col-border-style" type="list" default="none">
+            <option value="none">None</option>
+            <option value="solid">Solid</option>
+            <option value="dashed">Dashed</option>
+            <option value="dotted">Dotted</option>
+          </param>
+          <param label="Color" name="col-border-color" type="color" alpha="1" default="ffffffff"/>
+          <param name="col-border-radius" label="Radius" type="numberautocomplete" default="0" values="0,3,5,10,99" style="width: 22px;">
+            <unit value="px">px</unit>
+          </param>
+        </param>
+        <param name="col-boxshadow" label="Box shadow" type="connected" default="0|*|0|*|0|*|0|*|00000080" translateable="0">
+          <param type="numberautocomplete" style="width: 22px;" values="0"/>
+          <param type="numberautocomplete" style="width: 22px;" values="0"/>
+          <param type="numberautocomplete" style="width: 22px;" values="0"/>
+          <param type="numberautocomplete" style="width: 22px;" values="0"/>
+          <param type="color" alpha="1"/></param>
+        <param name="col-opened" type="hidden" default="1"/>
+        <param name="col-colwidth" type="hidden" default=""/>
+      </params>
+    </params>
+    <params name="content" type="grouppedsidebar" tip="Content" icon="n2-i-window-layer">
+      <params name="content-properties" hidetitle="1">
+        <param type="group">
+          <param name="content-inneralign" type="inneralign" label="Inner align" default="inherit">
+            <attribute type="data-devicespecific"/>
+          </param>
+          <param name="content-verticalalign" type="verticalalign" label="Vertical align" default="center"/></param>
+        <param name="content-padding" label="Padding" type="marginpadding" default="5|*|5|*|5|*|5|*|px+" translateable="0">
+          <attribute type="data-devicespecific"/>
+          <param type="numberautocomplete" style="width: 22px;" values="0,5,10,20,30"/>
+          <param type="numberautocomplete" style="width: 22px;" values="0,5,10,20,30"/>
+          <param type="numberautocomplete" style="width: 22px;" values="0,5,10,20,30"/>
+          <param type="numberautocomplete" style="width: 22px;" values="0,5,10,20,30"/>
+          <param type="units">
+            <unit value="px+">px+</unit>
+            <unit value="px">px</unit>
+          </param>
+        </param>
+        <param type="group">
+          <param name="content-maxwidth" type="number" label="Max width" default="0" style="width:32px">
+            <attribute type="data-devicespecific"/>
+            <unit>px</unit>
+          </param>
+          <param name="content-selfalign" type="halign" label="Position" inherit="1" default="inherit">
+            <attribute type="data-devicespecific"/>
+          </param>
+        </param>
+        <param type="group" class="n2-ss-background-image-param">
+          <param name="content-background-image" type="image" label="Background image" default=""/>
+          <param name="content-background-focus-x" type="text" label="Focus X" default="50" max="100" min="0" style="width: 22px;">
+            <unit value="%">%</unit>
+          </param>
+          <param name="content-background-focus-y" type="text" label="Focus Y" default="50" max="100" min="0" style="width: 22px;">
+            <unit value="%">%</unit>
+          </param>
+          <param name="content-background-parallax" type="onoff" label="Parallax" default="0"/></param>
+        <param type="group">
+          <param name="content-background-color" type="color" alpha="1" label="Background color" default="ffffff00"/>
+          <param name="content-background-gradient" type="list" label="Gradient" default="off" translateable="1">
+            <option value="off">Off</option>
+            <option value="vertical">&#x2193;</option>
+            <option value="horizontal">&#x2192;</option>
+            <option value="diagonal1">&#x2197;</option>
+            <option value="diagonal2">&#x2198;</option>
+          </param>
+          <param name="content-background-color-end" type="color" alpha="1" label="Color end" default="ffffff00"/></param>
+        <param name="content-opened" type="hidden" default="1"/>
+      </params>
+    </params>
+    <params name="style" type="grouppedsidebar" tip="Design" icon="n2-i-window-design">
+      <params name="basiccss" type="basiccss" hidetitle="1">
+        <params name="basiccssfont" type="basiccssfont" label="Font">
+          <param name="family" label="Family" style="width:150px;" type="family" default="Arial, Helvetica"/>
+          <param name="color" label="Color" type="color" alpha="1" default="000000FF"/>
+          <param name="size" label="Size" type="connected" default="14|*|px" translateable="0">
+            <param type="numberautocompleteslider" style="width: 22px;" min="1" max="10000" slmax="100" step="1" values="8,10,12,14,18,24,30,48,72">
+              <multiunit value="px" min="1" max="10000" slmax="100"/>
+              <multiunit value="%" min="1" max="10000" slmax="600"/>
+            </param>
+            <param type="units">
+              <unit value="px">px</unit>
+              <unit value="%">%</unit>
+            </param>
+          </param>
+          <param name="weight" label="Font weight" type="list" default="" translateable="1">
+            <option value="0">Normal</option>
+            <option value="1">Bold</option>
+            <option value="100">100</option>
+            <option value="200">200 - Extra Light</option>
+            <option value="300">300 - Light</option>
+            <option value="600">600 - Semi Bold</option>
+            <option value="700">700 - Bold</option>
+            <option value="800">800 - Extra Bold</option>
+          </param>
+          <param name="lineheight" label="Line height" type="autocompleteslider" default="1" min="0" max="3" step="0.1" style="width:30px;" values="normal,1,1.2,1.5,1.8,2"/>
+          <param name="textalign" type="textalign" label="Text align" default="inherit"/>
+          <param name="decoration" label="Decoration" type="decoration" default=""/>
+        </params>
+        <params name="basiccssstyle" type="basiccssstyle" label="Style">
+          <param name="backgroundcolor" label="Background color" type="color" alpha="1" default="000000FF"/>
+          <param name="padding" label="Padding" type="connected" default="0|*|0|*|0|*|0" translateable="0">
+            <param type="numberautocomplete" style="width: 22px;" values="0,5,10,20,30"/>
+            <param type="numberautocomplete" style="width: 22px;" values="0,5,10,20,30"/>
+            <param type="numberautocomplete" style="width: 22px;" values="0,5,10,20,30"/>
+            <param type="numberautocomplete" style="width: 22px;" values="0,5,10,20,30"/>
+            <param type="units">
+              <unit value="px">px</unit>
+              <unit value="em">em</unit>
+              <unit value="%">%</unit>
+            </param>
+          </param>
+          <param name="border" label="Border" type="mixed" default="0|*|solid|*|000000ff" translateable="0">
+            <param type="number" style="width: 22px;">
+              <unit value="px">px</unit>
+            </param>
+            <param type="list" translateable="1">
+              <option value="none">None</option>
+              <option value="dotted">Dotted</option>
+              <option value="dashed">Dashed</option>
+              <option value="solid">Solid</option>
+              <option value="double">Double</option>
+              <option value="groove">Groove</option>
+              <option value="ridge">Ridge</option>
+              <option value="inset">Inset</option>
+              <option value="outset">Outset</option>
+            </param>
+            <param type="color" alpha="1"/></param>
+          <param name="opacity" label="Opacity" type="numberautocomplete" default="100" values="0,50,90,100" style="width: 22px;">
+            <unit value="%">%</unit>
+          </param>
+          <param name="borderradius" label="Border radius" type="numberautocomplete" default="0" values="0,3,5,10,99" style="width: 22px;">
+            <unit value="px">px</unit>
+          </param>
+        </params>
+      </params>
+    </params>
+    <params name="position" type="grouppedsidebar" tip="Settings" icon="n2-i-window-settings">
+      <params name="layerproperties" label="Layer properties" hidetitle="1">
+        <param type="text" name="generator-visible" label="Hide layer if provided variable is empty" default="" class="n2-ss-generator-param" style="width:270px;"/>
+        <param type="group">
+          <attribute type="data-placement">normal</attribute>
+          <param name="normal-maxwidth" type="number" label="Max width" default="0" style="width:32px">
+            <attribute type="data-devicespecific"/>
+            <unit>px</unit>
+          </param>
+          <param name="normal-selfalign" type="halign" label="Position" inherit="1" default="inherit">
+            <attribute type="data-devicespecific"/>
+          </param>
+        </param>
+        <param type="group">
+          <param name="crop" type="list" label="Crop" default="visible" translateable="1">
+            <option value="visible">Off</option>
+            <option value="hidden">On</option>
+            <option value="auto">Scroll</option>
+            <option value="mask">Mask</option>
+          </param>
+          <param name="rotation" type="number" label="Rotation" default="0" style="width:32px">
+            <unit>deg</unit>
+          </param>
+        </param>
+        <param type="group">
+          <attribute type="data-placement">normal</attribute>
+          <param name="normal-margin" label="Margin" type="marginpadding" default="0|*|0|*|0|*|0|*|px+" translateable="0">
+            <attribute type="data-devicespecific"/>
+            <param type="numberautocomplete" style="width: 22px;" values="0,5,10,20,30"/>
+            <param type="numberautocomplete" style="width: 22px;" values="0,5,10,20,30"/>
+            <param type="numberautocomplete" style="width: 22px;" values="0,5,10,20,30"/>
+            <param type="numberautocomplete" style="width: 22px;" values="0,5,10,20,30"/>
+            <param type="units">
+              <unit value="px+">px+</unit>
+              <unit value="px">px</unit>
+            </param>
+          </param>
+          <param name="normal-height" type="text" label="Height" default="" style="width:32px;">
+            <attribute type="data-devicespecific"/>
+            <unit value="px+">px+</unit>
+          </param>
+        </param>
+        <param type="group">
+          <attribute type="data-placement">absolute</attribute>
+          <param type="halign" name="align" label="Align" default="left">
+            <attribute type="data-devicespecific"/>
+          </param>
+          <param type="valign" name="valign" label="Vertical align" default="top">
+            <attribute type="data-devicespecific"/>
+          </param>
+        </param>
+        <param type="group">
+          <param name="adaptive-font" type="onoff" label="Adaptive sizing" default="0"/>
+          <param name="font-size" type="numberautocomplete" label="Font size modifier" default="100" style="width:32px" values="60,80,100,120,140,160,180">
+            <attribute type="data-devicespecific"/>
+            <unit value="%">%</unit>
+          </param>
+        </param>
+        <param type="group">
+          <attribute type="data-placement">absolute</attribute>
+          <param name="left" type="text" label="Position X" default="" style="width:32px;">
+            <attribute type="data-devicespecific"/>
+            <unit value="px">px</unit>
+          </param>
+          <param name="top" type="text" label="Position Y" default="" style="width:32px;">
+            <attribute type="data-devicespecific"/>
+            <unit value="px">px</unit>
+          </param>
+          <param name="responsive-position" type="onoff" label="Responsive" default="1"/></param>
+        <param type="group">
+          <attribute type="data-placement">absolute</attribute>
+          <param name="width" type="text" label="Width" default="" style="width:32px;">
+            <attribute type="data-devicespecific"/>
+            <unit value="px">px</unit>
+          </param>
+          <param name="height" type="text" label="Height" default="" style="width:32px;">
+            <attribute type="data-devicespecific"/>
+            <unit value="px">px</unit>
+          </param>
+          <param name="responsive-size" type="onoff" label="Responsive" default="1"/></param>
+        <param type="devices" name="show" label="Show on" default=""/>
+        <param type="text" name="class" label="CSS class" default=""/>
+        <param name="resettodesktop" type="button" label="Reset position" default="Reset"/>
+        <param type="text" name="id" label="ID" default="" class="n2-hidden"/>
+      </params>
+    </params>
+  </params>
+</root>

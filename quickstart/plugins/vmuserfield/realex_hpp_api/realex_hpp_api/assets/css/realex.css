@@ -1,0 +1,10 @@
+.releax_show_cc {
+    border: 1px solid #DDD;
+    margin: 10px;
+    line-height: 30px;
+    padding: 5px;
+}
+
+table.user-details {
+    width: 90% !important;
+}

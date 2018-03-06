@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<font>
+  <fontname>Helvetica</fontname>
+  <fonttype>Base font</fonttype>
+  <filename>helvetica</filename>
+  <version>1.0</version>
+  <creationDate>2012-11-28</creationDate>
+  <author>The VirtueMart Development Team</author>
+  <copyright>Copyright (C) 2004-2012 Virtuemart Team. All rights reserved.</copyright>
+  <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+  <files>
+    <file>helvetica.php</file>
+    <file>helveticab.php</file>
+	<file>helveticabi.php</file>
+    <file>helveticai.php</file>
+    <file>helvetica.xml</file>
+  </files>
+</font>

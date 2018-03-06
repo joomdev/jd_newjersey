@@ -1,0 +1,5 @@
+<root>
+    <params name="animation-sets" label="Animation sets" type="naked">
+        <param type="list" name="sets" default=""/>
+    </params>
+</root>

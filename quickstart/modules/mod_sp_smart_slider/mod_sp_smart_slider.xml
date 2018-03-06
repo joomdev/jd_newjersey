@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="2.5" client="site" method="upgrade">
+  <name>SP Smart Slider</name>
+  <author>JoomShaper.com</author>
+  <creationDate>Nov 2012</creationDate>
+  <copyright>Copyright (C) 2010 - 2014 JoomShaper.com. All rights reserved.</copyright>
+  <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL or Later</license>
+  <authorEmail>support@joomshaper.com</authorEmail>
+  <authorUrl>www.joomshaper.com</authorUrl>
+  <version>2.3</version>
+  <description>SP Smart Slider</description>
+  <languages>
+    <language tag="en-GB">language/en-GB.mod_sp_smart_slider.ini</language>
+  </languages>
+  <files>
+    <filename module="mod_sp_smart_slider">mod_sp_smart_slider.php</filename>
+    <filename>helper.php</filename>
+    <filename>index.html</filename>
+    <folder>tmpl/</folder>
+    <folder>fields/</folder>
+    <folder>helpers/</folder>
+    <folder>language/</folder>
+    <folder>assets/</folder>
+  </files>
+  <config>
+    <fields name="params">
+      <fieldset name="basic" addfieldpath="/modules/mod_sp_smart_slider/fields">
+        <field type="assets" url="/modules/mod_sp_smart_slider/assets" />
+        <field type="tmpl" name="sp_style" default="nivo_slider"  label="STYLE" description="STYLE_DESC" />
+      </fieldset>
+      <fieldset name="sliders">
+        <field type="sliders" name="sliders" />
+      </fieldset>
+      <fieldset name="animation">
+        <field type="animation" name="animation" />
+      </fieldset>
+      <fieldset name="advanced">	  
+        <field name="moduleclass_sfx" type="text" label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
+        <field name="module_cache" type="list" default="1" label="COM_MODULES_FIELD_CACHING_LABEL" description="COM_MODULES_FIELD_CACHING_DESC">
+          <option value="1">JGLOBAL_USE_GLOBAL</option>
+          <option value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>
+        </field>
+        <field name="cache" type="hidden" default="1" />
+        <field name="cache_time" type="text" default="900" label="COM_MODULES_FIELD_CACHE_TIME_LABEL" description="COM_MODULES_FIELD_CACHE_TIME_DESC" />
+        <field name="cachemode" type="hidden" default="itemid">
+         <option value="itemid"></option>
+       </field>
+     </fieldset>
+   </fields>
+ </config>
+</extension>

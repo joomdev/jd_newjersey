@@ -1,0 +1,23 @@
+/*
+# mod_sp_tweet - Twitter Module by JoomShaper.com
+# -----------------------------------------------
+# Author    JoomShaper http://www.joomshaper.com
+# Copyright (C) 2010 - 2014 JoomShaper.com. All Rights Reserved.
+# license - GNU/GPL V2 or Later
+# Websites: http://www.joomshaper.com
+*/
+.sp-tweet-bubble {height:150px;float:left}
+.sp-tweet-bubble .bubble-tl{background:url(../images/bubble.png) no-repeat 0 0}
+.sp-tweet-bubble .bubble-tr{background:url(../images/bubble.png) no-repeat 100% -7px;padding:0 7px}
+.sp-tweet-bubble .bubble-tm{background:url(../images/bubble.png) repeat-x 0 -14px;height:7px}
+.sp-tweet-bubble .bubble-l{background:url(../images/bubble_lr.png) repeat-y 0 -63px}
+.sp-tweet-bubble .bubble-r{background:url(../images/bubble_lr.png) repeat-y 100% -63px;padding:0 7px}
+.sp-tweet-bubble .bubble-m{background:#FFF;height:100px;overflow:hidden;padding:10px}
+.sp-tweet-bubble .bubble-bl{background:url(../images/bubble.png) no-repeat 0 -21px}
+.sp-tweet-bubble .bubble-br{background:url(../images/bubble.png) no-repeat 100% -35px;padding:0 7px 0 43px}
+.sp-tweet-bubble .bubble-bm{background:url(../images/bubble.png) repeat-x 0 -49px;height:14px}
+.sp-tweet-bubble .tweet-user-info{line-height:14px;overflow:hidden}
+.sp-tweet-bubble .tweet-user-info img.tweet-avatar{background:#FFF;border:1px solid #C4C4C4;display:block;float:left;margin:0 5px;padding:3px}
+.sp-tweet-bubble .tweet-user-info .author{margin-top:5px;font-size:16px;line-height:110%;font-weight:bold}
+.sp-tweet-bubble .tweet-user-info .date,.sp-tweet-bubble .tweet-user-info .source{font-size:10px}
+.sp-tweet-clr {clear:both}

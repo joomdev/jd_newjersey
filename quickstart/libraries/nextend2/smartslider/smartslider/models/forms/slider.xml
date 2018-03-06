@@ -1,0 +1,145 @@
+<root>
+  <params name="slider-settings" type="tabbed" active="1" underlined="1">
+    <params name="publish" type="groupped" label="Publish">
+      <params name="publish" label="Publish" hidetitle="1">
+        <param type="publishslider"/>
+      </params>
+    </params>
+    <params name="general" type="groupped" label="General">
+      <params name="slider" label="Slider settings" hidetitle="1">
+        <param name="title" type="text" label="Name" default="Slider" style="width:200px;"/>
+        <param label="Controls" type="group">
+          <param name="controlsScroll" type="onoff" label="Mouse scroll" default="0"/>
+          <param name="controlsDrag" type="onoff" label="Mouse drag" default="1"/>
+          <param name="controlsTouch" type="radio" label="Touch" default="horizontal">
+            <option value="0">Disabled</option>
+            <option value="horizontal">Horizontal</option>
+            <option value="vertical">Vertical</option>
+          </param>
+          <param name="controlsKeyboard" type="onoff" label="Keyboard" default="1"/></param>
+        <param name="thumbnail" label="Thumbnail" type="image" default=""/>
+        <param name="align" type="radio" label="Align" default="normal">
+          <option value="normal">Normal</option>
+          <option value="left">Left</option>
+          <option value="center">Center</option>
+          <option value="right">Right</option>
+        </param>
+        <param name="backgroundMode" type="imagelistlabel" label="Slide background image fill" tip="If the size of your image is not the same as your slide&apos;s, you can improve the result with the filling modes." default="fill" translateable="1">
+          <option value="fill" image="$ss$/images/fillmode/fill.png">Fill</option>
+          <option value="fit" image="$ss$/images/fillmode/fit.png">Fit</option>
+          <option value="stretch" image="$ss$/images/fillmode/stretch.png">Stretch</option>
+          <option value="center" image="$ss$/images/fillmode/center.png">Center</option>
+          <option value="tile" image="$ss$/images/fillmode/tile.png">Tile</option>
+        </param>
+      </params>
+      <params name="slidertype" label="Slider Type" class="n2-expert">
+        <param name="type" type="slidertype" ajaxurl="slider/renderform" label="Type" default="simple" file="slider.xml"/>
+      </params>
+      <params name="slidertypeplaceholder" label="Slider Type placeholder" id="nextend-type-panel" type="placeholder"></params>
+    </params>
+    <params name="size" type="groupped" label="Size">
+      <params name="slider-responsive" label="Responsive" hidetitle="1">
+        <param type="group" label="Slider size">
+          <param name="width" type="numberautocomplete" label="Width" default="900" style="width:35px" values="1920,1400,1000,800,600,400">
+            <unit>px</unit>
+          </param>
+          <param name="height" type="numberautocomplete" label="Height" default="500" style="width:35px" values="800,600,500,400,300,200">
+            <unit>px</unit>
+          </param>
+        </param>
+        <param type="number" name="fontsize" label="Font size" default="16" style="width:20px" class="n2-hidden">
+          <unit>px</unit>
+        </param>
+        <param name="margin" label="Margin" type="mixed" default="0|*|0|*|0|*|0" translateable="1">
+          <param type="text" style="width: 22px;" label="Top">
+            <unit value="px">px</unit>
+          </param>
+          <param type="text" style="width: 22px;" label="Right">
+            <unit value="px">px</unit>
+          </param>
+          <param type="text" style="width: 22px;" label="Bottom">
+            <unit value="px">px</unit>
+          </param>
+          <param type="text" style="width: 22px;" label="Left">
+            <unit value="px">px</unit>
+          </param>
+        </param>
+      </params>
+      <params name="slider-responsive1" label="Responsive mode">
+        <param name="responsive-mode" type="sliderresponsive" ajaxurl="slider/renderform" default="auto" file="responsive.xml"/>
+      </params>
+      <params name="slider-responsive-placeholder" id="nextend-responsive-mode-panel" type="placeholder"/></params>
+    <params name="autoplay" type="groupped" label="Autoplay">
+      <params name="autoplay" label="Autoplay settings" hidetitle="1">
+        <param type="group" label="Autoplay">
+          <param name="autoplay" type="onoff" label="Enabled" default="0"/>
+          <param name="autoplayDuration" type="number" label="Interval" default="8000" style="width:35px;">
+            <unit>ms</unit>
+          </param>
+        </param>
+        <param type="group" label="Stop autoplay on">
+          <param name="autoplayStopClick" type="onoff" label="Click" default="1"/>
+          <param name="autoplayStopMouse" type="list" label="Mouse" default="0" translateable="1">
+            <option value="0">Off</option>
+            <option value="enter">Enter</option>
+            <option value="leave">Leave</option>
+          </param>
+          <param name="autoplayStopMedia" type="onoff" label="Media started" default="1"/></param>
+      </params>
+    </params>
+    <params name="optimize" type="groupped" label="Optimize">
+      <params name="optimize-images" label="Slide background images">
+        <param type="group" label="Optimize images">
+          <param name="optimize" type="onoff" label="Enabled" default="0"/>
+          <param name="optimize-quality" type="number" label="Quality" default="70" min="0" max="100" style="width: 40px;">
+            <unit value="%">%</unit>
+          </param>
+        </param>
+        <param label="Background image" type="group" tip="Switch on the Optimize images option for this setting.">
+          <param name="optimize-background-image-custom" type="onoff" label="Custom size" default="0"/>
+          <param name="optimize-background-image-width" type="text" style="width: 40px;" label="Width" default="800">
+            <unit value="px">px</unit>
+          </param>
+          <param name="optimize-background-image-height" type="text" style="width: 40px;" label="Height" default="600">
+            <unit value="px">px</unit>
+          </param>
+        </param>
+        <param label="Thumbnail size" type="group" tip="Switch on the Optimize images option for this setting.">
+          <param name="optimizeThumbnailWidth" type="text" style="width: 40px;" label="Width" default="100">
+            <unit value="px">px</unit>
+          </param>
+          <param name="optimizeThumbnailHeight" type="text" style="width: 40px;" label="Height" default="60">
+            <unit value="px">px</unit>
+          </param>
+        </param>
+      </params>
+    </params>
+    <params name="loading" type="groupped" label="Loading">
+      <params name="loading-core" label="" hidetitle="1">
+        <param type="group" label="Play when visible">
+          <param name="playWhenVisible" type="onoff" label="Enabled" default="1"/>
+          <param name="playWhenVisibleAt" type="number" label="At" default="50" style="width:30px;">
+            <unit>%</unit>
+          </param>
+        </param>
+        <param type="number" name="dependency" label="Pre loaded slider ID" tip="The current slider will not start loading until the set slider is loaded completely."/>
+        <param name="delay" type="number" label="Delay" default="0" style="width:30px;">
+          <unit value="ms">ms</unit>
+        </param>
+        <param name="is-delayed" type="onoff" label="Delayed (for lightbox/tabs)" default="0"/>
+      </params>
+    </params>
+    <params name="developer" type="groupped" label="Developer">
+      <params name="developer-options" hidetitle="1">
+        <param name="overflow-hidden-page" type="onoff" label="Hide website&apos;s scrollbar" default="0" tip="You won&apos;t be able to scroll your website anymore."/>
+        <param name="clear-both" type="onoff" label="Clear both before slider" tip="If your slider doesn&apos;t resize correctly, turn this option on." default="0"/>
+        <param name="remove-spaces-from-parents" type="text" label="Remove spaces from parents" tip="This option removes the margins and paddings from the given parents. Write the Xth number, which parent&apos;s margins and paddings should be removed. You can write multiple numbers separated by commas. Example: 1,2,3" default=""/>
+        <param name="hide-siblings" type="text" label="Hide siblings" tip="This option hides the given siblings. Write the Xth number, which sibling you want to hide. You can write multiple numbers separated by commas. Example: 1,2,3" default=""/>
+        <param type="textarea" name="callbacks" label="JavaScript callbacks" style2="width:600px;height:600px;"/>
+      </params>
+    </params>
+  </params>
+  <params name="widgets" label="Widgets" type="raw" hidetitle="1">
+    <param name="widgets" type="pluginmatrix" label="" group="sswidget" method="onWidgetList" default="arrow"/>
+  </params>
+</root>

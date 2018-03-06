@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="2.5.0">
+  <name>mod_virtuemart_category</name>
+  <creationDate>November 21 2017</creationDate>
+  <author>The VirtueMart Development Team</author>
+  <authorUrl>https://virtuemart.net</authorUrl>
+  <copyright>Copyright (C) 2004 - 2017 Virtuemart Team. All rights reserved.</copyright>
+  <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+  <version>3.2.6</version>
+  <description>MOD_VIRTUEMART_CATEGORY_DESC</description>
+  <files>
+    <filename module="mod_virtuemart_category">mod_virtuemart_category.php</filename>
+    <filename>tmpl/all.php</filename>
+    <filename>tmpl/current.php</filename>
+    <filename>tmpl/default.php</filename>
+    <folder>language</folder>
+  </files>
+  <config>
+    <fields name="params" addfieldpath="/administrator/components/com_virtuemart/fields">
+      <fieldset name="basic">
+        <field
+          name="Parent_Category_id"
+          type="vmcategories"
+          value_field="category_name"
+          label="MOD_VIRTUEMART_CATEGORY_PARENT_CATEGORY"
+          description="MOD_VIRTUEMART_CATEGORY_PARENT_CATEGORY_DESC"
+        />
+        <field
+          name="level"
+          type="text"
+          default="2"
+          value_field="level"
+          label="MOD_VIRTUEMART_CATEGORY_SUBLEVEL"
+          description="MOD_VIRTUEMART_CATEGORY_SUBLEVEL_DESC"
+        />
+        <field
+					name="layout"
+					type="modulelayout"
+					label="JFIELD_ALT_LAYOUT_LABEL"
+					description="JFIELD_ALT_MODULE_LAYOUT_DESC"
+        />
+        <field
+          name="cache"
+          type="list"
+          default="0"
+          label="COM_MODULES_FIELD_CACHING_LABEL"
+          description="COM_MODULES_FIELD_CACHING_DESC"
+          >
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </field>
+        <field
+          name="moduleclass_sfx"
+          type="text"
+          label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+          description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"
+        />
+        <field
+          name="class_sfx"
+          type="text"
+          default=""
+          label="Menu Class Suffix"
+          description="A suffix to be applied to the css class of the menu items"
+        />
+      </fieldset>
+    </fields>
+  </config>
+  <updateservers>
+    <!-- Note: No spaces or linebreaks allowed between the server tags -->
+    <server type="extension" name="VirtueMart3 mod_virtuemart_category Update Site"><![CDATA[http://virtuemart.net/releases/vm3/mod_virtuemart_category_update.xml]]></server>
+  </updateservers>
+</extension>

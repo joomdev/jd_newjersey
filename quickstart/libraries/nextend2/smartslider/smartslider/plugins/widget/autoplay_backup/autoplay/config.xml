@@ -1,0 +1,8 @@
+<root>
+  <params name="widgetsautoplay" label="" hidetitle="1">
+    <param name="widgetautoplay" type="widgetpluginmatrix" ajaxurl="slider/renderform" label="Autoplay" group="sswidgetautoplay" method="autoplay" file="config.xml" default="disabled"/>
+    <param type="group" label="Shows on">
+      <param name="widget-autoplay-display-hover" type="onoff" label="Hover" default="0"/></param>
+  </params>
+  <params name="widget-autoplay-placeholder" label="" id="nextend-widgetautoplay-panel" type="placeholder"></params>
+</root>

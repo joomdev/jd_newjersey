@@ -1,0 +1,6 @@
+<root>
+    <params name="license" label="License">
+        <param name="license" type="text" label="License key" default="" style="width: 300px;"/>
+        <param type="token"/>
+    </params>
+</root>

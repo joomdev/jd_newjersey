@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension method="upgrade" type="component" version="2.5">
+    <name>tcpdf</name>
+     <creationDate>February 2015</creationDate>
+    <copyright>Copyright (c) 2001-2013 Nicola Asuni - Tecnick.com LTD - Tutti i diritti riservati - All Rights Reserved. 2015 Virtuemart Team. All rights reserved.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
+    <author>Nicola Asuni, The VirtueMart Development Team</author>
+    <authorUrl>http://www.virtuemart.net</authorUrl>
+    <description>TCPDF 6.0.096 by Nicola Asuni. Joomla Installer by the VirtueMart Team</description>
+    <version>1.0.0</version>
+        <!-- Custom un/installer for 1.6 -->
+   <scriptfile>script.tcpdf.php</scriptfile>
+	<!-- Custom installer for 1.5 -->
+	<installfile>script.tcpdf.php</installfile>
+	<!-- Custom uninstaller for 1.5 -->
+	<uninstallfile>script.tcpdf.php</uninstallfile>
+	
+    <administration>
+        <menu>TCPDF</menu>
+        <files folder="admin">
+            <filename>admin.tcpdf.php</filename>
+            <folder>libraries</folder>
+        </files>
+    </administration>
+    <updateservers>
+        <!-- Note: No spaces or linebreaks allowed between the server tags -->
+        <server type="extension" name="TCPDF Update Site"><![CDATA[http://virtuemart.net/releases/TCPDF/tcpdf.xml]]></server>
+    </updateservers>
+</extension>

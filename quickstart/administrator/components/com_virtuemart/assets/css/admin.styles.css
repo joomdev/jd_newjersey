@@ -1,0 +1,119 @@
+.ui-autocomplete{position:absolute}
+#cpanel{text-align:center;vertical-align:middle;height:1%;}
+/*#cpanel div.icon{margin:3px}*/
+.admin-content div.icon a {
+	display: block;
+	min-height: 124px;
+	width: 180px;
+	vertical-align: middle;
+	text-decoration : none;
+	border: none;
+	padding: 8px 12px 6px 12px;
+	-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25) inset, 0 1px 2px #FFFFFF;
+	-webkit-box-shadow:rgba(0, 0, 0, 0.148438) 0 1px 2px inset, #FFFFFF 0 1px 2px;
+	background-image: -moz-linear-gradient(100% 100% 90deg, #F8F8F8, #FFFFFF);
+	background-image:-webkit-gradient(linear, 0 0, 0 100%, from(#FFFFFF), to(#F1F1F1));
+
+	-webkit-border-radius: 6px;
+-moz-border-radius: 6px;
+font-size: 12px;
+}
+.adminListHeader{height:48px;background-repeat:no-repeat;text-align:left;font-size:18px;font-weight:700;padding-left:80px}
+.editable{background:#ffff33;cursor:pointer}
+.align-center{text-align:center}
+.vm-block{overflow:hidden}
+.vm-main-container{position:relative}
+.vm-layout-left{float:left;width:200px}
+.vm-layout-right{width:auto}
+.vm-replace-content{text-indent:-9999px;font-size:0}
+.vm-absolute{position:absolute}
+.detachselectimage,#addnewselectimage{background-repeat:no-repeat;border:1px solid #CCCCCC;cursor:pointer;display:inline;line-height:36px;margin:5px;padding:5px 5px 5px 16px}
+.vm_thumb_image{background:url(../images/admin_ui/toolbar_background.png) repeat-x scroll center bottom;border:1px solid #B4B4B4;border-radius:6px;display:block;float:left;height:140px;overflow:hidden;position:relative;text-align:center;vertical-align:middle;width:120px;margin:2px;padding:10px}
+.vm_thumb_image img{max-height:90px;max-width:110px}
+.vm_mini_image{max-height:50px;max-width:80px;vertical-align:middle}
+.vm__img_autocrop{display:block;max-height:400px;overflow:auto;position:relative;text-align:center}
+.custom_related_title,.custom_related_image{display:block;clear:both}
+.remove{cursor:pointer}
+.vm-order_comment{display:block;position:absolute;z-index:1;width:200px;margin:-20px}
+#fancybox-left-ico{left:20px}
+#fancybox-right-ico{right:20px;left:auto}
+.edit-24-grey{background-image:url(../images/edit-24-grey.png);background-position:center center;background-repeat:no-repeat;border:1px solid #CCCCCC;border-radius:4px;display:inline;height:24px;right:0;position:absolute;bottom:2px;width:24px;cursor:pointer;margin:2px 0 0 2px}
+.removable{border-radius:6px 6px 6px 6px;border:1px solid #CCCCCC;padding:2px}
+#new_stockable_product{border:1px solid #CCCCCC;cursor:pointer;padding:2px}
+div.threecols ul li{background:none repeat scroll 0 0 transparent;display:inline-block;min-height:10px;vertical-align:top;width:32%;padding:0}
+div.threecols ul{margin:0;padding:0}
+.hasTip:after{
+	font:12px/1.4 Arial,Georgia,sans-serif;
+	content: attr(title);
+	display:none;
+	position:absolute;
+	padding:5px 10px;
+	top:0px;
+	margin:1em 0 3em;
+	color:#fff;
+	background:#075698;
+	left:-20px;
+
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:4px;
+
+	background:-webkit-gradient(linear, left top, left bottom, from(#075698), to(#2e88c4));
+	background:-moz-linear-gradient(top, #075698, #2e88c4);
+	background:-o-linear-gradient(top, #075698, #2e88c4);
+	background:linear-gradient(top, #075698, #2e88c4);
+
+	-moz-box-shadow: 0px 0px 4px #000; /* FF3.5+ */
+	-webkit-box-shadow: 0px 0px 4px #000; /* Saf3.0+, Chrome */
+	box-shadow: 0px 0px 4px #000; /* Opera 10.5, IE 9.0 */
+	filter:  progid:DXImageTransform.Microsoft.dropshadow(OffX=0px, OffY=0px, Color='#000'); /* IE6,IE7 */
+	-ms-filter: "progid:DXImageTransform.Microsoft.dropshadow(OffX=0px, OffY=0px, Color='#000')"; /* IE8 */
+}
+.media-pagination span{padding:6px; margin-left: 2px;
+	border:solid 1px #075698;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	}
+.media-pagination span:hover,.media-pagination span.media-page-selected{background:#CAC9C9;cursor:pointer}
+.element-hidden{display:none}
+.datepicker{text-align:center;width:70px}
+a.fg-button,.always-left{float:left!important}
+.fg-button{cursor:pointer;outline:0 none;position:relative;text-align:center;text-decoration:none!important;margin:0 4px 0 0;padding:0}
+#searchMedia{margin:0;padding:0}
+.stock-out{background-color:#f9a7aa!important;color:black}
+.stock-low{background-color:#F7B77B!important;color:black}
+.stock-normal{background-color:#F0F9D0!important;color:black}
+
+/*table.adminlist {width: auto !important;}*/
+table.adminlist td.order{width:100px !important;}
+ol.logline {margin: 15px 0;padding: 0 0 0 20px;background: #F7F7F7; border: 1px solid #CCC;}
+ol.logline li {margin: 0 0 0 20px;padding: 5px 10px 5px 10px;list-style: decimal-leading-zero;word-wrap: break-word;border-left: 1px solid #CCC;background: #FFF;}
+
+.vmLoading {
+	display: block;
+	/*position: fixed;*/
+	z-index: 1000;
+	top: 0;
+	left: 0;
+/*	height: 100%;
+	width: 100%;*/
+	background: rgba(255, 255, 255, 0.0) url('../../../../../components/com_virtuemart/assets/images/vm-preloader.gif') 50% 45% no-repeat;
+}
+
+/* Anytime the body has the loading class, our
+   modal element will be visible */
+
+.vmLoading .vmLoadingDiv {
+	display: block;
+}
+
+.vmLoadingDiv .vmLoadingDivMsg {
+	position: relative;
+	top: 50%;
+}
+
+.goto-product {
+	margin: auto;
+	float: right;
+}

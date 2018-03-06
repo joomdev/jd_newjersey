@@ -1,0 +1,11 @@
+<root>
+  <params name="bullettransition" label="Transition bullet settings" hidetitle="1">
+    <param name="widget-bullet-position" type="widgetposition" label="Position"/>
+    <param name="widget-bullet-style" type="style" previewmode="dot" label="Dot style" style2="sliderwidget-bullet-bar" set="1900">
+      <![CDATA[ <div class="{styleClassName2}" style="display:inline-block;"><div class="{styleClassName}" style="display: inline-block; vertical-align:top;"></div><div class="{styleClassName} n2-active" style="display: inline-block; vertical-align:top;"></div><div class="{styleClassName}" style="display: inline-block; vertical-align:top;"></div></div> ]]>
+    </param>
+    <param name="widget-bullet-bar" type="style" previewmode="simple" label="Bar style" style2="sliderwidget-bullet-style" set="1900">
+      <![CDATA[ <div class="{styleClassName}" style="display:inline-block;"><div class="{styleClassName2}" style="display: inline-block; vertical-align:top;"></div><div class="{styleClassName2} n2-active" style="display: inline-block; vertical-align:top;"></div><div class="{styleClassName2}" style="display: inline-block; vertical-align:top;"></div></div> ]]>
+    </param>
+  </params>
+</root>

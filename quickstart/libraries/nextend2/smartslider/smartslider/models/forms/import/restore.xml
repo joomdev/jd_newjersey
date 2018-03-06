@@ -1,0 +1,6 @@
+<root>
+  <params name="restore-by-upload" label="Restore slider by upload - delete the slider with the same ID">
+    <param name="import-file" type="upload" label="Import file"/>
+    <param type="token"/>
+  </params>
+</root>

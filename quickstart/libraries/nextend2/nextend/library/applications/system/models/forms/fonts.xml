@@ -1,0 +1,12 @@
+<root>
+    <params name="fonts" label="Configuration">
+        <param type="text" name="default-family" label="Default family" default=""/>
+        <param type="textarea" name="preset-families" label="Preset font families"
+               style2="height: 300px; width: 500px;"/>
+        <param type="token"/>
+    </params>
+    <params name="font-services" label="Font services" type="raw" hidetitle="1">
+        <param name="font-services" type="pluginmatrix" label="" group="fontservices"
+               method="onFontServices" default="google"/>
+    </params>
+</root>

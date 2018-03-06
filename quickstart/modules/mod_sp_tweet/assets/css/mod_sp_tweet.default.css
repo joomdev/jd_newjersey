@@ -1,0 +1,16 @@
+/*
+# mod_sp_tweet - Twitter Module by JoomShaper.com
+# -----------------------------------------------
+# Author    JoomShaper http://www.joomshaper.com
+# Copyright (C) 2010 - 2014 JoomShaper.com. All Rights Reserved.
+# license - GNU/GPL V2 or Later
+# Websites: http://www.joomshaper.com
+*/
+.sp-tweet-item{border-bottom:1px solid #DCDCDC;margin:0;padding:10px 5px}
+.sp-tweet-even{background:#f5f5f5}
+.sp-tweet-item img.tweet-avatar{background:#FFF;border:1px solid #C4C4C4;display:block;float:left;margin:0 5px;padding:3px}
+.sp-tweet-item .date,.sp-tweet-item .source{font-size:10px}
+.sp-tweet-item .date{float:left}
+.sp-tweet-item .source{float:right}
+a.followme{display:block;background:url(../images/followme.png) no-repeat 0 5px;margin-top:10px;padding-left:20px;line-height:140%;margin:5px}
+.sp-tweet-clr{clear:both}

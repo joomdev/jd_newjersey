@@ -1,0 +1,7 @@
+<root>
+    <params name="login" label="Login">
+        <param name="user_name" type="text" label="User name" default="" style="width:200px;"/>
+        <param name="user_password" type="password" label="Password" default="" style="width:200px;"/>
+        <param type="token"/>
+    </params>
+</root>

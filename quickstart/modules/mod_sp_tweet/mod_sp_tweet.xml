@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="2.5" client="site" method="upgrade">
+  <name>SP Tweet</name>
+  <author>JoomShaper.com</author>
+  <creationDate>Sep 2012</creationDate>
+  <copyright>Copyright (C) 2010 - 2012 JoomShaper.com. All rights reserved.</copyright>
+  <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+  <authorEmail>support@joomshaper.com</authorEmail>
+  <authorUrl>www.joomshaper.com</authorUrl>
+  <version>2.3.1</version>
+  <description>Twitter module for Joomla by JoomShaper.com</description>
+
+  <updateservers> 
+    <server type="extension" priority="1" name="SP Tweet">http://www.joomshaper.com/updates/mod_sp_tweet.xml</server>
+  </updateservers>
+
+  <languages>
+    <language tag="en-GB">language/en-GB.mod_sp_tweet.ini</language>
+  </languages>
+  <files>
+    <filename module="mod_sp_tweet">mod_sp_tweet.php</filename>
+    <folder>tmpl</folder>
+    <folder>assets</folder>
+    <folder>library</folder>
+    <folder>language</folder>
+    <filename>helper.php</filename>
+    <filename>index.html</filename>
+  </files>
+  <config>
+    <fields name="params">
+      <fieldset name="basic">
+        <field name="username" type="text" default="joomshaper" label="TWITTER_ID" description="TWITTER_ID_DESC" />
+        <field name="layout_style" type="list" default="1" label="STYLE" description="STYLE_DESC">
+          <option value="default">DEFAULT</option>
+          <option value="list">LIST</option>
+          <option value="bubble">BUBBLE</option>
+        </field>
+        <field name="tweets" type="text" default="4" label="TWEETS" description="TWEETS_DESC"/>
+        <field name="avatar" type="radio" default="1" class="btn-group" label="AVATAR" description="AVATAR_DESC">
+          <option value="0">JNO</option>
+          <option value="1">JYES</option>
+        </field>
+        <field name="avatar_width" type="text" default="48" label="AVATAR_WIDTH" description="AVATAR_WIDTH_DESC" />
+        <field name="linked_avatar" type="radio" default="1" class="btn-group" label="LINKED_AVATAR" description="LINKED_AVATAR_DESC">
+          <option value="0">JNO</option>
+          <option value="1">JYES</option>
+        </field>
+        <field name="linked_search" type="radio" default="1" class="btn-group" label="LINKED_SEARCH" description="LINKED_SEARCH_DESC">
+          <option value="0">JNO</option>
+          <option value="1">JYES</option>
+        </field>
+        <field name="linked_mention" type="radio" default="1" class="btn-group" label="LINKED_MENTION" description="LINKED_MENTION_DESC">
+          <option value="0">JNO</option>
+          <option value="1">JYES</option>
+        </field>
+		 <field name="email_linked" type="radio" default="0" class="btn-group" label="EMAIL_LINKED" description="EMAIL_LINKED_DESC">
+          <option value="0">JNO</option>
+          <option value="1">JYES</option>
+        </field>
+        <field name="tweet_time" type="radio" default="1" class="btn-group" label="TWEET_TIME" description="TWEET_TIME_DESC">
+          <option value="0">JNO</option>
+          <option value="1">JYES</option>
+        </field>
+        <field name="tweet_time_linked" type="radio" default="1" class="btn-group" label="LINKED_TWEET_TIME" description="LINKED_TWEET_TIME_DESC">
+          <option value="0">JNO</option>
+          <option value="1">JYES</option>
+        </field>
+        <field name="tweet_src" type="radio" default="1" class="btn-group" label="TWEET_SRC" description="TWEET_SRC_DESC">
+          <option value="0">JNO</option>
+          <option value="1">JYES</option>
+        </field>
+        <field name="follow_us" type="radio" default="1" class="btn-group" label="FOLLOW_US" description="FOLLOW_US_DESC">
+          <option value="0">JSHOW</option>
+          <option value="1">JHIDE</option>
+        </field>
+        <field name="target" type="radio" default="_blank" class="btn-group" label="NEW_WINDOW" description="NEW_WINDOW_DESC">
+          <option value="_self">NEW_WINDOW</option>
+          <option value="_blank">OWN_WINDOW</option>
+        </field>
+
+        <field type="spacer" name="tokens" hr="true" />
+
+        <field name="consumer_key" type="text" default="" label="CONSUMER_KEY" description="CONSUMER_KEY_DESC" />
+        <field name="consumer_key_secret" type="text" default="" label="CONSUMER_KEY_SECRET" description="CONSUMER_KEY_SECRET_DESC" />
+        <field name="access_token" type="text" default="" label="ACCESS_TOKEN" description="ACCESS_TOKEN_DESC" />
+        <field name="access_token_secret" type="text" default="" label="ACCESS_TOKEN_SECRET" description="ACCESS_TOKEN_SECRET_DESC" />
+
+
+        <field type="spacer" name="myspacer2" hr="true" />
+        <field name="animation" type="radio" default="none" class="btn-group" label="ANIMATION" description="ANIMATION_DESC">
+          <option value="none">JNO</option>
+          <option value="1">JYES</option>
+        </field>		
+        <field name="morph_duration" type="text" default="300" label="DURATION" description="DURATION_DESC" />
+        <field name="animation_periodical_time" type="text" default="8000" label="INTERVAL" description="INTERVAL_DESC" />
+      </fieldset>
+	  
+      <fieldset name="advanced">
+		<field name="moduleclass_sfx" type="text" default="" label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
+		<field name="cache" type="hidden" default="0" />
+		<field name="module_cache" type="list" default="1" label="COM_MODULES_FIELD_CACHING_LABEL" description="COM_MODULES_FIELD_CACHING_DESC">
+			<option value="1">JGLOBAL_USE_GLOBAL</option>
+			<option value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>
+		</field>
+		<field name="cache_time" type="text" default="900" label="COM_MODULES_FIELD_CACHE_TIME_LABEL" description="COM_MODULES_FIELD_CACHE_TIME_DESC" />
+		<field name="cachemode" type="hidden" default="static">
+			<option value="static"></option>
+		</field>		
+      </fieldset>
+    </fields>
+  </config>
+</extension>

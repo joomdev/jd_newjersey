@@ -1,0 +1,66 @@
+<root>
+    <params name="layeranimationglobal" label="Layer global animation properties">
+        <param name="special-zero" label="Special zero" type="onoff" default="0" class="n2-expert"/>
+
+        <param type="group" label="Repeat">
+            <param type="number" name="repeat-count" label="Count" default="0" style="width: 22px;">
+                <unit value="loop">Loop</unit>
+            </param>
+            <param type="number" name="repeat-start-delay" label="Start delay" default="0" style="width: 40px;">
+                <unit value="ms">ms</unit>
+            </param>
+        </param>
+
+        <param name="transformorigin" label="Transform origin" type="mixed" default="50|*|50|*|0" translateable="0">
+            <param type="numberautocomplete" sublabel="X" style="width: 40px;" values="0,50,100">
+                <unit value="%">%</unit>
+            </param>
+            <param type="numberautocomplete" sublabel="Y" style="width: 40px;" values="0,50,100">
+                <unit value="%">%</unit>
+            </param>
+            <param type="numberautocomplete" sublabel="Z" style="width: 40px;" values="0">
+                <unit value="px">px</unit>
+            </param>
+        </param>
+
+        <param label="Event" type="group">
+            <param type="autocomplete" name="play" label="Play" default="">
+                <option>LayerClick</option>
+                <option>LayerMouseEnter</option>
+                <option>LayerMouseLeave</option>
+                <option>SlideClick</option>
+                <option>SlideMouseEnter</option>
+                <option>SlideMouseLeave</option>
+                <option>SliderClick</option>
+                <option>SliderMouseEnter</option>
+                <option>SliderMouseLeave</option>
+            </param>
+            <param type="autocomplete" name="pause" label="Pause" default="">
+                <option>LayerClick</option>
+                <option>LayerMouseEnter</option>
+                <option>LayerMouseLeave</option>
+                <option>SlideClick</option>
+                <option>SlideMouseEnter</option>
+                <option>SlideMouseLeave</option>
+                <option>SliderClick</option>
+                <option>SliderMouseEnter</option>
+                <option>SliderMouseLeave</option>
+                <option>LoopRoundComplete</option>
+            </param>
+            <param type="autocomplete" name="stop" label="Stop" default="">
+                <option>LayerClick</option>
+                <option>LayerMouseEnter</option>
+                <option>LayerMouseLeave</option>
+                <option>SlideClick</option>
+                <option>SlideMouseEnter</option>
+                <option>SlideMouseLeave</option>
+                <option>SliderClick</option>
+                <option>SliderMouseEnter</option>
+                <option>SliderMouseLeave</option>
+            </param>
+            <param type="onoff" name="repeatable" label="Repeatable" default="0"/>
+            <param type="onoff" name="repeat-self-only" label="Repeat self only" default="0"/>
+            <param type="onoff" name="instant-out" label="Instant out" default="0"/>
+        </param>
+    </params>
+</root>

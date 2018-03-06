@@ -1,0 +1,40 @@
+/**
+ * @author    JoomShaper http://www.joomshaper.com
+ * @copyright Copyright (C) 2010 - 2012 JoomShaper
+ * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2
+*/
+
+.bloggani-slider{color:#000;overflow:hidden}
+.bloggani-slider,
+.layout-bloggani .slider-content-wrapper,
+.layout-bloggani .slider-image-wrapper,
+.layout-bloggani .sp-slider-inner{position:relative}
+.layout-bloggani .slider-introtext,
+.layout-bloggani .slider-title{width:32%}
+
+.layout-bloggani .slider-title h1,.layout-bloggani .slider-date-thumb > span,.layout-bloggani .slider-introtext{font-family:Dosis,Arial,sans-serif}
+
+.layout-bloggani .slider-title{background:#000;bottom:20px;height:100px;position:absolute;overflow:hidden;z-index:1}
+.layout-bloggani .slider-title,
+.layout-bloggani .slider-title a{color:#fff}
+.layout-bloggani .slider-title >div h1{margin:13px 20px;font-size:30px;line-height:120%}
+.layout-bloggani .slider-introtext{ position: absolute; -webkit-transform: scale(0);-moz-transform: scale(0);-o-transform: scale(0);-ms-transform: scale(0);transform: scale(0); font-size:30px;font-weight:400;line-height:120%}
+.layout-bloggani .slider-introtext >div{background:#fff;padding:20px;}
+
+.layout-bloggani .slider-image-wrapper{position:relative;margin-left:32%}
+.layout-bloggani .slider-date-thumb{background:#FFF;bottom:20px;height:96px;left:0;line-height:96px;padding:2px;position:absolute}
+.layout-bloggani .slider-date-thumb > span{display:inline-block;font-size:48px;font-weight:700;margin:0 15px 0 45px}
+.layout-bloggani .slider-date-thumb > span,
+.layout-bloggani .slider-date-thumb > img{float:left}
+.layout-bloggani .slider-date-thumb > img{height:100%}
+.layout-bloggani .slider-controllers{background:#333;border-radius:100px;bottom:34px;height:50px;left:32%;margin-left:-34px;padding:8px 10px;position:absolute;width:48px;z-index:2;text-align:center;}
+.layout-bloggani .slider-controllers >a{color:#fff;display:inline-block;margin:0;padding:0;cursor:pointer}
+.layout-bloggani .slider-controllers >a:hover{color:#333;}
+.layout-bloggani .slider-controllers >a >span{display:block;font-family:"Helvetica Neue";margin-top:-2px;font-size:48px;line-height:48px;}
+
+.layout-bloggani .slider-item{position:absolute;left:0;top:0;width:100%;background:#fff;overflow:hidden}
+.layout-bloggani .active .slider-introtext{-webkit-transform: scale(1);-moz-transform: scale(1);-o-transform: scale(1);-ms-transform: scale(1);transform: scale(1)}
+
+/*Animation*/
+.slider-title,
+.slider-introtext{-webkit-transition:all 1000ms;-moz-transition:all 1000ms;-o-transition:all 1000ms;-ms-transition:all 1000ms;transition:all 1000ms}

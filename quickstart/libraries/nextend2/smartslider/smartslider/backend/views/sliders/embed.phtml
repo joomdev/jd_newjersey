@@ -1,0 +1,27 @@
+<?php
+/**
+ * @var $this   N2View
+ * @var $_class N2SmartsliderBackendSlidersView
+ */
+
+//$this->widget->init('topbar', array('expert' => false));
+
+$groupID = N2Request::getInt('groupID', 0);
+
+if ($groupID > 0) {
+    $slidersModel = new N2SmartsliderSlidersModel();
+    $group        = $slidersModel->get($groupID);
+    $this->widget->init('heading', array(
+        'title' => $group['title']
+    ));
+}
+?>
+
+<div class="n2-ss-sliders-outer-container">
+    <?php
+    $this->renderInline("embedslidermanager", array(
+        'groupID' => $groupID,
+        'mode'    => $mode
+    ));
+    ?>
+</div>

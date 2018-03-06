@@ -1,0 +1,106 @@
+<?php
+/**
+ * @var $model N2SystemAnimationModel
+ */
+
+$sets = $model->getSets();
+
+N2AnimationRenderer::$sets[] = $sets[0]['id'];
+N2AnimationRenderer::$sets[] = $sets[1]['id'];
+N2AnimationRenderer::$sets[] = $sets[2]['id'];
+
+$animations = array();
+foreach (array_unique(N2AnimationRenderer::$sets) AS $setId) {
+    $animations[$setId] = $model->getVisuals($setId);
+}
+
+N2JS::addFirstCode("
+    new NextendAnimationManager({
+        setsIdentifier: '" . $model->type . "set',
+        sets: " . json_encode($sets) . ",
+        visuals: " . json_encode($animations) . ",
+        renderer: {
+            modes: " . json_encode(N2AnimationRenderer::$mode) . "
+        },
+        ajaxUrl: '" . $this->appType->router->createAjaxUrl(array('animation/index')) . "'
+    });
+");
+?>
+    <div class="n2-form-tab ">
+        <div class="n2-heading-controls n2-content-box-title-bg">
+            <div class="n2-table">
+                <div class="n2-tr">
+                    <div class="n2-td n2-h2" style="white-space: nowrap">
+                        <?php n2_e('Animation settings'); ?>
+                    </div>
+
+                    <div class="n2-td n2-last n2-visual-editor-tabs">
+                        <div class="n2-form-element-radio-tab">
+                            <div class="n2-radio-option n2-h4 n2-first n2-last n2-active">
+                                #0
+                            </div>
+                            <input type="hidden" autocomplete="off" value="0" name="n2-animation-editor-tabs"
+                                   id="n2-animation-editor-tabs">
+                        </div>
+
+                        <a id="n2-animation-editor-tab-add" href="#" class="n2-button n2-button-icon n2-button-m n2-radius-s n2-button-grey">
+                            <i class="n2-i n2-i-plus"></i>
+                        </a>
+
+                        <a id="n2-animation-editor-tab-delete" href="#"
+                           class="n2-button n2-button-icon n2-button-m n2-radius-s n2-button-grey">
+                            <i class="n2-i n2-i-delete"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <?php
+            $model->renderForm();
+            ?>
+        </div>
+    </div>
+
+    <div class="n2-form-tab n2-editor-preview-box">
+        <div class="n2-heading-controls n2-content-box-title-bg">
+            <div class="n2-table n2-table-fixed">
+                <div class="n2-tr">
+                    <div class="n2-td n2-h2">
+                        <?php n2_e('Preview'); ?>
+                    </div>
+
+                    <div class="n2-td n2-last n2-visual-editor-preview-tab">
+                        <div class="n2-form-element-radio-tab">
+                            <div class="n2-radio-option n2-h4 n2-first n2-last n2-active">
+                                Default
+                            </div>
+                            <input type="hidden" autocomplete="off" value="0" name="n2-animation-editor-preview-mode"
+                                   id="n2-animation-editor-preview-mode">
+                        </div>
+                        <div class="n2-editor-background-color">
+                            <div style="" class="n2-form-element-text n2-form-element-color n2-border-radius">
+                                <div class="n2-sp-replacer">
+                                    <div class="n2-sp-preview">
+                                        <div class="n2-sp-preview-inner"></div>
+                                    </div>
+                                    <div class="n2-sp-dd">▲</div>
+                                </div>
+                                <input type="text" autocomplete="off" class="n2-h5" value="ced3d5"
+                                       name="n2-animation-editor-background-color"
+                                       id="n2-animation-editor-background-color">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="n2-animation-editor-preview">
+        </div>
+    </div>
+
+<?php
+$model->renderFormExtra();
+?>

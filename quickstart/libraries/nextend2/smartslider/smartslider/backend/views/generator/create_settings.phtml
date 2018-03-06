@@ -1,0 +1,61 @@
+<?php
+$this->widget->init('topbar', array(
+    "actions" => array(
+        N2Html::tag('a', array(
+            'href'  => $this->appType->router->createUrl(array(
+                "slider/edit",
+                array(
+                    "sliderid" => $slider['id']
+                )
+            )),
+            'class' => 'n2-button n2-button-normal n2-button-l n2-radius-s n2-button-red n2-h4 n2-b n2-uc'
+        ), n2_('Cancel')),
+        N2Html::tag('a', array(
+            'href'    => '#',
+            'class'   => 'n2-button n2-button-normal n2-button-l n2-radius-s n2-button-green n2-h4 n2-b n2-uc',
+            'onclick' => 'return NextendForm.submit("#smartslider-form");'
+        ), n2_('Save'))
+    )
+));
+?>
+
+    <form id="smartslider-form" action="" method="post">
+        <?php
+
+        $group = N2Request::getCmd('group');
+        $type  = N2Request::getCmd('type');
+
+        $generatorModel = new N2SmartsliderGeneratorModel();
+
+        $info = $generatorModel->getGeneratorInfo($group, $type);
+        $this->widget->init('heading', array(
+            'title' => $info->group . ' - ' . $info->title
+        ));
+
+        $xml = $generatorModel->generatorSpecificForm($group, $type);
+
+        $generatorModel->generatorCommonForm();
+        ?>
+        <input name="generator[group]" value="<?php echo $group; ?>" type="hidden"/>
+        <input name="generator[type]" value="<?php echo $type; ?>" type="hidden"/>
+        <input name="slider-id" value="<?php echo N2Request::getInt('sliderid'); ?>" type="hidden"/>
+        <input name="save" value="1" type="hidden"/>
+    </form>
+    <style>
+        #generatorrecords {
+            overflow: auto;
+            width: 100%;
+        }
+
+        #generatorrecords table div {
+            max-width: 200px;
+            max-height: 200px;
+            overflow: auto;
+        }
+    </style>
+
+<?php
+
+N2JS::addInline('new N2Classes.SmartSliderGeneratorRecords("' . $this->appType->router->createAjaxUrl(array(
+        'generator/recordstable'
+    )) . '");');

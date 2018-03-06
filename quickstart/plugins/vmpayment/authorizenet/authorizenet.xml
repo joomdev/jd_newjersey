@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension version="2.5" type="plugin" group="vmpayment">
+    <name>Authorize.net AIM</name>
+    <creationDate>November 21 2017</creationDate>
+    <author>The VirtueMart Development Team</author>
+    <authorUrl>https://virtuemart.net</authorUrl>
+    <copyright>Copyright (C) 2004 - 2017 Virtuemart Team. All rights reserved.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <version>3.2.6</version>
+    <description>Authorize.net AIM</description>
+    <files>
+        <filename plugin="authorizenet">authorizenet.php</filename>
+        <folder>language</folder>
+    </files>
+
+
+    <vmconfig>
+        <fields name="params">
+            <fieldset name="basic" addfieldpath="/plugins/vmpayment/authorizenet/authorizenet/fields">
+                <field type="spacer" default="VMPAYMENT_AUTHORIZENET_AIM" level="level1"/>
+                <field type="spacer" default="VMPAYMENT_AUTHORIZENET_MUST_SSL" level="level1"/>
+                <field type="vmtitle" default="VMPAYMENT_AUTHORIZENET_LIVE_PARAMS" level="level1"/>
+                <field name="hostname" type="text" size="50" default="https://secure.authorize.net/gateway/transact.dll"
+                       label="VMPAYMENT_AUTHORIZENET_HOSTNAME" description="VMPAYMENT_AUTHORIZENET_HOSTNAME_DESC"/>
+                <field name="login_id" type="text" size="50" default="" label="VMPAYMENT_AUTHORIZENET_LOGIN_ID"
+                       description="VMPAYMENT_AUTHORIZENET_LOGIN_ID_DESC"/>
+                <field name="transaction_key" type="text" size="70" default=""
+                       label="VMPAYMENT_AUTHORIZENET_TRANSACTION_KEY"
+                       description="VMPAYMENT_AUTHORIZENET_TRANSACTION_KEY_DESC"/>
+                <field name="secure_post" type="radio" default="0" label="VMPAYMENT_AUTHORIZENET_SECURE_POST"
+                       description="VMPAYMENT_AUTHORIZENET_SECURE_POST_DESC">
+                    <option value="0">COM_VIRTUEMART_NO</option>
+                    <option value="1">COM_VIRTUEMART_YES</option>
+                </field>
+
+                <field type="vmtitle" default="VMPAYMENT_AUTHORIZENET_SANDBOX_PARAMS" level="level1"/>
+                <field name="sandbox" type="radio" default="0" label="VMPAYMENT_AUTHORIZENET_USE_SANDBOX"
+                       description="VMPAYMENT_AUTHORIZENET_USE_SANDBOX_DESC">
+                    <option value="0">COM_VIRTUEMART_NO</option>
+                    <option value="1">COM_VIRTUEMART_YES</option>
+                </field>
+                <field name="sandbox_hostname" type="text" size="50"
+                       default="https://test.authorize.net/gateway/transact.dll"
+                       label="VMPAYMENT_AUTHORIZENET_SANDBOX_HOSTNAME"
+                       description="VMPAYMENT_AUTHORIZENET_SANDBOX_HOSTNAME_DESC"/>
+
+                <field name="sandbox_login_id" type="text" size="50" default=""
+                       label="VMPAYMENT_AUTHORIZENET_SANDBOX_LOGIN_ID"
+                       description="VMPAYMENT_AUTHORIZENET_SANDBOX_LOGIN_ID_DESC"/>
+                <field name="sandbox_transaction_key" type="text" size="50" default=""
+                       label="VMPAYMENT_AUTHORIZENET_SANDBOX_TRANSACTION_KEY"
+                       description="VMPAYMENT_AUTHORIZENET_SANDBOX_TRANSACTION_KEY_DESC"/>
+                <field type="vmtitle" default="VMPAYMENT_AUTHORIZENET_PARAMS" level="level1"/>
+                <field name="xtype" type="list" default="AUTH_CAPTURE" label="VMPAYMENT_AUTHORIZENET_TRANSACTION_TYPE"
+                       description="VMPAYMENT_AUTHORIZENET_TRANSACTION_TYPE_DESC">
+                    <option value="AUTH_CAPTURE">VMPAYMENT_AUTHORIZENET_TRANSACTION_TYPE_AUTH_CAPTURE</option>
+                    <option value="AUTH_ONLY">VMPAYMENT_AUTHORIZENET_TRANSACTION_TYPE_AUTH_ONLY</option>
+                </field>
+                <field name="creditcards" type="authorizenetcreditcards" default="" multiple="multiple"
+                       label="VMPAYMENT_AUTHORIZENET_CREDITCARDS" description="VMPAYMENT_AUTHORIZENET_CREDITCARDS_DESC">
+                    <option value="Visa">VMPAYMENT_AUTHORIZENET_VISA</option>
+                    <option value="Mastercard">VMPAYMENT_AUTHORIZENET_MASTERCARD</option>
+                    <option value="AmericanExpress">VMPAYMENT_AUTHORIZENET_AMERICANEXPRESS</option>
+                    <option value="Discover">VMPAYMENT_AUTHORIZENET_DISCOVER</option>
+                    <option value="DinersClub">VMPAYMENT_AUTHORIZENET_DINERSCLUB</option>
+                    <option value="JCB">VMPAYMENT_AUTHORIZENET_JCB</option>
+                </field>
+
+                <field type="vmtitle" default="VMPAYMENT_AUTHORIZENET_ORDER_STATUS_PARAMS" level="level1"/>
+                <field name="payment_approved_status" type="vmorderstate" scope="com_virtuemart" default="C"
+                       label="VMPAYMENT_AUTHORIZENET_ORDERSTATUS_APPROVED"
+                       description="VMPAYMENT_AUTHORIZENET_ORDERSTATUS_SUCCESS_DESC"/>
+                <field name="payment_declined_status" type="vmorderstate" scope="com_virtuemart" default="X"
+                       label="VMPAYMENT_AUTHORIZENET_ORDERSTATUS_DECLINED"
+                       description="VMPAYMENT_AUTHORIZENET_ORDERSTATUS_INVALID_DESC"/>
+                <field name="payment_held_status" type="vmorderstate" scope="com_virtuemart" default="P"
+                       label="VMPAYMENT_AUTHORIZENET_ORDERSTATUS_HELD"
+                       description="VMPAYMENT_AUTHORIZENET_ORDERSTATUS_CANCEL_DESC"/>
+                <field type="vmtitle" default="VMPAYMENT_AUTHORIZENET_TEMPLATE_PARAMS" level="level1"/>
+                <field name="payment_logos" type="vmfiles"  multiple="true" label="VMPAYMENT_AUTHORIZENET_LOGOS"
+                       description="VMPAYMENT_AUTHORIZENET_LOGOS_DESC"
+                       directory="/images/virtuemart/payment"
+                       default="default" hide_default="1" hide_none="1"
+                       stripext="0" exclude="^_"/>
+                <field name="cvv_images" type="vmfiles" label="VMPAYMENT_AUTHORIZENET_CVVIMAGES"
+                       description="VMPAYMENT_AUTHORIZENET_CVVIMAGES_DESC"
+                       directory="/images/virtuemart/payment"
+                       default="default" hide_default="1" hide_none="1"
+                       stripext="0" exclude="^_"/>
+
+                <field type="vmtitle" default="VMPAYMENT_AUTHORIZENET_OPTION_PARAMS" level="level1"/>
+                <field name="countries" type="vmcountries" scope="com_virtuemart" default=""
+                       label="VMPAYMENT_AUTHORIZENET_COUNTRIES_DESC"
+                       description="VMPAYMENT_AUTHORIZENET_COUNTRIES_DESC"/>
+                <field name="min_amount" type="text" label="VMPAYMENT_AUTHORIZENET_MIN_AMOUNT"
+                       description="VMPAYMENT_AUTHORIZENET_MIN_AMOUNT_DESC"/>
+                <field name="max_amount" type="text" label="VMPAYMENT_AUTHORIZENET_MAX_AMOUNT"
+                       description="VMPAYMENT_AUTHORIZENET_MAX_AMOUNT_DESC"/>
+                <field name="cost_per_transaction" type="text" label="VMPAYMENT_AUTHORIZENET_COST_PER_TRANSACTION"
+                       description="VMPAYMENT_AUTHORIZENET_COST_TRANSACTION_DESC"/>
+                <field name="cost_percent_total" type="text" label="VMPAYMENT_AUTHORIZENET_COST_PERCENT_TOTAL"
+                       description="VMPAYMENT_AUTHORIZENET_COST_TOTAL_DESC"/>
+                <!--field name="payment_currency" type="vmacceptedcurrency" default="" label="VMPAYMENT_AUTHORIZENET_PAYMENT_CURRENCY"
+                       description="VMPAYMENT_AUTHORIZENET_PAYMENT_CURRENCY_DESC"/>
+                <field name="email_currency" type="list" default="vendor" label="VMPAYMENT_AUTHORIZENET_EMAIL_CURRENCY"
+                       description="VMPAYMENT_AUTHORIZENET_EMAIL_CURRENCY_DESC">
+                    <option value="vendor">VMPAYMENT_AUTHORIZENET_EMAIL_CURRENCY_VENDOR</option>
+                    <option value="payment">VMPAYMENT_AUTHORIZENET_EMAIL_CURRENCY_PAYMENT</option>
+                </field -->
+                <field name="tax_id" type="vmtaxes" scope="com_virtuemart" label="VMPAYMENT_AUTHORIZENET_TAX"
+                       description="VMPAYMENT_AUTHORIZENET_TAX_DESC"/>
+                <field name="debug" type="radio" default="0" label="VMPAYMENT_AUTHORIZENET_DEBUG"
+                       description="VMPAYMENT_AUTHORIZENET_DEBUG_DESC">
+                    <option value="0">COM_VIRTUEMART_NO</option>
+                    <option value="1">COM_VIRTUEMART_YES</option>
+                </field>
+                <field name="log" type="radio" default="0" label="VMPAYMENT_AUTHORIZENET_LOG"
+                       description="VMPAYMENT_AUTHORIZENET_LOG_DESC">
+                    <option value="0">COM_VIRTUEMART_NO</option>
+                    <option value="1">COM_VIRTUEMART_YES</option>
+                </field>
+            </fieldset>
+        </fields>
+    </vmconfig>
+
+    <updateservers>
+        <!-- Note: No spaces or linebreaks allowed between the server tags -->
+        <server type="extension" name="VirtueMart plg_vmpayment_authorizenet Update Site"><![CDATA[http://virtuemart.net/releases/vm3/plg_vmpayment_authorisenet_update.xml]]></server>
+    </updateservers>
+</extension>

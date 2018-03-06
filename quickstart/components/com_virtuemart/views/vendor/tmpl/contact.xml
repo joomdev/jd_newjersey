@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+    <layout title="COM_VIRTUEMART_VENDOR_VIEW_CONTACT_TITLE">
+        <message><![CDATA[COM_VIRTUEMART_VENDOR_VIEW_CONTACT_DESC]]></message>
+
+    </layout>
+    <fields name="request" >
+        <fieldset name="request" addfieldpath="/administrator/components/com_virtuemart/fields">
+            <field name="virtuemart_vendor_id" type="vendor"
+				label="COM_VIRTUEMART_VENDOR_FIELD_SELECT_TITLE"
+				required="true"
+				description="COM_VIRTUEMART_VENDOR_FIELD_SELECT_TITLE_DESC"
+			/>
+        </fieldset>
+    </fields>
+</metadata>

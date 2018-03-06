@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension type="plugin" version="2.5" group="vmpayment"
+           method="upgrade">
+    <name>Heidelpay</name>
+    <creationDate>12-Sep-2012</creationDate>
+    <author>Heidelberger Payment GmbH</author>
+    <authorEmail>info@heidelpay.de</authorEmail>
+    <authorUrl>http://www.heidelpay.de</authorUrl>
+    <copyright>Copyright Heidelberger Payment GmbH</copyright>
+    <license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
+    <version>16.11.07</version>
+    <description>
+        <![CDATA[<h2>Virtuemart Plugin von:</h2><p><a href="http://www.Heidelpay.de" target="_blank"><img src="http://www.heidelpay.de/gfx/logo.gif" style="margin-right:20px;"/></a></p> ]]></description>
+    <files>
+        <filename plugin="heidelpay">heidelpay.php</filename>
+        <filename>index.html</filename>
+        <folder>heidelpay</folder>
+    </files>
+    <vmconfig>
+        <fields name="params">
+
+            <fieldset name="heidelpay" addfieldpath="/plugins/vmpayment/heidelpay/heidelpay/fields">
+
+                <field type="spacer" default="VMPAYMENT_HEIDELPAY_PAYMENT"/>
+                <field type="spacer" default=""/>
+                <field type="getheidelpay" level="level1"/>
+                <field type="spacer" default=""/>
+                <field name="payment_logos" type="vmfiles" label="VMPAYMENT_HEIDELPAY_LOGOS"
+                       description="VMPAYMENT_HEIDELPAY_LOGOS_DESC"
+                       directory="/images/virtuemart/payment"
+                       default="default" hide_default="1" hide_none="1"
+                       stripext="0" exclude="^_"/>
+                <field type="spacer" default=""/>
+                <field type="spacer" default=""/>
+                <field type="spacer" default="VMPAYMENT_HEIDELPAY_VM_PARAMETERS"/>
+
+                <field type="text" name="HEIDELPAY_PAYMENT_URL" size="50"
+                       label="VMPAYMENT_HEIDELPAY_PAYMENT_URL" description="VMPAYMENT_HEIDELPAY_PAYMENT_URL_DESC"
+                       default="https://test-heidelpay.hpcgw.net/sgw/gtw"/>
+                <field type="spacer" default=""/>
+                <field type="text" name="HEIDELPAY_SECURITY_SENDER" size="50"
+                       label="VMPAYMENT_HEIDELPAY_SECURITY_SENDER"
+                       description="VMPAYMENT_HEIDELPAY_SECURITY_SENDER_DESC"
+                       default="31HA07BC8124AD82A9E96D9A35FAFD2A"/>
+                <field type="spacer" default=""/>
+                <field type="text" name="HEIDELPAY_USER_LOGIN" size="50"
+                       label="VMPAYMENT_HEIDELPAY_USER_LOGIN" description="VMPAYMENT_HEIDELPAY_USER_LOGIN_DESC"
+                       default="31ha07bc8124ad82a9e96d486d19edaa"/>
+                <field type="spacer" default=""/>
+                <field type="text" name="HEIDELPAY_USER_PW" size="50"
+                       label="VMPAYMENT_HEIDELPAY_USER_PW" description="VMPAYMENT_HEIDELPAY_USER_PW_DESC"
+                       default="password"/>
+                <field type="spacer" default=""/>
+                <field type="text" name="HEIDELPAY_CHANNEL_ID" size="50"
+                       label="VMPAYMENT_HEIDELPAY_CHANNEL_ID" description="VMPAYMENT_HEIDELPAY_CHANNEL_ID_DESC"
+                       default="31HA07BC81A71E2A47DA94B6ADC524D8"/>
+                <field type="spacer" default=""/>
+                <field name="payment_currency" type="vmacceptedcurrency" default="" label="VMPAYMENT_STANDARD_CURRENCY"
+                       description="VMPAYMENT_STANDARD_CURRENCY_DESC"/>
+
+                <field name="HEIDELPAY_TRANSACTION_MODE" type="radio" default="1"
+                       label="VMPAYMENT_HEIDELPAY_TRANSACTION_MODE"
+                       description="VMPAYMENT_HEIDELPAY_TRANSACTION_MODE_DESC">
+                    <option value="0">VMPAYMENT_HEIDELPAY_INTEGRATOR_TEST</option>
+                    <option value="1">VMPAYMENT_HEIDELPAY_CONNECTOR_TEST</option>
+                    <option value="2">VMPAYMENT_HEIDELPAY_LIVE</option>
+                </field>
+                <field type="spacer" default=""/>
+                <field name="HEIDELPAY_PAYMENT_TYPE" type="radio" default="CC"
+                       label="VMPAYMENT_HEIDELPAY_PAYMENT_TYPE" description="VMPAYMENT_HEIDELPAY_PAYMENT_TYPE_DESC">
+                    <option value="CC">VMPAYMENT_HEIDELPAY_CC</option>
+                    <option value="DC">VMPAYMENT_HEIDELPAY_DC</option>
+                    <option value="DD">VMPAYMENT_HEIDELPAY_DD</option>
+                    <option value="OTSUE">VMPAYMENT_HEIDELPAY_OTSUE</option>
+                    <option value="OTGIR">VMPAYMENT_HEIDELPAY_OTGIR</option>
+                    <option value="OTEPS">VMPAYMENT_HEIDELPAY_OTEPS</option>
+                    <option value="OTIDE">VMPAYMENT_HEIDELPAY_OTIDE</option>
+                    <option value="IV">VMPAYMENT_HEIDELPAY_IV</option>
+                    <option value="PP">VMPAYMENT_HEIDELPAY_PP</option>
+                    <option value="VAPAYPAL">VMPAYMENT_HEIDELPAY_VAPAYPAL</option>
+                    <option value="PCMANGIR">VMPAYMENT_HEIDELPAY_PCMANGIR</option>
+                    <option value="PPBARPAY">VMPAYMENT_HEIDELPAY_BARPAY</option>
+                    <!--            <option value="IVBILLSAFE">VMPAYMENT_HEIDELPAY_BILLSAFE</option>	-->
+                </field>
+                <field type="spacer" default=""/>
+                <field name="HEIDELPAY_PAYMENT_METHOD" type="radio" default="DB"
+                       label="VMPAYMENT_HEIDELPAY_PAYMENT_METHOD" description="VMPAYMENT_HEIDELPAY_PAYMENT_METHOD_DESC">
+                    <option value="DB">VMPAYMENT_HEIDELPAY_DEB</option>
+                    <option value="PA">VMPAYMENT_HEIDELPAY_PA</option>
+                </field>
+                <field type="spacer" default=""/>
+                <field name="HEIDELPAY_SEPA_FORM" type="radio" default="DB"
+                       label="VMPAYMENT_HEIDELPAY_SEPA_FORM" description="VMPAYMENT_HEIDELPAY_SEPA_FORM_DESC">
+                    <option value="1">VMPAYMENT_HEIDELPAY_SEPA1</option>
+                    <option value="2">VMPAYMENT_HEIDELPAY_SEPA2</option>
+                    <option value="3">VMPAYMENT_HEIDELPAY_SEPA3</option>
+                    <option value="4">VMPAYMENT_HEIDELPAY_SEPA4</option>
+                </field>
+
+                <field type="spacer" default="" level="level1"/>
+                <field type="spacer" default="" level="level1"/>
+                <field type="spacer" default="VMPAYMENT_HEIDELPAY_RESTRICTIONS_CONFIG"
+                       level="level1"/>
+                <field name="min_amount" type="text" label="VMPAYMENT_HEIDELPAY_MIN_AMOUNT"
+                       description="VMPAYMENT_HEIDELPAY_MIN_AMOUNT_EXPLAIN"/>
+                <field name="max_amount" type="text" label="VMPAYMENT_HEIDELPAY_MAX_AMOUNT"
+                       description="VMPAYMENT_HEIDELPAY_MAX_AMOUNT_EXPLAIN"/>
+                <field type="spacer" default="" level="level1"/>
+                <field type="spacer" default="" level="level1"/>
+                <field type="spacer" default="VMPAYMENT_HEIDELPAY_ORDER_STATUS_CONFIG"
+                       level="level1"/>
+                <field name="HEIDELPAY_STATUS_PENDING" type="vmorderstate" scope="com_virtuemart"
+                       default="U" label="VMPAYMENT_HEIDELPAY_STATUS_PENDING"
+                       description="VMPAYMENT_HEIDELPAY_STATUS_PENDING_DESC"/>
+                <field name="HEIDELPAY_STATUS_SUCCESS" type="vmorderstate" scope="com_virtuemart"
+                       default="C" label="VMPAYMENT_HEIDELPAY_STATUS_SUCCESS"
+                       description="VMPAYMENT_HEIDELPAY_STATUS_SUCCESS_DESC"/>
+                <field name="HEIDELPAY_STATUS_FAILED" type="vmorderstate" scope="com_virtuemart"
+                       default="X" label="VMPAYMENT_HEIDELPAY_STATUS_FAILED"
+                       description="VMPAYMENT_HEIDELPAY_STATUS_FAILED_DESC"/>
+                <field type="spacer" default="" level="level1"/>
+                <field name="HEIDELPAY_DEBUG" type="radio" default="0"
+                       label="VMPAYMENT_HEIDELPAY_DEBUG" description="VMPAYMENT_HEIDELPAY_DEBUG_DESC">
+                    <option value="0">COM_VIRTUEMART_NO</option>
+                    <option value="1">COM_VIRTUEMART_YES</option>
+                </field>
+                <field type="spacer" default="" level="level1"/>
+                <field name="HEIDELPAY_CONFIRM_EMAIL" type="radio" default="0"
+                       label="VMPAYMENT_HEIDELPAY_CONFIRM_EMAIL" description="VMPAYMENT_HEIDELPAY_CONFIRM_EMAIL_DESC">
+                    <option value="2">VMPAYMENT_HEIDELPAY_CONFIRM_EMAIL_SUCCESS</option>
+                    <option value="1">VMPAYMENT_HEIDELPAY_CONFIRM_EMAIL_ALWAYS</option>
+                    <option value="0">VMPAYMENT_HEIDELPAY_CONFIRM_EMAIL_NEVER</option>
+                </field>
+                <field type="text" name="HEIDELPAY_SECRET" size="50"
+                       label="VMPAYMENT_HEIDELPAY_SECRET" description="VMPAYMENT_HEIDELPAY_SECRET_DESC"
+                       default="ChangeMe"/>
+                <field type="text" name="HEIDELPAY_STYLE" size="50"
+                       label="VMPAYMENT_HEIDELPAY_STYLE" description="VMPAYMENT_HEIDELPAY_STYLE_DESC"
+                       default="heidelpay_default.css"/>
+                <field type="hidden" name="cost_percent_total"/>
+                <field type="hidden" name="cost_per_transaction"/>
+            </fieldset>
+        </fields>
+    </vmconfig>
+
+    <updateservers>
+        <!-- Note: No spaces or linebreaks allowed between the server tags -->
+        <server type="extension" name="VirtueMart plg_vmpayment_heidelpay Update Site"><![CDATA[http://virtuemart.net/releases/vm3/plg_vmpayment_heidelpay_update.xml]]></server>
+    </updateservers>
+</extension>

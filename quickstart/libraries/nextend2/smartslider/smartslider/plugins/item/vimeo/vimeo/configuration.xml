@@ -1,0 +1,38 @@
+<root>
+  <params name="vimeo-item" label="Vimeo item settings" hidetitle="1">
+    <param name="vimeourl" type="text" label="Vimeo url" style="width:290px;"/>
+    <param name="image" type="image" label="Cover image" fixed="1" style="width:236px;"/>
+    <param type="group">
+      <param name="color" type="color" label="Color" default="00adef"/>
+      <param name="volume" type="list" label="Volume" default="-1" translateable="1">
+        <option value="0">Mute</option>
+        <option value="0.25">25%</option>
+        <option value="0.5">50%</option>
+        <option value="0.75">75%</option>
+        <option value="1">100%</option>
+        <option value="-1">Default</option>
+      </param>
+      <param name="autoplay" type="onoff" label="Autoplay" default="0"/>
+      <param name="center" type="onoff" label="Centered" default="0" class="n2-hidden"/>
+      <param name="title" type="onoff" label="Title" default="1"/>
+      <param name="byline" type="onoff" label="Users byline" default="1"/>
+      <param name="portrait" type="onoff" label="Portrait" default="1"/>
+      <param name="quality" type="list" label="Quality" default="-1" translateable="1">
+        <option value="270p">270p</option>
+        <option value="360p">360p</option>
+        <option value="720p">720p</option>
+        <option value="1080p">1080p</option>
+        <option value="-1">Default</option>
+      </param>
+      <param name="start" type="text" label="Start" style="width:20px;" default="0"/></param>
+    <param type="group" class="n2-expert">
+      <param name="playbutton" label="Play button" type="onoff" default="1"/>
+      <param name="playbuttonwidth" type="text" label="Play button width" default="48" style="width:32px;">
+        <unit value="px">px</unit>
+      </param>
+      <param name="playbuttonheight" type="text" label="Play button height" default="48" style="width:32px;">
+        <unit value="px">px</unit>
+      </param>
+      <param name="playbuttonimage" type="image" label="Play button image"/></param>
+  </params>
+</root>

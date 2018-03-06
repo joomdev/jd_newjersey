@@ -1,0 +1,33 @@
+.realex_title {
+    margin: 10px 0 5px 0;
+    font-weight: bold;
+    padding: 5px;
+    float: none;
+    clear: both;
+    background-color: #FFFFFF !important;
+    height: 40px;
+    padding-left: 100px !important;
+}
+
+.level1 {
+    background-color: #7c7d7f !important;
+}
+
+.level2, .level1 {
+    margin: 10px 0 5px 0;
+    font-weight: bold;
+    padding: 5px;
+    float: none;
+    clear: both;
+}
+
+.level2 {
+    background-color: #cacaca;
+}
+
+.level3 {
+    font-weight: bold;
+}
+
+
+

@@ -1,0 +1,54 @@
+
+
+#cart-view {
+    margin-right: 2%;
+    width: 60%;
+    float: left;
+}
+/*
+.cart-view {
+    margin-right: 2%;
+    width: 65%;
+    float: left;
+}
+*/
+div#kco-payment-method {
+    float: right;
+    width: 32%;
+}
+
+.vm-fieldset-customer-note {
+    clear: both;
+}
+
+
+.vmCartPaymentLogo > img {
+    width: 100%;
+}
+
+@media (max-width: 800px){
+    .vm-fieldset-pricelist, div#checkout-advertise-box{
+        float: none;
+        width: 100%;
+        margin-right: 0;
+    }
+}
+
+#kco-shipment-method {
+    font-size: 150%;
+    font-weight: bold;
+    color: #E82727;
+    margin: 20px 0;
+}
+
+
+
+.disableSnippet {
+    overflow: hidden;
+    opacity: 0.2;
+}
+
+
+
+
+

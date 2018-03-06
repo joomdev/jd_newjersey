@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension version="2.5" type="plugin" group="vmpayment" method="upgrade">
+    <name>AMAZON</name>
+    <creationDate>November 21 2017</creationDate>
+    <author>The VirtueMart Development Team</author>
+    <authorUrl>https://virtuemart.net</authorUrl>
+    <copyright>Copyright (C) 2004 - 2017 Virtuemart Team. All rights reserved.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <version>3.2.6</version>
+    <description>AMAZON PAY plugin</description>
+    <languages>
+        <language tag="en-GB">en-GB.plg_vmpayment_amazon.ini</language>
+    </languages>
+    <files>
+        <filename plugin="amazon">amazon.php</filename>
+        <folder>language</folder>
+    </files>
+    <vmconfig>
+        <fields addpath="/administrator/components/com_virtuemart/fields"/>
+        <fields name="params">
+            <fieldset name="amazon" addfieldpath="/plugins/vmpayment/amazon/fields">
+
+                <field type="getamazon" default=""/>
+                <field class="level1" type="vmtitle" default="VMPAYMENT_AMAZON_CONF_ACCOUNT_PARAMS"/>
+
+                <field name="environment" type="list" default="sandbox" label="VMPAYMENT_AMAZON_CONF_ENVIRONMENT"
+                       description="VMPAYMENT_AMAZON_CONF_ENVIRONMENT_TIP">
+                    <option value="sandbox">VMPAYMENT_AMAZON_CONF_ENVIRONMENT_SANDBOX</option>
+                    <option value="live">VMPAYMENT_AMAZON_CONF_ENVIRONMENT_LIVE</option>
+                </field>
+                <field class="sandbox_warning warning" type="vmtitle" default=""
+                       description="VMPAYMENT_AMAZON_SANDBOX_WARNING"/>
+
+                <field name="region" type="list" default="UK" label="VMPAYMENT_AMAZON_CONF_REGION"
+                       description="VMPAYMENT_AMAZON_CONF_REGION_TIP">
+                    <option value="UK">VMPAYMENT_AMAZON_CONF_REGION_UK</option>
+                    <option value="DE">VMPAYMENT_AMAZON_CONF_REGION_DE</option>
+                    <option value="US">VMPAYMENT_AMAZON_CONF_REGION_US</option>
+                    <!--option value="OTHER">VMPAYMENT_AMAZON_CONF_REGION_OTHER</option-->
+                </field>
+
+                <field name="sellerId" class="required" type="text" default="" label="VMPAYMENT_AMAZON_CONF_SELLER_ID"
+                       description="VMPAYMENT_AMAZON_CONF_SELLER_ID_TIP"/>
+
+                <field name="accessKey" class="required" type="text" size="100" default=""
+                       label="VMPAYMENT_AMAZON_CONF_ACCESS_KEY"
+                       description="VMPAYMENT_AMAZON_CONF_ACCESS_KEY_TIP"/>
+                <field name="secretKey" class="required" type="password" size="100" default=""
+                       label="VMPAYMENT_AMAZON_CONF_SECRET_KEY"
+                       description="VMPAYMENT_AMAZON_CONF_SECRET_KEY_TIP"/>
+                <!-- field name="cnname" class="required" type="cnname" size="100" default=""
+                       label="VMPAYMENT_AMAZON_CONF_CNNAME"
+                       description="VMPAYMENT_AMAZON_CONF_CNNAME_TIP"/ -->
+                <!-- OPTIONS       -->
+                <!-- ============ -->
+                <field class="level1" type="vmtitle" default="VMPAYMENT_AMAZON_CONF_ACCOUNT_OPTIONS"/>
+                <field name="erp_mode" class="erp_mode" type="list" default="erp_mode_disabled"
+                       label="VMPAYMENT_AMAZON_CONF_ERP_MODE">
+                    <option value="erp_mode_disabled">VMPAYMENT_AMAZON_CONF_ERP_MODE_DISABLED</option>
+                    <option value="erp_mode_enabled">VMPAYMENT_AMAZON_CONF_ERP_MODE_ENABLED</option>
+                </field>
+                <!--field class="erp_mode_enabled_warning" type="vmtitle" default=""
+                       description="VMPAYMENT_AMAZON_CONF_ERP_MODE_ENABLED_WARNING"/ -->
+
+
+                <field class="authorization_mode_erp_disabled" name="authorization_mode_erp_disabled" type="list"
+                       default="automatic_asynchronous"
+                       label="VMPAYMENT_AMAZON_CONF_AUTHORIZATION_MODE">
+                    <option value="automatic_synchronous">
+                        VMPAYMENT_AMAZON_CONF_AUTHORIZATION_MODE_AUTOMATIC_SYNCHRONOUS
+                    </option>
+                    <option value="automatic_asynchronous">
+                        VMPAYMENT_AMAZON_CONF_AUTHORIZATION_MODE_AUTOMATIC_ASYNCHRONOUS
+                    </option>
+                    <!--option value="manual_non_synchronous">VMPAYMENT_AMAZON_CONF_AUTHORIZATION_MODE_MANUAL_ASYNCHRONOUS</option-->
+                </field>
+                <field class="authorization_mode_erp_enabled" name="authorization_mode_erp_enabled" type="list"
+                       default="automatic_asynchronous"
+                       label="VMPAYMENT_AMAZON_CONF_AUTHORIZATION_MODE">
+                    <option value="automatic_synchronous">
+                        VMPAYMENT_AMAZON_CONF_AUTHORIZATION_MODE_AUTOMATIC_SYNCHRONOUS
+                    </option>
+                    <option value="automatic_asynchronous">
+                        VMPAYMENT_AMAZON_CONF_AUTHORIZATION_MODE_AUTOMATIC_ASYNCHRONOUS
+                    </option>
+                    <!--option value="manual_non_synchronous">VMPAYMENT_AMAZON_CONF_AUTHORIZATION_MODE_MANUAL_ASYNCHRONOUS</option-->
+                    <option value="authorization_done_by_erp">VMPAYMENT_AMAZON_CONF_AUTHORIZATION_DONE_BY_ERP</option>
+                </field>
+                <!--field class="automatic_synchronous_warning" type="vmtitle" default=""
+                       description="VMPAYMENT_AMAZON_CONF_AUTHORIZATION_MODE_AUTOMATIC_SYNCHRONOUS_WARNING"/>
+                <field class="automatic_asynchronous_warning" type="vmtitle" default=""
+                       description="VMPAYMENT_AMAZON_CONF_AUTHORIZATION_MODE_AUTOMATIC_ASYNCHRONOUS_WARNING"/-->
+
+
+                <field class="capture_mode" name="capture_mode" type="list"
+                       default="capture_delayed"
+                       label="VMPAYMENT_AMAZON_CONF_CAPTURE_MODE">
+                    <option value="capture_immediate">VMPAYMENT_AMAZON_CONF_CAPTURE_MODE_CAPTURE_IMMEDIATE</option>
+                    <option value="capture_delayed">VMPAYMENT_AMAZON_CONF_CAPTURE_MODE_CAPTURE_DELAYED</option>
+                </field>
+                <field class="capture_mode_warning warning" type="vmtitle" default=""
+                       description="VMPAYMENT_AMAZON_CONF_CAPTURE_CAPTURE_IMMEDIATE_WARNING"/>
+
+
+                <field class="ipn_reception" name="ipn_reception" type="list" default="ipn_reception_enabled"
+                       label="VMPAYMENT_AMAZON_CONF_IPN_RECEPTION">
+                    <option value="ipn_reception_enabled">VMPAYMENT_AMAZON_CONF_IPN_RECEPTION_ENABLED</option>
+                    <option value="ipn_reception_disabled">VMPAYMENT_AMAZON_CONF_IPN_RECEPTION_DISABLED</option>
+                </field>
+
+                <field class="ipn_reception_disabled warning" type="vmtitle" default=""
+                       description="VMPAYMENT_AMAZON_CONF_IPN_RECEPTION_POLLING"/>
+
+                <!--field name="polling_frequency" class="ipn_reception ipn_reception_disabled" type="text" default="10"
+                       label="VMPAYMENT_AMAZON_CONF_POLLING_FREQUENCY"
+                       description="VMPAYMENT_AMAZON_CONF_POLLING_FREQUENCY_TIP"/ -->
+
+                <field class="ipnurl level3" name="ipn_url" type="ipnurl" size="100" default="" editable="false" label="VMPAYMENT_AMAZON_CONF_IPN_URL" description="VMPAYMENT_AMAZON_IPN_WARNING"/>
+                <field class="ipn_warning warning" type="vmtitle"
+                       default="" description="VMPAYMENT_AMAZON_IPN_WARNING"/>
+
+
+                <!--field class="region region-other required" type="vmtitle" default="VMPAYMENT_AMAZON_CONF_ENDPOINTS_SECTION" />
+                <field class="region region-other required" size="120" name="sandbox_serviceURL" type="text" default=""
+                       label="VMPAYMENT_AMAZON_CONF_SANDBOX_SERVICEURL"
+                       description="VMPAYMENT_AMAZON_CONF_SANDBOX_SERVICEURL_TIP"/>
+                <field class="region region-other required" size="120" name="production_serviceURL" type="text" default=""
+                       label="VMPAYMENT_AMAZON_CONF_PRODUCTION_SERVICEURL"
+                       description="VMPAYMENT_AMAZON_CONF_PRODUCTION_SERVICEURL_TIP"/>
+                <field class="region region-other required" size="120" name="sandbox_widgetURL" type="text" default=""
+                       label="VMPAYMENT_AMAZON_CONF_SANDBOX_WIDGETURL"
+                       description="VMPAYMENT_AMAZON_CONF_SANDBOX_WIDGETURL_TIP"/>
+                <field class="region region-other required" size="120" name="production_widgetURL" type="text" default=""
+                       label="VMPAYMENT_AMAZON_CONF_PRODUCTION_WIDGETURL"
+                       description="VMPAYMENT_AMAZON_CONF_PRODUCTION_WIDGETURL_TIP"/>
+                <field class="region region-other required" size="120" name="sandbox_signin" type="text" default=""
+                       label="VMPAYMENT_AMAZON_CONF_SANDBOX_SIGNIN" description="VMPAYMENT_AMAZON_CONF_SANDBOX_SIGNIN_TIP"/>
+                <field class="region region-other required" size="120" name="production_signin" type="text" default=""
+                       label="VMPAYMENT_AMAZON_CONF_PRODUCTION_SIGNIN"
+                       description="VMPAYMENT_AMAZON_CONF_PRODUCTION_SIGNIN_TIP"/-->
+
+
+                <!-- STATUS    DEFAULT ARE FOR CAPTURE ON SHIPMENT   -->
+                <!-- ============ -->
+                <field type="vmtitle" class="level1" default="VMPAYMENT_AMAZON_CONF_ORDER_STATUS_SECTION"/>
+                <field name="status_orderconfirmed" class="erp_mode erp_mode_enabled" type="vmorderstate"
+                       scope="com_virtuemart"
+                       default="U"
+                       label="VMPAYMENT_AMAZON_CONF_STATUS_ORDERCONFIRMED"
+                       description="VMPAYMENT_AMAZON_CONF_STATUS_ORDERCONFIRMED_TIP"/>
+
+
+                <field name="status_authorization"
+                       class="status_authorization" type="vmorderstate"
+                       scope="com_virtuemart" default="U"
+                       label="VMPAYMENT_AMAZON_CONF_STATUS_AUTHORIZATION"
+                       description="VMPAYMENT_AMAZON_CONF_STATUS_AUTHORIZATION_TIP"/>
+
+                <field name="status_capture" class="status_capture" type="vmorderstate" scope="com_virtuemart"
+                       default="C"
+                       label="VMPAYMENT_AMAZON_CONF_STATUS_CAPTURE"
+                       description="VMPAYMENT_AMAZON_CONF_STATUS_CAPTURE_TIP"/>
+
+                <field name="status_refunded" class="status_refunded" type="vmorderstate" scope="com_virtuemart"
+                       default="R"
+                       label="VMPAYMENT_AMAZON_CONF_STATUS_REFUND"
+                       description="VMPAYMENT_AMAZON_CONF_STATUS_REFUND_TIP"/>
+
+                <field name="status_refund_declined" class="status_refund_declined" type="vmorderstate" scope="com_virtuemart"
+                       default="D"
+                       label="VMPAYMENT_AMAZON_CONF_STATUS_REFUND_DECLINED"
+                       description="VMPAYMENT_AMAZON_CONF_STATUS_REFUND_DECLINED_TIP"/>
+
+                <field name="status_cancel" class="status_cancel" type="vmorderstate" scope="com_virtuemart"
+                       default="X"
+                       label="VMPAYMENT_AMAZON_CONF_STATUS_CANCEL"
+                       description="VMPAYMENT_AMAZON_CONF_STATUS_CANCEL_TIP"/>
+
+                <!--field name="status_pending" class="erp_mode erp_mode_disabled" type="vmorderstate" scope="com_virtuemart" default="U"
+                       label="VMPAYMENT_AMAZON_STATUS_PENDINGxxxxxxx" description="VMPAYMENT_AMAZON_STATUS_PENDING_TIP"/-->
+
+                <!--field name="status_canceled"  type="vmorderstate" scope="com_virtuemart" default="X"
+                       label="VMPAYMENT_AMAZON_STATUS_CANCEL" description="VMPAYMENT_AMAZON_STATUS_CANCEL_TIP"/>
+                <field name="status_capture"   type="vmorderstate" scope="com_virtuemart" default="S"
+                       label="VMPAYMENT_AMAZON_STATUS_CAPTURE" description="VMPAYMENT_AMAZON_STATUS_CAPTURE_TIP"/-->
+                <!--field name="status_expired" type="vmorderstate" scope="com_virtuemart" default="X"
+                       label="VMPAYMENT_AMAZON_STATUS_EXPIRED" description="VMPAYMENT_AMAZON_STATUS_EXPIRED_TIP"/ -->
+                <!--field name="status_fraud" type="vmorderstate" scope="com_virtuemart" default="U"
+                       label="VMPAYMENT_AMAZON_STATUS_FRAUD" description="VMPAYMENT_AMAZON_STATUS_FRAUD_TIP"/ -->
+
+                <!--field name="status_partial_refunded"   type="vmorderstate" scope="com_virtuemart" default="R"
+                       label="VMPAYMENT_AMAZON_STATUS_PARTIAL_REFUND"
+                       description="VMPAYMENT_AMAZON_STATUS_PARTIAL_REFUND_TIP"/ -->
+
+                <!-- Advanced -->
+                <!-- ============ -->
+                <field class="erp_mode erp_mode_disabled level2" type="vmtitle"
+                       default="VMPAYMENT_AMAZON_CONF_ADVANCED_SECTION"/>
+
+                <field name="soft_decline" class="soft_decline" type="list"
+                       label="VMPAYMENT_AMAZON_CONF_SOFT_DECLINE" default="soft_decline_enabled"
+                       description="VMPAYMENT_AMAZON_CONF_SOFT_DECLINE_TIP">
+                    <option value="soft_decline_enabled">VMPAYMENT_AMAZON_CONF_SOFT_DECLINE_ENABLED</option>
+                    <option value="soft_decline_disabled">VMPAYMENT_AMAZON_CONF_SOFT_DECLINE_DISABLED</option>
+
+                </field>
+                <field class="sandbox_error_simulation" name="sandbox_error_simulation_auth" type="list"
+                       default="0"
+                       label="VMPAYMENT_AMAZON_CONF_SANDBOX_SIMULATION_AUTH">
+                    <option value="">COM_VIRTUEMART_NO</option>
+                    <!--option value="PaymentMethodNotAllowed">VMPAYMENT_AMAZON_CONF_SANDBOX_SIMULATION_PAYMENTMETHODNOTALLOWED</option-->
+                    <option value="AmazonClosed">VMPAYMENT_AMAZON_CONF_SANDBOX_SIMULATION_AMAZONCLOSED</option>
+                    <option value="InvalidPaymentMethod">VMPAYMENT_AMAZON_CONF_SANDBOX_SIMULATION_INVALIDPAYMENTMETHOD
+                    </option>
+                    <option value="AmazonRejected">VMPAYMENT_AMAZON_CONF_SANDBOX_SIMULATION_AMAZONREJECTED</option>
+                    <option value="TransactionTimedOut">VMPAYMENT_AMAZON_CONF_SANDBOX_SIMULATION_TRANSACTIONTIMEOUT
+                    </option>
+                    <option value="ExpiredUnused">VMPAYMENT_AMAZON_CONF_SANDBOX_SIMULATION_EXPIREDUNUSED</option>
+                    <option value="Pending">VMPAYMENT_AMAZON_CONF_SANDBOX_SIMULATION_PENDING</option>
+                </field>
+
+                <field class="sandbox_error_simulation" name="sandbox_error_simulation_capture" type="list"
+                       default="0"
+                       label="VMPAYMENT_AMAZON_CONF_SANDBOX_SIMULATION_CAPTURE">
+                    <option value="">COM_VIRTUEMART_NO</option>
+                    <!--option value="PaymentMethodNotAllowed">VMPAYMENT_AMAZON_CONF_SANDBOX_SIMULATION_PAYMENTMETHODNOTALLOWED</option-->
+                    <option value="AmazonClosed">VMPAYMENT_AMAZON_CONF_SANDBOX_SIMULATION_AMAZONCLOSED</option>
+                    <option value="InvalidPaymentMethod">VMPAYMENT_AMAZON_CONF_SANDBOX_SIMULATION_INVALIDPAYMENTMETHOD
+                    </option>
+                    <option value="AmazonRejected">VMPAYMENT_AMAZON_CONF_SANDBOX_SIMULATION_AMAZONREJECTED</option>
+                    <option value="TransactionTimedOut">VMPAYMENT_AMAZON_CONF_SANDBOX_SIMULATION_TRANSACTIONTIMEOUT
+                    </option>
+                    <option value="ExpiredUnused">VMPAYMENT_AMAZON_CONF_SANDBOX_SIMULATION_EXPIREDUNUSED</option>
+                    <option value="Pending">VMPAYMENT_AMAZON_CONF_SANDBOX_SIMULATION_PENDING</option>
+                </field>
+                <field class="sandbox_error_simulation" name="sandbox_error_simulation_refund" type="list"
+                       default="0"
+                       label="VMPAYMENT_AMAZON_CONF_SANDBOX_SIMULATION_REFUND">
+                    <option value="">COM_VIRTUEMART_NO</option>
+                    <option value="AmazonRejected">VMPAYMENT_AMAZON_CONF_SANDBOX_SIMULATION_AMAZONREJECTED</option>
+                </field>
+                <!-- Restrictions -->
+                <!-- ============ -->
+                <field class="level1" type="vmtitle" default="VMPAYMENT_AMAZON_CONF_RESTRICTIONS_SECTION"
+                       description="VMPAYMENT_AMAZON_CONF_RESTRICTIONS_SECTION_TIP"/>
+                <!--field name="countries" type="vmcountries" scope="com_virtuemart" default=""
+                       label="VMPAYMENT_AMAZON_CONF_COUNTRIES" description="VMPAYMENT_AMAZON_CONF_COUNTRIES_TIP"/ -->
+                <field name="min_amount" type="text" label="VMPAYMENT_AMAZON_CONF_MIN_AMOUNT"
+                       description="VMPAYMENT_AMAZON_CONF_MIN_AMOUNT_TIP"/>
+                <field name="max_amount" type="text" label="VMPAYMENT_AMAZON_CONF_MAX_AMOUNT"
+                       description="VMPAYMENT_AMAZON_CONF_MAX_AMOUNT_TIP"/>
+                <field name="exclude_categories" type="categories" class="level1" label="VMPAYMENT_AMAZON_CONF_EXCLUDE_CATEGORIES"
+                       description="VMPAYMENT_AMAZON_CONF_EXCLUDE_CATEGORIES_TIP"/>
+                <field name="countries" type="vmcountries" scope="com_virtuemart" default="" multiple="true"
+                       label="VMPAYMENT_AMAZON_CONF_COUNTRIES" description="VMPAYMENT_AMAZON_CONF_COUNTRIES_TIP"/>
+                <!--field name="languages" type="languages" label="VMPAYMENT_AMAZON_CONF_LANGUAGES"
+                       description="VMPAYMENT_AMAZON_CONF_LANGUAGES_TIP"/ -->
+                <!--field class="language_restriction" name="language_restriction" type="list" default="0"
+                       label="VMPAYMENT_AMAZON_CONF_LANGUAGE_RESTRICTION"
+                       description="VMPAYMENT_AMAZON_CONF_LANGUAGE_RESTRICTION_TIP" >
+                    <option value="1">COM_VIRTUEMART_YES</option>
+                    <option value="0">COM_VIRTUEMART_NO</option>
+                </field-->
+                <field name="ip_whitelist" type="textarea" label="VMPAYMENT_AMAZON_CONF_IP_WHITELIST"
+                       description="VMPAYMENT_AMAZON_CONF_IP_WHITELIST_TIP"/>
+                <!--field name="digital_goods" type="radio" default="0" label="VMPAYMENT_AMAZON_CONF_DIGITAL_GOODS">
+                    <option value="0">COM_VIRTUEMART_NO</option>
+                    <option value="1">COM_VIRTUEMART_YES</option>
+                </field-->
+                <!-- Template -->
+                <!-- ============ -->
+                <field type="vmtitle" class="level1" default="VMPAYMENT_AMAZON_CONF_TEMPLATE_SECTION"
+                       description=""/>
+                <field type="vmtitle" class="level2" default="VMPAYMENT_AMAZON_CONF_TEMPLATE_SIGN_IN"
+                       description=""/>
+                <field name="sign_in_widget_size" type="radio" default="large"
+                       label="VMPAYMENT_AMAZON_CONF_SIGN_IN_WIDGET_SIZE">
+                    <option value="medium">VMPAYMENT_AMAZON_CONF_SIGN_IN_WIDGET_SIZE_MEDIUM</option>
+                    <option value="large">VMPAYMENT_AMAZON_CONF_SIGN_IN_WIDGET_SIZE_LARGE</option>
+                    <option value="x-large">VMPAYMENT_AMAZON_CONF_SIGN_IN_WIDGET_SIZE_X_LARGE</option>
+                </field>
+                <field name="sign_in_widget_color" type="radio" default="Orange"
+                       label="VMPAYMENT_AMAZON_CONF_SIGN_IN_WIDGET_COLOR">
+                    <option value="Orange">VMPAYMENT_AMAZON_CONF_SIGN_IN_WIDGET_COLOR_ORANGE</option>
+                    <option value="tan">VMPAYMENT_AMAZON_CONF_SIGN_IN_WIDGET_COLOR_TAN</option>
+                </field>
+
+
+                <field class="level2" type="vmtitle" default="VMPAYMENT_AMAZON_CONF_TEMPLATE_ADDRESSBOOK"
+                       description=""/>
+                <field name="addressbook_designWidth" type="text" default="350"
+                       label="VMPAYMENT_AMAZON_CONF_ADDRESSBOOK_DESIGNWIDTH"
+                       description="VMPAYMENT_AMAZON_CONF_DESIGNWIDTH_TIP"/>
+                <field name="addressbook_designHeight" type="text" default="260"
+                       label="VMPAYMENT_AMAZON_CONF_ADDRESSBOOK_DESIGNHEIGHT"
+                       description="VMPAYMENT_AMAZON_CONF_DESIGNHEIGHT_TIP"/>
+
+                <field class="level2" type="vmtitle" default="VMPAYMENT_AMAZON_CONF_TEMPLATE_WALLET"
+                       description=""/>
+                <field name="wallet_designWidth" type="text" default="350"
+                       label="VMPAYMENT_AMAZON_CONF_WALLET_DESIGNWIDTH"
+                       description="VMPAYMENT_AMAZON_CONF_DESIGNWIDTH_TIP"/>
+                <field name="wallet_designHeight" type="text" default="260"
+                       label="VMPAYMENT_AMAZON_CONF_WALLET_DESIGNHEIGHT"
+                       description="VMPAYMENT_AMAZON_CONF_DESIGNHEIGHT_TIP"/>
+
+                <field class="level2" type="vmtitle" default="VMPAYMENT_AMAZON_CONF_VM_TEMPLATE"
+                       description=""/>
+
+                <field name="sign_in_css" type="text" size="50" default=".payments-signin-button"
+                       label="VMPAYMENT_AMAZON_CONF_SIGN_IN_CSS"
+                       description="VMPAYMENT_AMAZON_CONF_SIGN_IN_CSS_TIP"/>
+
+                <field name="include_amazon_css" type="radio" default="1"
+                       label="VMPAYMENT_AMAZON_CONF_INCLUDE_AMAZON_CSS"
+                       description="VMPAYMENT_AMAZON_CONF_INCLUDE_AMAZON_CSS_TIP">
+                    <option value="0">COM_VIRTUEMART_NO</option>
+                    <option value="1">COM_VIRTUEMART_YES</option>
+                </field>
+
+                <field type="hidden" name="cost_percent_total"/>
+                <field type="hidden" name="cost_per_transaction"/>
+                <field type="hidden" name="payment_logos"/>
+
+
+                <field class="level2" type="vmtitle" default="VMPAYMENT_AMAZON_CONF_DEBUG_SECTION"/>
+                <field name="debug" type="radio" default="0" label="VMPAYMENT_AMAZON_CONF_DEBUG_SECTION">
+                    <option value="0">COM_VIRTUEMART_NO</option>
+                    <option value="1">COM_VIRTUEMART_YES</option>
+                </field>
+                <field name="log" type="radio" default="0" label="VMPAYMENT_AMAZON_CONF_LOG"
+                       description="VMPAYMENT_AMAZON_CONF_LOG_TIP">
+                    <option value="0">COM_VIRTUEMART_NO</option>
+                    <option value="1">COM_VIRTUEMART_YES</option>
+                </field>
+
+            </fieldset>
+        </fields>
+    </vmconfig>
+    <updateservers>
+        <!-- Note: No spaces or linebreaks allowed between the server tags -->
+        <server type="extension" name="VirtueMart plg_vmpayment_amazon Update Site"><![CDATA[http://virtuemart.net/releases/vm3/plg_vmpayment_amazon_update.xml]]></server>
+    </updateservers>
+</extension>

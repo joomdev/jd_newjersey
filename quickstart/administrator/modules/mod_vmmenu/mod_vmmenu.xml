@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension
+	type="module"
+	version="2.5"
+	client="administrator">
+	<name>VirtueMart Administrator Menu</name>
+    <creationDate>November 21 2017</creationDate>
+    <author>The VirtueMart Development Team</author>
+    <authorEmail>max|at|virtuemart.net</authorEmail>
+    <authorUrl>https://virtuemart.net</authorUrl>
+    <copyright>Copyright (C) 2004-2013 Virtuemart Team. All rights reserved.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <version>3.2.6</version>
+	<description>MOD_VMMENU_XML_DESCRIPTION</description>
+	<files>
+		<filename module="mod_vmmenu">mod_vmmenu.php</filename>
+		<filename>helper.php</filename>
+		<folder>tmpl</folder>
+	</files>
+    <config>
+    <fields name="params">
+    <fieldset name="advanced">
+    <field
+            name="show_vmmenu"
+            type="list"
+            default="1"
+            label="MOD_VMMENU_FIELD_SHOW_VMMENU"
+            description="MOD_VMMENU_FIELD_SHOW_VMMENU_DESC">
+        <option value="0">JHIDE</option>
+        <option value="1">JSHOW</option>
+    </field>
+    </fieldset>
+    </fields>
+    </config>
+    <updateservers>
+        <!-- Note: No spaces or linebreaks allowed between the server tags -->
+        <server type="extension" name="VirtueMart3 MOD_VMENU Update Site"><![CDATA[http://virtuemart.net/releases/vm3/mod_vmmenu_update.xml]]></server>
+    </updateservers>
+</extension>

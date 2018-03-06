@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_VIRTUEMART_VIRTUEMART_VIEW_DEFAULT_TITLE">
+	<message><![CDATA[COM_VIRTUEMART_VIRTUEMART_VIEW_DEFAULT_TITLE_DESC]]></message>
+	</layout>
+	<state>
+		<name>COM_VIRTUEMART_VIRTUEMART_VIEW_DEFAULT_TITLE</name>
+		<description><![CDATA[COM_VIRTUEMART_VIRTUEMART_VIEW_DEFAULT_TITLE_DESC]]></description>
+	</state>
+    <fields name="request">
+    <fieldset name="request"
+              addfieldpath="/administrator/components/com_virtuemart/fields">
+    <field name="productsublayout" type="vmproductsublayout"
+           label="COM_VIRTUEMART_CFG_PRODUCTS_SUBLAYOUT"
+           extension="com_virtuemart"
+           description="COM_VIRTUEMART_CFG_PRODUCTS_SUBLAYOUT_TIP" />
+    </fieldset>
+    </fields>
+</metadata>
+
+

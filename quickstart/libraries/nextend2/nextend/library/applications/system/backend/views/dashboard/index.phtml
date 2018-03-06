@@ -1,0 +1,25 @@
+<div class="n2-heading-bar">
+    <div class="n2-h1 n2-heading"><?php n2_e('Dashboard'); ?></div>
+</div>
+
+<?php
+foreach (N2Base::getApplications() AS $info):
+    if (!$info->isPublic() || !N2Acl::canDo($info->getName(), $info)) {
+        continue;
+    }
+    $info = N2Base::getApplication($info->getName())->info;
+    ?>
+    <div class="n2-form-tab">
+        <div class="n2-h2 n2-content-box-title-bg"><?php echo $info->getLabel(); ?></div>
+
+        <div class="n2-description">
+            <a href="<?php echo $info->getUrl(); ?>"
+               class="n2-button n2-button-normal n2-button-l n2-radius-s n2-button-green"><?php
+                n2_e('Go to');
+                echo ' ' . $info->getLabel();
+                ?></a>
+        </div>
+    </div>
+    <?php
+endforeach;
+?>

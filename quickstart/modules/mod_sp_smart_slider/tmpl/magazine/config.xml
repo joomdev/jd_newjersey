@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<style>
+  <name>Magazine</name>
+  <author>Joomshaper</author>
+  <description>Magazine layout for SP Smart Slider</description>
+  <version>1.0</version>
+  <files>
+    <public>
+      <filename type="javascript">nivo_slider/jquery.nivo.slider.pack.js</filename>
+      <filename type="stylesheet">nivo_slider/nivo-slider.css</filename>
+      <filename type="stylesheet">magazine/css/sp-smart-magazine.css</filename>
+    </public>
+    <admin>
+    </admin>
+  </files>
+  <config>
+    <fieldset name="Basic">
+      <field name="theme" id="theme" multiple="0" size="1"
+    type="list" default="default" label="Theme"
+    description="Slider theme">
+        <option value="default">Default</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+        <option value="bar">Bar</option>
+      </field>
+      <field name="effect" id="effect" multiple="0" size="1"
+    type="list" default="random" label="Effect"
+    description="Slider theme">
+        <option value="random">Random</option>
+        <option value="sliceDown">Slice Down</option>
+        <option value="sliceDownLeft">Slice Down Left</option>
+        <option value="sliceUp">Slice Up</option>
+        <option value="sliceUpLeft">Slice Up Left</option>
+        <option value="sliceUpDown">Slice Up Down</option>
+        <option value="sliceUpDownLeft">Slice Up Down Left</option>
+        <option value="fold">Fold</option>
+        <option value="fade">Fade</option>
+        <option value="slideInRight">Slide In Right</option>
+        <option value="slideInLeft">Slide In Left</option>
+        <option value="boxRandom">Box Random</option>
+        <option value="boxRain">Box Rain</option>
+        <option value="boxRainReverse">Box Rain Reverse</option>
+        <option value="boxRainGrow">Box Rain Grow</option>
+        <option value="boxRainGrowReverse">Box Rain Grow
+          Reverse</option>
+      </field>
+      <field type="text" name="slices"
+    label="Slices" id="slices" description="For slice animations"
+    default="15" unit="" />
+      <field type="text" name="boxCols" label="Box Columns"
+    id="boxCols" description="For box animations" default="8"
+    unit="" />
+      <field type="text" name="boxRows" label="Box Rows"
+    id="boxRows" description="For box animations" default="4"
+    unit="" />
+      <field type="text" name="animSpeed" label="Transition Speed"
+    id="animSpeed" description="Slide transition speed"
+    default="500" unit="" />
+      <field type="text" name="pauseTime" id="pauseTime"
+    label="Pause Time"
+    description="How long each slide will show" default="3000"
+    unit="" />
+      <field type="text" name="startSlide" id="startSlide"
+    label="Start Slide from"
+    description="Set starting Slide (0 index)" default="0"
+    unit="" />
+    
+    
+    
+      <field name="directionNav" id="directionNav" multiple="0"
+    size="1" type="list" default="true"
+    label="Show direction Navigation"
+    description="Next &amp; Prev navigation">
+        <option value="true">True</option>
+        <option value="false">False</option>
+      </field>
+      <field name="controlNav" id="controlNav" multiple="0"
+    size="1" type="list" default="true"
+    label="Controll navigation"
+    description="1,2,3... navigation">
+        <option value="true">True</option>
+        <option value="false">False</option>
+      </field>
+      <field name="controlNavThumbs" id="controlNavThumbs"
+    multiple="0" size="1" type="list" default="false"
+    label="Thumb navigation"
+    description="Use thumbnails for Control Nav">
+        <option value="true">True</option>
+        <option value="false">False</option>
+      </field>
+      <field name="pauseOnHover" id="pauseOnHover" multiple="0"
+    size="1" type="list" default="true" label="Stop onHover"
+    description="Stop animation while hovering">
+        <option value="true">True</option>
+        <option value="false">False</option>
+      </field>
+      <field name="manualAdvance" id="manualAdvance" multiple="0"
+    size="1" type="list" default="false"
+    label="Manual transitions"
+    description="Force manual transitions">
+        <option value="true">True</option>
+        <option value="false">False</option>
+      </field>
+      <field name="prevText" id="prevText" type="text"
+    label="Prev Text" description="Prev directionNav text"
+    default="Prev" />
+      <field name="nextText" id="nextText" type="text"
+    label="Next Text" description="Next directionNav text"
+    default="Next" />
+      <field name="randomStart" id="randomStart" multiple="0"
+    size="1" type="list" default="false" label="Start random"
+    description="Start on a random slide">
+        <option value="true">True</option>
+        <option value="false">False</option>
+      </field>
+    </fieldset>
+  </config>  
+ </style>

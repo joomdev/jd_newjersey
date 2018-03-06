@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension version="2.5" type="plugin" group="vmpayment" method="upgrade">
+    <name>VM Payment - Paybox</name>
+    <creationDate>November 21 2017</creationDate>
+    <author>The VirtueMart Development Team</author>
+    <authorUrl>https://virtuemart.net</authorUrl>
+    <copyright>Copyright (C) 2004 - 2017 Virtuemart Team. All rights reserved.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <!--version>3.2.6</version-->
+    <version>3.2.6</version>
+    <description><![CDATA[<a href="http://paybox.com" target="_blank">Paybox</a> ]]>
+    </description>
+    <languages folder="language">
+        <language tag="en-GB">en-GB/en-GB.plg_vmpayment_paybox.ini</language>
+        <language tag="fr-FR">fr-FR/fr-FR.plg_vmpayment_paybox.ini</language>
+    </languages>
+    <files>
+        <filename plugin="paybox">paybox.php</filename>
+        <folder>paybox</folder>
+        <folder>language</folder>
+    </files>
+
+    <vmconfig>
+        <fields name="params">
+
+            <fieldset name="basic" addfieldpath="/plugins/vmpayment/paybox/paybox/fields">
+                <field type="getpaybox" level="level1 "/>
+                <field class="level1 " type="vmtitle" default="VMPAYMENT_PAYBOX_CONF_ACCOUNT_PARAMS"/>
+
+                <field name="shop_mode" type="list" default="test" label="VMPAYMENT_PAYBOX_CONF_SHOP_MODE"
+                       description="VMPAYMENT_PAYBOX_CONF_SHOP_MODE_TIP">
+                    <option value="test">VMPAYMENT_PAYBOX_CONF_SHOP_MODE_TEST</option>
+                    <option value="production">VMPAYMENT_PAYBOX_CONF_SHOP_MODE_PRODUCTION</option>
+                </field>
+                <field class="shop_mode" type="vmtitle" default=""
+                       description="VMPAYMENT_PAYBOX_CONF_SHOP_MODE_WARNING"/>
+
+                <field name="site_id" class="required" type="text" size="10" default="1999888"
+                       label="VMPAYMENT_PAYBOX_CONF_SITE_ID" description="VMPAYMENT_PAYBOX_CONF_SITE_ID_TIP"/>
+                <field name="rang" class="required" type="text" size="3" default="77" label="VMPAYMENT_PAYBOX_CONF_RANG"
+                       description="VMPAYMENT_PAYBOX_CONF_RANG_TIP"/>
+                <field name="identifiant" class="required" type="text" size="15" default="3262411"
+                       label="VMPAYMENT_PAYBOX_CONF_IDENTIFIANT" description="VMPAYMENT_PAYBOX_CONF_IDENTIFIANT_TIP"/>
+                <field name="key" class="vmwarn required" type="password" size="200" maxlength="200"
+                       default="0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF"
+                       label="VMPAYMENT_PAYBOX_CONF_KEY"
+                       description="VMPAYMENT_PAYBOX_CONF_KEY_TIP"/>
+                <field class="level3" type="vmtitle" default="" description="VMPAYMENT_PAYBOX_CONF_SECRETKEY_WARNING"/>
+                <field class="level3" type="vmtitle" default=""
+                       description="VMPAYMENT_PAYBOX_CONF_SECRETKEY_VALIDATE_WARNING"/>
+
+
+                <field class="level1 " type="vmtitle" default="VMPAYMENT_PAYBOX_CONF_ACCOUNT_CONFIGURATION"/>
+
+                <field name="debit_type" type="list" default="authorization_capture"
+                       label="VMPAYMENT_PAYBOX_CONF_DEBIT_TYPE"
+                       description="VMPAYMENT_PAYBOX_CONF_DEBIT_TYPE_TIP">
+                    <option value="authorization_only">VMPAYMENT_PAYBOX_CONF_DEBIT_TYPE_AUTHORIZATION_ONLY</option>
+                    <option value="authorization_capture">VMPAYMENT_PAYBOX_CONF_DEBIT_TYPE_AUTHORIZATION_CAPTURE
+                    </option>
+                </field>
+                <field class="authorization_only debit_type" name="diff" type="list" size="15" default="1"
+                       label="VMPAYMENT_PAYBOX_CONF_DIFF" description="VMPAYMENT_PAYBOX_CONF_DIFF_TIP">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                </field>
+                <field class="" name="activate_3dsecure" type="list" size="15" default="active"
+                       label="VMPAYMENT_PAYBOX_CONF_ACTIVATE_3DSECURE"
+                       description="VMPAYMENT_PAYBOX_CONF_ACTIVATE_3DSECURE_TIP">
+                    <option value="inactive">VMPAYMENT_PAYBOX_CONF_ACTIVATE_3DSECURE_INACTIVE</option>
+                    <option value="active">VMPAYMENT_PAYBOX_CONF_ACTIVATE_3DSECURE_ACTIVE</option>
+                    <option value="selective">VMPAYMENT_PAYBOX_CONF_ACTIVATE_3DSECURE_SELECTIVE</option>
+                </field>
+                <field class="activate_3dsecure activate_3dsecure_warning" type="vmtitle" default=""
+                       description="VMPAYMENT_PAYBOX_CONF_ACTIVATE_3DSECURE_WARNING"/>
+
+                <field name="min_amount_3dsecure" class="activate_3dsecure required" type="text" size="15" default=""
+                       label="VMPAYMENT_PAYBOX_CONF_3DSECURE_MIN_AMOUNT"
+                       description="VMPAYMENT_PAYBOX_CONF_3DSECURE_MIN_AMOUNT_TIP"/>
+
+
+                <field class="" name="integration" type="list" default="recurring"
+                       label="VMPAYMENT_PAYBOX_CONF_INTEGRATION"
+                       description="VMPAYMENT_PAYBOX_CONF_INTEGRATION_TIP">
+                    <option value="standard">VMPAYMENT_PAYBOX_CONF_INTEGRATION_STANDARD</option>
+                    <option value="recurring">VMPAYMENT_PAYBOX_CONF_INTEGRATION_RECURRING</option>
+                    <!--option value="subscribe">VMPAYMENT_PAYBOX_CONF_INTEGRATION_SUBSCRIBE</option-->
+                </field>
+                <field class="integration recurring subscribe" type="vmtitle" default=""
+                       description="VMPAYMENT_PAYBOX_CONF_INTEGRATION_WARNING"/>
+
+                <!-- begin recurring -->
+                <!--param class="integration recurring" name="recurring_min_amount"  type="text" size="15" default=""
+                       label="VMPAYMENT_PAYBOX_CONF_RECURRING_MIN_AMOUNT"
+                       description="VMPAYMENT_PAYBOX_CONF_RECURRING_MIN_AMOUNT_TIP"/-->
+                <field   name="recurring_min_amount"  type="hidden" />
+                <field class="integration recurring" name="recurring_number" type="list" default="3"
+                       label="VMPAYMENT_PAYBOX_CONF_RECURRING_NUMBER"
+                       description="VMPAYMENT_PAYBOX_CONF_RECURRING_NUMBER_TIP">
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </field>
+                <field class="integration recurring" name="recurring_periodicity" type="text" size="15" default="30"
+                       label="VMPAYMENT_PAYBOX_CONF_RECURRING_PERIODICTY"
+                       description="VMPAYMENT_PAYBOX_CONF_RECURRING_PERIODICTY_TIP"/>
+                <!-- end recurring -->
+                <!-- Subscribe -->
+                <field class="integration subscribe" name="activate_subscribe" type="hidden" default="0"
+                       label="VMPAYMENT_PAYBOX_CONF_ACTIVATE_RECURRING"
+                       description="VMPAYMENT_PAYBOX_CONF_ACTIVATE_RECURRING_TIP">
+                    <option value="0">COM_VIRTUEMART_NO</option>
+                    <option value="1">COM_VIRTUEMART_YES</option>
+                </field>
+                <field
+                        name="subscribe_customfield"
+                        type="payboxsubscribe"
+                        label="VMPAYMENT_PAYBOX_CONF_INTEGRATION_SUBSCRIBE_CUSTOMFIELD"
+                        description="VMPAYMENT_PAYBOX_CONF_INTEGRATION_SUBSCRIBE_CUSTOMFIELD_TIP"
+                        class="integration subscribe"
+                        />
+                <field class="integration subscribe" name="subscribe_quand" type="text" size="15" default="2"
+                       label="VMPAYMENT_PAYBOX_CONF_INTEGRATION_SUBSCRIBE_QUAND"
+                       description="VMPAYMENT_PAYBOX_CONF_INTEGRATION_SUBSCRIBE_QUAND_TIP"/>
+                <field class="integration subscribe" name="subscribe_delais" type="text" size="15" default="2"
+                       label="VMPAYMENT_PAYBOX_CONF_INTEGRATION_SUBSCRIBE_DELAIS"
+                       description="VMPAYMENT_PAYBOX_CONF_INTEGRATION_SUBSCRIBE_DELAIS_TIP"/>
+
+
+                <!-- end subscribe -->
+
+                <field class="level1 " type="vmtitle" default="VMPAYMENT_PAYBOX_CONF_ORDERSTATUS_OPTIONS"/>
+
+                <field class="authorization_only debit_type" name="status_success_authorization_only"
+                       type="vmorderstate"
+                       scope="com_virtuemart"
+                       default="C"
+                       label="VMPAYMENT_PAYBOX_CONF_STATUS_SUCCESS"
+                       description="VMPAYMENT_PAYBOX_CONF_STATUS_SUCCESS_TIP"/>
+
+                <field class="authorization_capture debit_type" name="status_success_authorization_capture"
+                       type="vmorderstate"
+                       scope="com_virtuemart"
+                       default="U"
+                       label="VMPAYMENT_PAYBOX_CONF_STATUS_SUCCESS"
+                       description="VMPAYMENT_PAYBOX_CONF_STATUS_SUCCESS_TIP"/>
+
+
+                <!--param class="authorization_capture debit_type" name="status_capture" type="vmorderstate" scope="com_virtuemart"
+                       default="S"
+                       label="VMPAYMENT_PAYBOX_CONF_STATUS_CAPTURE" description="VMPAYMENT_PAYBOX_CONF_STATUS_CAPTURE_TIP"/ -->
+
+                <field class="integration recurring" name="status_success_recurring" type="vmorderstate"
+                       scope="com_virtuemart"
+                       default="C"
+                       label="VMPAYMENT_PAYBOX_CONF_STATUS_RECURRING"
+                       description="VMPAYMENT_PAYBOX_CONF_STATUS_RECURRING_TIP"/>
+                <field class="integration recurring" type="vmtitle" default=""
+                       description="VMPAYMENT_PAYBOX_CONF_ORDERSTATUS_CREATE_WARNING"/>
+                <field class="integration recurring" name="status_success_recurring_end" type="vmorderstate"
+                       scope="com_virtuemart"
+                       default="C"
+                       label="VMPAYMENT_PAYBOX_CONF_STATUS_RECURRING_END"
+                       description="VMPAYMENT_PAYBOX_CONF_STATUS_RECURRING_END_TIP"/>
+                <field class="integration recurring" type="vmtitle" default=""
+                       description="VMPAYMENT_PAYBOX_CONF_ORDERSTATUS_CREATE_WARNING"/>
+
+
+                <field class="integration subscribe" name="status_success_subscribe" type="vmorderstate"
+                       scope="com_virtuemart"
+                       default="C"
+                       label="VMPAYMENT_PAYBOX_CONF_STATUS_RECURRING"
+                       description="VMPAYMENT_PAYBOX_CONF_STATUS_SUBSCRIBE_TIP"/>
+                <field class="integration subscribe" type="vmtitle" default=""
+                       description="VMPAYMENT_PAYBOX_CONF_ORDERSTATUS_CREATE_WARNING"/>
+                <field class="integration subscribe" name="status_success_subscribe_end" type="vmorderstate"
+                       scope="com_virtuemart"
+                       default="C"
+                       label="VMPAYMENT_PAYBOX_CONF_STATUS_RECURRING_END"
+                       description="VMPAYMENT_PAYBOX_CONF_STATUS_RECURRING_END_TIP"/>
+                <field class="integration subscribe" type="vmtitle" default=""
+                       description="VMPAYMENT_PAYBOX_CONF_ORDERSTATUS_CREATE_WARNING"/>
+
+                <field class="" name="status_canceled" type="vmorderstate" scope="com_virtuemart" default="X"
+                       label="VMPAYMENT_PAYBOX_CONF_STATUS_CANCEL"
+                       description="VMPAYMENT_PAYBOX_CONF_STATUS_CANCEL_TIP"/>
+
+
+                <field class="level1 " type="vmtitle" default="VMPAYMENT_PAYBOX_CONF_OPTIONAL_PARAMS"/>
+
+
+                <!-- Restrictions -->
+                <!-- ============ -->
+                <field  type="vmtitle" default="VMPAYMENT_PAYBOX_CONF_RESTRICTIONS_SECTION"
+                       description="VMPAYMENT_PAYBOX_CONF_RESTRICTIONS_SECTION_TIP"/>
+                <field name="countries" type="vmcountries" scope="com_virtuemart" default=""
+                       label="VMPAYMENT_PAYBOX_CONF_COUNTRIES" description="VMPAYMENT_PAYBOX_CONF_COUNTRIES_TIP"/>
+                <field name="min_amount" type="text" label="VMPAYMENT_PAYBOX_CONF_MIN_AMOUNT"
+                       description="VMPAYMENT_PAYBOX_CONF_MIN_AMOUNT_TIP"/>
+                <field name="max_amount" type="text" label="VMPAYMENT_PAYBOX_CONF_MAX_AMOUNT"
+                       description="VMPAYMENT_PAYBOX_CONF_MAX_AMOUNT_TIP"/>
+
+                <!-- Currencies -->
+                <!-- ============ -->
+                <field type="vmtitle" default="VMPAYMENT_PAYBOX_CONF_CURRENCIES_SECTION"/>
+
+                <field name="payment_currency" type="vmacceptedcurrency" default=""
+                       label="VMPAYMENT_PAYBOX_CONF_CURRENCY"
+                       description="VMPAYMENT_PAYBOX_CONF_CURRENCY_TIP"/>
+                <field name="email_currency" type="list" default="vendor" label="VMPAYMENT_PAYBOX_CONF_EMAIL_CURRENCY"
+                       description="VMPAYMENT_PAYBOX_CONF_EMAIL_CURRENCY_TIP">
+                    <option value="vendor">VMPAYMENT_PAYBOX_CONF_EMAIL_CURRENCY_VENDOR</option>
+                    <option value="payment">VMPAYMENT_PAYBOX_CONF_EMAIL_CURRENCY_PAYMENT</option>
+                </field>
+
+
+                <!-- Discounts -->
+                <!-- ============ -->
+                <field type="vmtitle" default="VMPAYMENT_PAYBOX_CONF_DISCOUNT_FEE_SECTION"
+                       description="VMPAYMENT_PAYBOX_CONF_DISCOUNT_FEE_SECTION_TIP"/>
+                <field name="cost_per_transaction" type="text" label="VMPAYMENT_PAYBOX_CONF_COST_PER_TRANSACTION"
+                       description="VMPAYMENT_PAYBOX_CONF_COST_PER_TRANSACTION_TIP"/>
+                <field name="cost_percent_total" type="text" label="VMPAYMENT_PAYBOX_CONF_COST_PERCENT_TOTAL"
+                       description="VMPAYMENT_PAYBOX_CONF_COST_PERCENT_TOTAL_TIP"/>
+                <field name="tax_id" type="vmtaxes" scope="com_virtuemart" label="VMPAYMENT_PAYBOX_CONF_TAX"
+                       description="VMPAYMENT_PAYBOX_CONF_TAX_TIP"/>
+
+
+                <field type="vmtitle" default="VMPAYMENT_PAYBOX_CONF_TEMPLATE_SECTION"
+                       description=""/>
+                <field name="payment_logos" type="vmfiles" multiple="true" label="VMPAYMENT_PAYBOX_CONF_LOGOS"
+                       description="VMPAYMENT_PAYBOX_CONF_LOGOS_TIP"
+                       directory="/images/virtuemart/payment"
+                       default="default" hide_default="1" hide_none="1"
+                       stripext="0" exclude="^_"/>
+
+                <field type="vmtitle" default="VMPAYMENT_PAYBOX_CONF_DEBUG_SECTION"
+                       description="VMPAYMENT_PAYBOX_CONF_DEBUG_SECTION_TIP"/>
+                <field name="debug" type="radio" default="0" label="VMPAYMENT_PAYBOX_CONF_DEBUG_SECTION">
+                    <option value="0">COM_VIRTUEMART_NO</option>
+                    <option value="1">COM_VIRTUEMART_YES</option>
+                </field>
+                <field name="log" type="radio" default="0" label="VMPAYMENT_PAYBOX_CONF_LOG"
+                       description="VMPAYMENT_PAYBOX_CONF_LOG_TIP">
+                    <option value="0">COM_VIRTUEMART_NO</option>
+                    <option value="1">COM_VIRTUEMART_YES</option>
+                </field>
+            </fieldset>
+        </fields>
+    </vmconfig>
+    <updateservers>
+        <!-- Note: No spaces or linebreaks allowed between the server tags -->
+        <server type="extension" name="VirtueMart plg_vmpayment_paybox Update Site"><![CDATA[http://virtuemart.net/releases/vm3/plg_vmpayment_paybox_update.xml]]></server>
+    </updateservers>
+</extension>

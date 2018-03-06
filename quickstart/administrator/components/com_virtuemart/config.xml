@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config addfieldpath="/administrator/components/com_virtuemart/fields">
+    <fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC">
+        <field name="rules" type="vmrules" label="" class="inputbox" filter="rules" component="com_virtuemart" section="component" />
+	</fieldset>
+</config>
+                

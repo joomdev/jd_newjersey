@@ -1,0 +1,18 @@
+<?php
+
+$this->widget->init('topbar', array(
+    "actions" => array(
+        N2Html::tag('a', array(
+            'href'    => '#',
+            'class'   => 'n2-button n2-button-normal n2-button-l n2-radius-s n2-button-green n2-h4 n2-b n2-uc',
+            'onclick' => 'return NextendForm.submit("#nextend-form");'
+        ), n2_('Log in'))
+    )
+));
+?>
+<form id="nextend-form" action="" method="post">
+    <?php
+    N2SystemLoginModel::renderForm();
+    ?>
+    <input name="save" value="1" type="hidden"/>
+</form>

@@ -1,0 +1,255 @@
+/* Reviews */
+.customer-reviews h4{
+  border-bottom: solid #CAC9C9 1px;
+  font-size: 1.0em;
+  margin: 0 0 10px;
+  padding: 0 0 6px;
+}
+
+.write-reviews{
+  text-align: center;
+  margin: 20px 0 0;
+}
+
+.write-reviews h4{
+  text-align: left;
+}
+
+.write-reviews h4 span{
+  font-size: 1.0em;
+  font-weight: 400;
+  margin-left: 8px;
+}
+
+.write-reviews span.step{
+  font-weight: 700;
+  display: inline-block;
+  margin: 0 0 8px;
+}
+
+.rating{
+  text-align: center;
+  margin: 0 0 20px;
+  padding: 0;
+}
+
+.write-reviews ul.rating li{
+  display: inline-block;
+  list-style: none;
+  text-align: center;
+  padding: 0 5px;
+}
+
+.write-reviews ul.rating li span{
+  display: block;
+}
+
+.write-reviews textarea.virtuemart{
+  margin-bottom: 6px;
+  display: inline-block;
+}
+
+.list-reviews .normal{
+  border: solid #CAC9C9 1px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  padding: 12px;
+}
+
+.list-reviews .normal blockquote,.list-reviews .highlight blockquote{
+  margin-top: 12px;
+  font-size: 12px;
+  word-wrap: break-word;
+}
+
+.list-reviews .normal blockquote:before,.list-reviews .highlight blockquote:before{
+  content: open-quote;
+  font-weight: 700;
+  font-size: 24px;
+  padding-right: 6px;
+}
+
+.list-reviews .normal blockquote:after,.list-reviews .highlight blockquote:after{
+  content: close-quote;
+  font-weight: 700;
+  font-size: 24px;
+  padding-left: 6px;
+}
+
+.list-reviews .highlight{
+  background: #f7f6f6;
+  border: solid #CAC9C9 1px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  padding: 12px;
+}
+
+.list-reviews span.date{
+  float: right;
+  display: block;
+  color: #777;
+  border-left: solid #CAC9C9 1px;
+  border-bottom: solid #CAC9C9 1px;
+  position: relative;
+  top: -12px;
+  right: -12px;
+  font-size: 10px;
+  -moz-border-radius-bottomleft: 4px;
+  -webkit-border-bottom-left-radius: 4px;
+  padding: 4px 6px 2px;
+}
+/* Reviews end */
+
+.vm2-stars0{
+  background-position: 0 -358px;
+  width: 64px;
+  height: 13px;
+}
+
+.vm2-stars1{
+  background-position: 0 -421px;
+  width: 64px;
+  height: 13px;
+}
+
+.vm2-stars2{
+  background-position: 0 -484px;
+  width: 64px;
+  height: 13px;
+}
+
+.vm2-stars3{
+  background-position: 0 -547px;
+  width: 64px;
+  height: 13px;
+}
+
+.vm2-stars4{
+  background-position: 0 -610px;
+  width: 64px;
+  height: 13px;
+}
+
+.vm2-stars5{
+  background-position: 0 -673px;
+  width: 64px;
+  height: 13px;
+}
+
+.vm2-stars_0{
+  background-position: 0 -736px;
+  width: 64px;
+  height: 13px;
+}
+
+.vm2-stars_1{
+  background-position: 0 -799px;
+  width: 64px;
+  height: 13px;
+}
+
+.vm2-stars_2{
+  background-position: 0 -862px;
+  width: 64px;
+  height: 13px;
+}
+
+.vm2-stars_3{
+  background-position: 0 -925px;
+  width: 64px;
+  height: 13px;
+}
+
+.vm2-stars_4{
+  background-position: 0 -988px;
+  width: 64px;
+  height: 13px;
+}
+
+.vm2-stars_5{
+  background-position: 0 -1051px;
+  width: 64px;
+  height: 13px;
+}
+
+.vm-product-rating-container {
+  text-align: left;
+}
+
+.ratingbox {
+  position: relative;
+  display: inline-block;
+  width: 120px;
+  height: 24px;
+  background: url("../images/color-stars.png") repeat-x scroll 0 bottom transparent;
+  margin: 0 auto 15px;
+}
+
+.ratingbox div, .ratingbox span {
+  background: url(../images/color-stars.png) repeat-x;
+  display: block;
+  width: 1%;
+  height: 24px;
+  position: static;
+}
+
+.browse-view .ratingbox{
+  margin: 0 auto 15px;
+}
+
+.spacer-buy-area .ratingbox {
+  margin-bottom: 15px;
+}
+
+div.vote, span.vote {
+  display: block;
+  margin-bottom: 4px;
+  float: right;
+  margin-left: 130px;
+}
+
+.category-ratingbox {
+  position: relative;
+  display: block;
+  width: 60px;
+  height: 12px;
+  background: url("../images/color-stars-small.png") repeat-x scroll 0 bottom transparent;
+}
+
+.category-ratingbox div, .category-ratingbox span {
+  background: url(../images/color-stars-small.png) repeat-x;
+  display: block;
+  width: 1%;
+  height: 12px;
+  position: absolute;
+}
+
+.stars-orange{
+  background-position:0 0 !important;
+}
+
+.stars-red{
+  background-position:0 -54px !important;
+}
+
+.stars-green{
+  background-position:0 -108px !important;
+}
+
+.stars-blue{
+  background-position:0 -162px !important;
+}
+
+.stars-purple{
+  background-position:0 -216px !important;
+}
+
+@media (max-width: 768px){
+  .spacer-buy-area .ratingbox {
+    margin: 0 auto 15px;
+  }
+}

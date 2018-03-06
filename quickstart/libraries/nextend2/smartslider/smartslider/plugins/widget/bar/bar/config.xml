@@ -1,0 +1,8 @@
+<root>
+  <params name="widgetsbar" label="" hidetitle="1">
+    <param name="widgetbar" type="widgetpluginmatrix" ajaxurl="slider/renderform" label="Bar" group="sswidgetbar" method="bar" file="config.xml" default=""/>
+    <param type="group" label="Shows on">
+      <param name="widget-bar-display-hover" type="onoff" label="Hover" default="0"/></param>
+  </params>
+  <params name="widget-bar-placeholder" label="" id="nextend-widgetbar-panel" type="placeholder"></params>
+</root>

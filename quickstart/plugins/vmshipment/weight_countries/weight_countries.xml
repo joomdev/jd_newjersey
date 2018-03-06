@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension version="2.5" type="plugin" group="vmshipment" method="upgrade">
+    <name>By weight, ZIP and countries</name>
+    <creationDate>November 21 2017</creationDate>
+    <author>The VirtueMart Development Team</author>
+    <authorUrl>https://virtuemart.net</authorUrl>
+    <copyright>Copyright (C) 2004 - 2017 Virtuemart Team. All rights reserved.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <version>3.2.6</version>
+    <description>VMSHIPMENT_WEIGHT_COUNTRIES_PLUGIN_DESC</description>
+    <languages>
+        <language tag="en-GB">en-GB.plg_vmshipment_weight_countries.ini</language>
+    </languages>
+    <files>
+        <filename plugin="weight_countries">weight_countries.php</filename>
+        <folder>weight_countries</folder>
+    </files>
+
+    <vmconfig>
+        <fields name="params">
+            <fieldset name="template">
+                <field name="shipment_logos" type="vmfiles" multiple="true" directory="/images/virtuemart/shipment"
+                        label="VMSHIPMENT_WEIGHT_COUNTRIES_LOGOS"
+                       size="40"
+                       default="" hide_default="1" hide_none="true"
+                       stripext="0" exclude="index.html"
+                       description="VMSHIPMENT_WEIGHT_COUNTRIES_LOGOS_DESC"/>
+            </fieldset>
+            <fieldset name="restrictions">
+                <field name="show_on_pdetails" type="radio" default="0"
+                        label="VMSHIPMENT_WEIGHT_COUNTRIES_SHOW_ON_PRDETAILS"
+                        extension="com_virtuemart"
+                        description="VMSHIPMENT_WEIGHT_COUNTRIES_SHOW_ON_PRDETAILS_TIP">
+                    <option value="0">COM_VIRTUEMART_NO</option>
+                    <option value="1">COM_VIRTUEMART_YES</option>
+                </field>
+                <field name="categories" value_field="category_name" type="vmcategories" multiple="true" size="10" default="" label="VMSHIPMENT_WEIGHT_CATEGORIES"
+                       description="VMSHIPMENT_WEIGHT_CATEGORIES_DESC"/>
+                <field name="blocking_categories" value_field="category_name" type="vmcategories" multiple="true" size="10" default="" label="VMSHIPMENT_WEIGHT_BLOCKING_CATEGORIES"
+                       description="VMSHIPMENT_WEIGHT_CATEGORIES_DESC"/>
+                <field name="countries" type="vmcountries" multiple="true" scope="com_virtuemart" default=""
+                       label="VMSHIPMENT_WEIGHT_COUNTRIES_COUNTRIES" description="VMSHIPMENT_WEIGHT_COUNTRIES_COUNTRIES_DESC"/>
+                <field name="zip_start" type="text" size="10" default="" label="VMSHIPMENT_WEIGHT_COUNTRIES_ZIP_START"
+                       description="VMSHIPMENT_WEIGHT_COUNTRIES_ZIP_START_DESC"/>
+                <field name="zip_stop" type="text" size="10" default="" label="VMSHIPMENT_WEIGHT_COUNTRIES_ZIP_STOP"
+                       description="VMSHIPMENT_WEIGHT_COUNTRIES_ZIP_STOP_DESC"/>
+                <field name="weight_start" type="text" size="10" default=""
+                       label="VMSHIPMENT_WEIGHT_COUNTRIES_WEIGHT_START"
+                       description="VMSHIPMENT_WEIGHT_COUNTRIES_WEIGHT_START_DESC"/>
+                <field name="weight_stop" type="text" size="10" default=""
+                       label="VMSHIPMENT_WEIGHT_COUNTRIES_WEIGHT_STOP"
+                       description="VMSHIPMENT_WEIGHT_COUNTRIES_WEIGHT_STOP_DESC"/>
+                <field name="weight_unit" type="vmweightunit" size="10" default=""
+                       label="VMSHIPMENT_WEIGHT_COUNTRIES_WEIGHT_UNIT"
+                       description="VMSHIPMENT_WEIGHT_COUNTRIES_WEIGHT_UNIT_DESC"/>
+                <field name="nbproducts_start" type="text" size="10" default=""
+                       label="VMSHIPMENT_WEIGHT_COUNTRIES_NBPRODUCTS_START"
+                       description="VMSHIPMENT_WEIGHT_COUNTRIES_NBPRODUCTS_START_DESC"/>
+                <field name="nbproducts_stop" type="text" size="10" default=""
+                       label="VMSHIPMENT_WEIGHT_COUNTRIES_NBPRODUCTS_STOP"
+                       description="VMSHIPMENT_WEIGHT_COUNTRIES_NBPRODUCTS_STOP_DESC"/>
+                <field name="orderamount_start" type="text" size="10" default=""
+                       label="VMSHIPMENT_WEIGHT_COUNTRIES_ORDERAMOUNT_START"
+                       description="VMSHIPMENT_WEIGHT_COUNTRIES_ORDERAMOUNT_START_DESC"/>
+                <field name="orderamount_stop" type="text" size="10" default=""
+                       label="VMSHIPMENT_WEIGHT_COUNTRIES_ORDERAMOUNT_STOP"
+                       description="VMSHIPMENT_WEIGHT_COUNTRIES_ORDERAMOUNT_STOP_DESC"/>
+            </fieldset>
+            <fieldset name="fee">
+                <field name="shipment_cost" type="text" label="VMSHIPMENT_WEIGHT_COUNTRIES_COST"
+                       description="VMSHIPMENT_WEIGHT_COUNTRIES_COST_DESC" default="0"/>
+                <field name="package_fee" type="text" label="VMSHIPMENT_WEIGHT_COUNTRIES_PACKAGE_FEE"
+                       description="VMSHIPMENT_WEIGHT_COUNTRIES_PACKAGE_FEE_DESC"/>
+                <field name="tax_id" type="vmtaxes" scope="com_virtuemart" label="VMSHIPMENT_WEIGHT_COUNTRIES_TAX"
+                       description="VMSHIPMENT_WEIGHT_COUNTRIES_TAX_DESC" default="0"/>
+                <field name="free_shipment" type="text" label="VMSHIPMENT_WEIGHT_COUNTRIES_FREE_SHIPPING_AMOUNT"
+                       description="VMSHIPMENT_WEIGHT_COUNTRIES_FREE_SHIPPING_AMOUNT_DESC" default=""/>
+            </fieldset>
+        </fields>
+    </vmconfig>
+    <updateservers>
+        <!-- Note: No spaces or linebreaks allowed between the server tags -->
+        <server type="extension" name="VirtueMart3 plg_vmshipment_weight_countries Update Site"><![CDATA[http://virtuemart.net/releases/vm3/plg_vmshipment_weight_countries_update.xml]]></server>
+    </updateservers>
+</extension>

@@ -1,0 +1,12 @@
+<root>
+    <params name="joomla" label="Joomla settings">
+        <param name="license" type="text" label="License" value=""/>
+        <param type="radio" name="imageurl" label="Image URL" default="1">
+            <option value="0">Absolute</option>
+            <option value="1">Relative</option>
+        </param>
+        <param name="acl" type="joomlacomponentoptions" component="com_smartslider3" label="Component options"
+               default=""/>
+        <param name="loadposition" type="onoff" label="Load module position" default="0"/>
+    </params>
+</root>

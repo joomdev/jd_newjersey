@@ -1,0 +1,24 @@
+<root>
+  <params name="widgetsbullet" label="" hidetitle="1">
+    <param name="widgetbullet" type="widgetpluginmatrix" ajaxurl="slider/renderform" label="Bullet" group="sswidgetbullet" method="bullet" file="config.xml" default="disabled"/>
+    <param type="group" label="Shows on">
+      <param name="widget-bullet-display-hover" type="onoff" label="Hover" default="0"/></param>
+    <param type="group" label="Thumbnail">
+      <param type="onoff" label="Enabled" name="widget-bullet-thumbnail-show-image" default="0"/>
+      <param name="widget-bullet-thumbnail-width" type="numberautocomplete" label="Width" default="100" style="width:30px" values="60,100,150,200">
+        <unit>px</unit>
+      </param>
+      <param name="widget-bullet-thumbnail-height" type="numberautocomplete" label="Height" default="60" style="width:30px" values="60,100,150,200">
+        <unit>px</unit>
+      </param>
+      <param name="widget-bullet-thumbnail-style" type="style" previewmode="simple" default="eyJuYW1lIjoiU3RhdGljIiwiZGF0YSI6W3siYmFja2dyb3VuZGNvbG9yIjoiMDAwMDAwODAiLCJwYWRkaW5nIjoiM3wqfDN8KnwzfCp8M3wqfHB4IiwiYm94c2hhZG93IjoiMHwqfDB8KnwwfCp8MHwqfDAwMDAwMGZmIiwiYm9yZGVyIjoiMHwqfHNvbGlkfCp8MDAwMDAwZmYiLCJib3JkZXJyYWRpdXMiOiIzIiwiZXh0cmEiOiJtYXJnaW46IDVweDtiYWNrZ3JvdW5kLXNpemU6Y292ZXI7In1dfQ==" label="Style">
+        <![CDATA[ <div class="{styleClassName}" style="display: inline-block;"><div style="width:{$('#sliderwidget-bullet-thumbnail-width').val()}px; height: {$('#sliderwidget-bullet-thumbnail-height').val()}px; overflow: hidden; background: url('$system$/images/placeholder/image.png');background-size: cover;"></div></div> ]]>
+      </param>
+      <param name="widget-bullet-thumbnail-side" type="switcher" label="Side" default="before" translateable="1">
+        <unit value="before">Before</unit>
+        <unit value="after">After</unit>
+      </param>
+    </param>
+  </params>
+  <params name="widget-bullet-placeholder" label="" id="nextend-widgetbullet-panel" type="placeholder"></params>
+</root>

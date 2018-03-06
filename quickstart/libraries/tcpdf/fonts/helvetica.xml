@@ -1,0 +1,24 @@
+<install type="phocapdffonts" version="1.5" client="both" method="upgrade">
+    <name>Helvetica</name>
+	<tag>helvetica</tag>
+    <creationDate>01/01/2009</creationDate>
+    <author>Jan Pavelka</author>
+    <authorEmail></authorEmail>
+    <authorUrl>http://www.phoca.cz</authorUrl>
+    <copyright>(C) 2008 Jan Pavelka</copyright>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	
+	<authorFont>No font file in this package</authorFont>
+    <copyrightFont>No font file in this package</copyrightFont>
+    <licenseFont>No font file in this package</licenseFont>
+	
+    <description>Helvetica Font for Phoca PDF component. No font file will be included.</description>
+
+    <files>     
+		  <filename>helvetica.php</filename>
+		  <filename>helveticab.php</filename>
+		  <filename>helveticabi.php</filename>
+		  <filename>helveticai.php</filename>
+		  <filename>index.html</filename>
+    </files>
+</install> 

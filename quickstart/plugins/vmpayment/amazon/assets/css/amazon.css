@@ -1,0 +1,30 @@
+#billToFromAmazonDiv {
+    border: 1px solid #DDD;
+    border-radius: 3px;
+}
+
+.amazonError {
+    color: #C00;
+    padding-left: 40px;
+    padding: 10px 10px 10px 40px;
+    border-top: 2px solid #900;
+    border-bottom: 2px solid #900;
+    margin-top: 10px;
+}
+
+#amazonChargeNowWarning{
+    margin-top:10px;
+}
+#updateOrderId, .amazonResponseOrderId{
+    margin-top:10px;
+}
+#form-login{ margin-top:10px;}
+div#amazonSignOr{text-align: center; border-bottom:2px solid #d5d5d5;}
+div#amazonSignOr span{ display:inline-block;
+    position:relative;
+    top:10px;
+    background:#fff;
+    padding:0 12px;}
+#vmCartModule .amazonSignTip {
+    display: none;
+}

@@ -1,0 +1,8 @@
+<root>
+    <params name="slider" label="Configuration">
+        <param type="mixed" label="Translate url" name="translateurl" default="|*|">
+            <param type="text" label="From"/>
+            <param type="text" label="To"/>
+        </param>
+    </params>
+</root>

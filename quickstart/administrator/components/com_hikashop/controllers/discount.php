@@ -1,0 +1,75 @@
+<?php
+/**
+ * @package	HikaShop for Joomla!
+ * @version	3.2.1
+ * @author	hikashop.com
+ * @copyright	(C) 2010-2017 HIKARI SOFTWARE. All rights reserved.
+ * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ */
+defined('_JEXEC') or die('Restricted access');
+?><?php
+class DiscountController extends hikashopController{
+	var $toggle = array('discount_published'=>'discount_id');
+	var $type='discount';
+
+	function __construct($config = array()) {
+		parent::__construct($config);
+		$this->modify_views[]='select_coupon';
+		$this->modify_views[]='add_coupon';
+		$this->modify[]='copy';
+		$this->display[]='selection';
+		$this->display[]='export';
+		$this->modify[]='useselection';
+	}
+
+	function copy(){
+		$discounts = hikaInput::get()->get('cid', array(), 'array');
+		$result = true;
+		if(!empty($discounts)){
+			$discountClass = hikashop_get('class.discount');
+			foreach($discounts as $discount){
+				$data = $discountClass->get($discount);
+				if($data){
+					unset($data->discount_id);
+					$data->discount_code = $data->discount_code.'_copy'.rand();
+					if(!$discountClass->save($data)){
+						$result=false;
+					}
+				}
+			}
+		}
+		if($result){
+			$app = JFactory::getApplication();
+			if(!HIKASHOP_J30)
+				$app->enqueueMessage(JText::_( 'HIKASHOP_SUCC_SAVED' ), 'success');
+			else
+				$app->enqueueMessage(JText::_( 'HIKASHOP_SUCC_SAVED' ));
+			return $this->listing();
+		}
+		return $this->form();
+	}
+
+	function export(){
+		hikaInput::get()->set( 'layout', 'export'  );
+		return parent::display();
+	}
+
+	function select_coupon(){
+		hikaInput::get()->set( 'layout', 'select_coupon'  );
+		return parent::display();
+	}
+
+	function add_coupon(){
+		hikaInput::get()->set( 'layout', 'add_coupon'  );
+		return parent::display();
+	}
+
+	function selection(){
+		hikaInput::get()->set('layout', 'selection');
+		return parent::display();
+	}
+	function useselection(){
+		hikaInput::get()->set('layout', 'useselection');
+		return parent::display();
+	}
+}

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<font>
+  <fontname>Courier</fontname>
+  <fonttype>Base font</fonttype>
+  <filename>courier</filename>
+  <version>1.0</version>
+  <creationDate>2012-11-28</creationDate>
+  <author>The VirtueMart Development Team</author>
+  <copyright>Copyright (C) 2004-2012 Virtuemart Team. All rights reserved.</copyright>
+  <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+  <files>
+    <file>courier.php</file>
+    <file>courierb.php</file>
+	<file>courierbi.php</file>
+    <file>courieri.php</file>
+    <file>courier.xml</file>
+  </files>
+</font>

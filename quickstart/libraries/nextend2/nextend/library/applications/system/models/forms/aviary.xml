@@ -1,0 +1,7 @@
+<root>
+    <params name="aviary" label="Adobe Creative SDK - Aviary">
+        <param type="token"/>
+        <param type="text" name="public" label="API Key" default="" style="width: 250px;"/>
+        <param type="text" name="secret" label="Client secret" default="" style="width: 250px;"/>
+    </params>
+</root>

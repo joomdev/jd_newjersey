@@ -1,0 +1,7 @@
+<root>
+  <params name="import-from-server" label="Import slider from server">
+    <param name="import-file" type="tmplist" extension="ss3" label="Import file"/>
+    <param name="delete" type="onoff" label="Delete file after import" default="0"/>
+    <param type="token"/>
+  </params>
+</root>

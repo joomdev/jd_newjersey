@@ -1,0 +1,1 @@
+jQuery(document).ready(function(b){if(typeof pollcategoriesid!="undefined"&&b("#poll_exist_edit").length==0){var a=b("#kcategory_poll").val();if(pollcategoriesid[a]!==undefined){b(".pollbutton").show();}else{b(".pollbutton").hide();}}else{if(b("#poll_exist_edit").length>0){b(".pollbutton").show();}else{b(".pollbutton").hide();}}});

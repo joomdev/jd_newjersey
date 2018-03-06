@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" version="1.5" method="upgrade" group="system">
+    <name>AMAZON</name>
+    <creationDate>November 21 2017</creationDate>
+    <author>The VirtueMart Development Team</author>
+    <authorUrl>https://virtuemart.net</authorUrl>
+    <copyright>Copyright (C) 2004 - 2017 Virtuemart Team. All rights reserved.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <version>3.2.6</version>
+    <description>AMAZON payment SYSTEM plugin</description>
+    <files>
+    <filename plugin="amazon">amazon.php</filename>
+</files>
+
+    <config>
+        <fields name="params" >
+            <fieldset name="basic">
+                <field name="frequency" type="text"
+                       description="PLG_SYSTEM_AMAZON_FREQUENCY"
+                       label="PLG_SYSTEM_AMAZON_FREQUENCY_LABEL"
+                       default="100"
+                       size="5"
+                        />
+            </fieldset>
+        </fields>
+    </config>
+    <updateservers>
+        <!-- Note: No spaces or linebreaks allowed between the server tags -->
+        <server type="extension" name="VirtueMart plg_system_amazon Update Site"><![CDATA[http://virtuemart.net/releases/vm3/plg_system_amazon_update.xml]]></server>
+    </updateservers>
+</extension>

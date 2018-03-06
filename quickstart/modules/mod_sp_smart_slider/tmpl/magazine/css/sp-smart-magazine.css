@@ -1,0 +1,72 @@
+/**
+* @author    JoomShaper http://www.joomshaper.com
+* @copyright Copyright (C) 2010 - 2013 JoomShaper
+* @license   http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2
+*/
+
+.nivo-caption {
+	width:auto;
+	margin:15px;
+	padding:15px;
+}
+
+.nivoSlider h1.nivo-title {
+	font-size:25px;
+	line-height:20px;
+	text-shadow:0 1px rgba(0,0,0,.4);
+}
+
+.nivoSlider .sp-date-controllers {
+	position:absolute;
+	top:-45px;
+	left:0;
+	display:block;
+}
+
+.nivoSlider .sp-smart-date {
+	font-weight:700;
+	font-size:20px;
+	text-transform:uppercase;
+	display:inline-block;
+	padding:0 12px;
+	height:44px;
+	line-height:44px;
+	float:left;
+}
+
+.nivo-directionNav {
+	float:left;
+	margin:0 1px;
+}
+
+.nivoSlider .nivo-caption {
+	overflow:visible;
+}
+
+.nivo-directionNav a:hover {
+	-webkit-border-radius:none;
+	border-radius:none;
+}
+
+.nivoSlider .nivo-directionNav a {
+	position:inherit;
+	top:auto;
+	left:auto;
+	right:auto;
+	float:left;
+	display:inline-block!important;
+	width:30px;
+	height:44px;
+	background-color:rgba(0,0,0,0.6);
+	background-repeat:no-repeat;
+	background-position:50% 50%;
+	text-indent:-9999em;
+}
+
+.nivoSlider .nivo-directionNav a.nivo-prevNav {
+	background-image:url(../images/slide_arrow_r.png);
+}
+
+.nivoSlider .nivo-directionNav a.nivo-nextNav {
+	background-image:url(../images/slide_arrow_l.png);
+}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<style>
+  <name>Maxima</name>
+  <author>Joomshaper</author>
+  <description>Maxima layout for SP Smart Slider</description>
+  <version>1.0</version>
+  <files>
+    <public>
+      <filename type="javascript">maxima/js/maxima.slider.js</filename>
+      <filename type="stylesheet">maxima/css/sp-smart-maxima.css</filename>
+    </public>
+    <admin>
+    </admin>
+  </files>
+  <config>
+	<fieldset name="Basic">
+
+    <field name="height" type="text" default="500" label="Height" description="Set height. eg. 500" />
+
+    <field name="background" type="text" default="#FFFFFF" label="Background Color" description="Background color. eg. #FFFFFF" />
+
+		<field name="autoplay" type="list" default="1" label="Auto Play" description="Whether to enable or disable autoplay">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</field>
+		<field name="interval" type="text" default="5000" label="Interval" description="Set the slide interval between two slides in ms." />
+
+    </fieldset>
+  </config>  
+ </style>

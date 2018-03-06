@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="2.5.0" method="upgrade">
+  <name>mod_virtuemart_cart</name>
+  <creationDate>November 21 2017</creationDate>
+  <author>The VirtueMart Development Team</author>
+  <authorUrl>https://virtuemart.net</authorUrl>
+  <copyright>Copyright (C) 2004 - 2017 Virtuemart Team. All rights reserved.</copyright>
+  <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+  <version>3.2.6</version>
+  <description>MOD_VIRTUEMART_CART_DESC</description>
+  <files>
+    <filename module="mod_virtuemart_cart">mod_virtuemart_cart.php</filename>
+    <folder>assets</folder>
+    <folder>tmpl</folder>
+    <folder>language</folder>
+  </files>
+  <config>
+    <fields name="params">
+      <fieldset name="basic">
+        <field
+          name="moduleid_sfx"
+          type="text" default=""
+          label="Module ID Suffix"
+          description="A suffix to be applied to the ID of the module (table.moduletable), this allows individual module styling"
+        />
+        <field
+          name="moduleclass_sfx"
+          type="text"
+          default=""
+          label="Module Class Suffix"
+          description="A suffix to be applied to the css class of the module (table.moduletable), this allows individual module styling"
+        />
+        <field
+          name="show_price"
+          type="list"
+          default="1"
+          label="MOD_VIRTUEMART_CART_SHOW_PRICE"
+          description="MOD_VIRTUEMART_CART_SHOW_PRICE_DESC"
+          >
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </field>
+        <field
+          name="show_product_list"
+          type="list"
+          default="1"
+          label="MOD_VIRTUEMART_CART_SHOW_LIST"
+          description="MOD_VIRTUEMART_CART_SHOW_LIST_DESC"
+          >
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </field>
+      </fieldset>
+      <fieldset name="advanced">
+				<field
+					name="layout"
+					type="modulelayout"
+					label="JFIELD_ALT_LAYOUT_LABEL"
+					description="JFIELD_ALT_MODULE_LAYOUT_DESC"
+        />
+      </fieldset>
+    </fields>
+  </config>
+  <updateservers>
+    <!-- Note: No spaces or linebreaks allowed between the server tags -->
+    <server type="extension" name="VirtueMart3 mod_virtuemart_cart Update Site"><![CDATA[http://virtuemart.net/releases/vm3/mod_virtuemart_cart_update.xml]]></server>
+  </updateservers>
+</extension>

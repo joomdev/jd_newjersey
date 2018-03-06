@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension version="2.5" type="plugin" group="vmpayment" method="upgrade">
+    <name>Klarna Checkout</name>
+    <creationDate>November 21 2017</creationDate>
+    <author>The VirtueMart Development Team</author>
+    <authorUrl>https://virtuemart.net</authorUrl>
+    <copyright>Copyright (C) 2004 - 2017 Virtuemart Team. All rights reserved.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <version>3.2.6</version>
+
+    <files>
+        <filename plugin="klarnacheckout">klarnacheckout.php</filename>
+        <folder>language</folder>
+    </files>
+    <vmconfig>
+        <fields name="params">
+            <fieldset name="basic" addfieldpath="/plugins/vmpayment/klarnacheckout/fields">
+                <field type="klarnalogo" level="level1"/>
+                <field type="vmcurl"/>
+                <field type="getklarnacheckout"/>
+
+                <field type="spacer" default="VMPAYMENT_KLARNACHECKOUT_WARNING" level="level1"/>
+
+                <field type="spacer" default="" level="level1"/>
+                <field type="vmtitle" default="VMPAYMENT_KLARNACHECKOUT_PAYMENT_PARAMS" level="level1"/>
+                <field name="purchase_country" type="vmcountry" default=""
+                       label="VMPAYMENT_KLARNACHECKOUT_PURCHASE_COUNTRY"
+                       description="VMPAYMENT_KLARNACHECKOUT_PURCHASE_COUNTRY_DESC"/>
+                <field name="zone" type="list" default="0" label="VMPAYMENT_KLARNACHECKOUT_ZONE"
+                       description="VMPAYMENT_KLARNACHECKOUT_ZONE_DESC">
+                    <option value="EU">VMPAYMENT_KLARNACHECKOUT_ZONE_EU</option>
+                    <option value="NA">VMPAYMENT_KLARNACHECKOUT_ZONE_NA</option>
+                </field>
+                <field name="merchantid" type="text" default="" label="VMPAYMENT_KLARNACHECKOUT_MERCHANT_ID"
+                       description="VMPAYMENT_KLARNACHECKOUT_MERCHANT_ID_DESC"/>
+                <field name="sharedsecret" type="text" default="" label="VMPAYMENT_KLARNACHECKOUT_SHARED_SECRET"
+                       description="VMPAYMENT_KLARNACHECKOUT_SHARED_SECRET_DESC"/>
+                <field name="server" type="list" default="0" label="VMPAYMENT_KLARNACHECKOUT_SERVER"
+                       description="VMPAYMENT_KLARNACHECKOUT_SERVER_DESC">
+                    <option value="beta">VMPAYMENT_KLARNACHECKOUT_SERVER_BETA</option>
+                    <option value="live">VMPAYMENT_KLARNACHECKOUT_SERVER_LIVE</option>
+                </field>
+
+                <field name="locale" type="getlanguage" default=""
+                                label="VMPAYMENT_KLARNACHECKOUT_LOCALE" description="VMPAYMENT_KLARNACHECKOUT_LOCALE_DESC"/>
+                <field name="payment_currency" type="vmacceptedcurrency" default=""
+                       label="VMPAYMENT_KLARNACHECKOUT_PURCHASE_CURRENCY"
+                       description="VMPAYMENT_KLARNACHECKOUT_PURCHASE_CURRENCY_DESC"/>
+                <field name="email_currency" type="list" default="vendor" label="VMPAYMENT_KLARNACHECKOUT_EMAIL_CURRENCY"
+                       description="VMPAYMENT_KLARNACHECKOUT_EMAIL_CURRENCY_DESC">
+                    <option value="vendor">VMPAYMENT_KLARNACHECKOUT_EMAIL_CURRENCY_VENDOR</option>
+                    <option value="payment">VMPAYMENT_KLARNACHECKOUT_EMAIL_CURRENCY_PAYMENT</option>
+                </field>
+                <field name="terms_uri" type="text" default="" size="100" label="VMPAYMENT_KLARNACHECKOUT_TERMS_URI"
+                       description="VMPAYMENT_KLARNACHECKOUT_TERMS_URI_DESC"/>
+
+
+                <field type="spacer" default="" level="level1"/>
+                <field type="spacer" default="" level="level1"/>
+                <field type="vmtitle" default="VMPAYMENT_KLARNACHECKOUT_PAYMENT_PAGE" level="level1"/>
+                <field name="status_checkout_complete" type="vmorderstate" default="C"
+                       label="VMPAYMENT_KLARNACHECKOUT_checkout_complete"
+                       description="VMPAYMENT_KLARNACHECKOUT_checkout_complete_DESC"/>
+                <field name="status_activate" type="vmorderstate" default="S"
+                       label="VMPAYMENT_KLARNACHECKOUT_ACTIVATE_RESERVATION"
+                       description="VMPAYMENT_KLARNACHECKOUT_ACTIVATE_RESERVATION_DESC"/>
+                <field name="status_cancelReservation" type="vmorderstate" default="X"
+                       label="VMPAYMENT_KLARNACHECKOUT_CANCEL_RESERVATION"
+                       description="VMPAYMENT_KLARNACHECKOUT_CANCEL_RESERVATION_DESC"/>
+                <field name="status_creditInvoice" type="hidden" default="X"
+                       label="VMPAYMENT_KLARNACHECKOUT_CHANGE_RESERVATION"
+                       description="VMPAYMENT_KLARNACHECKOUT_CHANGE_RESERVATION_DESC"/>
+                <field name="status_changeReservation" type="hidden" default="X"
+                       label="VMPAYMENT_KLARNACHECKOUT_CHANGE_RESERVATION"
+                       description="VMPAYMENT_KLARNACHECKOUT_CHANGE_RESERVATION_DESC"/>
+                <field name="status_Refund" type="vmorderstate" default="R"
+                       label="VMPAYMENT_KLARNACHECKOUT_REFUND"
+                       description="VMPAYMENT_KLARNACHECKOUT_REFUND_DESC"/>
+                <field type="spacer" default="" level="level1"/>
+
+                <field type="vmtitle" default="VMPAYMENT_KLARNACHECKOUT_TEMPLATING" level="level1"/>
+
+                <field name="payment_logos" class="payment_logo" default="short-blue" type="list"
+                       label="VMPAYMENT_KLARNACHECKOUT_LOGOS" description="VMPAYMENT_KLARNACHECKOUT_LOGOS_DESC">
+                    <option value="0">COM_VIRTUEMART_NO</option>
+                    <option value="short-blue">VMPAYMENT_KLARNACHECKOUT_PAYMENT_LOGO_SHORT_BLUE</option>
+                    <option value="short-white">VMPAYMENT_KLARNACHECKOUT_PAYMENT_LOGO_SHORT_WHITE</option>
+                    <option value="long-blue">VMPAYMENT_KLARNACHECKOUT_PAYMENT_LOGO_LONG_BLUE</option>
+                    <option value="long-white">VMPAYMENT_KLARNACHECKOUT_PAYMENT_LOGO_LONG_WHITE</option>
+                </field>
+                <field name="payment_logo_display"  default="short-blue" type="list" multiple="multiple"
+                       label="VMPAYMENT_KLARNACHECKOUT_PAYMENT_LOGO_DISPLAY" description="VMPAYMENT_KLARNACHECKOUT_PAYMENT_LOGO_DISPLAY">
+                    <option value="listfe">VMPAYMENT_KLARNACHECKOUT_PAYMENT_LOGO_DISPLAY_LISTFE</option>
+                    <option value="selected">VMPAYMENT_KLARNACHECKOUT_PAYMENT_LOGO_DISPLAY_SELECTED</option>
+                    <!--option value="topcart">VMPAYMENT_KLARNACHECKOUT_PAYMENT_LOGO_DISPLAY_TOPCART</option-->
+                    <!--option value="module">VMPAYMENT_KLARNACHECKOUT_PAYMENT_LOGO_DISPLAY_MODULE</option-->
+                </field>
+                <field name="payment_logo_display_tooltip"  default="1" type="list"
+                       label="VMPAYMENT_KLARNACHECKOUT_PAYMENT_LOGO_DISPLAY_TOOLTIP" description="VMPAYMENT_KLARNACHECKOUT_PAYMENT_LOGO_DISPLAY_TOOLTIP">
+                    <option value="0">COM_VIRTUEMART_NO</option>
+                    <option value="1">COM_VIRTUEMART_YES</option>
+                </field>
+                <field name="payment_form_position" default="bottom" type="list"
+                       label="VMPAYMENT_KLARNACHECKOUT_PAYMENT_FORM_POSITION"
+                       description="VMPAYMENT_KLARNACHECKOUT_PAYMENT_FORM_POSITION">
+                    <option value="bottom">VMPAYMENT_KLARNACHECKOUT_PAYMENT_FORM_POSITION_BOTTOM</option>
+                    <option value="right">VMPAYMENT_KLARNACHECKOUT_PAYMENT_FORM_POSITION_RIGHT</option>
+                    <option value="specific">VMPAYMENT_KLARNACHECKOUT_PAYMENT_FORM_SPECIFIC</option>
+                </field>
+
+                <field class="input-colorpicker" type="color" name="button_color" size="30"
+                       label="VMPAYMENT_KLARNACHECKOUT_BUTTON_COLOR" default=""
+                       description="VMPAYMENT_KLARNACHECKOUT_BUTTON_COLOR"/>
+                <field class="input-colorpicker" type="color" name="button_text_color" size="30"
+                       label="VMPAYMENT_KLARNACHECKOUT_BUTTON_TEXT_COLOR" default=""
+                       description="VMPAYMENT_KLARNACHECKOUT_BUTTON_TEXT_COLOR"/>
+                <field class="input-colorpicker" type="color" name="checkbox_color" size="30"
+                       label="VMPAYMENT_KLARNACHECKOUT_CHECKBOX_COLOR" default=""
+                       description="VMPAYMENT_KLARNACHECKOUT_CHECKBOX_COLOR"/>
+                <field class="input-colorpicker" type="color" name="button_checkbox_checkmark_color" size="30"
+                       label="VMPAYMENT_KLARNACHECKOUT_BUTTON_CHECKBOX_CHECKMARK_COLOR" default=""
+                       description="VMPAYMENT_KLARNACHECKOUT_BUTTON_CHECKBOX_CHECKMARK_COLOR"/>
+                <field class="input-colorpicker" type="color" name="header_color" size="30"
+                       label="VMPAYMENT_KLARNACHECKOUT_HEADER_COLOR" default=""
+                       description="VMPAYMENT_KLARNACHECKOUT_HEADER_COLOR"/>
+                <field class="input-colorpicker" type="color" name="link_color" size="30"
+                       label="VMPAYMENT_KLARNACHECKOUT_BUTTON_LINK" default=""
+                       description="VMPAYMENT_KLARNACHECKOUT_BUTTON_LINK"/>
+
+                <field type="spacer" default=""/>
+
+
+                <field type="spacer" default="" level="level1"/>
+                <!-- Discounts -->
+                <!-- ============ -->
+                <field type="vmtitle" default="VMPAYMENT_KLARNACHECKOUT_DISCOUNT_FEE_SECTION"
+                       description="VMPAYMENT_KLARNACHECKOUT_DISCOUNT_FEE_SECTION_DESC"/>
+
+                <field name="cost_per_transaction" type="text" label="VMPAYMENT_KLARNACHECKOUT_COST_PER_TRANSACTION"
+                       description="VMPAYMENT_KLARNACHECKOUT_COST_PER_TRANSACTION_TIP"/>
+                <field name="cost_percent_total" type="text" label="VMPAYMENT_KLARNACHECKOUT_COST_PERCENT_TOTAL"
+                       description="VMPAYMENT_KLARNACHECKOUT_COST_PERCENT_TOTAL_TIP"/>
+                <field name="tax_id" type="vmtaxes" scope="com_virtuemart" label="VMPAYMENT_KLARNACHECKOUT_TAX"
+                       description="VMPAYMENT_KLARNACHECKOUT_TAX_TIP"/>
+                <field name="cost_method" type="list" default="1" label="VMPAYMENT_KLARNACHECKOUT_COST_METHOD"
+                       description="VMPAYMENT_KLARNACHECKOUT_COST_METHOD_TIP">
+                    <option value="1">VMPAYMENT_KLARNACHECKOUT_COST_METHOD_PROGRESSIVE</option>
+                    <option value="0">VMPAYMENT_KLARNACHECKOUT_COST_METHOD_FIXED</option>
+                </field>
+
+                
+                <field type="vmtitle" default="VMPAYMENT_KLARNACHECKOUT_RESTRICTIONS" level="level1"/>
+                <field name="min_amount" type="text" label="VMPAYMENT_KLARNACHECKOUT_MIN_AMOUNT"
+                       description="VMPAYMENT_KLARNACHECKOUT_MIN_AMOUNT_DESC"/>
+                <field name="max_amount" type="text" label="VMPAYMENT_KLARNACHECKOUT_MAX_AMOUNT"
+                       description="VMPAYMENT_KLARNACHECKOUT_MAX_AMOUNT_DESC"/>
+
+                <field type="vmtitle" default="VMPAYMENT_KLARNACHECKOUT_DEBUG_SECTION" level="level1"/>
+
+                <field name="debug" type="radio" default="0" label="VMPAYMENT_KLARNACHECKOUT_DEBUG"
+                       description="VMPAYMENT_KLARNACHECKOUT_DEBUG_DESC">
+                    <option value="0">COM_VIRTUEMART_NO</option>
+                    <option value="1">COM_VIRTUEMART_YES</option>
+                </field>
+                <field name="log" type="radio" default="1" label="VMPAYMENT_KLARNACHECKOUT_LOG"
+                       description="VMPAYMENT_KLARNACHECKOUT_LOG_DESC">
+                    <option value="0">COM_VIRTUEMART_NO</option>
+                    <option value="1">COM_VIRTUEMART_YES</option>
+                </field>
+                <field name="cost_percent_total" type="hidden"/>
+                <field name="cost_per_transaction" type="hidden"/>
+            </fieldset>
+        </fields>
+    </vmconfig>
+    <updateservers>
+        <!-- Note: No spaces or linebreaks allowed between the server tags -->
+        <server type="extension" name="VirtueMart plg_vmpayment_klarnacheckout Update Site"><![CDATA[http://virtuemart.net/releases/vm3/plg_vmpayment_klarnacheckout_update.xml]]></server>
+    </updateservers>
+</extension>

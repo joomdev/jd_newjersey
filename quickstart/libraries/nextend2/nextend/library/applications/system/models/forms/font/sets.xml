@@ -1,0 +1,5 @@
+<root>
+    <params name="font-sets" label="Font sets" type="naked">
+        <param type="list" name="sets" default=""/>
+    </params>
+</root>

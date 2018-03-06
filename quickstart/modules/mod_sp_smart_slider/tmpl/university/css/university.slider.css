@@ -1,0 +1,320 @@
+/**
+* @author    JoomShaper http://www.joomshaper.com
+* @copyright Copyright (C) 2010 - 2012 JoomShaper
+* @license   http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2
+*/
+
+/*-- Responsive --*/
+
+
+.sp-university-layout{
+    position: relative;
+    color:#000;
+    z-index:0;
+    overflow: hidden;
+    background:#fff;
+}
+
+.sp-preloader{
+    position: absolute;
+    text-align: center;
+    top:40%;
+    left: 45%;
+    color:#fff;
+    font-size: 36px;
+}
+
+/*-- Slider Item --*/
+
+.sp-university-layout .sp-slider-item {
+  left: 0;
+  opacity: 0;
+  top: 0;
+  position: absolute;
+  width: 100%;
+  display: block;
+  height: 600px;
+  -webkit-transition: opacity ease-in-out 500ms;
+  -moz-transition: opacity ease-in-out 500ms;
+  -o-transition: opacity ease-in-out 500ms;
+  transition: opacity ease-in-out 500ms;
+  text-align: center;
+}
+
+
+.sp-slider-item .sp-slider-image{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.sp-slider-item .sp-slider-image {
+  -webkit-transition: -webkit-transform 800ms;
+  -moz-transition: -moz-transform 800ms;
+  -o-transition: -o-transform 800ms;
+  -ms-transition: -ms-transform 800ms;
+  transition: transform 800ms;
+
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -o-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+}
+
+.sp-slider-item:hover .sp-slider-image {
+  -webkit-transition: -webkit-transform 2s;
+  -moz-transition: -moz-transform 2s;
+  -o-transition: -o-transform 2s;
+  -ms-transition: -ms-transform 2s;
+  transition: transform 2s;
+
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -o-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+.sp-university-layout .sp-slider-item:first-child {
+  top: auto;
+  position: relative;
+}
+
+.sp-university-layout .sp-slider-item.animate-in {
+  opacity: 1;
+  -webkit-transition: opacity ease-in-out 500ms;
+  -moz-transition: opacity ease-in-out 500ms;
+  -o-transition: opacity ease-in-out 500ms;
+  transition: opacity ease-in-out 500ms;
+  z-index: 1;
+}
+
+
+.sp-university-layout .btn-more{
+  display: inline-block;
+}
+
+.sp-university-layout,
+.sp-university-layout h1,
+.sp-university-layout h2,
+.sp-university-layout h3{
+  color: #fff;
+}
+
+.sp-university-layout .sp-slider-content .sp-introtext{
+  margin: 40px 450px 20px;
+}
+
+
+/*-- Slider Animation --*/
+
+.sp-university-layout .animate-in .sp-animation-1 {
+  -webkit-animation: fadeInUp 300ms linear 300ms both;
+  -moz-animation: fadeInUp 300ms linear 300ms both;
+  -o-animation: fadeInUp 300ms linear 300ms both;
+  -ms-animation: fadeInUp 300ms linear 300ms both;
+  animation: fadeInUp 300ms linear 300ms both;
+}
+.sp-university-layout .animate-in .sp-animation-2 {
+  -webkit-animation: fadeInUp 300ms linear 600ms both;
+  -moz-animation: fadeInUp 300ms linear 600ms both;
+  -o-animation: fadeInUp 300ms linear 600ms both;
+  -ms-animation: fadeInUp 300ms linear 600ms both;
+  animation: fadeInUp 300ms linear 600ms both;
+}
+.sp-university-layout .animate-in .sp-animation-3 {
+  -webkit-animation: fadeInUp 300ms linear 900ms both;
+  -moz-animation: fadeInUp 300ms linear 900ms both;
+  -o-animation: fadeInUp 300ms linear 900ms both;
+  -ms-animation: fadeInUp 300ms linear 900ms both;
+  animation: fadeInUp 300ms linear 900ms both;
+}
+.sp-university-layout .animate-in .sp-animation-4 {
+  -webkit-animation: fadeInUp 300ms linear 1200ms both;
+  -moz-animation: fadeInUp 300ms linear 1200ms both;
+  -o-animation: fadeInUp 300ms linear 1200ms both;
+  -ms-animation: fadeInUp 300ms linear 1200ms both;
+  animation: fadeInUp 300ms linear 1200ms both;
+}
+
+.sp-university-layout .animate-in .sp-animation-5 {
+  -webkit-animation: fadeInUp 300ms linear 1500ms both;
+  -moz-animation: fadeInUp 300ms linear 1500ms both;
+  -o-animation: fadeInUp 300ms linear 1500ms both;
+  -ms-animation: fadeInUp 300ms linear 1500ms both;
+  animation: fadeInUp 300ms linear 1500ms both;
+}
+
+
+/*-- Slider Arrow Navigation --*/
+
+.sp-university-layout .sp-slider-controllers{
+  z-index:2;
+  text-align:center;
+}
+.sp-university-layout .sp-slider-controllers .controller-prev,
+.sp-university-layout .sp-slider-controllers .controller-next{
+  position:absolute;
+  top: 50%;
+  margin-top: -45px;
+  z-index: 2;
+}
+.rtl .sp-university-layout .sp-slider-controllers .controller-next{
+  left:0
+}
+.ltr .sp-university-layout .sp-slider-controllers .controller-next{
+  right:0
+}
+.ltr .sp-university-layout .sp-slider-controllers >a{
+  background:#fff;
+  width: 60px;
+  height: 80px;
+  line-height:80px;
+  display: block;
+  float: left;
+}
+.rtl .sp-university-layout .sp-slider-controllers >a{
+  background:#fff;
+  width: 60px;
+  height: 80px;
+  line-height:80px;
+  display: block;
+  float: right
+}
+.sp-university-layout .sp-slider-controllers >a{
+  color:#555;
+  margin:0;
+  padding:0;
+  cursor:pointer
+}
+
+.sp-university-layout .sp-slider-controllers >a span{
+  display:block;
+  font-family: "Helvetica Neue";
+  font-size: 70px;
+  line-height: 70px;
+}
+
+
+/*Loader*/
+
+.sp-preloader {
+    height: 20px;
+    width: 20px;
+    -webkit-animation: appicospin 1.5s linear infinite;
+    -moz-animation: appicospin 1.5s linear infinite;
+    -ms-animation: appicospin 1.5s linear infinite;
+    -o-animation: appicospin 1.5s linear infinite;
+    animation: appicospin 1.5s linear infinite;
+}
+.sp-preloader i{
+    height: 20px;
+    width: 20px;
+    border-radius: 25px;
+    display: block;
+    position:absolute;
+}
+.sp-preloader i:before, .sp-preloader i:after{
+  content:'';
+  display:block;
+  position:absolute;
+  height:inherit;
+  width:inherit;
+  border-radius: inherit;
+}
+.sp-preloader i:first-child:before {
+    background: rgba(52, 149, 221, 0.9);
+
+    -webkit-animation: appicorotate-top-left 1.5s linear infinite;
+    -moz-animation: appicorotate-top-left 1.5s linear infinite;
+    -ms-animation: appicorotate-top-left 1.5s linear infinite;
+    -o-animation: appicorotate-top-left 1.5s linear infinite;
+    animation: appicorotate-top-left 1.5s linear infinite;
+}
+
+.sp-preloader i:first-child:after {
+    background: rgba(225, 73, 44, 0.9);
+
+    -webkit-animation: appicorotate-top-right 1.5s linear infinite;
+    -moz-animation: appicorotate-top-right 1.5s linear infinite;
+    -ms-animation: appicorotate-top-right 1.5s linear infinite;
+    -o-animation: appicorotate-top-right 1.5s linear infinite;
+    animation: appicorotate-top-right 1.5s linear infinite;
+}
+
+.sp-preloader i:last-child:before {
+    background: rgba(249, 206, 43, 0.9);
+
+    -webkit-animation: appicorotate-bottom-left 1.5s linear infinite;
+    -moz-animation: appicorotate-bottom-left 1.5s linear infinite;
+    -ms-animation: appicorotate-bottom-left 1.5s linear infinite;
+    -o-animation: appicorotate-bottom-left 1.5s linear infinite;
+    animation: appicorotate-bottom-left 1.5s linear infinite;
+}
+
+.sp-preloader i:last-child:after {
+    background: rgba(0, 153, 117, 0.9);
+
+    -webkit-animation: appicorotate-bottom-right 1.5s linear infinite;
+    -moz-animation: appicorotate-bottom-right 1.5s linear infinite;
+    -ms-animation: appicorotate-bottom-right 1.5s linear infinite;
+    -o-animation: appicorotate-bottom-right 1.5s linear infinite;
+    animation: appicorotate-bottom-right 1.5s linear infinite;
+}
+
+
+/*Animation*/
+@-webkit-keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(20px);
+  }
+  
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+  }
+}
+
+@-moz-keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    -moz-transform: translateY(20px);
+  }
+  
+  100% {
+    opacity: 1;
+    -moz-transform: translateY(0);
+  }
+}
+
+@-o-keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    -o-transform: translateY(20px);
+  }
+  
+  100% {
+    opacity: 1;
+    -o-transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
