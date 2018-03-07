@@ -61,6 +61,8 @@ class User extends \G2\L\Model {
 		
 		if(empty($data['password'])){
 			unset($data['password']);
+		}else{
+			$data['password'] = \JUserHelper::hashPassword($data['password']);
 		}
 		
 		return $data;

@@ -160,6 +160,10 @@ class App {
 	public static function url($type, $params = []){
 		return $type;
 	}
+	
+	public static function _exit(){
+		exit();
+	}
 	/*
 	public static function component($com){
 		return Component::getInstance($com);

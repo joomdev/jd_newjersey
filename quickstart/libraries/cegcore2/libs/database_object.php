@@ -23,9 +23,9 @@ class DatabaseObject {
 	var $adapter = null;
 	var $processor = null;
 	
-	public static function getInstance($adapter, $options = array()){
+	public static function getInstance($options = array()){
 		if(!empty($options)){
-			$db_adapter_class = '\G2\L\DatabaseAdapters\\'.Str::camilize($adapter);
+			$db_adapter_class = \G2\Globals::getClass('database_adapter');
 			$new_object = new $db_adapter_class($options);
 			$new_object->_initialize($options);
 			
@@ -57,17 +57,7 @@ class DatabaseObject {
 			return $this->db_prefix.$tablename;
 		}
 	}
-	/*
-	function _prefixTable($sql, $ready = false){
-		if(\G2\Globals::get('db_table_prefix', '')){
-			$prefix = \G2\Globals::get('db_table_prefix', '');
-		}else{
-			$prefix = '';
-		}
-		
-		return str_replace('#__', $this->db_prefix.($ready === false ? $prefix : ''), $sql);
-	}
-	*/
+	
 	function _prefixTable($sql){
 		$sql = str_replace(['#__', '#ce__'], [$this->db_prefix, $this->db_prefix.'chronoengine_'], $sql);
 		return $sql;

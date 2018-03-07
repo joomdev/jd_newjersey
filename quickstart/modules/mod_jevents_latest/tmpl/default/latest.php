@@ -1,7 +1,7 @@
 <?php
 
 /**
- * copyright (C) 2008-2017 GWE Systems Ltd - All rights reserved
+ * copyright (C) 2008-2018 GWE Systems Ltd - All rights reserved
  */
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
@@ -257,7 +257,7 @@ class DefaultModLatestView
 			$this->maxEvents = $limit;
 		}
 
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 
 		$t_datenow = JEVHelper::getNow();
 		$this->now = $t_datenow->toUnix(true);
@@ -404,13 +404,16 @@ class DefaultModLatestView
 		$reg =  JFactory::getConfig();
 		$pastdate = $reg->get("jev.timelimit.past", false);
 		$futuredate = $reg->get("jev.timelimit.future", false);
-		if ($pastdate)
+		if ($this->dispMode !== 5 && $this->dispMode !== 8)
 		{
-			$beginDate = $pastdate > $beginDate ? $pastdate : $beginDate;
-		}
-		if ($futuredate)
-		{
-			$endDate = $futuredate < $endDate ? $futuredate : $endDate;
+			if ($pastdate)
+			{
+				$beginDate = $pastdate > $beginDate ? $pastdate : $beginDate;
+			}
+			if ($futuredate)
+			{
+				$endDate = $futuredate < $endDate ? $futuredate : $endDate;
+			}
 		}
 		$timeLimitNow = $todayBegin < $beginDate ? $beginDate : $todayBegin;
 		$timeLimitNow = JevDate::mktime(0, 0, 0, intval(JString::substr($timeLimitNow, 5, 2)), intval(JString::substr($timeLimitNow, 8, 2)), intval(JString::substr($timeLimitNow, 0, 4)));
@@ -1168,8 +1171,11 @@ SCRIPT;
 						$tempEndDate = $endDate + 1;
 						if ($dayEvent->alldayevent() || $dayEvent->noendtime())
 						{
+							$jmatch = new JevDate($tempEndDate);
+							$jmatch->setTime(24,0,0);
 							// if an all day event then we don't want to roll to the next day
-							$tempEndDate -= 86400;
+							$jmatch->sub(new DateInterval('P1D'));
+							$tempEndDate = $jmatch;
 						}
 						$match = "tempEndDate";
 					}

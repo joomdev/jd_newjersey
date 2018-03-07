@@ -11,8 +11,13 @@ trait Order {
 		$this->helpers[] = '\G2\H\Sorter';
 		$return = [];
 		
+		$this->set('helpers.sorter.fields', $fields);
+		
 		foreach($fields as $alias => $name){
-			if($this->data('orderfld') == $alias){
+			if(is_numeric($alias)){
+				$alias = str_replace('.', '_', $name);
+			}
+			if($this->data('orderfld') == $alias OR $this->data('orderfld') == $name){
 				$direction = $this->data('orderdir', 'asc');
 				
 				if($direction == 'clear'){
@@ -27,6 +32,9 @@ trait Order {
 		$saved = \GApp::session()->get('helpers.sorter', array());
 		if(count($saved)){
 			foreach($fields as $alias => $name){
+				if(is_numeric($alias)){
+					$alias = str_replace('.', '_', $name);
+				}
 				if(isset($saved[$alias])){
 					$return[$saved[$alias]['fld']] = $saved[$alias]['dir'];
 				}

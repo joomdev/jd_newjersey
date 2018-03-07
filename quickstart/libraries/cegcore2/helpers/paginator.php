@@ -42,7 +42,10 @@ class Paginator extends \G2\L\Helper{
 			}
 		}
 		
-		$lang = rl($lang, [($startat + $limit > $count ? $count - $startat : $limit), !empty($startat) ? $startat : 1, ($startat + $limit > $count ? $count : $startat + $limit), $count]);
+		$l_visible = ($startat + $limit > $count ? $count - $startat : $limit);
+		$l_start = !empty($count) ? (!empty($startat) ? $startat : 1) : 0;
+		
+		$lang = rl($lang, [$l_visible, $l_start, ($startat + $limit > $count ? $count : $startat + $limit), $count]);
 		//$output = $lang;
 		
 		$output = '

@@ -23,11 +23,35 @@ class Extension {
 			$instances = array();
 		}
 		if(empty($instances[$ext])){
-			$instances[$ext] = new self($ext);
+			//$instances[$ext] = new self($ext);
+			$extension = \G2\Globals::getClass('extension');
+			$instances[$ext] = new $extension($ext);
 			return $instances[$ext];
 		}else{
 			return $instances[$ext];
 		}
+	}
+	
+	public function path($area = 'admin'){
+		$path = '';
+		if($area == 'admin'){
+			$path .= \G2\Globals::get('ADMIN_PATH');
+		}else{
+			$path .= \G2\Globals::get('FRONT_PATH');
+		}
+		$path .= 'extensions'.DS.$this->name.DS;
+		return $path;
+	}
+	
+	public function url($area = 'admin'){
+		$path = '';
+		if($area == 'admin'){
+			$path .= \G2\Globals::get('ADMIN_URL');
+		}else{
+			$path .= \G2\Globals::get('FRONT_URL');
+		}
+		$path .= 'extensions/'.$this->name.'/';
+		return $path;
 	}
 
 	public function settings(){
@@ -65,7 +89,7 @@ class Extension {
 		
 		$vdomain = $settings->get('vdomain', false);
 		if($vdomain !== false){
-			if($vdomain != \G2\L\Url::domain(false)){
+			if(str_replace('www.', '', $vdomain) != str_replace('www.', '', \G2\L\Url::domain(false))){
 				return false;
 			}
 		}

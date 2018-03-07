@@ -24,6 +24,7 @@ defined("GCORE_SITE") or die;
 		}
 		
 		if(!empty($function['filename_provider'])){
+			$this->set($function['name'].'.file.fullname', $file['name']);
 			$this->set($function['name'].'.file.name', $fname);
 			$this->set($function['name'].'.file.extension', $ext);
 			

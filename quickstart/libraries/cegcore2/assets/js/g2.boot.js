@@ -38,6 +38,11 @@
 	$.G2.boot.calendar = function(Container){
 		//calendar
 		Container.find('[data-calendar]').each(function(i, calfield){
+			if($(calfield).data('calendarready') === true){
+				return true;
+			}
+			$(calfield).data('calendarready', true);
+			
 			var mindate = null;
 			if($(calfield).data('mindate')){
 				var parts = $(calfield).data('mindate').split('-');
@@ -51,13 +56,29 @@
 			if(jQuery.fn.calendar != undefined){
 				
 				var $realDate = $('<input type="hidden" name="'+$(calfield).attr('name')+'">');
-				$(calfield).closest('.field').after($realDate);
+				if($('[type="hidden"][name="'+$(calfield).attr('name')+'"]').length == 0){
+					$(calfield).closest('.field').after($realDate);
+				}else{
+					$realDate = $('[type="hidden"][name="'+$(calfield).attr('name')+'"]').first();
+				}
 				
 				var dformat = $(calfield).data('dformat') ? $(calfield).data('dformat') : 'YYYY-MM-DD';
 				var sformat = $(calfield).data('sformat') ? $(calfield).data('sformat') : 'YYYY-MM-DD';
 				
 				if($(calfield).val().length > 0){
-					$realDate.val(moment($(calfield).val(), dformat).format(sformat));
+					var calval = $(calfield).val();
+					$realDate.val(calval);
+					$(calfield).val(moment(calval, sformat).format(dformat));
+				}
+				
+				var opendays = [1,2,3,4,5,6,7];//1 for monday
+				if($(calfield).data('opendays')){
+					opendays = $(calfield).data('opendays').split(',').map(Number);
+				}
+				
+				var openhours = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24];//1 for monday
+				if($(calfield).data('openhours')){
+					openhours = $(calfield).data('openhours').split(',').map(Number);
 				}
 				
 				$(calfield).closest('.field').calendar({
@@ -68,13 +89,22 @@
 					startCalendar: $(calfield).data('startcalendar') ? $($(calfield).data('startcalendar')).closest('.field') : null,
 					endCalendar: $(calfield).data('endcalendar') ? $($(calfield).data('endcalendar')).closest('.field') : null,
 					firstDayOfWeek: $(calfield).data('firstday') ? $(calfield).data('firstday') : 0,
-					ampm: $(calfield).data('ampm') ? $(calfield).data('ampm') : true,
+					ampm: ($(calfield).data('ampm') != undefined) ? $(calfield).data('ampm') : true,
 					monthFirst: $(calfield).data('monthfirst') ? $(calfield).data('monthfirst') : true,
 					
 					formatter:{
 						datetime: function (date, settings) {
 							if (!date) return '';
 							return moment(date).format(dformat);
+						},
+						cell: function(cell, date, cellOptions){
+							if(cellOptions.mode == 'day' && (opendays.indexOf(parseInt(moment(date).format('E'))) == -1)){
+								$(cell).addClass('disabled');
+							}
+							
+							if(cellOptions.mode == 'hour' && (openhours.indexOf(parseInt(moment(date).format('k'))) == -1)){
+								$(cell).addClass('disabled');
+							}
 						}
 					},
 					parser:{
@@ -100,13 +130,18 @@
 						pm: $(calfield).data('pm') ? $(calfield).data('pm').split(',') : 'PM'
 					}
 				});
+				
 			}
 		});
 	};
 	
 	$.G2.boot.ready = function(){
-		$('body').on('contentChange.basics', 'div', function(e){
+		$('body').on('contentChange.basics', '*', function(e){
 			e.stopPropagation();
+			
+			if($(this).prop('tagName') != 'DIV' && $(this).prop('tagName') != 'FORM'){
+				//return false;
+			}
 			
 			if(jQuery.fn.tab != undefined){
 				$(this).find('.ui.menu.G2-tabs .item, .ui.steps.G2-tabs .step').tab();
@@ -119,13 +154,17 @@
 				$(this).find('.ui.checkbox').checkbox('refresh');
 			}
 			
+			if(jQuery.fn.embed != undefined){
+				$(this).find('.ui.embed').embed();
+			}
+			
 			if(jQuery.fn.accordion != undefined){
 				$(this).find('.ui.accordion').accordion();
 				$(this).find('.ui.accordion').accordion('refresh');
 			}
 			
 			if(jQuery.fn.tooltipster != undefined){
-				$(this).find('[data-hint]').each(function(i, element){
+				$(this).find('[data-hint]').addBack().each(function(i, element){
 					$(element).tooltipster({
 						content: $(element).data('hint'),
 						maxWidth: 300,

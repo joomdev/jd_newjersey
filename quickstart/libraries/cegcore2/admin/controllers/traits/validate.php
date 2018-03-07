@@ -30,6 +30,9 @@ trait Validate {
 			if(is_numeric($status) AND strlen($status) > 1){
 				\GApp::session()->flash('error', 'Trial mode has been activated before.');
 				$this->redirect(r2('index.php?ext='.$this->extension));
+			}else if($status == 1){
+				\GApp::session()->flash('info', 'The extension has already been validated.');
+				$this->redirect(r2('index.php?ext='.$this->extension));
 			}else{
 				$this->_vupdate(time() + (10 * 24 * 60 * 60), 'validated');
 				$this->redirect(r2('index.php?ext='.$this->extension));

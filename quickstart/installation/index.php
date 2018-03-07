@@ -1,7 +1,7 @@
 <?php
 /**
  * @package angi4j
- * @copyright Copyright (C) 2009-2017 Nicholas K. Dionysopoulos. All rights reserved.
+ * @copyright Copyright (c)2009-2018 Nicholas K. Dionysopoulos / Akeeba Ltd
  * @author Nicholas K. Dionysopoulos - http://www.dionysopoulos.me
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL v3 or later
  *
@@ -45,7 +45,10 @@ require_once __DIR__ . '/defines.php';
 require_once __DIR__. '/angie/autoloader.php';
 
 // Required by the Joomla! CMS version file (mind. blown!)
-define('JPATH_PLATFORM', APATH_LIBRARIES);
+if (!defined('JPATH_PLATFORM'))
+{
+	define('JPATH_PLATFORM', APATH_LIBRARIES);
+}
 
 try
 {

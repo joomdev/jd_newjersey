@@ -238,15 +238,23 @@ class View {
 		return $output;
 	}
 	
+	function vars($arr){
+		if(!empty($arr['__vars__'])){
+			return $arr['__vars__'];
+		}else{
+			return [];
+		}
+	}
+	
 	private function _contents($__file__, $__vars__ = []){
 		if(empty($__vars__)){
-			foreach($this->_vars as $k => $val){
-				$$k = $val;
+			foreach($this->_vars as $___k => $___val){
+				$$___k = $___val;
 			}
 		}
 		
-		foreach($__vars__ as $k => $val){
-			$$k = $val;
+		foreach($__vars__ as $___k => $___val){
+			$$___k = $___val;
 		}
 		
 		$contents = '';

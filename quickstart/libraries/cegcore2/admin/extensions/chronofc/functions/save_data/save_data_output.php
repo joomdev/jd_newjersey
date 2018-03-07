@@ -121,10 +121,12 @@ defined("GCORE_SITE") or die;
 		
 		if(!empty($stored)){
 			foreach($stored as $field){
-				$fname = rtrim(str_replace(['[]', '[', ']', '(N)'], ['(N)', '.', '', '.[n]'], $field['name']), '.');
-				$fname_tag = '{data'.(strpos($fname, '[n]') !== false ? '/jsonen' : '').':'.$fname.'/""}';
-				$lname = explode('.', str_replace('.[n]', '', $fname));
-				$function['insert_data_override'] = $function['insert_data_override']."\n".array_pop($lname).':'.$fname_tag;
+				if(isset($field['name'])){
+					$fname = rtrim(str_replace(['[]', '[', ']', '(N)'], ['(N)', '.', '', '.[n]'], $field['name']), '.');
+					$fname_tag = '{data'.(strpos($fname, '[n]') !== false ? '/jsonen' : '').':'.$fname.'/""}';
+					$lname = explode('.', str_replace('.[n]', '', $fname));
+					$function['insert_data_override'] = $function['insert_data_override']."\n".array_pop($lname).':'.$fname_tag;
+				}
 			}
 		}
 		

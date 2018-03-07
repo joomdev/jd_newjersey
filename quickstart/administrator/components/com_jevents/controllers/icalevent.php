@@ -4,7 +4,7 @@
  *
  * @version     $Id: icalevent.php 3576 2012-05-01 14:11:04Z geraintedwards $
  * @package     JEvents
- * @copyright   Copyright (C) 2008-2017 GWE Systems Ltd, 2006-2008 JEvents Project Group
+ * @copyright   Copyright (C) 2008-2018 GWE Systems Ltd, 2006-2008 JEvents Project Group
  * @license     GNU/GPLv2, see http://www.gnu.org/licenses/gpl-2.0.html
  * @link        http://www.jevents.net
  */
@@ -64,7 +64,7 @@ class AdminIcaleventController extends JControllerAdmin
 
 		$jinput = JFactory::getApplication()->input;
 
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 
 		$icsFile = intval(JFactory::getApplication()->getUserStateFromRequest("icsFile", "icsFile", 0));
 
@@ -379,7 +379,11 @@ class AdminIcaleventController extends JControllerAdmin
 		// get list of categories
 		$attribs = 'class="inputbox" size="1" onchange="document.adminForm.submit();"';
 		$clist = JEventsHTML::buildCategorySelect($catid, $attribs, null, $showUnpublishedCategories, false, $catidtop, "catid");
-
+		// if there is only one category then do not show the filter
+		if (strpos( $clist, "<select") === false)
+		{
+			$clist = "";
+		}
 		$options[] = JHTML::_('select.option', '0', JText::_('JEV_NO'));
 		$options[] = JHTML::_('select.option', '1', JText::_('JEV_YES'));
 		$plist = JHTML::_('select.genericlist', $options, 'hidepast', 'class="inputbox" size="1" onchange="document.adminForm.submit();"', 'value', 'text', $hidepast);
@@ -466,7 +470,7 @@ class AdminIcaleventController extends JControllerAdmin
 
 		$repeatId = 0;
 
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 
 		// iCal agid uses GUID or UUID as identifier
 		if ($id > 0)
@@ -520,9 +524,12 @@ class AdminIcaleventController extends JControllerAdmin
 			$vevent->set("dtstart", JevDate::mktime((int)$starthour, $startmin, 0, $month, $day, $year));
 			$vevent->set("dtend", JevDate::mktime((int)$endhour, $endmin, 0, $month, $day, $year));
 			$row = new jIcalEventDB($vevent);
-			// uncomment to default to all day event
-			//$row->_alldayevent=1;
-
+			if ($params->get('default_alldayevent', 0) == 1) {
+				$row->_alldayevent = 1;
+			}
+			if ($params->get('default_noendtime', 0) == 1) {
+				$row->_noendtime = 1;
+			}
 			// TODO - move this to class!!
 			// populate with meaningful initial values
 			$row->starttime($defaultstarttime);
@@ -577,7 +584,14 @@ class AdminIcaleventController extends JControllerAdmin
 			$icalList = array();
 			$icalList[] = JHTML::_('select.option', '0', JText::_('JEV_EVENT_CHOOSE_ICAL'), 'ics_id', 'label');
 			$icalList = array_merge($icalList, $nativeCals);
-			$clist = JHTML::_('select.genericlist', $icalList, 'ics_id', " onchange='preselectCategory(this);'", 'ics_id', 'label', $row->icsid());
+
+			$row_icsid = $row->icsid();
+
+			if ($params->get('defaultcal', 0) && !$row_icsid) {
+				$row_icsid = count($nativeCals) > 0 ? current($nativeCals)->ics_id : 0;
+			}
+			$clist = JHTML::_('select.genericlist', $icalList, 'ics_id', " onchange='preselectCategory(this);'", 'ics_id', 'label', $row_icsid);
+
 			$this->view->assign('clistChoice', true);
 			$this->view->assign('defaultCat', 0);
 		}
@@ -1109,7 +1123,7 @@ class AdminIcaleventController extends JControllerAdmin
 
 	private function doSave(& $msg)
 	{
-		if (!JEVHelper::isEventCreator())
+		if (!JEVHelper::isEventCreator() && !JEVHelper::isEventEditor())
 		{
 			throw new Exception( JText::_('ALERTNOTAUTH'), 403);
 			return false;
@@ -1189,7 +1203,7 @@ class AdminIcaleventController extends JControllerAdmin
 			$eventobj->_catid = current($eventobj->_catid);
 		}
 
-		if (!JEVHelper::canCreateEvent($eventobj))
+		if (!JEVHelper::canCreateEvent($eventobj) && !JEVHelper::isEventEditor())
 		{
 			throw new Exception( JText::_('ALERTNOTAUTH'), 403);
 			return false;
@@ -1228,7 +1242,7 @@ class AdminIcaleventController extends JControllerAdmin
 			}
 			if ($clearout)
 			{
-				$db = JFactory::getDBO();
+				$db = JFactory::getDbo();
 				$query = "DELETE FROM #__jevents_exception WHERE eventid = " . intval($array["evid"]);
 				$db->setQuery($query);
 				$db->execute();
@@ -1305,7 +1319,7 @@ class AdminIcaleventController extends JControllerAdmin
 			$cid = array($jinput->getInt("evid", 0));
 		}
 
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 
 		foreach ($cid as $key => $id)
 		{
@@ -1454,16 +1468,20 @@ class AdminIcaleventController extends JControllerAdmin
 		 return false;
 		  }
 		 */
-		$cid = JRequest::getVar('cid', array(0));
+
+		$app    = JFactory::getApplication();
+		$jinput = $app->input;
+
+		$cid = $jinput->get('cid', array(0), "array");
 		$cid = ArrayHelper::toInteger($cid);
 
 		// front end passes the id as evid
 		if (count($cid) == 1 && $cid[0] == 0)
 		{
-			$cid = array(JRequest::getInt("evid", 0));
+			$cid = array($jinput->getInt("evid", 0));
 		}
 
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 
 		foreach ($cid as $key => $id)
 		{
@@ -1471,7 +1489,7 @@ class AdminIcaleventController extends JControllerAdmin
 			$event = $this->queryModel->getEventById(intval($id), 1, "icaldb");
 			if (is_null($event) || !JEVHelper::canDeleteEvent($event))
 			{
-				JFactory::getApplication()->enqueueMessage('534 -' . JText::_('JEV_NO_DELETE_ROW'), 'warning');
+				$app->enqueueMessage('534 -' . JText::_('JEV_NO_DELETE_ROW'), 'warning');
 
 				unset($cid[$key]);
 			}
@@ -1534,25 +1552,25 @@ class AdminIcaleventController extends JControllerAdmin
 			}
 			else
 			{
-				$Itemid = JRequest::getInt("Itemid");
+				$Itemid = $jinput->getInt("Itemid");
 				list($year, $month, $day) = JEVHelper::getYMD();
-				$rettask = JRequest::getString("rettask", "day.listevents");
+				$rettask = $jinput->getString("rettask", "day.listevents");
 				$this->setRedirect(JRoute::_('index.php?option=' . JEV_COM_COMPONENT . "&task=$rettask&year=$year&month=$month&day=$day&Itemid=$Itemid", false), JTEXT::_("ICAL_EVENT_DELETED"));
 				$this->redirect();
 			}
 		}
 		else
 		{
-			if (JFactory::getApplication()->isAdmin())
+			if ($app->isAdmin())
 			{
 				$this->setRedirect("index.php?option=" . JEV_COM_COMPONENT . "&task=icalevent.list");
 				$this->redirect();
 			}
 			else
 			{
-				$Itemid = JRequest::getInt("Itemid");
+				$Itemid = $jinput->getInt("Itemid");
 				list($year, $month, $day) = JEVHelper::getYMD();
-				$rettask = JRequest::getString("rettask", "day.listevents");
+				$rettask = $jinput-getString("rettask", "day.listevents");
 				$this->setRedirect(JRoute::_('index.php?option=' . JEV_COM_COMPONENT . "&task=$rettask&year=$year&month=$month&day=$day&Itemid=$Itemid", false));
 				$this->redirect();
 			}
@@ -1565,7 +1583,7 @@ class AdminIcaleventController extends JControllerAdmin
 		// TODO switch this after migration
 		$component_name = "com_jevents";
 
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$query = "SELECT COUNT(*) AS count FROM #__categories WHERE extension = '$component_name' AND `published` = 1;";  // RSH 9/28/10 added check for valid published, J!1.6 sets deleted categoris to published = -2
 		$db->setQuery($query);
 		$count = intval($db->loadResult());
@@ -1581,7 +1599,7 @@ class AdminIcaleventController extends JControllerAdmin
 
 	function select()
 	{
-		JRequest::checkToken('default') or jexit('Invalid Token');
+		JSession::checkToken('request') or jexit('Invalid Token');
 
 		// get the view
 		if (JFactory::getApplication()->isAdmin()){
@@ -1596,7 +1614,7 @@ class AdminIcaleventController extends JControllerAdmin
 		$showUnpublishedICS = false;
 		$showUnpublishedCategories = false;
 
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 
 		$icsFile = intval(JFactory::getApplication()->getUserStateFromRequest("icsFile", "icsFile", 0));
 
@@ -1874,7 +1892,7 @@ class AdminIcaleventController extends JControllerAdmin
 
 	private function targetMenu($itemid = 0, $name)
 	{
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 
 		// assemble menu items to the array
 		$options = array();

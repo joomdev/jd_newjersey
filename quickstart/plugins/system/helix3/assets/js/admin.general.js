@@ -154,9 +154,22 @@ jQuery(function($){
     footerHtml += '<a href="https://www.joomshaper.com/joomla-templates" target="_blank">Premium Templates</a><span>|</span>';
     footerHtml += '<a href="https://www.joomshaper.com/joomla-extensions" target="_blank">Joomla Extensions</a>';
     footerHtml += '</div>';
-    footerHtml += '</div>';
+    footerHtml += '</div>'; 
+    //$(footerHtml).insertAfter('.form-horizontal');
+	// Removing Helix Branding as mentioned by an online activist at https://www.joomshaper.com/forums/what-is-license-for-helix
 
-    $(footerHtml).insertAfter('.form-horizontal');
+	// JoomDev Admin Footer.
+    var JoomDevFooterHtml = '<div class="joomdev-footer-area">';
+    JoomDevFooterHtml += '<div class="clearfix">';
+    JoomDevFooterHtml += '<a class="joomdev-logo-area" href="https://www.joomdev.com/" target="_blank">JoomDev Templates</a>';
+    JoomDevFooterHtml += '</div>';
+    JoomDevFooterHtml += '<div class="help-links">';
+    JoomDevFooterHtml += '<a href="https://www.joomdev.com/forum" target="_blank">Forum Support</a><span>|</span>';
+    JoomDevFooterHtml += '<a href="https://www.joomdev.com/products/templates" target="_blank">Premium Templates</a><span>|</span>';
+    JoomDevFooterHtml += '<a href="https://www.joomdev.com/products/extensions" target="_blank">Joomla Extensions</a>';
+    JoomDevFooterHtml += '</div>';
+    JoomDevFooterHtml += '</div>';
+	$(JoomDevFooterHtml).insertBefore('.form-horizontal');
   });
 
   //Media Button

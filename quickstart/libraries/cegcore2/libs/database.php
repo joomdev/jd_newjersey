@@ -23,7 +23,7 @@ class Database {
 		return $options;
 	}
 	*/
-	public static function getInstance($options = array(), $adapter = ''){
+	public static function getInstance($options = array()){
 		static $instances;
 		if(!isset($instances)){
 			$instances = array();
@@ -37,15 +37,15 @@ class Database {
 			$options['type'] = Config::get('db.type');
 			$options['prefix'] = Config::get('db.prefix');
 		}
-		
+		/*
 		if(empty($adapter)){
 			$adapter = Config::get('db.adapter', 'pdo');
 		}
-		
+		*/
 		ksort($options);
-		$id = md5($adapter.serialize($options));
+		$id = md5(serialize($options));
 		if(empty($instances[$id]) OR empty($instances[$id]->connected)){
-			$instances[$id] = \G2\L\DatabaseObject::getInstance($adapter, $options);
+			$instances[$id] = \G2\L\DatabaseObject::getInstance($options);
 			/*if(!empty($instances[$id])){
 				$instances[$id]->connected = true;
 				//$instances[$id]->_initialize($options);

@@ -1005,3 +1005,10 @@ div#jumpto form {text-align:center; width: 93%;margin-top:10px;}
 
 /** Make sure choosen list is under input **/
 #jevents .chzn-container.chzn-container-single .chzn-results {clear:both;}
+
+/* Responsive Layout */
+
+#jevents #jevents_body .cal_daylink .listview
+{
+    display:none;
+}

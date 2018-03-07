@@ -163,6 +163,11 @@ class Html extends \G2\L\Helper{
 		if($type == 'textarea'){
 			$this->tag = 'textarea';
 			$this->content = !empty($this->attributes['value']) ? $this->attributes['value'] : '';
+			
+			if(isset($this->attributes['value'])){
+				unset($this->attributes['value']);
+			}
+			
 			if(empty($this->attributes['data-rows'])){
 				$this->attributes['data-rows'] = $this->attributes['rows'];
 			}

@@ -53,11 +53,12 @@ namespace {
 		return \G2\L\Arr::setVal($array, $path, $value);
 	}
 	
-	if(!function_exists('r2')){
-		function r2($url){
-			return \G2\L\Route::_($url);
-		}
+	//if(!function_exists('r2')){
+	function r2($url, $xhtml = false, $absolute = false, $ssl = null){
+		$router = \G2\Globals::getClass('route');
+		return $router::_($url, $xhtml, $absolute, $ssl);
 	}
+	//}
 
 	if(get_magic_quotes_gpc()){
 		function stripslashes_gpc(&$value){
@@ -92,15 +93,25 @@ namespace G2{
 		
 		public static function ready(){
 			if(!class_exists('GApp', false)){
-				if(\G2\Globals::get('app')){
-					class_alias('\G2\L\Apps\App'.strtoupper(\G2\Globals::get('app')), 'GApp');
-				}else{
-					class_alias('\G2\L\App', 'GApp');
-				}
+				class_alias(\G2\Globals::getClass('app'), 'GApp');
 			}
+		}
+		
+		public static function getClass($name){
+			$parts = [];
+			if(self::get('app')){
+				$parts[] = \G2\L\Str::camilize(self::get('app'));
+			}
+			
+			$parts[] = \G2\L\Str::camilize($name);
+			
+			return '\G2\L\\'.implode('\\', $parts);
 		}
 
 		public static function ext_path($ext, $area = 'admin'){
+			return \GApp::extension($ext)->path($area);
+		}
+		/*public static function ext_path($ext, $area = 'admin'){
 			$path = '';
 			if($area == 'admin'){
 				$path .= self::get('ADMIN_PATH');
@@ -110,9 +121,11 @@ namespace G2{
 			$path .= 'extensions'.DS.$ext.DS;
 			$path = self::fix_path($path);
 			return $path;
-		}
-
+		}*/
 		public static function ext_url($ext, $area = 'admin'){
+			return \GApp::extension($ext)->url($area);
+		}
+		/*public static function ext_url($ext, $area = 'admin'){
 			$path = '';
 			if($area == 'admin'){
 				$path .= self::get('ADMIN_URL');
@@ -122,12 +135,12 @@ namespace G2{
 			$path .= 'extensions/'.$ext.'/';
 			$path = self::fix_urls($path);
 			return $path;
-		}
+		}*/
 		
 		public static function url_to_path($url){
 			return str_replace([\G2\Globals::get('FRONT_URL'), \G2\Globals::get('ROOT_URL')], [\G2\Globals::get('FRONT_PATH'), \G2\Globals::get('ROOT_PATH')], $url);
 		}
-
+		/*
 		public static function fix_path($path){
 			$extensions_paths = self::get('EXTENSIONS_PATHS', array());
 			$extensions_names = self::get('EXTENSIONS_NAMES', array());
@@ -140,7 +153,8 @@ namespace G2{
 			}
 			return $path;
 		}
-
+		*/
+		/*
 		public static function fix_urls($output){
 			$extensions_urls = self::get('EXTENSIONS_URLS', array());
 			$extensions_names = self::get('EXTENSIONS_NAMES', array());
@@ -153,8 +167,17 @@ namespace G2{
 			}
 			return $output;
 		}
+		*/
 		
-		public static function translate_path($segments){
+	}
+
+	class Loader {
+		static $classname = "";
+		static $filepath = "";
+		static $memory_usage = 0;
+		static $start_time = 0;
+		
+		protected static function translate_path($segments){
 			$classes_aliases = array('Libs' => 'L', 'Helpers' => 'H', 'Models' => 'M', 'Admin' => 'A', 'Extensions' => 'E', 'Controllers' => 'C', 'Traits' => 'T');//, 'Components' => 'Com', 'Plugins' => 'P');
 			foreach($segments as $k => $dir){
 				$class_match = array_search($dir, $classes_aliases);
@@ -164,13 +187,6 @@ namespace G2{
 			}
 			return $segments;
 		}
-	}
-
-	class Loader {
-		static $classname = "";
-		static $filepath = "";
-		static $memory_usage = 0;
-		static $start_time = 0;
 
 		static public function register($name){
 			if(empty(self::$start_time)){
@@ -181,7 +197,7 @@ namespace G2{
 				$dirs = explode("\\", $name);
 				$dirs = array_values(array_filter($dirs));
 				//translate class names to path
-				$dirs = \G2\Globals::translate_path($dirs);
+				$dirs = self::translate_path($dirs);
 				
 				//if the class doesn't belong to the G2 then don't try to auto load it
 				if($dirs[0] !== 'G2'){
@@ -189,6 +205,7 @@ namespace G2{
 				}
 				//build the include file path
 				$strings = array();
+				$extension_next = false;
 				foreach($dirs as $k => $dir){
 					if($dir === 'G2'){
 						//root dir
@@ -205,11 +222,23 @@ namespace G2{
 						continue;
 					}
 					//otherwise, uncamilize the namespace name to get the directory name
-					$strings[] = strtolower(preg_replace('/([a-z]|[0-9])([A-Z])/', '$1_$2', $dir));
+					$string = strtolower(preg_replace('/([a-z]|[0-9])([A-Z])/', '$1_$2', $dir));
+					
+					if($extension_next){
+						$string = rtrim(\G2\Globals::ext_path($string, (!in_array('Admin', $dirs) ? 'front' : 'admin')), DS);
+						$strings = [];
+						$extension_next = false;
+					}
+					
+					if($string == 'extensions'){
+						$extension_next = true;
+					}
+					
+					$strings[] = $string;
 				}
 				//load the file if exists
 				$file = implode(DIRECTORY_SEPARATOR, $strings);
-				$file = \G2\Globals::fix_path($file);
+				//$file = \G2\Globals::fix_path($file);
 				//pr($file);
 				if(file_exists($file) AND substr($file, -4, 4) == ".php"){
 					require_once($file);

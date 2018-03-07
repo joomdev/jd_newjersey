@@ -48,6 +48,11 @@ defined("GCORE_SITE") or die;
 				foreach($stored as $field){
 					if(!empty($field['name'])){
 						$fname = rtrim(str_replace(['[]', '[', ']', '(N)'], ['(N)', '.', '', '.[n]'], $field['name']), '.');
+						
+						if(is_null($this->data($fname))){
+							continue;
+						}
+						
 						$fname_tag = '{data'.(strpos($fname, '[n]') !== false ? '/join' : '').':'.$fname.'}';
 						if($field['type'] == 'field_textarea'){
 							$fname_tag = '{data.br:'.$fname.'}';

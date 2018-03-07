@@ -54,12 +54,8 @@ class Document {
 			$instances = array();
 		}
 		if(empty($instances[$site])){
-			if(\G2\Globals::get('app')){
-				$document = '\G2\L\Documents\Document'.strtoupper(\G2\Globals::get('app'));
-				$instances[$site] = new $document($site);
-			}else{
-				$instances[$site] = new self($site);
-			}
+			$document = \G2\Globals::getClass('document');
+			$instances[$site] = new $document($site);
 			return $instances[$site];
 		}else{
 			return $instances[$site];
@@ -159,6 +155,10 @@ class Document {
 				$this->addJsFile(\G2\Globals::get('FRONT_URL').'assets/semantic-ui/calendar/calendar.min.js');
 				$this->addCssFile(\G2\Globals::get('FRONT_URL').'assets/semantic-ui/calendar/calendar.min.css');
 			break;
+			case 'content-tools':
+				$this->addJsFile(\G2\Globals::get('FRONT_URL').'assets/content-tools/content-tools.min.js');
+				$this->addCssFile(\G2\Globals::get('FRONT_URL').'assets/content-tools/content-tools.min.css');
+			break;
 			case 'g2':
 				$this->addJsFile(\G2\Globals::get('FRONT_URL').'assets/js/g2.js');
 			break;
@@ -173,6 +173,9 @@ class Document {
 			break;
 			case 'g2.editor':
 				$this->addJsFile(\G2\Globals::get('FRONT_URL').'assets/js/g2.editor.js');
+			break;
+			case 'g2.ceditor':
+				$this->addJsFile(\G2\Globals::get('FRONT_URL').'assets/js/g2.ceditor.js');
 			break;
 			case 'g2.image_browser':
 				$this->addJsFile(\G2\Globals::get('FRONT_URL').'assets/js/g2.image_browser.js');
@@ -452,7 +455,7 @@ class Document {
 		
 		//$css_defaults = ['reset', 'site', 'transition', 'icon', 'message', 'label', 'button', 'dropdown', 'checkbox', 'popup', 'dimmer', 'table'];
 		$css_defaults = ['reset', 'site', 'message', 'transition'];
-		$js_defaults = ['transition'];//, 'api', 'colorize', 'transition', 'popup', 'dropdown', 'checkbox'];
+		$js_defaults = ['transition', 'form'];//, 'api', 'colorize', 'transition', 'popup', 'dropdown', 'checkbox'];
 		//check for icons
 		preg_match('/ class=("|\')(.*?)icon(.*?)(\1)/i', $buffer, $icon);
 		if(!empty($icon)){

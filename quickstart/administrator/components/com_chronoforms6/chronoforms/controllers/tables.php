@@ -20,5 +20,10 @@ class Tables extends \G2\A\E\Chronoforms\App {
 		$this->layout('default');
 		$this->view['views']['path'] = \G2\Globals::ext_path('chronofc', 'admin').'themes'.DS.'default';
 	}
+	
+	function test(){
+		$this->view = 'views.tables.test';
+		echo 1;
+	}
 }
 ?>

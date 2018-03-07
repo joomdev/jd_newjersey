@@ -4,6 +4,6 @@
 .subhead-collapse.collapse{
 	display:none;
 }
-header.header{
+body.admin header.header{
 	display:none;
 }

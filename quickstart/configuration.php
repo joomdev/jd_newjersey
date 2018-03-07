@@ -37,7 +37,7 @@ class JConfig {
 	public $lifetime = '15';
 	public $list_limit = '20';
 	public $live_site = '';
-	public $log_path = 'E:/xampp717/htdocs/newjersey20/administrator/logs';
+	public $log_path = 'F:/xampp-5/htdocs/JD Newjersey update/administrator/logs';
 	public $mailer = 'mail';
 	public $mailfrom = 'admin@admin.com';
 	public $memcache_compress = '0';
@@ -51,7 +51,7 @@ class JConfig {
 	public $offset_user = 'UTC';
 	public $password = '';
 	public $robots = '';
-	public $secret = 'LYeLSnZCu5gRK6rhzUC8fGfRfmcdqkjU';
+	public $secret = 'kpkZvHa5cKQEaeltPIXPy6rAkVRz8ucn';
 	public $sef = '1';
 	public $sef_rewrite = '0';
 	public $sef_suffix = '0';
@@ -65,7 +65,7 @@ class JConfig {
 	public $smtpport = '25';
 	public $smtpsecure = 'none';
 	public $smtpuser = '';
-	public $tmp_path = 'E:/xampp717/htdocs/newjersey20/tmp';
+	public $tmp_path = 'F:/xampp-5/htdocs/JD Newjersey update/tmp';
 	public $unicodeslugs = '0';
 	public $user = 'root';
 	public $mailonline = '1';

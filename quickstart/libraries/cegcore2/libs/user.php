@@ -38,7 +38,8 @@ class User{
 		if(empty($instances[$user_id])){
 			//$instances[$user_id] = new self($user_id);
 			if(\G2\Globals::get('app')){
-				$user = '\G2\L\Users\User'.strtoupper(\G2\Globals::get('app'));
+				//$user = '\G2\L\Users\User'.strtoupper(\G2\Globals::get('app'));
+				$user = \G2\Globals::getClass('user');
 				$instances[$user_id] = new $user($user_id);
 			}else{
 				$instances[$user_id] = new self($user_id);

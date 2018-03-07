@@ -26,6 +26,7 @@ class Sorter extends \G2\L\Helper{
 	}
 	
 	public function link($text, $alias){
+		$alias = str_replace('.', '_', $alias);
 		$orderdir = \GApp::session()->get('helpers.sorter.'.$alias.'.dir', '');
 		$orderdir_new = ($orderdir == '') ? 'asc' : ($orderdir == 'asc' ? 'desc' : 'asc');
 		$url = r2(\G2\L\Url::build($this->url, array('orderfld' => $alias, 'orderdir' => $orderdir_new)));

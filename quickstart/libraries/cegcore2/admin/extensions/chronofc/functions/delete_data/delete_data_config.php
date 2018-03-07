@@ -5,8 +5,16 @@ defined("GCORE_SITE") or die;
 <?php
 	$db_options = \G2\Globals::get('custom_db_options', []);
 	if(!empty($function['db']['enabled'])){
+		/*
 		$db_options = $function['db'];
 		$dbo = \G2\L\Database::getInstance($db_options, (\G2\L\System::pdo() ? 'pdo' : null));
+		if(!empty($dbo->connected)){
+			$db_tables = $dbo->getTablesList();
+		}else{
+			$db_tables = [rl('Database connection failed.')];
+		}
+		*/
+		$dbo = \G2\L\Database::getInstance($function['db']);
 		if(!empty($dbo->connected)){
 			$db_tables = $dbo->getTablesList();
 		}else{
@@ -33,7 +41,7 @@ defined("GCORE_SITE") or die;
 		extra_data['Connection[functions]['+n+'][models]['+model_number+'][model_name]'] = model_name;
 		
 		if(model_name.length > 0){
-			var model_id = 'functions-'+n+'-models-'+model_number;
+			var model_id = 'function-'+n+'-models-'+model_number;
 			jQuery(add_link).closest('.segment').find('.models-menu').append(
 				jQuery('<a class="item"></a>')
 				.html(model_name)

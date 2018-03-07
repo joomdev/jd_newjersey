@@ -108,8 +108,8 @@ defined("GCORE_SITE") or die;
 			</div>
 		</div>
 		
-		<div class="ui header dividing small"><?php el('Data settings'); ?></div>
-		<div class="two fields">
+		<div class="ui header dividing small forms_conf"><?php el('Data settings'); ?></div>
+		<div class="two fields forms_conf">
 			<div class="field">
 				<div class="ui checkbox toggle">
 					<input type="hidden" name="Connection[views][<?php echo $n; ?>][dynamics][email][enabled]" data-ghost="1" value="">
@@ -196,11 +196,24 @@ defined("GCORE_SITE") or die;
 		<div class="two fields">
 			<div class="field">
 				<label><?php el('Earliest date/time'); ?></label>
-				<input type="text" placeholder="y-m-d" value="" name="Connection[views][<?php echo $n; ?>][calendar][mindate]">
+				<input type="text" placeholder="YYYY-MM-DD" value="" name="Connection[views][<?php echo $n; ?>][calendar][mindate]">
 			</div>
 			<div class="field">
 				<label><?php el('Latest date/time'); ?></label>
-				<input type="text" placeholder="y-m-d" value="" name="Connection[views][<?php echo $n; ?>][calendar][maxdate]">
+				<input type="text" placeholder="YYYY-MM-DD" value="" name="Connection[views][<?php echo $n; ?>][calendar][maxdate]">
+			</div>
+		</div>
+		
+		<div class="two fields">
+			<div class="field">
+				<label><?php el('Open days'); ?></label>
+				<input type="text" placeholder="1,2,3,4,5,6,7" value="" name="Connection[views][<?php echo $n; ?>][calendar][opendays]">
+				<small><?php el('A comma separated list of the week days numbered from 1 to 7 on which the date can be selected'); ?></small>
+			</div>
+			<div class="field">
+				<label><?php el('Open hours'); ?></label>
+				<input type="text" placeholder="1 to 24" value="" name="Connection[views][<?php echo $n; ?>][calendar][openhours]">
+				<small><?php el('A comma separated list of the hours numbered from 1 to 24 on which the time can be selected'); ?></small>
 			</div>
 		</div>
 		
@@ -220,6 +233,15 @@ defined("GCORE_SITE") or die;
 				<label><?php el('Position'); ?></label>
 				<input type="text" value="top center" name="Connection[views][<?php echo $n; ?>][calendar][popuppos]">
 				<small><?php el('The position of the calendar relative to the field.'); ?></small>
+			</div>
+			
+			<div class="field">
+				<label><?php el('AM-PM format'); ?></label>
+				<div class="ui checkbox toggle">
+					<input type="hidden" name="Connection[views][<?php echo $n; ?>][calendar][ampm]" data-ghost="1" value="0">
+					<input type="checkbox" checked="checked" class="hidden" name="Connection[views][<?php echo $n; ?>][calendar][ampm]" value="1">
+					<label><?php el('Enable AM-PM format'); ?></label>
+				</div>
 			</div>
 		</div>
 		

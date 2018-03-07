@@ -122,7 +122,12 @@ class Model {
 			if(strpos($string, '(') !== false){
 				preg_match('/[(](.*)[)]/', $string, $field_name);
 				if(!empty($field_name[1])){
-					return str_replace($field_name[1], $this->quote($field_name[1], 'field'), $string);
+					$field_name = $field_name[1];
+					$pieces = explode(' ', $field_name);
+					if(count($pieces) > 1){
+						$field_name = array_shift($pieces);
+					}
+					return str_replace($field_name, $this->quote($field_name, 'field'), $string);
 				}
 			}
 			if(strpos($string, '.') !== false){

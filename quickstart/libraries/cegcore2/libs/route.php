@@ -11,29 +11,25 @@ namespace G2\L;
 defined("GCORE_SITE") or die;
 class Route {
 	
+	public static function clean($url){
+		$url = strip_tags($url);
+		$url = str_replace(['"', "'"], '', $url);
+		
+		return $url;
+	}
+	
 	public static function translate($url){
 		$urlComponents = parse_url($url);
 		
 		if(!empty($urlComponents['query'])){
 			parse_str($urlComponents['query'], $vars);
-			/*if(!empty($vars['ext'])){
-				$ext = \GApp::instance()->getMirror('ext', $vars['ext']);
-				if($ext != $vars['ext']){
-					$url = str_replace('ext='.$vars['ext'], 'ext='.$ext, $url);
-				}
-			}
-			if(!empty($vars['cont'])){
-				$cont = \GApp::instance()->getMirror('cont', $vars['cont']);
-				if($cont != $vars['cont']){
-					$url = str_replace('cont='.$vars['cont'], 'cont='.$cont, $url);
-				}
-			}*/
+			
 		}
 		
 		return $url;
 	}
 	
-	public static function _($query = '', $xhtml = false){
+	public static function _($url, $xhtml = false, $absolute = false, $ssl = null){
 		if((bool)Config::get('sef.enabled') === false){
 			return $query;
 		}

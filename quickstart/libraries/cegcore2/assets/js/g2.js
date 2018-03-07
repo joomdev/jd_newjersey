@@ -12,6 +12,14 @@
 		}
 	};
 	
+	$.G2.centerOn = function(Elem){
+		if(Elem.length > 0){
+			$('html, body').animate({
+				scrollTop: Elem.offset().top - $(window).height()/2
+			}, 'slow');
+		}
+	};
+	
 	$.G2.split = function(inputs, maxcount){
 		var data = {};
 		if(inputs.length > maxcount){

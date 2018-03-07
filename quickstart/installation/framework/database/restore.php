@@ -1,7 +1,7 @@
 <?php
 /**
  * @package angifw
- * @copyright Copyright (C) 2009-2017 Nicholas K. Dionysopoulos. All rights reserved.
+ * @copyright Copyright (c)2009-2018 Nicholas K. Dionysopoulos / Akeeba Ltd
  * @author Nicholas K. Dionysopoulos - http://www.dionysopoulos.me
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL v3 or later
  *
@@ -182,25 +182,23 @@ abstract class ADatabaseRestore
 	 */
 	public function __destruct()
 	{
-		if (is_object($this->db))
+		if (is_object($this->db) && ($this->db instanceof ADatabaseDriver))
 		{
-			if ($this->db instanceof ADatabaseDriver)
+			try
 			{
-				try
-				{
-					$this->db->disconnect();
-				}
-				catch (Exception $exc)
-				{
-					// Nothing. We just never want to fail when closing the
-					// database connection.
-				}
+				$this->db->disconnect();
+			}
+			catch (Exception $exc)
+			{
+				// Nothing. We just never want to fail when closing the
+				// database connection.
 			}
 		}
 
 		if (is_resource($this->file))
 		{
 			@fclose($this->file);
+			$this->file = null;
 		}
 	}
 
@@ -403,6 +401,13 @@ abstract class ADatabaseRestore
 
 	   $this->container->session->saveData();
 
+	   // Close an already open file (if one was indeed already open)
+	   if (!empty($this->file) && is_resource($this->file))
+	   {
+		   @fclose($this->file);
+		   $this->file = null;
+	   }
+
 	   return $this->openFile();
    }
 
@@ -416,6 +421,13 @@ abstract class ADatabaseRestore
      */
 	protected function openFile()
 	{
+		// If there is an already open file, close it before proceeding
+		if (!empty($this->file) && is_resource($this->file))
+		{
+			@fclose($this->file);
+			$this->file = null;
+		}
+
 		if (!is_numeric($this->curpart))
 		{
 			$this->curpart = 0;
@@ -556,29 +568,31 @@ abstract class ADatabaseRestore
 		}
 
 		// An empty query is EOF. Are we done or should I skip to the next file?
-		if(empty($query) || ($query === false))
+		if (empty($query) || ($query === false))
 		{
-			if($this->curpart >= ($parts - 1))
+			if ($this->curpart >= ($parts - 1))
 			{
 				throw new Exception('All done', 200);
 			}
-			else
+
+			// Register the bytes read
+			$current_foffset = @ftell($this->file);
+
+			if (is_null($this->foffset))
 			{
-				// Register the bytes read
-				$current_foffset = @ftell($this->file);
-				if (is_null($this->foffset))
-				{
-					$this->foffset = 0;
-				}
-				$this->runSize = (is_null($this->runSize) ? 0 : $this->runSize) + ($current_foffset - $this->foffset);
-				// Get the next file
-				$this->getNextFile();
-				// Rerun the fetcher
-				throw new Exception('Continue', 201);
+				$this->foffset = 0;
 			}
+
+			$this->runSize = (is_null($this->runSize) ? 0 : $this->runSize) + ($current_foffset - $this->foffset);
+
+			// Get the next file
+			$this->getNextFile();
+
+			// Rerun the fetcher
+			throw new Exception('Continue', 201);
 		}
 
-		if(substr($query, -1) != "\n")
+		if (substr($query, -1) != "\n")
 		{
 			// We read more data than we should. Roll back the file...
 			$rollback = strlen($query) - strpos($query, "\n");
@@ -594,6 +608,7 @@ abstract class ADatabaseRestore
 		// Skip comments and blank lines only if NOT in parents
 		$skipline = false;
 		reset($this->comment);
+
 		foreach ($this->comment as $comment_value)
 		{
 			if (trim($query) == "" || strpos($query, $comment_value) === 0)
@@ -602,6 +617,7 @@ abstract class ADatabaseRestore
 				break;
 			}
 		}
+
 		if ($skipline)
 		{
 			$this->linenumber++;
@@ -661,24 +677,26 @@ abstract class ADatabaseRestore
 
 		// Get the current file position
 		$current_foffset = ftell($this->file);
+
 		if ($current_foffset === false)
 		{
 			if (is_resource($this->file))
 			{
 				@fclose($this->file);
+				$this->file = null;
 			}
+
 			throw new Exception(AText::_('ANGI_RESTORE_ERROR_CANTREADPOINTER'));
 		}
-		else
+
+		if (is_null($this->foffset))
 		{
-			if (is_null($this->foffset))
-			{
-				$this->foffset = 0;
-			}
-			$bytes_in_step = $current_foffset - $this->foffset;
-			$this->runSize = (is_null($this->runSize) ? 0 : $this->runSize) + $bytes_in_step;
-			$this->foffset = $current_foffset;
+			$this->foffset = 0;
 		}
+
+		$bytes_in_step = $current_foffset - $this->foffset;
+		$this->runSize = (is_null($this->runSize) ? 0 : $this->runSize) + $bytes_in_step;
+		$this->foffset = $current_foffset;
 
 		// Return statistics
 		$bytes_togo = $this->totalSize - $this->runSize;
@@ -709,6 +727,7 @@ abstract class ADatabaseRestore
 
 		// Calculate estimated time
 		$bytesPerSecond = $bytes_in_step / $this->timer->getRunningTime();
+
 		if ($bytesPerSecond <= 0.01)
 		{
 			$remainingSeconds = 120;
@@ -716,6 +735,13 @@ abstract class ADatabaseRestore
 		else
 		{
 			$remainingSeconds = round($bytes_togo / $bytesPerSecond, 0);
+		}
+
+		// Close the file if it is still open at this point
+		if (!empty($this->file) && is_resource($this->file))
+		{
+			@fclose($this->file);
+			$this->file = null;
 		}
 
 		// Return meaningful data

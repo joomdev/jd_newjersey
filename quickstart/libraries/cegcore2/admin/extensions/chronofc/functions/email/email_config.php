@@ -51,7 +51,7 @@ defined("GCORE_SITE") or die;
 			<div class="field forms_conf">
 				<div class="ui checkbox toggle">
 					<input type="hidden" name="Connection[functions][<?php echo $n; ?>][autoemail]" data-ghost="1" value="">
-					<input type="checkbox" class="hidden" name="Connection[functions][<?php echo $n; ?>][autoemail]" value="1" <?php if(is_null($this->data('Connection.functions.'.$n.'.type'))): ?>checked<?php endif; ?>>
+					<input type="checkbox" class="hidden" name="Connection[functions][<?php echo $n; ?>][autoemail]" value="1" <?php if($this->extension == 'chronoforms' && is_null($this->data('Connection.functions.'.$n.'.type'))): ?>checked<?php endif; ?>>
 					<label><?php el('Auto add fields data'); ?></label>
 					<small><?php el('Auto append email enabled form fields labels and values to the email body, or use {AUTO_FIELDS} where you want the data to be placed.'); ?></small>
 				</div>
@@ -88,7 +88,7 @@ defined("GCORE_SITE") or die;
 			<div class="field forms_conf easy_disabled">
 				<div class="ui checkbox toggle">
 					<input type="hidden" name="Connection[functions][<?php echo $n; ?>][autofields]" data-ghost="1" value="">
-					<input type="checkbox" class="hidden" name="Connection[functions][<?php echo $n; ?>][autofields]" value="1" <?php if(is_null($this->data('Connection.functions.'.$n.'.type'))): ?>checked<?php endif; ?>>
+					<input type="checkbox" class="hidden" name="Connection[functions][<?php echo $n; ?>][autofields]" value="1" <?php if($this->extension == 'chronoforms' && is_null($this->data('Connection.functions.'.$n.'.type'))): ?>checked<?php endif; ?>>
 					<label><?php el('Auto Attach file fields'); ?></label>
 					<small><?php el('Auto attach attachment enabled fields to this email ?'); ?></small>
 				</div>

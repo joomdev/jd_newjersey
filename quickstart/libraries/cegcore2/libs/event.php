@@ -13,7 +13,7 @@ class Event {
 	static $extensions = null;
 	
 	private static function extensions(){
-		return array_keys(\G2\Globals::get('EXTENSIONS_NAMES'));
+		return ['chronoforms','chronoconnectivity', 'chronoforums'];//array_keys(\G2\Globals::get('EXTENSIONS_NAMES'));
 	}
 	
 	public static function trigger(){

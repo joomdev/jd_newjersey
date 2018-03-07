@@ -278,6 +278,7 @@
 											target_element.replaceWith(newContent);
 											
 											newContent.trigger('contentChange');
+											jQuery.G2.forms.initializeForm(Form);
 											//Form.trigger('contentChange');
 										}
 									});

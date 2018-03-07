@@ -5,8 +5,16 @@ defined("GCORE_SITE") or die;
 <?php
 	$db_options = \G2\Globals::get('custom_db_options', []);
 	if(!empty($function['db']['enabled'])){
+		/*
 		$db_options = $function['db'];
 		$dbo = \G2\L\Database::getInstance($db_options, (\G2\L\System::pdo() ? 'pdo' : null));
+		if(!empty($dbo->connected)){
+			$db_tables = $dbo->getTablesList();
+		}else{
+			$db_tables = [rl('Database connection failed.')];
+		}
+		*/
+		$dbo = \G2\L\Database::getInstance($function['db']);
 		if(!empty($dbo->connected)){
 			$db_tables = $dbo->getTablesList();
 		}else{
@@ -51,7 +59,7 @@ defined("GCORE_SITE") or die;
 			<div class="field forms_conf">
 				<div class="ui checkbox toggle">
 					<input type="hidden" name="Connection[functions][<?php echo $n; ?>][autotable]" data-ghost="1" value="">
-					<input type="checkbox" class="hidden" name="Connection[functions][<?php echo $n; ?>][autotable]" value="1" <?php if(is_null($this->data('Connection.functions.'.$n.'.type'))): ?>checked<?php endif; ?>>
+					<input type="checkbox" class="hidden" name="Connection[functions][<?php echo $n; ?>][autotable]" value="1" <?php if($this->extension == 'chronoforms' && is_null($this->data('Connection.functions.'.$n.'.type'))): ?>checked<?php endif; ?>>
 					<label><?php el('Auto manage the data table'); ?></label>
 					<small><?php el('Synchronize the data table with the form fields automtaically, if no table is selected then a new one will be created.'); ?></small>
 				</div>
@@ -110,7 +118,7 @@ defined("GCORE_SITE") or die;
 			<div class="field forms_conf">
 				<div class="ui checkbox toggle">
 					<input type="hidden" name="Connection[functions][<?php echo $n; ?>][autofields]" data-ghost="1" value="">
-					<input type="checkbox" class="hidden" name="Connection[functions][<?php echo $n; ?>][autofields]" value="1" <?php if(is_null($this->data('Connection.functions.'.$n.'.type'))): ?>checked<?php endif; ?>>
+					<input type="checkbox" class="hidden" name="Connection[functions][<?php echo $n; ?>][autofields]" value="1" <?php if($this->extension == 'chronoforms' && is_null($this->data('Connection.functions.'.$n.'.type'))): ?>checked<?php endif; ?>>
 					<label><?php el('Auto save fields'); ?></label>
 					<small><?php el('Auto include save enabled form fields in the data set to be saved.'); ?></small>
 				</div>

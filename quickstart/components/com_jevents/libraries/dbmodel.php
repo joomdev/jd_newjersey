@@ -5,7 +5,7 @@
  *
  * @version     $Id: dbmodel.php 3575 2012-05-01 14:06:28Z geraintedwards $
  * @package     JEvents
- * @copyright   Copyright (C) 2008-2017 GWE Systems Ltd, 2006-2008 JEvents Project Group
+ * @copyright   Copyright (C) 2008-2018 GWE Systems Ltd, 2006-2008 JEvents Project Group
  * @license     GNU/GPLv2, see http://www.gnu.org/licenses/gpl-2.0.html
  * @link        http://www.jevents.net
  */
@@ -75,7 +75,7 @@ class JEventsDBModel
 			$index = $aid . '+';
 		}
 
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 
 		$where = "";
 
@@ -175,9 +175,10 @@ class JEventsDBModel
 
 			$dispatcher = JEventDispatcher::getInstance();
 			$dispatcher->trigger('onGetAccessibleCategories', array(& $instances[$index]));
-			if (count($instances[$index]) == 0)
+
+			if (empty($instances[$index]))
 			{
-				$instances[$index] = array(-1);
+				$instances[$index] = '-1';
 			}
 		}
 		return $instances[$index];
@@ -187,7 +188,7 @@ class JEventsDBModel
 	function getCategoryInfo($catids = null, $aid = null)
 	{
 
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		if (is_null($aid))
 		{
 			$aid = $this->datamodel->aid;
@@ -242,7 +243,7 @@ class JEventsDBModel
 	function getChildCategories($catids = null, $levels = 1, $aid = null)
 	{
 
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		if (is_null($aid))
 		{
 			$aid = $this->datamodel->aid;
@@ -306,7 +307,7 @@ class JEventsDBModel
 	function recentIcalEvents($startdate, $enddate, $limit = 10, $repeatdisplayoptions = 0)
 	{
 		$user = JFactory::getUser();
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$lang = JFactory::getLanguage();
 		$langtag = $lang->getTag();
 
@@ -356,7 +357,7 @@ class JEventsDBModel
 		{
 			$extrajoin[] = "\n #__jevents_catmap as catmap ON catmap.evid = rpt.eventid";
 			$extrajoin[] = "\n #__categories AS catmapcat ON catmap.catid = catmapcat.id";
-			$extrafields .= ", GROUP_CONCAT(DISTINCT catmap.catid SEPARATOR ',') as catids";
+			$extrafields .= ", GROUP_CONCAT(DISTINCT catmapcat.id ORDER BY catmapcat.lft ASC SEPARATOR ',' ) as catids";
                         // accessibleCategoryList handles access checks on category
 			//$extrawhere[] = " catmapcat.access IN (" . JEVHelper::getAid($user) . ")";
 			$extrawhere[] = " catmap.catid IN(" . $this->accessibleCategoryList() . ")";
@@ -400,7 +401,7 @@ class JEventsDBModel
 		$query .= " LIMIT " . $limit;
 
 
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$db->setQuery($query);
 		$ids = $db->loadColumn();
 		array_push($ids, 0);
@@ -477,7 +478,7 @@ class JEventsDBModel
 	function recentlyModifiedIcalEvents($startdate, $enddate, $limit = 10, $repeatdisplayoptions = 0)
 	{
 		$user = JFactory::getUser();
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$lang = JFactory::getLanguage();
 		$langtag = $lang->getTag();
 
@@ -527,7 +528,7 @@ class JEventsDBModel
 		{
 			$extrajoin[] = "\n #__jevents_catmap as catmap ON catmap.evid = rpt.eventid";
 			$extrajoin[] = "\n #__categories AS catmapcat ON catmap.catid = catmapcat.id";
-			$extrafields .= ", GROUP_CONCAT(DISTINCT catmap.catid SEPARATOR ',') as catids";
+			$extrafields .= ", GROUP_CONCAT(DISTINCT catmapcat.id ORDER BY catmapcat.lft ASC SEPARATOR ',' ) as catids";
 			// accessibleCategoryList handles access checks on category
 			//$extrawhere[] = " catmapcat.access IN (" . JEVHelper::getAid($user) . ")";
 			$extrawhere[] = " catmap.catid IN(" . $this->accessibleCategoryList() . ")";
@@ -570,7 +571,7 @@ class JEventsDBModel
 		$query .= " LIMIT " . $limit;
 
 
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$db->setQuery($query);
 //echo "<pre>".$db->getQuery()."</pre>";exit();
 		$detids = $db->loadColumn();
@@ -647,7 +648,7 @@ class JEventsDBModel
 	function popularIcalEvents($startdate, $enddate, $limit = 10, $repeatdisplayoptions = 0, $multidayTreatment = 0)
 	{
 		$user = JFactory::getUser();
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$lang = JFactory::getLanguage();
 		$langtag = $lang->getTag();
 
@@ -697,7 +698,7 @@ class JEventsDBModel
 		{
 			$extrajoin[] = "\n #__jevents_catmap as catmap ON catmap.evid = rpt.eventid";
 			$extrajoin[] = "\n #__categories AS catmapcat ON catmap.catid = catmapcat.id";
-			$extrafields .= ", GROUP_CONCAT(DISTINCT catmap.catid SEPARATOR ',') as catids";
+			$extrafields .= ", GROUP_CONCAT(DISTINCT catmapcat.id ORDER BY catmapcat.lft ASC SEPARATOR ',' ) as catids";
 			// accessibleCategoryList handles access checks on category
 			//$extrawhere[] = " catmapcat.access IN (" . JEVHelper::getAid($user) . ")";
 			$extrawhere[] = " catmap.catid IN(" . $this->accessibleCategoryList() . ")";
@@ -801,7 +802,7 @@ class JEventsDBModel
 		$query .= " LIMIT " . $limit;
 
 
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$db->setQuery($query);
 		$ids = $db->loadColumn();
 		array_push($ids, 0);
@@ -947,7 +948,7 @@ class JEventsDBModel
 		{
 			$extrajoin[] = "\n #__jevents_catmap as catmap ON catmap.evid = rpt.eventid";
 			$extrajoin[] = "\n #__categories AS catmapcat ON catmap.catid = catmapcat.id";
-			$extrafields .= ", GROUP_CONCAT(DISTINCT catmap.catid SEPARATOR ',') as catids";
+			$extrafields .= ", GROUP_CONCAT(DISTINCT catmapcat.id ORDER BY catmapcat.lft ASC SEPARATOR ',' ) as catids";
 			// accessibleCategoryList handles access checks on category
 			//$extrawhere[] = " catmapcat.access  IN (" . JEVHelper::getAid($user) . ")";
 			$extrawhere[] = " catmap.catid IN(" . $this->accessibleCategoryList() . ")";
@@ -1683,7 +1684,7 @@ class JEventsDBModel
 		{
 			$extrajoin[] = "\n #__jevents_catmap as catmap ON catmap.evid = rpt.eventid";
 			$extrajoin[] = "\n #__categories AS catmapcat ON catmap.catid = catmapcat.id";
-			$extrafields .= ", GROUP_CONCAT(DISTINCT catmap.catid SEPARATOR ',') as catids";
+			$extrafields .= ", GROUP_CONCAT(DISTINCT catmapcat.id ORDER BY catmapcat.lft ASC SEPARATOR ',' ) as catids";
 			// accessibleCategoryList handles access checks on category
 			//$extrawhere[] = " catmapcat.access IN (" . JEVHelper::getAid($user) . ")";
 			$extrawhere[] = " catmap.catid IN(" . $this->accessibleCategoryList() . ")";
@@ -2280,7 +2281,7 @@ class JEventsDBModel
 		$starttime = (float) $usec + (float) $sec;
 
 		$user = JFactory::getUser();
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$lang = JFactory::getLanguage();
 		$langtag = $lang->getTag();
 
@@ -2348,7 +2349,7 @@ class JEventsDBModel
 		{
 			$extrajoin[] = "\n #__jevents_catmap as catmap ON catmap.evid = rpt.eventid";
 			$extrajoin[] = "\n #__categories AS catmapcat ON catmap.catid = catmapcat.id";
-			$extrafields .= ", GROUP_CONCAT(DISTINCT catmap.catid SEPARATOR ',') as catids";
+			$extrafields .= ", GROUP_CONCAT(DISTINCT catmapcat.id ORDER BY catmapcat.lft ASC SEPARATOR ',' ) as catids";
 			// accessibleCategoryList handles access checks on category
 			//$extrawhere[] = " catmapcat.access IN (" . JEVHelper::getAid($user) . ")";
 			$extrawhere[] = " catmap.catid IN(" . $this->accessibleCategoryList() . ")";
@@ -2402,7 +2403,7 @@ class JEventsDBModel
 				$query .= " LIMIT " . $limit;
 			}
 
-			$db = JFactory::getDBO();
+			$db = JFactory::getDbo();
 			$db->setQuery($query);
 			$rptids = $db->loadColumn();
 
@@ -2496,7 +2497,7 @@ class JEventsDBModel
 			}
 
 			if ($debuginfo){
-				$db = JFactory::getDBO();
+				$db = JFactory::getDbo();
 				$db->setQuery($query);
 				$rows = $db->loadObjectList();
 				list ($usec, $sec) = explode(" ", microtime());
@@ -2544,7 +2545,7 @@ class JEventsDBModel
 		$starttime = (float) $usec + (float) $sec;
 
 		$user = JFactory::getUser();
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$adminuser = JEVHelper::isAdminUser($user);
 		$db->setQuery($query);
 		if ($adminuser)
@@ -2690,6 +2691,10 @@ select @@sql_mode;
 	{
 		$startdate = JevDate::mktime(0, 0, 0, $month, 1, $year);
 		$enddate = JevDate::mktime(23, 59, 59, $month, date('t', $startdate), $year);
+		
+//		$cfg = JEVConfig::getInstance();
+//		var_dump($this->countIcalEventsByRangebyDay($startdate, $enddate,  $cfg->get('com_showrepeats')));
+		
 		return $this->listIcalEvents($startdate, $enddate, "");
 
 	}
@@ -2712,7 +2717,7 @@ select @@sql_mode;
 		}
 
 		$user = JFactory::getUser();
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$lang = JFactory::getLanguage();
 		$langtag = $lang->getTag();
 
@@ -2750,7 +2755,7 @@ select @@sql_mode;
 		{
 			$extrajoin[] = "\n #__jevents_catmap as catmap ON catmap.evid = rpt.eventid";
 			$extrajoin[] = "\n #__categories AS catmapcat ON catmap.catid = catmapcat.id";
-			$extrafields .= ", GROUP_CONCAT(DISTINCT catmap.catid SEPARATOR ',') as catids";
+			$extrafields .= ", GROUP_CONCAT(DISTINCT catmapcat.id ORDER BY catmapcat.lft ASC SEPARATOR ',' ) as catids";
 			// accessibleCategoryList handles access checks on category
 			//$extrawhere[] = " catmapcat.access IN (" . JEVHelper::getAid($user) . ")";
 			$extrawhere[] = " catmap.catid IN(" . $this->accessibleCategoryList() . ")";
@@ -2869,7 +2874,7 @@ select @@sql_mode;
 		{
 			$user = JFactory::getUser();
 		}
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$lang = JFactory::getLanguage();
 		$langtag = $lang->getTag();
 
@@ -2903,7 +2908,7 @@ select @@sql_mode;
 			$extrajoin[] = "\n #__jevents_catmap as catmap ON catmap.evid = rpt.eventid";
 			$extrajoin2[] = "\n #__jevents_catmap as catmap ON catmap2.evid = rpt2.eventid";
 			$extrajoin[] = "\n #__categories AS catmapcat ON catmap.catid = catmapcat.id";
-			$extrafields .= ", GROUP_CONCAT(DISTINCT catmap.catid SEPARATOR ',') as catids";
+			$extrafields .= ", GROUP_CONCAT(DISTINCT catmapcat.id ORDER BY catmapcat.lft ASC SEPARATOR ',' ) as catids";
 			// accessibleCategoryList handles access checks on category
 			//$extrawhere[] = " catmapcat.access IN (" . JEVHelper::getAid($user) . ")";
 			if ($this->subquery)
@@ -2999,6 +3004,7 @@ select @@sql_mode;
 				. ($this->subquery ? $daterange2 : $daterange)
 				. ($this->subquery ? "" : $multidate)
 				. $extrawhere
+				. $extrawhere2
 				. "\n AND ev.access IN (" . JEVHelper::getAid($user) . ")"
 				. "  AND icsf.state=1 AND icsf.access IN (" . JEVHelper::getAid($user) . ")"
 		;
@@ -3022,7 +3028,7 @@ select @@sql_mode;
 
 		if ($count)
 		{
-			$db = JFactory::getDBO();
+			$db = JFactory::getDbo();
 			$db->setQuery($query);
 			$res = $db->loadResult();
 			return $res;
@@ -3045,6 +3051,109 @@ select @@sql_mode;
 
 	}
 
+	function countIcalEventsByRangebyDay($startdate, $enddate, $showrepeats = true)
+	{
+		if (strpos($startdate, "-") === false  || is_numeric($startdate))
+		{
+			$startdate = JevDate::strftime('%Y-%m-%d 00:00:00', $startdate);
+			$enddate = JevDate::strftime('%Y-%m-%d 23:59:59', $enddate);
+		}
+		
+		list($syear, $smonth, $sday) = explode('-', $startdate);
+		list($eyear, $emonth, $eday) = explode('-', $enddate);
+
+		$startdate.= " 00:00:00";
+		$enddate.= " 23:59:59";
+
+		$user = JFactory::getUser();
+
+		$db = JFactory::getDBO();
+		$lang = JFactory::getLanguage();
+		$langtag = $lang->getTag();
+
+		// process the new plugins
+		// get extra data and conditionality from plugins
+		$extrawhere = array();
+		$extrawhere2 = array();
+		$extrajoin = array();
+		$extrajoin2 = array();
+		$extrafields = "";  // must have comma prefix
+		$needsgroup = false;
+
+		$filters = jevFilterProcessing::getInstance(array("published", "justmine", "category", "search", "repeating"));
+		$filters->setWhereJoin($extrawhere, $extrajoin);
+		$needsgroup = $filters->needsGroupBy();
+
+		$dispatcher = JEventDispatcher::getInstance();
+		$dispatcher->trigger('onListIcalEvents', array(& $extrafields, & $extratables, & $extrawhere, & $extrajoin, & $needsgroup));
+
+		$catwhere = "\n WHERE ev.catid IN(" . $this->accessibleCategoryList() . ")";
+		$params = JComponentHelper::getParams("com_jevents");
+		if ($params->get("multicategory", 0))
+		{
+			$extrajoin[] = "\n #__jevents_catmap as catmap ON catmap.evid = rpt.eventid";
+			$extrajoin2[] = "\n #__jevents_catmap as catmap ON catmap2.evid = rpt2.eventid";
+			$extrajoin[] = "\n #__categories AS catmapcat ON catmap.catid = catmapcat.id";
+			$extrafields .= ", GROUP_CONCAT(DISTINCT catmapcat.id ORDER BY catmapcat.lft ASC SEPARATOR ',' ) as catids";
+			// accessibleCategoryList handles access checks on category
+			//$extrawhere[] = " catmapcat.access IN (" . JEVHelper::getAid($user) . ")";
+			if ($this->subquery)
+			{
+				$extrawhere2[] = " catmap.catid IN(" . $this->accessibleCategoryList() . ")";
+			}
+			else 
+			{
+				$extrawhere[] = " catmap.catid IN(" . $this->accessibleCategoryList() . ")";
+			}
+			$needsgroup = true;
+			$catwhere = "\n WHERE 1 ";
+		}
+
+		$extrajoin = ( count($extrajoin) ? " \n LEFT JOIN " . implode(" \n LEFT JOIN ", $extrajoin) : '' );
+		$extrawhere = ( count($extrawhere) ? ' AND ' . implode(' AND ', $extrawhere) : '' );
+		$extrajoin2 = ( count($extrajoin2) ? " \n LEFT JOIN " . implode(" \n LEFT JOIN ", $extrajoin2) : '' );
+		$extrawhere2 = ( count($extrawhere2) ? ' AND ' . implode(' AND ', $extrawhere2) : '' );
+
+		$daterange =  "\n AND rpt.endrepeat >= '$startdate' AND rpt.startrepeat <= '$enddate'";
+		// Must suppress multiday events that have already started
+		$multidate =  "\n AND NOT (rpt.startrepeat < '$startdate' AND det.multiday=0) ";
+		$daterange2 =  "\n rpt2.endrepeat >= '$startdate' AND rpt2.startrepeat <= '$enddate'";
+		$multidate2 =  "\n AND NOT (rpt2.startrepeat < '$startdate' AND det2.multiday=0) ";
+		$daterange2 =  "\n AND rpt.rp_id in (SELECT rp_id FROM #__jevents_repetition as rpt2 "                                
+			."\n INNER JOIN #__jevents_vevdetail as det2  ON det2.evdet_id = rpt2.eventdetail_id"
+			."\n WHERE  $daterange2 "
+			. $multidate2
+			. ")";
+		
+		if (!$showrepeats) {
+			$query = "SELECT count(distinct ev.ev_id), DATE(rpt.startrepeat)";
+		}
+		else {
+			$query = "SELECT count(distinct rpt.rp_id), DATE(rpt.startrepeat)";
+		}
+		$query .= "\n FROM #__jevents_repetition as rpt ";                                    
+
+                $query .=    "\n INNER JOIN #__jevents_vevent as ev ON rpt.eventid = ev.ev_id"
+				. "\n INNER JOIN #__jevents_icsfile as icsf ON icsf.ics_id=ev.icsid "
+				. "\n INNER JOIN #__jevents_vevdetail as det ON det.evdet_id = rpt.eventdetail_id"
+				. "\n LEFT JOIN #__jevents_rrule as rr ON rr.eventid = rpt.eventid"
+				. $extrajoin
+				. $catwhere
+				. ($this->subquery ? $daterange2 : $daterange)
+				. ($this->subquery ? "" : $multidate)
+				. $extrawhere
+				. $extrawhere2
+				. "\n AND ev.access IN (" . JEVHelper::getAid($user) . ")"
+				. "  AND icsf.state=1 AND icsf.access IN (" . JEVHelper::getAid($user) . ")"
+			. "\n Group by DATE(rpt.startrepeat)";
+
+		$db = JFactory::getDBO();
+		$db->setQuery($query);
+		$res = $db->loadObjectList();
+		return $res;
+
+	}
+	
 	function countIcalEventsByYear($year, $showrepeats = true)
 	{
 		$startdate = JevDate::mktime(0, 0, 0, 1, 1, $year);
@@ -3056,9 +3165,8 @@ select @@sql_mode;
 	function countIcalEventsByRange($startdate, $enddate, $showrepeats = true)
 	{
 		return $this->listIcalEventsByRange($startdate, $enddate, "", "", $showrepeats, "", false, "", "", true);
-
 	}
-
+	
 	function listEventsById($rpid, $includeUnpublished = 0, $jevtype = "icaldb", $checkAccess=true)
 	{
 		// special case where the event is outside of JEvents - handled by a plugin
@@ -3073,7 +3181,7 @@ select @@sql_mode;
 		}
 
 		$user = JFactory::getUser();
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$frontendPublish = JEVHelper::isEventPublisher();
 
 		if ($jevtype == "icaldb")
@@ -3113,7 +3221,7 @@ select @@sql_mode;
 			{
 				$extrajoin[] = "\n #__jevents_catmap as catmap ON catmap.evid = rpt.eventid";
 				$extrajoin[] = "\n #__categories AS catmapcat ON catmap.catid = catmapcat.id";
-				$extrafields .= ", GROUP_CONCAT(DISTINCT catmap.catid SEPARATOR ',') as catids";
+				$extrafields .= ", GROUP_CONCAT(DISTINCT catmapcat.id ORDER BY catmapcat.lft ASC SEPARATOR ',' ) as catids";
 				if ($checkAccess) {
 					// accessibleCategoryList handles access checks on category
                                         //$extrawhere[] = " catmapcat.access IN (" . JEVHelper::getAid($user) . ")";
@@ -3198,7 +3306,7 @@ select @@sql_mode;
 	function getEventById($evid, $includeUnpublished = 0, $jevtype = "icaldb", $checkAccess=true)
 	{
 		$user = JFactory::getUser();
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 
 		$frontendPublish = JEVHelper::isEventPublisher();
 
@@ -3239,7 +3347,7 @@ select @@sql_mode;
 			{
 				$extrajoin[] = "\n #__jevents_catmap as catmap ON catmap.evid = rpt.eventid";
 				$extrajoin[] = "\n #__categories AS catmapcat ON catmap.catid = catmapcat.id";
-				$extrafields .= ", GROUP_CONCAT(DISTINCT catmap.catid SEPARATOR ',') as catids";
+				$extrafields .= ", GROUP_CONCAT(DISTINCT catmapcat.id ORDER BY catmapcat.lft ASC SEPARATOR ',' ) as catids";
 				if ($checkAccess){
 					// accessibleCategoryList handles access checks on category
                                         //$extrawhere[] = " catmapcat.access IN (" . JEVHelper::getAid($user) . ")";
@@ -3318,7 +3426,7 @@ select @@sql_mode;
 	function listIcalEventsByCreator($creator_id, $limitstart, $limit, $orderby = 'dtstart ASC')
 	{
 		$user = JFactory::getUser();
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 
 		$cfg = JEVConfig::getInstance();
 
@@ -3353,7 +3461,7 @@ select @@sql_mode;
 		{
 			$extrajoin[] = "\n #__jevents_catmap as catmap ON catmap.evid = rpt.eventid";
 			$extrajoin[] = "\n #__categories AS catmapcat ON catmap.catid = catmapcat.id";
-			$extrafields .= ", GROUP_CONCAT(DISTINCT catmap.catid SEPARATOR ',') as catids";
+			$extrafields .= ", GROUP_CONCAT(DISTINCT catmapcat.id ORDER BY catmapcat.lft ASC SEPARATOR ',' ) as catids";
 			// accessibleCategoryList handles access checks on category
 			//$extrawhere[] = " catmapcat.access IN (" . JEVHelper::getAid($user) . ")";
 			$extrawhere[] = " catmap.catid IN(" . $this->accessibleCategoryList() . ")";
@@ -3445,7 +3553,7 @@ select @@sql_mode;
 		}
 
 		$user = JFactory::getUser();
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 
 		$cfg = JEVConfig::getInstance();
 
@@ -3476,7 +3584,7 @@ select @@sql_mode;
 		{
 			$extrajoin[] = "\n #__jevents_catmap as catmap ON catmap.evid = rpt.eventid";
 			$extrajoin[] = "\n #__categories AS catmapcat ON catmap.catid = catmapcat.id";
-			$extrafields .= ", GROUP_CONCAT(DISTINCT catmap.catid SEPARATOR ',') as catids";
+			$extrafields .= ", GROUP_CONCAT(DISTINCT catmapcat.id ORDER BY catmapcat.lft ASC SEPARATOR ',' ) as catids";
 			// accessibleCategoryList handles access checks on category
 			//$extrawhere[] = " catmapcat.access IN (" . JEVHelper::getAid($user) . ")";
 			$extrawhere[] = " catmap.catid IN(" . $this->accessibleCategoryList() . ")";
@@ -3637,7 +3745,7 @@ select @@sql_mode;
 	function countIcalEventsByCreator($creator_id)
 	{
 		$user = JFactory::getUser();
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 
 		$extrawhere = array();
 		$extrajoin = array();
@@ -3649,7 +3757,7 @@ select @@sql_mode;
 		{
 			$extrajoin[] = "\n #__jevents_catmap as catmap ON catmap.evid = rpt.eventid";
 			$extrajoin[] = "\n #__categories AS catmapcat ON catmap.catid = catmapcat.id";
-			$extrafields .= ", GROUP_CONCAT(DISTINCT catmap.catid SEPARATOR ',') as catids";
+			$extrafields .= ", GROUP_CONCAT(DISTINCT catmapcat.id ORDER BY catmapcat.lft ASC SEPARATOR ',' ) as catids";
 			// accessibleCategoryList handles access checks on category
 			//$extrawhere[] = " catmapcat.access IN (" . JEVHelper::getAid($user) . ")";
 			$extrawhere[] = " catmap.catid IN(" . $this->accessibleCategoryList() . ")";
@@ -3718,7 +3826,7 @@ select @@sql_mode;
 	function countIcalEventRepeatsByCreator($creator_id)
 	{
 		$user = JFactory::getUser();
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 
 		$extrawhere = array();
 		$extrajoin = array();
@@ -3730,7 +3838,7 @@ select @@sql_mode;
 		{
 			$extrajoin[] = "\n #__jevents_catmap as catmap ON catmap.evid = rpt.eventid";
 			$extrajoin[] = "\n #__categories AS catmapcat ON catmap.catid = catmapcat.id";
-			$extrafields .= ", GROUP_CONCAT(DISTINCT catmap.catid SEPARATOR ',') as catids";
+			$extrafields .= ", GROUP_CONCAT(DISTINCT catmapcat.id ORDER BY catmapcat.lft ASC SEPARATOR ',' ) as catids";
 			// accessibleCategoryList handles access checks on category
 			//$extrawhere[] = " catmapcat.access IN (" . JEVHelper::getAid($user) . ")";
 			$extrawhere[] = " catmap.catid IN(" . $this->accessibleCategoryList() . ")";
@@ -3793,7 +3901,7 @@ select @@sql_mode;
 	public function listIcalEventsByCat($catids, $showrepeats = false, $total = 0, $limitstart = 0, $limit = 0, $order = "rpt.startrepeat asc, rpt.endrepeat ASC, det.summary ASC", $filters = false, $extrafields = "", $extratables = "")
 	{
             
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$user = JFactory::getUser();
 
 		// Use catid in accessibleCategoryList to pick up offsping too!
@@ -3848,7 +3956,7 @@ select @@sql_mode;
 		{
 			$extrajoin[] = "\n #__jevents_catmap as catmap ON catmap.evid = rpt.eventid";
 			$extrajoin[] = "\n #__categories AS catmapcat ON catmap.catid = catmapcat.id";
-			$extrafields .= ", GROUP_CONCAT(DISTINCT catmap.catid SEPARATOR ',') as catids";
+			$extrafields .= ", GROUP_CONCAT(DISTINCT catmapcat.id ORDER BY catmapcat.lft ASC SEPARATOR ',' ) as catids";
 			// accessibleCategoryList handles access checks on category
 			//$extrawhere[] = " catmapcat.access IN (" . JEVHelper::getAid($user) . ")";
 			$extrawhere[] = " catmap.catid IN(" . $this->accessibleCategoryList() . ")";
@@ -3964,7 +4072,7 @@ select @@sql_mode;
 
 	function countIcalEventsByCat($catids, $showrepeats = false)
 	{
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$user = JFactory::getUser();
 
 		// Use catid in accessibleCategoryList to pick up offsping too!
@@ -4003,7 +4111,7 @@ select @@sql_mode;
 		{
 			$extrajoin[] = "\n #__jevents_catmap as catmap ON catmap.evid = rpt.eventid";
 			$extrajoin[] = "\n #__categories AS catmapcat ON catmap.catid = catmapcat.id";
-			$extrafields .= ", GROUP_CONCAT(DISTINCT catmap.catid SEPARATOR ',') as catids";
+			$extrafields .= ", GROUP_CONCAT(DISTINCT catmapcat.id ORDER BY catmapcat.lft ASC SEPARATOR ',' ) as catids";
 			// accessibleCategoryList handles access checks on category
 			//$extrawhere[] = " catmapcat.access IN (" . JEVHelper::getAid($user) . ")";
 			$extrawhere[] = " catmap.catid IN(" . $this->accessibleCategoryList() . ")";
@@ -4089,7 +4197,7 @@ select @@sql_mode;
 	{
 		$user = JFactory::getUser();
 		$adminuser = JEVHelper::isAdminUser($user);
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		
 		$keyword = $db->escape($keyword, true) ;
 
@@ -4155,7 +4263,7 @@ select @@sql_mode;
 		{
 			$extrajoin[] = "\n #__jevents_catmap as catmap ON catmap.evid = rpt.eventid";
 			$extrajoin[] = "\n #__categories AS catmapcat ON catmap.catid = catmapcat.id";
-			$extrafields .= ", GROUP_CONCAT(DISTINCT catmap.catid SEPARATOR ',') as catids";
+			$extrafields .= ", GROUP_CONCAT(DISTINCT catmapcat.id ORDER BY catmapcat.lft ASC SEPARATOR ',' ) as catids";
 			// accessibleCategoryList handles access checks on category
 			//$extrawhere[] = " catmapcat.access IN (" . JEVHelper::getAid($user) . ")";
 			$extrawhere[] = " catmap.catid IN(" . $this->accessibleCategoryList() . ")";
@@ -4311,7 +4419,7 @@ select @@sql_mode;
 		$start = $year . '/' . $month . '/' . $day . ' 00:00:00';
 		$end = $year . '/' . $month . '/' . $day . ' 23:59:59';
 
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$query = "SELECT ev.*, rpt.* "
 				. "\n FROM #__jevents_vevent as ev"
 				. "\n LEFT JOIN #__jevents_repetition as rpt ON rpt.eventid = ev.ev_id"
@@ -4328,7 +4436,7 @@ select @@sql_mode;
 		}
 
 		// still no match so find the nearest repeat and give a message.
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$query = "SELECT ev.*, rpt.*, abs(datediff(rpt.startrepeat," . $db->Quote($start) . ")) as diff "
 				. "\n FROM #__jevents_repetition as rpt"
 				. "\n INNER JOIN #__jevents_vevent as ev ON rpt.eventid = ev.ev_id"
@@ -4354,7 +4462,7 @@ select @@sql_mode;
 		$params = JComponentHelper::getParams("com_jevents");
 		if ($params->get("multicategory", 0))
 		{
-			$db = JFactory::getDBO();
+			$db = JFactory::getDbo();
 			// get list of categories this event is in - are they all accessible?
 			$db->setQuery("SELECT catid FROM #__jevents_catmap WHERE evid=" . $row->ev_id);
 			$catids = $db->loadColumn();

@@ -54,7 +54,7 @@ defined("GCORE_SITE") or die;
 	}
 	
 	if(!empty($userData['password'])){
-		$userData['password'] = JUserHelper::hashPassword($userData['password']);
+		//$userData['password'] = JUserHelper::hashPassword($userData['password']);
 	}
 	
 	if(empty($userData['id']) AND empty($userData['registerDate'])){
