@@ -254,9 +254,8 @@ class Helix3Menu {
 		$this->menu .= '<div class="sp-dropdown-inner">';
 		$this->navigation($item, $firstitem, 0,  'sp-dropdown-items');
 
-		// only module exist
-		if (count($item->params->get('menulayout')) == 1) {
-			$mega_json = $item->params->get('menulayout');
+		$mega_json = $item->params->get('menulayout');
+		if ($mega_json) {
 			$mega = json_decode($mega_json);
 			$layout = $mega->layout;
 
@@ -264,8 +263,7 @@ class Helix3Menu {
 			$col = $layout->attr[0];
 			$mod_ids = ($col->moduleId)? explode(',', $col->moduleId):array();
 
-			if (count($mod_ids))
-			{
+			if (count($mod_ids)) {
 				foreach ($mod_ids as $mod_id)
 				{
 					$this->menu .= $this->load_module($mod_id);
