@@ -127,6 +127,7 @@ textarea {width: 100%;}
 /* Table */
 table.adminlist .right{text-align: right;}
 table.adminlist td.vm-order > span {background-repeat: no-repeat;height: 13px;text-align: center;width: 20px;}
+#itemTable .orderEdit{color:#006A93;width:60px}
 
 /* Admin Menu */
 #admin-ui-menu {border-bottom:1px solid #94B1CF;}

@@ -519,7 +519,7 @@ jQuery(document).ready(function($) {
 				$selectText = 'COM_VIRTUEMART_DRDOWN_AVA2ALL';
 				$vm2string = "editImage: 'edit image',select_all_text: '".vmText::_('COM_VIRTUEMART_DRDOWN_SELALL')."',select_some_options_text: '".vmText::_($selectText)."'" ;
 				if($be or vRequest::getInt('manage',false)){
-					$selector = 'jQuery("select")';
+					$selector = 'jQuery("select:not(.vm-chzn-add)")';
 				} else {
 					$selector = 'jQuery("select.vm-chzn-select")';
 				}
@@ -529,9 +529,8 @@ jQuery(document).ready(function($) {
 	var Virtuemart = {};
 	Virtuemart.updateChosenDropdownLayout = function() {
 		var vm2string = {'.$vm2string.'};
-		'.$selector.'.each( function () {
-			jQuery(this).chosen({enable_select_all: true,select_all_text : vm2string.select_all_text,select_some_options_text:vm2string.select_some_options_text,disable_search_threshold: 5});
-		});
+		'.$selector.'.chosen({enable_select_all: true,select_all_text : vm2string.select_all_text,select_some_options_text:vm2string.select_some_options_text,disable_search_threshold: 5});
+		//console.log("updateChosenDropdownLayout");
 	}
 	jQuery(document).ready( function() {
 		Virtuemart.updateChosenDropdownLayout($);
@@ -788,7 +787,7 @@ jQuery(document).ready(function($) {
 
 	// $yearRange format >> 1980:2010
 	// Virtuemart Datepicker script
-	static function jDate($date='',$name="date",$id=NULL,$resetBt = TRUE, $yearRange='') {
+	static function jDate($date='',$name="date",$id=NULL,$resetBt = TRUE, $yearRange='', $minMax='') {
 
 		if ($yearRange) {
 			$yearRange = 'yearRange: "' . $yearRange . '",';
@@ -838,6 +837,7 @@ jQuery(document).ready(function($) {
 					changeMonth: true,
 					changeYear: true,
 					'.$yearRange.'
+					'.$minMax.'
 					dateFormat:"'.$jsDateFormat.'",
 					altField: $(this).prev(),
 					altFormat: "yy-mm-dd"
@@ -857,6 +857,7 @@ jQuery(document).ready(function($) {
 		$vlePath = vmJsApi::setPath('i18n/jquery.ui.datepicker-'.$lang, FALSE , '' ,$minified = NULL ,   'js', true);
 		if(!file_exists($vlePath) or is_dir($vlePath)){
 			$vlePath = vmJsApi::setPath('i18n/jquery.ui.datepicker-'.$sh_lang, FALSE , '' ,$minified = NULL ,   'js', true);
+			$lang = $sh_lang;
 			if(!file_exists($vlePath) or is_dir($vlePath)){
 				$lang = 'en-GB';
 			}
@@ -917,6 +918,7 @@ jQuery(document).ready(function($) {
 	jQuery(document).ready(function($) {
 		Virtuemart.emptyCatOpt = '".$emptyOpt."';
 		Virtuemart.param = '".$param."';
+		Virtuemart.isAdmin = '".self::isAdmin()."';
 		Virtuemart.loadCategoryTree('".$id."');
 	});
 });

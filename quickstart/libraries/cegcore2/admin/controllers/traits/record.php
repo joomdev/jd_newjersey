@@ -32,10 +32,14 @@ trait Record {
 			
 			$result = $Model->where('id', $this->data('gcb'), 'in')->delete();
 			
+			$success = !empty($msgs[0]) ? $msgs[0] : rl('Deleted successfully.');
+			$error = !empty($msgs[1]) ? $msgs[1] : rl('Delete error.');
+			
+			$results = [];
 			if($result !== false){
-				\GApp::session()->flash('success', !empty($msgs[0]) ? $msgs[0] : rl('Deleted successfully.'));
+				$results['success'] = $success;
 			}else{
-				\GApp::session()->flash('error', !empty($msgs[1]) ? $msgs[1] : rl('Delete error.'));
+				$results['error'] = $error;
 			}
 		}
 		
@@ -43,7 +47,9 @@ trait Record {
 			$url = r2('index.php?ext='.\GApp::instance()->extension.'&cont='.\GApp::instance()->controller);
 		}
 		
-		$this->redirect($url);
+		$results['redirect'] = $url;
+		
+		return $results;
 	}
 	
 	function saveRecord($Model, $msgs = [], $url = ''){

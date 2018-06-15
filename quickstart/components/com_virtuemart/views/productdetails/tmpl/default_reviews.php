@@ -13,7 +13,7 @@
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
- * @version $Id: default_reviews.php 9640 2017-09-27 14:26:39Z Milbo $
+ * @version $Id: default_reviews.php 9766 2018-02-21 11:24:10Z Milbo $
  */
 
 // Check to ensure this file is included in Joomla!
@@ -145,12 +145,13 @@ function refresh_counter() {
                 <input class="highlight-button" type="submit" onclick="return( check_reviewform());"
                        name="submit_review" title="<?php echo vmText::_( 'COM_VIRTUEMART_REVIEW_SUBMIT' ) ?>"
                        value="<?php echo vmText::_( 'COM_VIRTUEMART_REVIEW_SUBMIT' ) ?>"/>
+            </div>
 				<?php } else if($review_editable and $this->allowRating) { ?>
                     <input class="highlight-button" type="submit" name="submit_review"
                            title="<?php echo vmText::_( 'COM_VIRTUEMART_REVIEW_SUBMIT' ) ?>"
                            value="<?php echo vmText::_( 'COM_VIRTUEMART_REVIEW_SUBMIT' ) ?>"/>
 
-                </div>
+
 					<?php
 				}
 

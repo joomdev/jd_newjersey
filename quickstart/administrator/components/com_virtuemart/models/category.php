@@ -14,7 +14,7 @@
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
-* @version $Id: category.php 9703 2017-12-20 13:30:01Z Milbo $
+* @version $Id: category.php 9805 2018-03-23 09:40:01Z Milbo $
 */
 
 // Check to ensure this file is included in Joomla!
@@ -706,8 +706,8 @@ class VirtueMartModelCategory extends VmModel {
 
 		$langFields = array('virtuemart_category_id','category_name');
 
-		$select = 'SELECT '.implode(', ',self::joinLangSelectFields($langFields));
-		$joins = implode(' ',self::joinLangTables('#__virtuemart_categories','c','virtuemart_category_id','FROM'));
+		$select = 'SELECT '.implode(', ',self::joinLangSelectFields($langFields)).', published';
+		$joins = 'FROM `#__virtuemart_categories` as c '.implode(' ',self::joinLangTables('#__virtuemart_categories','c','virtuemart_category_id'));
 
 		$where = 'WHERE '.implode(', ',self::joinLangSelectFields(array('virtuemart_category_id'),false)).' = ';
 		$q = $select.' '.$joins.' '.$where;

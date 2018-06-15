@@ -4,8 +4,8 @@ defined("GCORE_SITE") or die;
 ?>
 <div class="ui segment tab functions-tab active" data-tab="function-<?php echo $n; ?>">
 	<?php
-		//$settings = \GApp::extension()->settings();
-		if(\GApp::extension()->valid('paypal') OR \GApp::extension()->valid('extras')):
+		//if(\GApp::extension()->valid('paypal') OR \GApp::extension()->valid('extras')):
+		if(\GApp::extension()->valid()):
 	?>
 		<div class="ui message green">The PayPal function is validated, thank you.</div>
 	<?php else: ?>

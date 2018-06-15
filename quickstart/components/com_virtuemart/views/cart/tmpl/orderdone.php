@@ -23,7 +23,6 @@ if (vRequest::getBool('display_title',true)) {
 	echo '<h3>'.vmText::_('COM_VIRTUEMART_CART_ORDERDONE_THANK_YOU').'</h3>';
 }
 
-$this->html = vRequest::get('html', vmText::_('COM_VIRTUEMART_ORDER_PROCESSED') );
 echo $this->html;
 
 if (vRequest::getBool('display_loginform',true)) {

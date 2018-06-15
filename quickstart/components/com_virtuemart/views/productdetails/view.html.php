@@ -14,7 +14,7 @@
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
- * @version $Id: view.html.php 9654 2017-10-24 07:57:06Z Milbo $
+ * @version $Id: view.html.php 9761 2018-02-14 21:57:18Z Milbo $
  */
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
@@ -193,7 +193,7 @@ class VirtueMartViewProductdetails extends VmView {
 			if ($category_model) {
 
 				$category = $category_model->getCategory($product->virtuemart_category_id, $this->cat_productdetails);
-				if($category->parents===false) $category->parents = $category_model->getParentsList($product->virtuemart_category_id);
+				//if($category->parents===false) $category->parents = $category_model->getParentsList($product->virtuemart_category_id);
 				if(in_array($last_category_id,$product->categories) && !$seo_full) $product->category_name = $category->category_name;
 
 				$category_model->addImages($category, 1);
@@ -206,7 +206,7 @@ class VirtueMartViewProductdetails extends VmView {
 				//Seems we dont need this anylonger, destroyed the breadcrumb
 				if ($category->parents) {
 					foreach ($category->parents as $c) {
-						if(is_object($c) and isset($c->category_name)){
+						if(is_object($c) and !empty($c->category_name) and !empty($c->published)){
 							$pathway->addItem(strip_tags(vmText::_($c->category_name)), JRoute::_('index.php?option=com_virtuemart&view=category&virtuemart_category_id=' . $c->virtuemart_category_id, FALSE));
 						} else {
 							vmdebug('Error, parent category has no name, breadcrumb maybe broken, category',$c);
@@ -250,7 +250,11 @@ class VirtueMartViewProductdetails extends VmView {
 			if ($product->customtitle) {
 				$document->setTitle(strip_tags(html_entity_decode($product->customtitle,ENT_QUOTES)));
 			} else {
-				$document->setTitle(strip_tags(html_entity_decode(($category->category_name ? (vmText::_($category->category_name) . ' : ') : '') . $product->product_name,ENT_QUOTES)));
+				$catName = '';
+				if($category->published and !empty($category->category_name)){
+					$catName = $category->category_name.': ';
+				}
+				$document->setTitle(strip_tags(html_entity_decode($catName . $product->product_name,ENT_QUOTES)));
 			}
 
 			$this->allowReview = $ratingModel->allowReview($product->virtuemart_product_id);
@@ -338,8 +342,44 @@ class VirtueMartViewProductdetails extends VmView {
 			if(VmConfig::get('debug_enable_methods',false)){
 				VmConfig::$_debug = 1;
 			}
+			//@Todo lets use only one trigger
 			$returnValues = $dispatcher->trigger('plgVmOnProductDisplayShipment', array($productC, &$this->productDisplayShipments));
 			$returnValues = $dispatcher->trigger('plgVmOnProductDisplayPayment', array($productC, &$this->productDisplayPayments));
+
+			$this->productDisplayTypes = array();
+			$productDisplayTypes = array();
+			if(!empty($this->productDisplayShipments)) $productDisplayTypes[] = 'productDisplayShipments';
+			if(!empty($this->productDisplayPayments)) $productDisplayTypes[] = 'productDisplayPayments';
+
+			foreach ($productDisplayTypes as $productDisplayType) {
+
+				if(empty($this->$productDisplayType)){
+					continue;
+				} else if (!is_array($this->$productDisplayType)){
+					$this->$productDisplayType = array($this->$productDisplayType);
+				}
+
+				foreach( $this->$productDisplayType as $k=>$productDisplay ) {
+
+					if(empty($productDisplay)){
+						continue;
+					} else if(!is_array($productDisplay)){
+						$productDisplay = array($productDisplay);
+					}
+
+					foreach( $productDisplay as $virtuemart_method_id => $productDisplayHtml ) {
+						if(!empty($productDisplayHtml)){
+							if(empty($this->productDisplayTypes[$productDisplayType])){
+								$this->productDisplayTypes[$productDisplayType] = array();
+							}
+							if(empty($this->productDisplayTypes[$productDisplayType][$k])){
+								$this->productDisplayTypes[$productDisplayType][$k] = array();
+							}
+							$this->productDisplayTypes[$productDisplayType][$k][$virtuemart_method_id] = $productDisplayHtml;
+						}
+					}
+				}
+			}
 			VmConfig::$_debug = $d;
 
 			if (empty($category->category_template)) {

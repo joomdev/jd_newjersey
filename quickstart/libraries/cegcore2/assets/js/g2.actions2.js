@@ -53,7 +53,7 @@
 		if(act == 'modal'){
 			var $modal = $.G2.actions2.get(actData['id'], element);//.last();
 			if(actData['fn'] == undefined){
-				if($modal.hasClass('dynamic')){
+				if($modal.hasClass('dynamic') && actData['dynamic'] !== false){
 					$modal.children('.content').last().html('<div class="ui active inline centered loader"></div>');
 				}
 				$modal.modal({

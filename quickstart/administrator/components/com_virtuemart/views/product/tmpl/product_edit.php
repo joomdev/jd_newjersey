@@ -13,7 +13,7 @@
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
-* @version $Id: product_edit.php 9650 2017-10-18 10:52:18Z Milbo $
+* @version $Id: product_edit.php 9752 2018-02-01 10:04:10Z Milbo $
 */
 
 // Check to ensure this file is included in Joomla!
@@ -56,6 +56,7 @@ AdminUIHelper::buildTabs ( $this,  $tabarray, $this->product->virtuemart_product
 </form>
 <?php AdminUIHelper::endAdminArea();
 
+vmJsApi::addJScript( '/administrator/components/com_virtuemart/assets/js/dynotable.js', false, false );
 vmJsApi::addJScript( '/administrator/components/com_virtuemart/assets/js/products.js', false, false );
 
 $app = JFactory::getApplication();

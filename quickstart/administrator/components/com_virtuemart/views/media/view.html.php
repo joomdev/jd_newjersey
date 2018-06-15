@@ -13,7 +13,7 @@
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
-* @version $Id: view.html.php 9661 2017-10-27 15:29:47Z Milbo $
+* @version $Id: view.html.php 9802 2018-03-20 15:22:11Z Milbo $
 */
 
 // Check to ensure this file is included in Joomla!
@@ -83,7 +83,12 @@ class VirtuemartViewMedia extends VmViewAdmin {
 				);
 			$this->lists['search_type'] = VmHTML::selectList('search_type', vRequest::getVar('search_type'),$options,1,'','onchange="this.form.submit();" style="width:180px;"');
 
-			$this->lists['vendors'] = Shopfunctions::renderVendorList();
+			$vendorId = vmAccess::getVendorId();
+			if(vmAccess::manager('managevendors')){
+				$vendorId = strtolower (JFactory::getApplication()->getUserStateFromRequest ('com_virtuemart.media.virtuemart_vendor_id', 'virtuemart_vendor_id', $vendorId, 'int'));
+			}
+
+			$this->lists['vendors'] = Shopfunctions::renderVendorList($vendorId);
 			$options = array( '' => vmText::_('COM_VIRTUEMART_LIST_ALL_ROLES'),
 				'file_is_displayable' => vmText::_('COM_VIRTUEMART_FORM_MEDIA_DISPLAYABLE'),
 				'file_is_downloadable' => vmText::_('COM_VIRTUEMART_FORM_MEDIA_DOWNLOADABLE'),

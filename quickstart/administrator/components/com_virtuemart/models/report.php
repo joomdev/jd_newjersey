@@ -8,7 +8,7 @@ if (!defined ('_JEXEC')) {
  * Report Model
  *
  * @author Max Milbers, Wicksj
- * @version $Id: report.php 9609 2017-07-27 17:45:27Z Milbo $
+ * @version $Id: report.php 9802 2018-03-20 15:22:11Z Milbo $
  * @package VirtueMart
  * @subpackage Report
  * @copyright Copyright (C) 2011 - 2014VirtueMart Team - All rights reserved.
@@ -44,7 +44,7 @@ class VirtuemartModelReport extends VmModel {
 		$this->period = $app->getUserStateFromRequest ('com_virtuemart.revenue.period', 'period', 'last30', 'string');
 
 		$task = vRequest::getCmd('task',false);
-		if (empty($this->period) or $task == 'setPeriod' ) { //$this->period != 'none') {
+		if (empty($this->period) or $this->period != 'none') {
 			$this->setPeriodByPreset ();
 		}
 		else {
@@ -57,8 +57,17 @@ class VirtuemartModelReport extends VmModel {
 		$this->addvalidOrderingFieldName (array('product_quantity', 'o.virtuemart_order_id'));
 		$this->_selectedOrdering = 'created_on';
 
+		$this->populateState();
 	}
 
+	protected function populateState () {
+		$this->virtuemart_vendor_id = vmAccess::isSuperVendor();
+		$view = vRequest::getCmd('view','');
+		if(vmAccess::manager('managevendors')){
+			$this->virtuemart_vendor_id = strtolower (JFactory::getApplication()->getUserStateFromRequest ('com_virtuemart.'.$view.'.virtuemart_vendor_id', 'virtuemart_vendor_id', vmAccess::getVendorId(), 'int'));
+			//$this->virtuemart_vendor_id = vRequest::getInt('virtuemart_vendor_id',$this->virtuemart_vendor_id);
+		}
+	}
 
 	function correctTimeOffset(&$inputDate){
 
@@ -131,11 +140,6 @@ class VirtuemartModelReport extends VmModel {
 			return false;
 		}
 
-		$vendorId = vmAccess::isSuperVendor();
-		if(vmAccess::manager('managevendors')){
-			$vendorId = vRequest::getInt('virtuemart_vendor_id',$vendorId);
-		}
-
 		$orderstates = vRequest::getVar ('order_status_code', array('C','S'));
 		$intervals = vRequest::getCmd ('intervals', 'day');
 		$filterorders = vRequest::getVar ('filter_order', 'intervals');
@@ -147,9 +151,9 @@ class VirtuemartModelReport extends VmModel {
 			$c->setCaching (1);
 			$c->setLifeTime($cache);
 
-			return $c->call (array('VirtuemartModelReport', 'getRevenueDiag'),$vendorId,$orderstates,$intervals,$filterorders,$orderdir,$virtuemart_product_id,$this->from_period,$this->until_period);
+			return $c->call (array('VirtuemartModelReport', 'getRevenueDiag'),$this->virtuemart_vendor_id,$orderstates,$intervals,$filterorders,$orderdir,$virtuemart_product_id,$this->from_period,$this->until_period);
 		} else {
-			return $this->getRevenueSortListOrderQuery ($vendorId,$orderstates,$intervals,$filterorders,$orderdir,$virtuemart_product_id);
+			return $this->getRevenueSortListOrderQuery ($this->virtuemart_vendor_id,$orderstates,$intervals,$filterorders,$orderdir,$virtuemart_product_id);
 		}
 
 	}

@@ -13,7 +13,7 @@
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
- * @version $Id: product.php 9684 2017-12-04 17:36:17Z Milbo $
+ * @version $Id: product.php 9808 2018-04-05 11:26:20Z Milbo $
  */
 
 // Check to ensure this file is included in Joomla!
@@ -203,7 +203,8 @@ class VirtueMartModelProduct extends VmModel {
 			$this->keyword = vRequest::filter($this->keyword,FILTER_SANITIZE_STRING,FILTER_FLAG_ENCODE_LOW);
 
 			vRequest::setVar('keyword',urlencode($this->keyword));
-
+			$this->search_type = vRequest::getVar ('search_type', '');
+			$this->virtuemart_vendor_id = vmAccess::getVendorId();
 		}
 		else {
 			$task = vRequest::getCmd('task','');
@@ -239,6 +240,11 @@ class VirtueMartModelProduct extends VmModel {
 			}
 
 			$this->keyword = $this->filter_product;
+
+			$this->search_type = $app->getUserStateFromRequest ($option . '.'. $view . $task.'.search_type', 'search_type', '', 'word');
+			if(!vmAccess::manager('managevendors')){
+				$this->virtuemart_vendor_id = vmAccess::getVendorId();
+			}
 		}
 		$filter_order_Dir = $this->checkFilterDir ($filter_order_Dir, $task);
 
@@ -246,14 +252,14 @@ class VirtueMartModelProduct extends VmModel {
 		$this->filter_order_Dir = $filter_order_Dir;
 		$this->valid_search_fields = $valid_search_fields;
 
-		$this->search_type = vRequest::getVar ('search_type', '');
+
 
 		$this->searchcustoms = vRequest::getVar ('customfields', false, true);
 
 		$this->searchplugin = vRequest::getInt ('custom_parent_id', 0);
 
 		//$this->virtuemart_vendor_id = vmAccess::isSuperVendor();
-		$this->virtuemart_vendor_id = vmAccess::getVendorId();
+		//$this->virtuemart_vendor_id = vmAccess::getVendorId();
 
 		$this->__state_set = true;
 	}
@@ -308,6 +314,7 @@ class VirtueMartModelProduct extends VmModel {
 		$joinCustom = FALSE;
 		$joinShopper = FALSE;
 		$joinChildren = FALSE;
+		$virtuemart_category_id = (int)$virtuemart_category_id;
 		//$joinLang = false;
 
 
@@ -488,7 +495,7 @@ class VirtueMartModelProduct extends VmModel {
 				}
 				$where[] = " ( " . implode (' OR ', $mans) . " ) ";
 			} else {
-				$where[] = ' `#__virtuemart_product_manufacturers`.`virtuemart_manufacturer_id` = ' . $this->virtuemart_manufacturer_id;
+				$where[] = ' `#__virtuemart_product_manufacturers`.`virtuemart_manufacturer_id` = ' . (int)$this->virtuemart_manufacturer_id;
 				//$virtuemart_manufacturer_id = $this->virtuemart_manufacturer_id;
 			}
 
@@ -703,11 +710,11 @@ class VirtueMartModelProduct extends VmModel {
 		}
 
 		if ($joinCategory == TRUE or $joinCatLang) {
-			if($app->isSite() and !empty($this->keyword)){
+			/*if($app->isSite() and !empty($this->keyword)){ 	//We need an extra boolean to handel this correctly
 				$joink = 'INNER';
-			} else {
+			} else {*/
 				$joink = 'LEFT';
-			}
+			//}
 			$joinedTables[] = ' '.$joink.' JOIN `#__virtuemart_product_categories` as pc ON p.`virtuemart_product_id` = `pc`.`virtuemart_product_id` ';
 			if ($isSite and !VmConfig::get('show_unpub_cat_products',TRUE)) {
 				$joinedTables[] = ' LEFT JOIN `#__virtuemart_categories` as c ON c.`virtuemart_category_id` = `pc`.`virtuemart_category_id` ';
@@ -1689,6 +1696,7 @@ vmdebug('$limitStart',$limitStart);
 	 */
 	public function getProductListing ($group = FALSE, $nbrReturnProducts = FALSE, $withCalc = TRUE, $onlyPublished = TRUE, $single = FALSE, $filterCategory = TRUE, $category_id = 0, $filterManufacturer = TRUE, $manufacturer_id = 0) {
 
+		$ids = array();
 		$app = JFactory::getApplication ();
 		if ($app->isSite ()) {
 			$front = TRUE;
@@ -2070,8 +2078,10 @@ vmdebug('$limitStart',$limitStart);
 		// Setup some place holders
 		$product_data = $this->getTable ('products');
 
+		$data['new'] = '1';
 		if(!empty($data['virtuemart_product_id'])){
 			$product_data -> load($data['virtuemart_product_id']);
+			$data['new'] = '0';
 		}
 		if( (empty($data['virtuemart_product_id']) or empty($product_data->virtuemart_product_id)) and !vmAccess::manager('product.create')){
 			vmWarn('Insufficient permission to create product');
@@ -2399,7 +2409,7 @@ vmdebug('$limitStart',$limitStart);
 		$dispatcher = JDispatcher::getInstance ();
 		$result=$dispatcher->trigger ('plgVmCloneProduct', array($product));
 
-		$langs = VmConfig::get('active_languages', array(VmConfig::$jDefLang));
+		$langs = VmConfig::get('active_languages', array(VmConfig::$jDefLangTag));
 		if ($langs and count($langs)>1){
 			$langTable = $this->getTable('products');
 			foreach($langs as $lang){
@@ -2453,13 +2463,12 @@ vmdebug('$limitStart',$limitStart);
 	/* look if whe have a product type */
 	private function productCustomsfieldsClone ($virtuemart_product_id) {
 
-		$db = JFactory::getDBO ();
-		$q = "SELECT * FROM `#__virtuemart_product_customfields`";
-		$q .= " WHERE `virtuemart_product_id` = " . $virtuemart_product_id;
-		$db->setQuery ($q);
-		$customfields = $db->loadAssocList ();
+		$cM = VmModel::getModel('customfields');
+		$customfields = $cM->getCustomEmbeddedProductCustomFields(array($virtuemart_product_id));
+
 		if ($customfields) {
 			foreach ($customfields as &$customfield) {
+				$customfield = get_object_vars($customfield);
 				unset($customfield['virtuemart_product_id'], $customfield['virtuemart_customfield_id']);
 			}
 			return $customfields;

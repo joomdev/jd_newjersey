@@ -131,17 +131,17 @@ class vmCrypt {
 
 			if(empty($date)){
 				$date = new JDate('now');
-				$date = $date->toSQL();
+				$date = $date->toUnix();
 			}
 
 			if(!empty($date)){
 
 				foreach($existingKeys as $unixDate=>$values){
-					if(($unixDate-30) >= $date ){
-						vmdebug('$unixDate '.$unixDate.' >= $date '.$date);
+					if(($unixDate) >= $date ){
+						//vmdebug('$unixDate '.$unixDate.' >= $date '.$date);
 						continue;
 					}
-					vmdebug('$unixDate < $date '.$date. ' '.$unixDate);
+					//vmdebug('$unixDate '.$unixDate.' < $date '.$date);
 					$usedKey = $values;
 					$uDate = $unixDate;
 				}

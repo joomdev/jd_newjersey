@@ -491,34 +491,18 @@ class VmHtml{
 	        	 $arr=$arrIn;
 	        }
 		}
+
 		if (!empty($data_placeholder)) {
-			$data_placeholder='data-placeholder="'.vmText::_($data_placeholder).'"';
+			$extra .=' data-placeholder="'.vmText::_($data_placeholder).'" ';
 		}
 
-		$html = '<select class="inputbox" id="'.$name.'" name="'.$name.'" size="'.$size.'" '.$multiple.' '.$extra.' '.$data_placeholder.' >';
-
-		while (list($key, $val) = each($arr)) {
-//		foreach ($arr as $key=>$val){
-			$selected = "";
-			if( is_array( $value )) {
-				if( in_array( $key, $value )) {
-					$selected = 'selected="selected"';
-				}
-			}
-			else {
-				if(strtolower($value) == strtolower($key) ) {
-					$selected = 'selected="selected"';
-				}
-			}
-
-			$html .= '<option value="'.$key.'" '.$selected.'>'.self::shopMakeHtmlSafe($val);
-			$html .= '</option>';
-
+		if (!empty($multiple)) {
+			$extra .=' multiple="multiple" ';
 		}
 
-		$html .= '</select>';
+		$extra .= ' size="'.$size.'" ';
+		return JHtml::_('select.genericlist', $arr, $name, $extra, 'text', 'value', $value, false);
 
-		return $html;
 	}
 
 	/**

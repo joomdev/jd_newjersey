@@ -16,7 +16,7 @@
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
- * @version $Id: view.html.php 9637 2017-09-21 16:40:35Z Milbo $
+ * @version $Id: view.html.php 9737 2018-01-24 00:04:59Z Milbo $
  */
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
@@ -37,6 +37,8 @@ class VirtueMartViewCart extends VmView {
 	var $display_title = true;
 	/* @deprecated */
 	var $display_loginform = true;
+
+	var $html = false;
 
 	public function display($tpl = null) {
 
@@ -374,9 +376,13 @@ class VirtueMartViewCart extends VmView {
 		$this->display_title = !isset($this->display_title) ? vRequest::getBool('display_title', true) : $this->display_title;
 		$this->display_loginform = !isset($this->display_loginform) ? vRequest::getBool('display_loginform', true) : $this->display_loginform;
 
-		//Do not change this. It contains the payment form
-		$this->html = !isset($this->html) ? vRequest::get('html', vmText::_('COM_VIRTUEMART_ORDER_PROCESSED')) : $this->html;
 		//Show Thank you page or error due payment plugins like paypal express
+		//Do not change this. It contains the payment form
+		$this->html = empty($this->html) ? vRequest::get('html', $this->cart->orderdoneHtml) : $this->html;
+
+		$this->cart->orderdoneHtml = false;
+		$this->cart->setCartIntoSession(true,true);
+
 	}
 
 	private function checkPaymentMethodsConfigured() {

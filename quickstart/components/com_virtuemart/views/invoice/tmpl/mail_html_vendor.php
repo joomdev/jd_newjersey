@@ -20,7 +20,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 ?>
-<table width="100%" border="0" cellpadding="0" cellspacing="0" class="html-email">
+<table width="100%" border="0" cellpadding="5" cellspacing="0" class="html-email" style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 12px; margin: 0 auto;">
     <tr>
     <td>
 <?php
@@ -32,4 +32,4 @@ if(!empty($this->orderDetails['details']['BT']->customer_note)){
 }
 
 	?>
-</td></tr></table>
+</td></tr><tr><td style="padding: 5px;"></td></tr></table>

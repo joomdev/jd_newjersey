@@ -14,7 +14,7 @@
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
- * @version $Id: product_edit_information.php 9674 2017-11-16 14:17:23Z Milbo $
+ * @version $Id: product_edit_information.php 9753 2018-02-01 10:30:35Z Milbo $
  */
 
 // Check to ensure this file is included in Joomla!
@@ -171,7 +171,8 @@ $i=0;
 	$calculator = $this->calculator;
 	$currency_model = VmModel::getModel ('currency');
 	$currencies = $currency_model->getCurrencies ();
-	$nbPrice = count ($this->product->allPrices);
+
+	$nbPrice = is_array($this->product->allPrices)? count ($this->product->allPrices):0;
 	$this->priceCounter = 0;
 	$this->product->allPrices[$nbPrice] = VmModel::getModel()->fillVoidPrice();
 
@@ -182,7 +183,14 @@ $i=0;
 		<?php
 
 		foreach ($this->product->allPrices as $k => $sPrices) {
-
+			if ($this->priceCounter == $nbPrice) {
+				$tmpl = "productPriceRowTmpl";
+				$this->product->allPrices[$k]['virtuemart_product_price_id'] = '';
+				$class="vm-chzn-add";
+			} else {
+				$tmpl = "productPriceRowTmpl_" . $this->priceCounter;
+				$class="vm-chzn-select";
+			}
 
 			if(empty($this->product->allPrices[$k]['product_currency'])){
 				$this->product->allPrices[$k]['product_currency'] = $this->vendor->vendor_currency;
@@ -193,7 +201,7 @@ $i=0;
 			$this->product->allPrices[$k] = array_merge($this->product->allPrices[$k],$this->calculatedPrices);
 
 			$currency_model = VmModel::getModel ('currency');
-			$this->lists['currencies'] = JHtml::_ ('select.genericlist', $currencies, 'mprices[product_currency][' . $this->priceCounter . ']', '', 'virtuemart_currency_id', 'currency_name', $this->product->allPrices[$k]['product_currency']);
+			$this->lists['currencies'] = JHtml::_ ('select.genericlist', $currencies, 'mprices[product_currency][]', 'class="'.$class.'"', 'virtuemart_currency_id', 'currency_name', $this->product->allPrices[$k]['product_currency'],'[');
 
 			$DBTax = ''; //vmText::_('COM_VIRTUEMART_RULES_EFFECTING') ;
 			foreach ($calculator->rules['DBTax'] as $rule) {
@@ -222,20 +230,15 @@ $i=0;
 			if (!isset($this->product->allPrices[$k]['product_tax_id'])) {
 				$this->product->allPrices[$k]['product_tax_id'] = 0;
 			}
-			$this->lists['taxrates'] = ShopFunctions::renderTaxList ($this->product->allPrices[$k]['product_tax_id'], 'mprices[product_tax_id][' . $this->priceCounter . ']');
+			$this->lists['taxrates'] = ShopFunctions::renderTaxList ($this->product->allPrices[$k]['product_tax_id'], 'mprices[product_tax_id][]','class="'.$class.'"');
 			if (!isset($this->product->allPrices[$k]['product_discount_id'])) {
 				$this->product->allPrices[$k]['product_discount_id'] = 0;
 			}
-			$this->lists['discounts'] = $this->renderDiscountList ($this->product->allPrices[$k]['product_discount_id'], 'mprices[product_discount_id][' . $this->priceCounter . ']');
+			$this->lists['discounts'] = $this->renderDiscountList ($this->product->allPrices[$k]['product_discount_id'], 'mprices[product_discount_id][]');
 
-			$this->lists['shoppergroups'] = ShopFunctions::renderShopperGroupList ($this->product->allPrices[$k]['virtuemart_shoppergroup_id'], false, 'mprices[virtuemart_shoppergroup_id][' . $this->priceCounter . ']');
+			$this->lists['shoppergroups'] = ShopFunctions::renderShopperGroupList ($this->product->allPrices[$k]['virtuemart_shoppergroup_id'], false, 'mprices[virtuemart_shoppergroup_id][]', 'COM_VIRTUEMART_DRDOWN_AVA2ALL',array('class'=>$class));
 
-			if ($this->priceCounter == $nbPrice) {
-				$tmpl = "productPriceRowTmpl";
-				$this->product->allPrices[$k]['virtuemart_product_price_id'] = '';
-			} else {
-				$tmpl = "productPriceRowTmpl_" . $this->priceCounter;
-			}
+
 
 			?>
         <tr id="<?php echo $tmpl ?>" class="removable row<?php echo $rowColor?>">
@@ -315,10 +318,6 @@ $j = 'jQuery(document).ready(function ($) {
             onRowClone:function () {
             },
             onRowAdd:function () {
-                //$(\'select\').chosen(\'destroy\');
-                //Virtuemart.updateChosenDropdownLayout($);
-                //$(".chzn-single").chosen();
-               // $(\'select\').trigger(\'chosen:updated\');
             },
             onTableEmpty:function () {
             },

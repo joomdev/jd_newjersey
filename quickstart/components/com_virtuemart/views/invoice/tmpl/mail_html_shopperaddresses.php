@@ -21,16 +21,17 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 ?>
-<table class="html-email" cellspacing="0" cellpadding="0" border="0" width="100%">  <tr  >
-	<th width="50%">
+<table class="html-email" cellspacing="0" cellpadding="5" border="0" width="100%" style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 12px; margin: 0 auto;">
+	<tr>
+	<th width="50%" bgcolor="#EEEEEE" style="border: 1px solid #CCCCCC;">
 	    <?php echo vmText::_('COM_VIRTUEMART_USER_FORM_BILLTO_LBL'); ?>
 	</th>
-	<th width="50%" >
+	<th width="50%" bgcolor="#EEEEEE" style="border: 1px solid #CCCCCC;">
 	    <?php echo vmText::_('COM_VIRTUEMART_USER_FORM_SHIPTO_LBL'); ?>
 	</th>
     </tr>
     <tr>
-	<td valign="top" width="50%">
+	<td valign="top" width="50%" style="border: 1px solid #CCCCCC;">
 
 	    <?php
 
@@ -48,7 +49,7 @@ defined('_JEXEC') or die('Restricted access');
 	    ?>
 
 	</td>
-	<td valign="top" width="50%">
+	<td valign="top" width="50%" style="border: 1px solid #CCCCCC;">
 	    <?php
 	    foreach ($this->shipmentfields['fields'] as $field) {
 
@@ -65,5 +66,6 @@ defined('_JEXEC') or die('Restricted access');
 	    ?>
 	</td>
     </tr>
+		<tr><td valign="top" width="50%" style="padding:5px"></td><td valign="top" width="50%" style="padding:5px"></td></tr>
 </table>
 

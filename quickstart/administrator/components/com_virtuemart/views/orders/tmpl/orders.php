@@ -13,7 +13,7 @@
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
- * @version $Id: orders.php 9650 2017-10-18 10:52:18Z Milbo $
+ * @version $Id$
  */
 // Check to ensure this file is included in Joomla!
 defined ('_JEXEC') or die('Restricted access');
@@ -91,7 +91,7 @@ $styleDateCol = 'style="width:5%;min-width:110px"';
 				?>
 				<td><?php echo JHtml::_ ('link', JRoute::_ ($link, FALSE), $order->order_number, array('title' => vmText::_ ('COM_VIRTUEMART_ORDER_EDIT_ORDER_NUMBER') . ' ' . $order->order_number));
 				echo '<br>';
-				echo $order->invoiceNumber; ?>
+				echo implode('<br>',$order->invoiceNumbers); ?>
 				</td>
 				<td>
 					<?php

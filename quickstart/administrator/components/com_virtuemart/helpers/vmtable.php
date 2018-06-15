@@ -9,7 +9,7 @@
  * @subpackage Helpers
  * @author Max Milbers
  * @copyright Copyright (C) 2014 Open Source Matters, Inc. All rights reserved.
- * @copyright Copyright (c) 2011 -2014 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2011 - 2018 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -43,7 +43,7 @@ if(JVM_VERSION<3){
 		}
 	}
 }
-if(!class_exists('vObject')) require(VMPATH_ADMIN .DS. 'helpers' .DS. 'vobject.php');
+if(!class_exists('vObject')) require(VMPATH_ADMIN .'/helpers/vobject.php');
 
 class VmTable extends vObject implements JObservableInterface, JTableInterface {
 
@@ -71,6 +71,8 @@ class VmTable extends vObject implements JObservableInterface, JTableInterface {
 	public $_varsToPushParam = array();
 	var $_translatable = false;
 	protected $_translatableFields = array();
+	protected $_hashName = '';
+	protected $_omittedHashFields = array();
 	public $_cryptedFields = false;
 	protected $_langTag = null;
 	public $_ltmp = false;
@@ -238,7 +240,7 @@ class VmTable extends vObject implements JObservableInterface, JTableInterface {
 		// If the internal paths have not been initialised, do so with the base table path.
 		if (!isset($_paths))
 		{
-			$_paths = array(VMPATH_ADMIN .DS. 'tables');
+			$_paths = array(VMPATH_ADMIN .'/tables');
 		}
 
 		// Convert the passed path(s) to add to an array.
@@ -253,8 +255,11 @@ class VmTable extends vObject implements JObservableInterface, JTableInterface {
 				// Sanitize path.
 				$dir = trim($dir);
 
-				// Add to the front of the list so that custom paths are searched first.
-				array_unshift($_paths, $dir);
+				if(!in_array($dir,$_paths)){
+					// Add to the front of the list so that custom paths are searched first.
+					array_unshift($_paths, $dir);
+				}
+
 			}
 		}
 
@@ -369,6 +374,14 @@ class VmTable extends vObject implements JObservableInterface, JTableInterface {
 		$this->_orderable = 1;
 		$this->_autoOrdering = $auto;
 		$this->$key = 0;
+	}
+
+	function setHashable($key){
+		$this->_hashName = $key;
+	}
+
+	function setOmittedHashFields(array $fields){
+		$this->_omittedHashFields = $fields;
 	}
 
 	function setSlug($slugAutoName, $key = 'slug') {
@@ -636,6 +649,9 @@ class VmTable extends vObject implements JObservableInterface, JTableInterface {
 			unset($fieldNames[$this->_pkey]);
 		}
 		$this->_cryptedFields = $fieldNames;
+		if(!class_exists('vmCrypt')){
+			require(VMPATH_ADMIN .'/helpers/vmcrypt.php');
+		}
 	}
 
 	/**
@@ -1006,7 +1022,7 @@ class VmTable extends vObject implements JObservableInterface, JTableInterface {
 				self::bindParameterable($this, $this->_xParams, $this->_varsToPushParam);
 			}
 			if($this->_cryptedFields){
-				$this->decryptFields($this);
+				$this->decryptFields();
 			}
 			//vmTime('loaded by cache '.$this->_pkey.' '.$this->_slugAutoName.' '.$oid,'vmtableload');
 			return $this;
@@ -1059,7 +1075,6 @@ class VmTable extends vObject implements JObservableInterface, JTableInterface {
 					if($this->_langTag != VmConfig::$defaultLang ){
 						$this->_ltmp = $this->_langTag;
 						$this->_langTag = VmConfig::$defaultLang;
-						$this->_tempHash = $this->_lhash;
 					} else {
 						$this->_langTag = VmConfig::$jDefLang;
 					}
@@ -1067,9 +1082,7 @@ class VmTable extends vObject implements JObservableInterface, JTableInterface {
 				} else {
 					$this->_ltmp = $this->_langTag;
 					$this->_langTag = VmConfig::$defaultLang;
-					$this->_tempHash = $this->_lhash;
 				}
-
 
 				//vmdebug('No result for '.$this->_ltmp.', lets check for Fallback lang '.$this->_langTag);
 				//vmSetStartTime('lfallback');
@@ -1085,7 +1098,7 @@ class VmTable extends vObject implements JObservableInterface, JTableInterface {
 			//vmdebug('Set Ltmp '.$this->_ltmp.' back to false');
 			$this->_langTag = $this->_ltmp;
 
-			self::$_cache['l'][$this->_lhash] = self::$_cache['l'][$this->_tempHash] = $this->loadFieldValues(false);
+			self::$_cache['l'][$this->_lhash] = $this->loadFieldValues(false);
 		}
 		else {
 			self::$_cache['l'][$this->_lhash] = $this->loadFieldValues(false);
@@ -1106,6 +1119,7 @@ class VmTable extends vObject implements JObservableInterface, JTableInterface {
 
 	/**
 	 * Typo, had wrong name
+	 * @deprecated heavily
 	 */
 	function encryptFields(){
 		$this->decryptFields();
@@ -1113,7 +1127,7 @@ class VmTable extends vObject implements JObservableInterface, JTableInterface {
 
 	function decryptFields(){
 		if(!class_exists('vmCrypt')){
-			require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcrypt.php');
+			require(VMPATH_ADMIN .'/helpers/vmcrypt.php');
 		}
 		if(isset($this->modified_on) and $this->modified_on!='0000-00-00 00:00:00'){
 			$date = JFactory::getDate($this->modified_on);
@@ -1128,7 +1142,7 @@ class VmTable extends vObject implements JObservableInterface, JTableInterface {
 		foreach($this->_cryptedFields as $field){
 			if(isset($this->$field)){
 				$this->$field = vmCrypt::decrypt($this->$field, $date);
-				vmdebug($this->_tbl.' Field '.$field.' encrypted = '.$this->$field);
+				//vmdebug($this->_tbl.' Field '.$field.' encrypted = '.$this->$field);
 			}
 		}
 	}
@@ -1147,10 +1161,6 @@ class VmTable extends vObject implements JObservableInterface, JTableInterface {
 		$this->setLoggableFieldsForStore();
 
 		if($this->_cryptedFields){
-			if(!class_exists('vmCrypt')){
-				require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcrypt.php');
-			}
-
 			foreach($this->_cryptedFields as $field){
 				if(isset($this->$field)){
 					$this->$field = vmCrypt::encrypt($this->$field);
@@ -1181,7 +1191,17 @@ class VmTable extends vObject implements JObservableInterface, JTableInterface {
 		if(!empty($this->$tblKey)){
 			$ok = $this->_db->updateObject($this->_tbl, $this, $this->_tbl_key, $updateNulls);
 		} else {
+			$p = $this->$tblKey;
 			$ok = $this->_db->insertObject($this->_tbl, $this, $this->_tbl_key);
+
+			if($ok and !empty($this->_hashName)){
+				$oldH= $this->{$this->_hashName};
+				if($p!=$this->$tblKey and !in_array($tblKey,$this->_omittedHashFields)){
+					$this->hashEntry();
+					$ok = $this->_db->updateObject($this->_tbl, $this, $this->_tbl_key, $updateNulls);
+					vmdebug('Updated entry with correct hash ',$this->_tbl_key,$p,$this->$tblKey,$oldH,$this->{$this->_hashName});
+				}
+			}
 		}
 
 		//reset Params
@@ -1191,6 +1211,11 @@ class VmTable extends vObject implements JObservableInterface, JTableInterface {
 			}
 		}
 		$this->_tmpParams = false;
+
+		//decrypt the Fields
+		if($this->_cryptedFields){
+				$this->decryptFields();
+		}
 
 		// If the store failed return false.
 		if (!$ok) {
@@ -1328,6 +1353,149 @@ class VmTable extends vObject implements JObservableInterface, JTableInterface {
 
 	}
 
+	function setCheckVendorId(){
+		if(empty($this->virtuemart_vendor_id) and $this->_pkey=='virtuemart_vendor_id'){
+			$this->virtuemart_vendor_id = $this->_pvalue;
+		}
+
+		$multix = Vmconfig::get('multix', 'none');
+		//Lets check if the user is admin or the mainvendor
+		$virtuemart_vendor_id = false;
+		//Todo removed Quickn Dirty, use check in derived class
+		if ($multix == 'none' and get_class($this) !== 'TableVmusers') {
+
+			$this->virtuemart_vendor_id = 1;
+			//return true;
+		} else {
+			//$user = JFactory::getUser();
+			//$loggedVendorId = vmAccess::isSuperVendor($user->id);
+			$loggedVendorId = vmAccess::isSuperVendor();
+			//vmdebug('Table '.$this->_tbl.' check '.$loggedVendorId,$user->id);
+			$user_is_vendor = 0;
+			$tbl_key = $this->_tbl_key;
+			$className = get_class($this);
+
+			$admin = vmAccess::manager('managevendors');
+			//Todo removed Quickn Dirty, use check in derived class
+			if (strpos($this->_tbl,'virtuemart_vmusers')===FALSE) {
+				$q = 'SELECT `virtuemart_vendor_id` FROM `' . $this->_tbl . '` WHERE `' . $this->_tbl_key . '`="' . $this->$tbl_key . '" ';
+				if (!isset(self::$_cache[md5($q)])) {
+					$this->_db->setQuery($q);
+					self::$_cache[md5($q)] = $virtuemart_vendor_id = $this->_db->loadResult();
+				} else $virtuemart_vendor_id = self::$_cache[md5($q)];
+			} else {
+				$q = 'SELECT `virtuemart_vendor_id`,`user_is_vendor`,`virtuemart_user_id` FROM `' . $this->_tbl . '` WHERE `' . $this->_tbl_key . '`="' . $this->$tbl_key . '" ';
+				if (!isset(self::$_cache[md5($q)])) {
+					$this->_db->setQuery($q);
+					$vmuser = $this->_db->loadRow();
+					self::$_cache[md5($q)] = $vmuser;
+				} else $vmuser = self::$_cache[md5($q)];
+
+				vmdebug('Table '.$this->_tbl.' check loaded old entry',$vmuser);
+				if ($vmuser and count($vmuser) === 3) {
+					$virtuemart_vendor_id = $vmuser[0];
+					$user_is_vendor = $vmuser[1];
+
+					if ($multix == 'none') {
+						if (empty($user_is_vendor)) {
+							$this->virtuemart_vendor_id = 0;
+						} else {
+							$this->virtuemart_vendor_id = 1;
+						}
+						return true;
+					} else {
+						vmdebug('Table '.$this->_tbl.' check loaded old entry mv mode',$vmuser);
+						if (!$admin) {
+							if(!empty($vmuser[2])){
+								$user = JFactory::getUser($vmuser[2]);
+								$loggedVendorId = vmAccess::isSuperVendor($user->id);
+								vmdebug('Table '.$this->_tbl.' check new user '.$loggedVendorId);
+							}
+							$this->virtuemart_vendor_id = $loggedVendorId;
+							return true;
+						}
+					}
+				} else {
+					//New User
+					//vmInfo('We run in multivendor mode and you did not set any vendor for '.$className.' and '.$this->_tbl);//, Set to mainvendor '.$this->virtuemart_vendor_id
+					if(empty($this->user_is_vendor)){
+						$this->virtuemart_vendor_id = 0;
+						return true;
+					}
+				}
+			}
+
+			if (!$admin and !empty($virtuemart_vendor_id) and !empty($loggedVendorId) and $loggedVendorId != $virtuemart_vendor_id) {
+				//Todo removed Quickn Dirty, use check in derived class
+				//This is the case when a vendor buys products of vendor1
+				if (strpos($this->_tbl,'virtuemart_order_items')===FALSE and strpos($this->_tbl,'virtuemart_carts')===FALSE) {
+					vmdebug('Blocked storing, logged vendor ' . $loggedVendorId . ' but data belongs to ' . $virtuemart_vendor_id,$this->_tbl);
+					return false;
+				} else {
+					$this->virtuemart_vendor_id = $virtuemart_vendor_id;
+				}
+
+			} else if (!$admin) {
+				if ($virtuemart_vendor_id) {
+					$this->virtuemart_vendor_id = $virtuemart_vendor_id;
+					vmdebug('Non admin is storing using loaded vendor_id');
+				} else {
+					if(empty($this->virtuemart_vendor_id) ){
+						$this->virtuemart_vendor_id = $loggedVendorId;
+					}
+					//No id is stored, even users are allowed to use for the storage and vendorId, no change
+				}
+
+			} else {
+				//Admins are allowed to do anything. We just trhow some messages
+				if (!empty($virtuemart_vendor_id) and $loggedVendorId != $virtuemart_vendor_id) {
+					vmdebug('Admin with vendor id ' . $loggedVendorId . ' is using for storing vendor id ' . $this->virtuemart_vendor_id);
+				}
+				else if (empty($virtuemart_vendor_id) and empty($this->virtuemart_vendor_id)) {
+					if(strpos($this->_tbl,'virtuemart_vendors')===FALSE and strpos($this->_tbl,'virtuemart_vmusers')===FALSE){
+						$this->virtuemart_vendor_id = $loggedVendorId;
+						vmdebug('Fallback to '.$this->virtuemart_vendor_id.' for $loggedVendorId '.$loggedVendorId.': We run in multivendor mode and you did not set any vendor for '.$className.' and '.$this->_tbl);
+					}
+				}
+			}
+		}
+		return true;
+	}
+
+	function hashEntry($set = true){
+
+		$fields = $this->getProperties();
+
+		unset($fields[(string)$this->_hashName]);
+		if(!empty($this->_omittedHashFields)){
+			foreach($this->_omittedHashFields as $prop){
+				unset($fields[(string)$prop]);
+			}
+		}
+
+		$toHash = serialize($fields);
+		$h =  hash('md5',$toHash);
+		if($set ) {
+			$hashName = $this->_hashName;
+			$this->{$hashName} = $h;
+		}
+
+		return $h;
+
+	}
+
+	function integrity(){
+
+		$hashName = $this->_hashName;
+		$oldHash = $this->{$hashName};
+		$hash = $this->hashEntry(false);
+
+		if($oldHash==$hash){
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	/**
 	 * @author Max Milbers
@@ -1423,114 +1591,14 @@ class VmTable extends vObject implements JObservableInterface, JTableInterface {
 
 
 		if (property_exists($this,'virtuemart_vendor_id') ) {
-
-			if(empty($this->virtuemart_vendor_id) and $this->_pkey=='virtuemart_vendor_id'){
-				$this->virtuemart_vendor_id = $this->_pvalue;
-			}
-
-			$multix = Vmconfig::get('multix', 'none');
-			//Lets check if the user is admin or the mainvendor
-			$virtuemart_vendor_id = false;
-			//Todo removed Quickn Dirty, use check in derived class
-			if ($multix == 'none' and get_class($this) !== 'TableVmusers') {
-
-				$this->virtuemart_vendor_id = 1;
-				return true;
-			} else {
-				//$user = JFactory::getUser();
-				//$loggedVendorId = vmAccess::isSuperVendor($user->id);
-				$loggedVendorId = vmAccess::isSuperVendor();
-				//vmdebug('Table '.$this->_tbl.' check '.$loggedVendorId,$user->id);
-				$user_is_vendor = 0;
-				$tbl_key = $this->_tbl_key;
-				$className = get_class($this);
-
-				$admin = vmAccess::manager('managevendors');
-				//Todo removed Quickn Dirty, use check in derived class
-				if (strpos($this->_tbl,'virtuemart_vmusers')===FALSE) {
-					$q = 'SELECT `virtuemart_vendor_id` FROM `' . $this->_tbl . '` WHERE `' . $this->_tbl_key . '`="' . $this->$tbl_key . '" ';
-					if (!isset(self::$_cache[md5($q)])) {
-						$this->_db->setQuery($q);
-						self::$_cache[md5($q)] = $virtuemart_vendor_id = $this->_db->loadResult();
-					} else $virtuemart_vendor_id = self::$_cache[md5($q)];
-				} else {
-					$q = 'SELECT `virtuemart_vendor_id`,`user_is_vendor`,`virtuemart_user_id` FROM `' . $this->_tbl . '` WHERE `' . $this->_tbl_key . '`="' . $this->$tbl_key . '" ';
-					if (!isset(self::$_cache[md5($q)])) {
-						$this->_db->setQuery($q);
-						$vmuser = $this->_db->loadRow();
-						self::$_cache[md5($q)] = $vmuser;
-					} else $vmuser = self::$_cache[md5($q)];
-
-					vmdebug('Table '.$this->_tbl.' check loaded old entry',$vmuser);
-					if ($vmuser and count($vmuser) === 3) {
-						$virtuemart_vendor_id = $vmuser[0];
-						$user_is_vendor = $vmuser[1];
-
-						if ($multix == 'none') {
-							if (empty($user_is_vendor)) {
-								$this->virtuemart_vendor_id = 0;
-							} else {
-								$this->virtuemart_vendor_id = 1;
-							}
-							return true;
-						} else {
-							vmdebug('Table '.$this->_tbl.' check loaded old entry mv mode',$vmuser);
-							if (!$admin) {
-								if(!empty($vmuser[2])){
-									$user = JFactory::getUser($vmuser[2]);
-									$loggedVendorId = vmAccess::isSuperVendor($user->id);
-									vmdebug('Table '.$this->_tbl.' check new user '.$loggedVendorId);
-								}
-								$this->virtuemart_vendor_id = $loggedVendorId;
-								return true;
-							}
-						}
-					} else {
-						//New User
-						//vmInfo('We run in multivendor mode and you did not set any vendor for '.$className.' and '.$this->_tbl);//, Set to mainvendor '.$this->virtuemart_vendor_id
-						if(empty($this->user_is_vendor)){
-							$this->virtuemart_vendor_id = 0;
-							return true;
-						}
-					}
-				}
-
-				if (!$admin and !empty($virtuemart_vendor_id) and !empty($loggedVendorId) and $loggedVendorId != $virtuemart_vendor_id) {
-					//Todo removed Quickn Dirty, use check in derived class
-					//This is the case when a vendor buys products of vendor1
-					if (strpos($this->_tbl,'virtuemart_order_items')===FALSE and strpos($this->_tbl,'virtuemart_carts')===FALSE) {
-						vmdebug('Blocked storing, logged vendor ' . $loggedVendorId . ' but data belongs to ' . $virtuemart_vendor_id,$this->_tbl);
-						return false;
-					} else {
-						$this->virtuemart_vendor_id = $virtuemart_vendor_id;
-					}
-
-				} else if (!$admin) {
-					if ($virtuemart_vendor_id) {
-						$this->virtuemart_vendor_id = $virtuemart_vendor_id;
-						vmdebug('Non admin is storing using loaded vendor_id');
-					} else {
-						if(empty($this->virtuemart_vendor_id) ){
-							$this->virtuemart_vendor_id = $loggedVendorId;
-						}
-						//No id is stored, even users are allowed to use for the storage and vendorId, no change
-					}
-
-				} else {
-					//Admins are allowed to do anything. We just trhow some messages
-					if (!empty($virtuemart_vendor_id) and $loggedVendorId != $virtuemart_vendor_id) {
-						vmdebug('Admin with vendor id ' . $loggedVendorId . ' is using for storing vendor id ' . $this->virtuemart_vendor_id);
-					}
-					else if (empty($virtuemart_vendor_id) and empty($this->virtuemart_vendor_id)) {
-						if(strpos($this->_tbl,'virtuemart_vendors')===FALSE and strpos($this->_tbl,'virtuemart_vmusers')===FALSE){
-							$this->virtuemart_vendor_id = $loggedVendorId;
-							vmdebug('Fallback to '.$this->virtuemart_vendor_id.' for $loggedVendorId '.$loggedVendorId.': We run in multivendor mode and you did not set any vendor for '.$className.' and '.$this->_tbl);
-						}
-					}
-				}
+			if(!$this->setCheckVendorId()){
+				return false;
 			}
 		}
 
+		if(!empty($this->_hashName)){
+			$this->hashEntry();
+		}
 		return true;
 	}
 
@@ -1547,7 +1615,7 @@ class VmTable extends vObject implements JObservableInterface, JTableInterface {
 		$tblKey = $this->_tbl_key;
 		$ok = true;
 		if ($this->_translatable) {
-			if (!class_exists('VmTableData')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmtabledata.php');
+			if (!class_exists('VmTableData')) require(VMPATH_ADMIN .'/helpers/vmtabledata.php');
 			$db = JFactory::getDBO();
 			$dataTable = clone($this);
 			$langTable = new VmTableData($this->_tbl_lang, $tblKey, $db);
@@ -1681,7 +1749,6 @@ class VmTable extends vObject implements JObservableInterface, JTableInterface {
 
 
 		} else {
-
 			if (!$this->bindChecknStoreNoLang($data, $preload)) {
 				$ok = false;
 			}
@@ -1733,7 +1800,6 @@ class VmTable extends vObject implements JObservableInterface, JTableInterface {
 		if ($ok) {
 			if (!$this->checkDataContainsTableFields($data)) {
 				$ok = false;
-				//    			$msg .= ' developer notice:: checkDataContainsTableFields';
 			}
 		}
 
@@ -2177,9 +2243,9 @@ class VmTable extends vObject implements JObservableInterface, JTableInterface {
 
 		if ($this->_translatable) {
 
-			$langs = VmConfig::get('active_languages', array(VmConfig::$jDefLang));
+			$langs = VmConfig::get('active_languages', array(VmConfig::$jDefLangTag));
 			if (!$langs) $langs[] = VmConfig::$vmlang;
-			if (!class_exists('VmTableData')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmtabledata.php');
+			if (!class_exists('VmTableData')) require(VMPATH_ADMIN .'/helpers/vmtabledata.php');
 			foreach ($langs as $lang) {
 				$lang = strtolower(strtr($lang, '-', '_'));
 				$langError = $this->checkAndDelete($this->_tbl . '_' . $lang);

@@ -23,21 +23,21 @@ if( !defined( '_JEXEC' ) ) die( 'Direct Access to '.basename(__FILE__).' is not 
 		/** @var string Product */
 		static $PRODUCT = 'VirtueMart';
 		/** @var int Release Number */
-		static $RELEASE = '3.2.12';
+		static $RELEASE = '3.2.14';
 		/** @var string Development Status */
 		static $DEV_STATUS = 'MAYOR';
 		/** @var string Codename */
 		static $CODENAME = 'Blue Corvus';
 		/** @var string Date */
-		static $RELDATE = 'December 21 2017';
+		static $RELDATE = 'April 05 2018';
 		/** @var string Time */
-		static $RELTIME = '1503';
+		static $RELTIME = '1341';
 		/** @var string Timezone */
 		static $RELTZ = 'GMT';
 		/** @var string Revision */
-		static $REVISION = '9708';
+		static $REVISION = '9808';
 		/** @var string Copyright Text */
-		static $COPYRIGHT = 'Copyright (C) 2004 - 2017 Virtuemart Team. All rights reserved.';
+		static $COPYRIGHT = 'Copyright (C) 2004 - 2018 Virtuemart Team. All rights reserved.';
 		/** @var string URL */
 		static $URL = '<a href="http://virtuemart.net">VirtueMart</a> is a Free ecommerce framework released under the GNU/GPL2 License.';
 

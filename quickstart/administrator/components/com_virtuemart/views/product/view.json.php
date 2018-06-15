@@ -13,7 +13,7 @@
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
-* @version $Id: view.json.php 9572 2017-06-07 15:03:30Z kkmediaproduction $
+* @version $Id: view.json.php 9760 2018-02-14 21:44:17Z Milbo $
 */
 
 // Check to ensure this file is included in Joomla!
@@ -251,7 +251,7 @@ class VirtuemartViewProduct extends VmViewAdmin {
 			//TODO Why do we not use the states of the model directly?
 			//$productModel = VmModel::getModel('product');
 			//$own_category_id = $productModel->filter_order;
-
+			if(!class_exists('ShopFunctions'))require(VMPATH_ADMIN.DS.'helpers'.DS.'shopfunctions.php');
 			if($own_category_id){
 				$html = ShopFunctions::categoryListTree($categories, 0, 0, (array) $own_category_id);
 			} else {

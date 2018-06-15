@@ -13,7 +13,7 @@
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
-* @version $Id: view.html.php 9637 2017-09-21 16:40:35Z Milbo $
+* @version $Id: view.html.php 9797 2018-03-14 12:46:12Z Milbo $
 */
 
 // Check to ensure this file is included in Joomla!
@@ -129,9 +129,18 @@ class VirtuemartViewConfig extends VmViewAdmin {
 		shopFunctions::checkSafePath();
 		$this -> checkTCPDFinstalled();
 		$this -> checkVmUserVendor();
-
+		$this -> checkMysqliUsed();
 		//$this -> checkClientIP();
 		parent::display($tpl);
+	}
+
+	private function checkMysqliUsed(){
+		$config = JFactory::getConfig();
+		$type = $config->get( 'dbtype' );
+		if ($type != 'mysqli') {
+			$msg = 'To ensure seemless working with Virtuemart please use MySQLi as database type in Joomla configuration';
+			vmError($msg,$msg);
+		}
 	}
 
 	private function listIt($ps){

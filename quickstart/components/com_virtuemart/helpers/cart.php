@@ -15,7 +15,7 @@
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
- * @version $Id: cart.php 9656 2017-10-25 11:20:38Z Milbo $
+ * @version $Id: cart.php 9799 2018-03-16 09:24:20Z Milbo $
  */
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
@@ -78,6 +78,7 @@ class VirtueMartCart {
 	var $cartPrices = array();
 	var $layout ;
 	var $layoutPath='';
+	var $orderdoneHtml = false;
 	var $virtuemart_cart_id = 0;
 	var $customer_notified = false;
 	/* @deprecated */
@@ -165,6 +166,8 @@ class VirtueMartCart {
 					self::$_cart->layout						= $sessionCart->layout;
 					self::$_cart->layoutPath				    = $sessionCart->layoutPath;
 					self::$_cart->virtuemart_cart_id			= $sessionCart->virtuemart_cart_id;
+					self::$_cart->orderdoneHtml					= $sessionCart->orderdoneHtml;
+					self::$_cart->virtuemart_order_id			= $sessionCart->virtuemart_order_id;
 				}
 			}
 
@@ -178,7 +181,6 @@ class VirtueMartCart {
 				self::$_cart->virtuemart_paymentmethod_id = self::$_cart->user->virtuemart_paymentmethod_id;
 			}
 
-			//Todo must be removed
 			if((!empty(self::$_cart->user->tos) || !empty(self::$_cart->BT['tos'])) && !VmConfig::get('agree_to_tos_onorder',0) ){
 				self::$_cart->BT['tos'] = 1;
 			}
@@ -307,16 +309,22 @@ class VirtueMartCart {
 					}
 
 					foreach($cartData['cartData'] as $key=>$value){
-						if(is_array($value)){
-							$existingSession->$key = array_merge( $value,(array)$existingSession->$key);
-						} else if(empty($existingSession->$key)){
-							$existingSession->$key = $cartData['cartData']->$key;
-						}
-					}
 
-					if(count($existingSession->_triesValidateCoupon)>6){
-						$existingSession->_triesValidateCoupon = array_slice($existingSession->_triesValidateCoupon,0,6);
-						vmdebug('Coupon were blocked, release 1');
+						if($key == '_triesValidateCoupon'){	//We need this special handling for fallback reasons, we could also just delete stored carts when updating
+							foreach($value as $k=>$v){
+								if($k<100) continue;
+								if(!in_array($v,$existingSession->_triesValidateCoupon)){
+									$existingSession->_triesValidateCoupon[$k] = $v;
+								}
+							}
+						} else {
+							if(is_array($value)){
+								$existingSession->$key = array_merge( $value,(array)$existingSession->$key);
+							} else if(empty($existingSession->$key)){
+								$existingSession->$key = $cartData['cartData']->$key;
+							}
+						}
+
 					}
 				}
 			}
@@ -421,6 +429,8 @@ class VirtueMartCart {
 		$sessionCart->layout						= $this->layout;
 		$sessionCart->layoutPath					= $this->layoutPath;
 		$sessionCart->virtuemart_cart_id			= $this->virtuemart_cart_id;
+		$sessionCart->orderdoneHtml					= $this->orderdoneHtml;
+		$sessionCart->virtuemart_order_id			= $this->virtuemart_order_id;
 		return $sessionCart;
 	}
 
@@ -745,11 +755,12 @@ class VirtueMartCart {
 				if($quantity!=$this->cartProductsData[$key]['quantity']){
 					$this->cartProductsData[$key]['quantity'] = $quantity;
 					$updated = true;
+					vmInfo('COM_VIRTUEMART_PRODUCT_UPDATED_SUCCESSFULLY');
 				}
 
 			} else {
-				//Todo when quantity is 0,  the product should be removed, maybe necessary to gather in array and execute delete func
 				unset($this->cartProductsData[$key]);
+				vmInfo('COM_VIRTUEMART_PRODUCT_REMOVED_SUCCESSFULLY');
 				$updated = true;
 			}
 		}
@@ -794,15 +805,44 @@ class VirtueMartCart {
 		}
 
 		$this->prepareCartData();
-		//$this->getCartPrices();
 
+		$msg = $this->validateCoupon($coupon_code);
+		//$this->getCartPrices();
+		if(empty($msg)){
+			$this->couponCode = $coupon_code;
+
+			$this->prepareCartData(true);
+			$this->setCartIntoSession(true,true);
+			return vmText::_('COM_VIRTUEMART_CART_COUPON_VALID');
+		} else {
+			$this->couponCode = '';
+			$this->setCartIntoSession(true,true);
+			return $msg;
+		}
+
+
+
+	}
+
+	public function validateCoupon($coupon_code){
+
+		$timeDeleteTries = time() - (24 * 60 * 60);
+		foreach($this->_triesValidateCoupon as $k=>$v){
+			if($k<8 or $k<$timeDeleteTries){
+				unset($this->_triesValidateCoupon[$k]);
+			}
+		}
+
+		$couponTryTime = (string)time();
 		if(!in_array($coupon_code,$this->_triesValidateCoupon)){
-			$this->_triesValidateCoupon[] = $coupon_code;
+			$this->_triesValidateCoupon[$couponTryTime] = $coupon_code;
 		}
 
 		if(count($this->_triesValidateCoupon)<8){
-			vmdebug('setCouponCode',$coupon_code, $this->cartPrices['salesPrice']);
-			$msg = CouponHelper::ValidateCouponCode($coupon_code, $this->cartPrices['salesPrice']);;
+			$msg = CouponHelper::ValidateCouponCode($coupon_code, $this->cartPrices['salesPrice']);
+			if(empty($msg)){
+				$this->_triesValidateCoupon = array();	//A valid couponcode means we had a normal customer
+			}
 		} else{
 			$msg = vmText::_('COM_VIRTUEMART_CART_COUPON_TOO_MANY_TRIES');
 		}
@@ -810,68 +850,41 @@ class VirtueMartCart {
 		if (!empty($msg)) {
 			$this->_dataValidated = false;
 			$this->_blockConfirm = true;
-			$this->getCartPrices(true);
-			$this->setCartIntoSession();
 			return $msg;
 		}
-		$this->couponCode = $coupon_code;
-		//$this->getCartPrices(true);
-		$this->prepareCartData(true);
-		$this->setCartIntoSession(true);
-		return vmText::_('COM_VIRTUEMART_CART_COUPON_VALID');
+
+		return '';
 	}
 
-	/**
-	 * Check the selected shipment data and store the info in the cart
-	 * @param integer $shipment_id Shipment ID taken from the form data
-	 * @author Max Milbers
-	 */
-	public function setShipmentMethod($force=false, $redirect=true, $virtuemart_shipmentmethod_id = null) {
+	public function setMethod($type,$force=false, $redirect=true, $id = null) {
 
-		if(!isset($virtuemart_shipmentmethod_id)) $virtuemart_shipmentmethod_id = vRequest::getInt('virtuemart_shipmentmethod_id', $this->virtuemart_shipmentmethod_id);
-		if($this->virtuemart_shipmentmethod_id != $virtuemart_shipmentmethod_id or (!empty($virtuemart_shipmentmethod_id) and $force)){
-			//$this->_dataValidated = false;
-			//Now set the shipment ID into the cart
-			$this->virtuemart_shipmentmethod_id = $virtuemart_shipmentmethod_id;
-			if (!class_exists('vmPSPlugin')) require(VMPATH_PLUGINLIBS . DS . 'vmpsplugin.php');
-			JPluginHelper::importPlugin('vmshipment');
-
-			//Add a hook here for other payment methods, checking the data of the choosed plugin
-			$_dispatcher = JDispatcher::getInstance();
-			$_retValues = $_dispatcher->trigger('plgVmOnSelectCheckShipment', array( &$this));
-			$dataValid = true;
-			foreach ($_retValues as $_retVal) {
-				if ($_retVal === true ) {
-					$this->setCartIntoSession();
-					// Plugin completed successfull; nothing else to do
-					break;
-				} else if ($_retVal === false ) {
-					if ($redirect) {
-						$mainframe = JFactory::getApplication();
-						$mainframe->redirect(JRoute::_('index.php?option=com_virtuemart&view=cart&task=edit_shipment',$this->useXHTML,$this->useSSL), $_retVal);
-						break;
-					} else {
-						return;
-					}
-				}
-			}
-			$this->setCartIntoSession();
+		if($type){
+			$idN = 'virtuemart_paymentmethod_id';
+			$task = 'editpayment';
+			$vmplugin = 'vmpayment';
+		} else {
+			$idN = 'virtuemart_shipmentmethod_id';
+			$task = 'editshipment';
+			$vmplugin = 'vmshipment';
 		}
-	}
+		if(!isset($id)) $id = vRequest::getInt($idN, $this->{$idN});
+		if($this->$idN != $id or (!empty($id) and $force)){
 
-	public function setPaymentMethod($force=false, $redirect=true, $virtuemart_paymentmethod_id = null) {
-
-		if(!isset($virtuemart_paymentmethod_id)) $virtuemart_paymentmethod_id = vRequest::getInt('virtuemart_paymentmethod_id', $this->virtuemart_paymentmethod_id);
-		if($this->virtuemart_paymentmethod_id != $virtuemart_paymentmethod_id or (!empty($virtuemart_paymentmethod_id) and $force)){
-			//$this->_dataValidated = false;
-			$this->virtuemart_paymentmethod_id = $virtuemart_paymentmethod_id;
+			$this->$idN = $id;
 			if(!class_exists('vmPSPlugin')) require(VMPATH_PLUGINLIBS.DS.'vmpsplugin.php');
-			JPluginHelper::importPlugin('vmpayment');
+			JPluginHelper::importPlugin($vmplugin);
 
-			//Add a hook here for other payment methods, checking the data of the choosed plugin
+			//Add a hook here for other methods, checking the data of the choosed plugin
 			$msg = '';
 			$_dispatcher = JDispatcher::getInstance();
-			$_retValues = $_dispatcher->trigger('plgVmOnSelectCheckPayment', array( $this, &$msg));
+
+			//@Todo we need actually &this,$msg for both triggers.
+			if($type){
+				$_retValues = $_dispatcher->trigger('plgVmOnSelectCheckPayment', array( $this, &$msg));
+			} else {
+				$_retValues = $_dispatcher->trigger('plgVmOnSelectCheckShipment', array( &$this));
+			}
+
 			$dataValid = true;
 			foreach ($_retValues as $_retVal) {
 				if ($_retVal === true ) {
@@ -881,7 +894,7 @@ class VirtueMartCart {
 				} else if ($_retVal === false ) {
 					if ($redirect) {
 						$app = JFactory::getApplication();
-						$app->redirect(JRoute::_('index.php?option=com_virtuemart&view=cart&task=editpayment',$this->useXHTML,$this->useSSL), $msg);
+						$app->redirect(JRoute::_('index.php?option=com_virtuemart&view=cart&task='.$task,$this->useXHTML,$this->useSSL), $msg);
 						break;
 					} else {
 						return;
@@ -890,6 +903,21 @@ class VirtueMartCart {
 			}
 			$this->setCartIntoSession();
 		}
+	}
+
+	/**
+	 * Check the selected shipment data and store the info in the cart
+	 * @param integer $shipment_id Shipment ID taken from the form data
+	 * @author Max Milbers
+	 */
+	public function setShipmentMethod($force=false, $redirect=true, $virtuemart_shipmentmethod_id = null) {
+
+		$this->setMethod(false, $force, $redirect, $virtuemart_shipmentmethod_id);
+	}
+
+	public function setPaymentMethod($force=false, $redirect=true, $virtuemart_paymentmethod_id = null) {
+
+		$this->setMethod(true, $force, $redirect, $virtuemart_paymentmethod_id);
 
 	}
 
@@ -905,16 +933,22 @@ class VirtueMartCart {
 
 		//Final check
 		$this->checkoutData(false);
+		$app = JFactory::getApplication();
 		if ($this->_dataValidated == $cHash) {
 			$this->_confirmDone = true;
 			$this->orderDetails = 0;
-			$this->confirmedOrder();
-		} else {
-			$this->_dataValidated = false;
-			$this->_confirmDone = false;
-			$app = JFactory::getApplication();
-			$app->redirect(JRoute::_('index.php?option=com_virtuemart&view=cart'.$this->getLayoutUrlString(), FALSE), vmText::_('COM_VIRTUEMART_CART_CHECKOUT_DATA_NOT_VALID'));
+			if($this->confirmedOrder()){
+
+				return true;
+			}
+
 		}
+
+		$this->_dataValidated = false;
+		$this->_confirmDone = false;
+
+		$app->redirect(JRoute::_('index.php?option=com_virtuemart&view=cart'.$this->getLayoutUrlString(), FALSE), vmText::_('COM_VIRTUEMART_CART_CHECKOUT_DATA_NOT_VALID'));
+
 	}
 
 	private function redirecter($relUrl,$redirectMsg){
@@ -954,6 +988,7 @@ class VirtueMartCart {
 		$layoutName = $this->getLayoutUrlString();
 
 		$this->_inCheckOut = true;
+		$this->orderdoneHtml = false;
 		//This prevents that people checkout twice
 		$this->setCartIntoSession(false,true);
 
@@ -1015,15 +1050,8 @@ class VirtueMartCart {
 			if (!class_exists('CouponHelper')) {
 				require(VMPATH_SITE . DS . 'helpers' . DS . 'coupon.php');
 			}
+			$redirectMsg = $this->validateCoupon($this->couponCode);
 
-			if(!in_array($this->couponCode,$this->_triesValidateCoupon)){
-				$this->_triesValidateCoupon[] = $this->couponCode;
-			}
-			if(count($this->_triesValidateCoupon)<8){
-				$redirectMsg = CouponHelper::ValidateCouponCode($this->couponCode, $this->cartPrices['salesPrice']);
-			} else{
-				$redirectMsg = vmText::_('COM_VIRTUEMART_CART_COUPON_TOO_MANY_TRIES');
-			}
 
 			if (!empty($redirectMsg)) {
 				$this->couponCode = '';
@@ -1181,21 +1209,20 @@ class VirtueMartCart {
 			//We set this in the trigger of the plugin. so old plugins keep the old behaviour
 			$orderModel = VmModel::getModel('orders');
 
-			if(!$this->virtuemart_order_id){
-				$this->virtuemart_order_id = $orderModel->createOrderFromCart($this);
-				if (!$this->virtuemart_order_id) {
-					$mainframe = JFactory::getApplication();
-					//vmError('No order created '.$orderModel->getError());
-					$mainframe->redirect(JRoute::_('index.php?option=com_virtuemart&view=cart', FALSE) );
-				}
+			$this->virtuemart_order_id = $orderModel->createOrderFromCart($this);
+			if (!$this->virtuemart_order_id) {
+				$mainframe = JFactory::getApplication();
+				//vmError('No order created '.$orderModel->getError());
+				$mainframe->redirect(JRoute::_('index.php?option=com_virtuemart&view=cart', FALSE) );
 			}
 
+			$orderId = $this->virtuemart_order_id;
 			//$orderDetails = $orderModel->getMyOrderDetails($this->virtuemart_order_id,$this->order_number,$this->order_pass);
 			$orderDetails = $orderModel->getOrder($this->virtuemart_order_id);
 
 			if(!$orderDetails or empty($orderDetails['details'])){
 				echo vmText::_('COM_VIRTUEMART_CART_ORDER_NOTFOUND');
-				return;
+				return false;
 			}
 
 			$dispatcher = JDispatcher::getInstance();
@@ -1209,14 +1236,13 @@ class VirtueMartCart {
 
 			$returnValues = $dispatcher->trigger('plgVmConfirmedOrder', array($this, $orderDetails));
 
-			if( $this->_confirmDone ) {
-				$lifetime = (24 * 60 * 60) * 180; //180 days
-				if(!class_exists('vmCrypt')){
-					require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcrypt.php');
-				}
 
-				if(!$this->customer_notified ) {
-					$orderModel->notifyCustomer($this->virtuemart_order_id, $orderDetails);
+			if($this->orderdoneHtml===false){
+				$orderDoneHtml = vRequest::get('html', false);
+				if($orderDoneHtml){
+					$this->orderdoneHtml = $orderDoneHtml;
+				} else {
+					$this->orderdoneHtml = vmText::_('COM_VIRTUEMART_ORDER_PROCESSED');
 				}
 			}
 
@@ -1225,8 +1251,9 @@ class VirtueMartCart {
 			// 1 = cart should be emptied, 0 cart should not be emptied
 			$this->setCartIntoSession(false,true);
 
-			return $this->virtuemart_order_id;
+			return $orderId;
 		}
+		return false;
 	}
 
 	public function getCartHash(){
@@ -1262,6 +1289,17 @@ class VirtueMartCart {
 	 */
 	static public function emptyCartValues(&$cart, $session = true){
 
+		//if we used a coupon, we must set it in final use now
+		$couponCode = '';
+		if(!empty($cart->couponCode)){
+			$couponCode = $cart->couponCode;
+		} else if(!empty($cart->cartData['couponCode'])){
+			$couponCode = $cart->cartData['couponCode'];
+		}
+		if(!empty($cart->couponCode)){
+			CouponHelper::setInUseCoupon($couponCode, true, 1);
+		}
+
 		//We delete the old stuff
 		$cart->products = array();
 		$cart->cartProductsData = array();
@@ -1280,7 +1318,7 @@ class VirtueMartCart {
 		$cart->_inConfirm = false;
 		$cart->totalProduct=false;
 		$cart->productsQuantity=array();
-		$cart->virtuemart_order_id = null;
+		$cart->virtuemart_order_id = false;
 		$cart->layout = VmConfig::get('cartlayout','default');
 		if($session){
 			$cart->deleteCart();
@@ -1307,27 +1345,21 @@ class VirtueMartCart {
 					$tmp = vRequest::getInt($name,0);
 				} else {
 					$tmp = vRequest::getString($name,null);
-				}
+					if(isset($tmp)){
+						if(!empty($tmp)){
+							if(is_array($tmp)){
+								$tmp = implode("|*|",$tmp);
+							}
 
-				if(isset($tmp)){
-					if(!empty($tmp)){
-						if(is_array($tmp)){
-							$tmp = implode("|*|",$tmp);
-						}
-						if (version_compare(phpversion(), '5.4.0', '<')) {
-							// php version isn't high enough
-							$tmp = htmlspecialchars ($tmp,ENT_QUOTES,'UTF-8',false);	//ENT_SUBSTITUTE only for php5.4 and higher
-						} else {
-							$tmp = htmlspecialchars ($tmp,ENT_QUOTES|ENT_SUBSTITUTE,'UTF-8',false);
+							$tmp = vRequest::vmSpecialChars($tmp);
+
+							//$tmp = (string)preg_replace('#on[a-z](.+?)\)#si','',$tmp);//replace start of script onclick() onload()...
 						}
 
-						$tmp = (string)preg_replace('#on[a-z](.+?)\)#si','',$tmp);//replace start of script onclick() onload()...
+						$this->cartfields[$name] = $tmp;
+						//vmdebug('Store $this->cartfields[$name] '.$name.' '.$tmp);
 					}
-
-					$this->cartfields[$name] = $tmp;
-					//vmdebug('Store $this->cartfields[$name] '.$name.' '.$tmp);
 				}
-
 			}
 		}
 		$this->BT = array_merge((array)$this->BT,(array)$this->cartfields);
@@ -1354,7 +1386,7 @@ class VirtueMartCart {
 		} else { // BT
 			if(empty($data['email'])){
 				$jUser = JFactory::getUser();
-				$address['email'] = $jUser->email;
+				if(!empty($jUser->email)) $data['email'] = $jUser->email;
 			}
 		}
 
@@ -1433,7 +1465,7 @@ class VirtueMartCart {
 						$addr = $this->BT;
 					}
 				} else if($this->ST == 0){
-					vmdebug('getST ST=0, use BT');
+					//vmdebug('getST ST=0, use BT');
 					$addr = $this->BT;
 				}
 			}
@@ -1700,15 +1732,43 @@ class VirtueMartCart {
 			return false;
 		}
 
-		// Check to see if checking stock quantity
+		$checkForDisable = false;
 		if ($stockhandle!='none' && $stockhandle!='risetime') {
+			$checkForDisable = true;
+		}
 
+		// Check for the minimum and maximum quantities
+		$min = $product->min_order_level;
+		if ($min != 0 && $quantity < $min){
+			$quantity = $min;
+			$errorMsg = vmText::sprintf('COM_VIRTUEMART_CART_MIN_ORDER', $min, $product->product_name);
+			vmInfo($errorMsg,$product->product_name);
+			if (!$checkForDisable) return false;
+		}
+
+		$max = $product->max_order_level;
+		if ($max != 0 && $quantity > $max) {
+			$quantity = $max;
+			$errorMsg = vmText::sprintf('COM_VIRTUEMART_CART_MAX_ORDER', $max, $product->product_name);
+			vmInfo($errorMsg,$product->product_name);
+			if (!$checkForDisable) return false;
+		}
+
+		$step = $product->step_order_level;
+		if ($step != 0 && ($quantity%$step)!= 0) {
+			$quantity = $quantity + ($quantity%$step);
+			$errorMsg = vmText::sprintf('COM_VIRTUEMART_CART_STEP_ORDER', $step);
+			vmInfo($errorMsg,$product->product_name);
+			if (!$checkForDisable) return false;
+		}
+
+		// Check to see if checking stock quantity
+		if ($checkForDisable) {
 			$productsleft = $product->product_in_stock - $product->product_ordered;
 
-			// TODO $productsleft = $product->product_in_stock - $product->product_ordered - $quantityincart ;
-			if ($quantity > $productsleft ){
+			if ($quantity >= $productsleft ){
 				vmdebug('my products left '.$productsleft.' and my quantity '.$quantity);
-				if($productsleft>0){
+				if($productsleft>=$min ){
 					$quantity = $productsleft;
 					$product->errorMsg = vmText::sprintf('COM_VIRTUEMART_CART_PRODUCT_OUT_OF_QUANTITY',$product->product_name,$quantity);
 					vmError($product->errorMsg);
@@ -1723,30 +1783,6 @@ class VirtueMartCart {
 			}
 		}
 
-		// Check for the minimum and maximum quantities
-		$min = $product->min_order_level;
-		if ($min != 0 && $quantity < $min){
-			$quantity = $min;
-			$errorMsg = vmText::sprintf('COM_VIRTUEMART_CART_MIN_ORDER', $min, $product->product_name);
-			vmInfo($errorMsg,$product->product_name);
-			return false;
-		}
-
-		$max = $product->max_order_level;
-		if ($max != 0 && $quantity > $max) {
-			$quantity = $max;
-			$errorMsg = vmText::sprintf('COM_VIRTUEMART_CART_MAX_ORDER', $max, $product->product_name);
-			vmInfo($errorMsg,$product->product_name);
-			return false;
-		}
-
-		$step = $product->step_order_level;
-		if ($step != 0 && ($quantity%$step)!= 0) {
-			$quantity = $quantity + ($quantity%$step);
-			$errorMsg = vmText::sprintf('COM_VIRTUEMART_CART_STEP_ORDER', $step);
-			vmInfo($errorMsg,$product->product_name);
-			return false;
-		}
 		return true;
 	}
 

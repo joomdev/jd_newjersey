@@ -140,12 +140,12 @@ class Document {
 				//$this->addCssFile(\G2\Globals::get('FRONT_URL').'assets/semantic-ui/fixes.semantic.css');
 				if(!empty($params['css'])){
 					foreach($params['css'] as $css_item){
-						$this->addCssFile(\G2\Globals::get('FRONT_URL').'assets/semantic-ui/components/'.$css_item.$inline.'.min.css');
+						//$this->addCssFile(\G2\Globals::get('FRONT_URL').'assets/semantic-ui/components/'.$css_item.$inline.'.min.css');
 					}
 				}
 				if(!empty($params['js'])){
 					foreach($params['js'] as $js_item){
-						$this->addJsFile(\G2\Globals::get('FRONT_URL').'assets/semantic-ui/components/'.$js_item.'.min.js');
+						//$this->addJsFile(\G2\Globals::get('FRONT_URL').'assets/semantic-ui/components/'.$js_item.'.min.js');
 					}
 				}
 				
@@ -330,8 +330,9 @@ class Document {
 		$this->_('jquery');
 		
 		if(\G2\L\Config::get('template.semantic.dynamic', 1)){
-			$this->addJsFile('semantic_js');
-			$this->addCssFile('semantic_css');
+			//$this->addJsFile('semantic_js');
+			//$this->addCssFile('semantic_css');
+			$this->_semantic2();
 		}
 		
 		$this->_('g2');
@@ -346,7 +347,7 @@ class Document {
 	
 	public function _build($buffer){
 		if(\G2\L\Config::get('template.semantic.dynamic', 1)){
-			$this->_semantic($buffer);
+			//$this->_semantic($buffer);
 		}
 		$this->_extras($buffer);
 		//$this->_('semantic-ui', ['inline' => true]);
@@ -371,6 +372,23 @@ class Document {
 		
 		if(strpos($buffer, 'G2-form2') !== false){
 			$this->_('g2.forms2');
+		}
+	}
+	
+	public function _semantic2(){
+		//$this->addJsFile('semantic_js');
+		//$this->addCssFile('semantic_css');
+		
+		$csss = ['reset.inline.min.css', 'site.inline.min.css', 'semantic.min.css', 'text.css', 'fixes.semantic.css'];
+		foreach($csss as $css){
+			$path = \G2\Globals::get('FRONT_URL').'assets/semantic-ui/';
+			$this->addCssFile($path.$css);
+		}
+		
+		$jss = ['semantic.min.js'];
+		foreach($jss as $js){
+			$path = \G2\Globals::get('FRONT_URL').'assets/semantic-ui/';
+			$this->addJsFile($path.$js);
 		}
 	}
 	
@@ -558,7 +576,9 @@ class Document {
 		}
 		
 		$path = \G2\Globals::get('FRONT_URL').'assets/semantic-ui/fixes.semantic.css';
-		//$path = $this->relative($path);
+		$css_files[] = array('href' => $path, 'media' => 'screen', 'rel' => 'stylesheet', 'type' => 'text/css');
+		
+		$path = \G2\Globals::get('FRONT_URL').'assets/semantic-ui/text.css';
 		$css_files[] = array('href' => $path, 'media' => 'screen', 'rel' => 'stylesheet', 'type' => 'text/css');
 		
 		$js_files = [];

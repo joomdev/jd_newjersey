@@ -63,7 +63,7 @@ class Document extends \G2\L\Document {
 	
 	public function buildHeader(){
 		$JDocument = \JFactory::getDocument();
-		$this->package();
+		//$this->package();
 		
 		foreach($this->cssfiles as $k => $cssfile){
 			$JDocument->addStyleSheet($cssfile['href']);

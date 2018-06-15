@@ -4,7 +4,8 @@ defined("GCORE_SITE") or die;
 ?>
 <div class="ui segment tab functions-tab active" data-tab="function-<?php echo $n; ?>">
 	<?php
-		if(\GApp::extension()->valid('2checkout') OR \GApp::extension()->valid('extras')):
+		//if(\GApp::extension()->valid('2checkout') OR \GApp::extension()->valid('extras')):
+		if(\GApp::extension()->valid()):
 	?>
 		<div class="ui message green">The 2Checkout function is validated, thank you.</div>
 	<?php else: ?>

@@ -41,7 +41,8 @@ defined("GCORE_SITE") or die;
 		$vurl= 'https://ipnpb.paypal.com/cgi-bin/webscr';
 	}
 	
-	if(!\GApp::extension()->valid('paypal') AND !\GApp::extension()->valid('extras')){
+	//if(!\GApp::extension()->valid('paypal') AND !\GApp::extension()->valid('extras')){
+	if(!\GApp::extension()->valid()){
 		$vurl= 'https://ipnpb.sandbox.paypal.com/cgi-bin/webscr';
 	}
 	

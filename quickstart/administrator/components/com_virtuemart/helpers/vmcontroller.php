@@ -231,7 +231,7 @@ class VmController extends JControllerLegacy{
 	 * @author Max Milbers , Patrick Kohl
 	 */
 
-	public function toggle($field,$val=null){
+	public function toggle($field = 0, $val=null){
 
 		vRequest::vmCheckToken();
 

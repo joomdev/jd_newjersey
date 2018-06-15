@@ -8,70 +8,104 @@ defined("GCORE_SITE") or die;
 	</a>
 	<?php
 		$menuitems = array_merge($menuitems, [
-			['act' => 'clear_cache', 'title' => rl('Clear cache')],
-			['cont' => 'languages', 'title' => rl('Languages')],
+			['act' => 'clear_cache', 'title' => rl('Clear cache'), 'hidden' => true],
+			['cont' => 'languages', 'title' => rl('Languages'), 'hidden' => true],
 			['act' => 'validateinstall', 'title' => rl('Validate')],
 		]);
 	?>
 	<?php foreach($menuitems as $k => $amdata): ?>
 		<?php
-			$active = '';
+			$menuitems[$k]['active'] = '';
 			$icon = '';
 			
 			if(!empty($amdata['cont'])){
 				if($this->controller == $amdata['cont']){
-					$active = 'active';
+					$menuitems[$k]['active'] = 'active';
 				}
 				
 				if($amdata['cont'] == 'languages'){
-					$icon = 'translate';
+					$menuitems[$k]['icon'] = 'translate';
 				}
 				
 				if($amdata['cont'] == 'tags'){
-					$icon = 'tag';
+					$menuitems[$k]['icon'] = 'tag';
 				}
 			}
 			if(!empty($amdata['act'])){
 				if($this->action == $amdata['act']){
-					$active = 'active';
+					$menuitems[$k]['active'] = 'active';
 				}
 				
 				if($amdata['act'] == 'install_feature'){
-					$icon = 'magic';
+					$menuitems[$k]['icon'] = 'magic';
 				}
 				
 				if($amdata['act'] == 'clear_cache'){
-					$icon = 'refresh';
+					$menuitems[$k]['icon'] = 'refresh';
 				}
 				
 				if($amdata['act'] == 'validateinstall'){
-					$icon = 'checkmark green';
+					$menuitems[$k]['icon'] = 'checkmark';
 				}
 				
 				if($amdata['act'] == 'info'){
-					$icon = 'question';
+					$menuitems[$k]['icon'] = 'question';
 				}
 				
 				if($amdata['act'] == 'settings'){
-					$icon = 'settings';
+					$menuitems[$k]['icon'] = 'settings';
 				}
 				
 				if($amdata['act'] == 'permissions'){
-					$icon = 'key';
+					$menuitems[$k]['icon'] = 'key';
 				}
 			}
 			
 			if(!empty($amdata['icon'])){
-				$icon = $amdata['icon'];
+				$menuitems[$k]['icon'] = $amdata['icon'];
 			}
 			
-			$url = 'index.php?ext='.$this->extension.(!empty($amdata['cont']) ? '&cont='.$amdata['cont'] : '').(!empty($amdata['act']) ? '&act='.$amdata['act'] : '');
+			$menuitems[$k]['url'] = 'index.php?ext='.$this->extension.(!empty($amdata['cont']) ? '&cont='.$amdata['cont'] : '').(!empty($amdata['act']) ? '&act='.$amdata['act'] : '');
+			
+			if(!empty($amdata['hidden'])){
+				continue;
+			}
 		?>
-		<a class="item blue <?php echo $active; ?>" href="<?php echo r2($url); ?>">
-			<?php if(!empty($icon)): ?>
-				<i class="<?php echo $icon; ?> icon"></i>
+		<a class="item blue <?php echo $menuitems[$k]['active']; ?>" href="<?php echo r2($menuitems[$k]['url']); ?>">
+			<?php if(!empty($menuitems[$k]['icon'])): ?>
+				<i class="<?php echo $menuitems[$k]['icon']; ?> icon"></i>
 			<?php endif; ?>
 			<?php echo $amdata['title']; ?>
+			<?php
+				if(!empty($amdata['act']) AND $amdata['act'] == 'validateinstall'){
+					$valid = \GApp::extension($this->get('ext'))->valid();
+					if($valid === false){
+						echo '&nbsp;<i class="icon exclamation red circular inverted small"></i>';
+					}else if($valid === true){
+						echo '&nbsp;<i class="icon checkmark green circular inverted small"></i>';
+					}else if(is_numeric($valid)){
+						echo '<span class="ui label green"><i class="icon checkmark"></i>'.rl('%s days left', [$valid]).'</span>';
+					}
+				}
+			?>
 		</a>
 	<?php endforeach; ?>
+	<div class="ui dropdown icon item">
+		<i class="ellipsis horizontal icon"></i>
+		<div class="menu">
+			<?php foreach($menuitems as $k => $amdata): ?>
+				<?php
+					if(empty($amdata['hidden'])){
+						continue;
+					}
+				?>
+				<a class="item blue <?php echo $menuitems[$k]['active']; ?>" href="<?php echo r2($menuitems[$k]['url']); ?>">
+					<?php if(!empty($menuitems[$k]['icon'])): ?>
+						<i class="<?php echo $menuitems[$k]['icon']; ?> icon"></i>
+					<?php endif; ?>
+					<?php echo $amdata['title']; ?>
+				</a>
+			<?php endforeach; ?>
+		</div>
+	</div>
 </div>

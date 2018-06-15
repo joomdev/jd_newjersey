@@ -13,7 +13,7 @@
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
- * @version $Id: cart.php 9663 2017-11-09 00:00:38Z Milbo $
+ * @version $Id: cart.php 9737 2018-01-24 00:04:59Z Milbo $
  */
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
@@ -151,9 +151,8 @@ class VirtueMartControllerCart extends JControllerLegacy {
 
 		$cart->saveCartFieldsInCart();
 
-		//For storing cartfields
+		/*For storing cartfields
 		$currentUser = JFactory::getUser();
-		/*
 		$userModel = VmModel::getModel('user');
 
 		if($currentUser->guest!=1 and !empty($currentUser->id)){
@@ -169,7 +168,7 @@ class VirtueMartControllerCart extends JControllerLegacy {
 		*/
 
 		if($cart->updateProductCart()){
-			vmInfo('COM_VIRTUEMART_PRODUCT_UPDATED_SUCCESSFULLY');
+			//vmInfo('COM_VIRTUEMART_PRODUCT_UPDATED_SUCCESSFULLY');
 		}
 
 
@@ -178,7 +177,7 @@ class VirtueMartControllerCart extends JControllerLegacy {
 			$cart->STsameAsBT = $STsameAsBT;
 		}
 
-		//$currentUser = JFactory::getUser();
+		$currentUser = JFactory::getUser();
 		if(!$currentUser->guest){
 			$cart->selected_shipto = vRequest::getVar('shipto', $cart->selected_shipto);
 			if(!empty($cart->selected_shipto)){
@@ -248,6 +247,10 @@ class VirtueMartControllerCart extends JControllerLegacy {
 	 * @deprecated
 	 */
 	public function confirm(){
+		$this->updatecart();
+	}
+
+	public function orderdone(){
 		$this->updatecart();
 	}
 

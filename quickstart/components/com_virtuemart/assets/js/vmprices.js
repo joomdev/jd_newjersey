@@ -14,7 +14,7 @@ Virtuemart.setproducttype = function(form, id) {
 		runs++;
 	}
 	if(runs>maxruns){
-		console.log('setproducttype: Could not find parent container product-container nor product-field-display');
+		//console.log('setproducttype: Could not find parent container product-container nor product-field-display');
 		return false;
 	}
 

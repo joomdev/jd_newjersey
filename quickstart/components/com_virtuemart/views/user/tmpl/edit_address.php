@@ -13,7 +13,7 @@
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
- * @version $Id: edit_address.php 9578 2017-06-13 13:03:32Z Milbo $
+ * @version $Id: edit_address.php 9801 2018-03-16 17:08:49Z yourgeek $
  */
 // Check to ensure this file is included in Joomla!
 defined ('_JEXEC') or die('Restricted access');
@@ -107,22 +107,7 @@ echo shopFunctionsF::getLoginForm (TRUE, FALSE, $url);
 	</h2>
 
 	<!--<form method="post" id="userForm" name="userForm" action="<?php echo JRoute::_ ('index.php'); ?>" class="form-validate">-->
-	<?php renderControlButtons($this,$rview); ?>
-
-<?php // captcha addition
-	if(VmConfig::get ('reg_captcha') && JFactory::getUser()->guest == 1){
-		$captcha_visible = vRequest::getVar('captcha');
-		$hide_captcha = (VmConfig::get ('oncheckout_only_registered') or $captcha_visible) ? '' : 'style="display: none;"';
-		?>
-		<fieldset id="recaptcha_wrapper" <?php echo $hide_captcha ?>>
-			<?php if(!VmConfig::get ('oncheckout_only_registered')) { ?>
-				<span class="userfields_info"><?php echo vmText::_ ('COM_VIRTUEMART_USER_FORM_CAPTCHA'); ?></span>
-			<?php } ?>
-			<?php
-			echo $this->captcha; ?>
-		</fieldset>
-<?php }
-	// end of captcha addition
+	<?php renderControlButtons($this,$rview);
 
 	if (!class_exists ('VirtueMartCart')) {
 		require(VMPATH_SITE . DS . 'helpers' . DS . 'cart.php');
@@ -135,6 +120,18 @@ echo shopFunctionsF::getLoginForm (TRUE, FALSE, $url);
 	}
 
 	echo $this->loadTemplate ('userfields');
+
+	// captcha addition
+	if(VmConfig::get ('reg_captcha') && JFactory::getUser()->guest == 1){
+		?>
+		<fieldset id="recaptcha_wrapper">
+			<?php if(!VmConfig::get ('oncheckout_only_registered')) { ?>
+				<span class="userfields_info"><?php echo vmText::_ ('COM_VIRTUEMART_USER_FORM_CAPTCHA'); ?></span>
+			<?php } ?>
+			<?php echo $this->captcha; ?>
+		</fieldset><?php }
+	// end of captcha addition
+
 	renderControlButtons($this,$rview);
 	if ($this->userDetails->JUser->get ('id')) {
 		echo $this->loadTemplate ('addshipto');

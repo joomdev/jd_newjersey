@@ -13,7 +13,7 @@
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
- * @version $Id: shipmentmethod.php 9559 2017-05-29 16:15:32Z Milbo $
+ * @version $Id: shipmentmethod.php 9802 2018-03-20 15:22:11Z Milbo $
  */
 
 // Check to ensure this file is included in Joomla!
@@ -70,7 +70,7 @@ class VirtueMartModelShipmentmethod extends VmModel {
 
 			if(empty($this->_cache[$this->_id]->virtuemart_vendor_id)){
 				//if(!class_exists('VirtueMartModelVendor')) require(VMPATH_ADMIN.DS.'models'.DS.'vendor.php');
-				$this->_cache[$this->_id]->virtuemart_vendor_id = vmAccess::getVendorId('vm.shipmentmethod.edit');;
+				$this->_cache[$this->_id]->virtuemart_vendor_id = vmAccess::getVendorId('shipmentmethod.edit');;
 			}
 
 			if ($this->_cache[$this->_id]->shipment_jplugin_id) {

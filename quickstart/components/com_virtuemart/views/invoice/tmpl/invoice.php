@@ -32,11 +32,9 @@ if(!empty($this->vendor->vendor_letter_css)) { ?>
 	</style>
 <?php }
 
-$this->vendor->vendor_letter_header_image;
-
 if ($this->headFooter) {
     ?>
-<style><?php echo $this->vendor->vendor_letter_css; ?></style>
+
 <div class="vendor-details-view">
 <?php echo $this->replaceVendorFields($this->vendor->vendor_letter_header_html, $this->vendor); ?>
 </div>
@@ -44,23 +42,6 @@ if ($this->headFooter) {
 <div class="vendor-description">
 <?php //echo $this->vendor->vendor_store_desc.'<br>';
 
-
-    /*	foreach($this->vendorAddress as $userfields){
-
-         foreach($userfields['fields'] as $item){
-             if(!empty($item['value'])){
-                 if($item['name']==='agreed'){
-                     $item['value'] =  ($item['value']===0) ? vmText::_('COM_VIRTUEMART_USER_FORM_BILLTO_TOS_NO'):vmText::_('COM_VIRTUEMART_USER_FORM_BILLTO_TOS_YES');
-                 }
-             ?><!-- span class="titles"><?php echo $item['title'] ?></span -->
-                         <span class="values vm2<?php echo '-'.$item['name'] ?>" ><?php echo $this->escape($item['value']) ?></span>
-                     <?php if ($item['name'] != 'title' and $item['name'] != 'first_name' and $item['name'] != 'middle_name' and $item['name'] != 'zip') { ?>
-                         <br class="clear" />
-                     <?php
-                 }
-             }
-         }
-     }*/
 ?></div> <?php
 }
 

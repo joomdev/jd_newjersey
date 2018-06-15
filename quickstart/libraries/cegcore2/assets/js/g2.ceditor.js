@@ -1128,6 +1128,7 @@
 			range.setEndAfter(empty);
 		}
 		
+		Editor.range.set(range);
 		//Editor.region.clean(range);
 	}
 	
@@ -1142,7 +1143,7 @@
 	Editor.find.block = function(node){
 		var block = $(node).closest(Editor.settings.elements.blocks.toString());
 		
-		if(block.length){
+		if(block.length && !block.is('[data-editor="region"]')){
 			return block.get(0);
 		}else{
 			return false;
@@ -1221,7 +1222,36 @@
 		}else{
 			if(range.collapsed){
 				var node = Editor.find.node(range.startContainer);
+				var block = Editor.find.block(range.startContainer);
 				
+				var empty = document.createTextNode('\u200B');
+				//console.log(range);
+				//console.log(block);
+				if(block === false){
+					var p = document.createElement(Editor.settings.text_block);
+					range.insertNode(p);
+					range.selectNodeContents(p);
+					
+					range.insertNode(empty);
+					range.selectNodeContents(empty);
+					range.collapse(false);
+				}else if((node === false || node.nodeName.toLowerCase() != '#text')){
+					range.insertNode(empty);
+					
+					if(empty.previousSibling && empty.previousSibling.nodeName.toLowerCase() == '#text'){
+						range.setStart(empty.previousSibling, empty.previousSibling.length);
+						range.setEnd(empty.previousSibling, empty.previousSibling.length);
+						$(empty).remove();
+					}else if(empty.nextSibling && empty.nextSibling.nodeName.toLowerCase() == '#text'){
+						range.setStart(empty.nextSibling, 0);
+						range.setEnd(empty.nextSibling, 0);
+						$(empty).remove();
+					}else{
+						range.selectNodeContents(empty);
+						range.collapse(false);
+					}
+				}
+				/*
 				if(act != 'type' && (node === false || node.nodeName.toLowerCase() != '#text')){
 					var empty = document.createTextNode('\u200B');
 					
@@ -1248,6 +1278,7 @@
 					}
 					
 				}
+				*/
 				/*
 				if(block = Editor.dom.block()){
 					$(block).attr('data-modified', 'true');
@@ -1409,7 +1440,7 @@
 					if(range.startOffset == limit){
 						
 						var sibNode = Editor.dom.sibling(node, '#text', direction);
-						
+						//console.log(sibNode);
 						if(block && sibNode && (sibBlock = Editor.dom.block(sibNode.node)) && !block.isSameNode(sibBlock)){
 							//merge 2 blocks
 							if($(sibBlock).is('[data-editor="texture"]')){
@@ -1467,7 +1498,9 @@
 							range.setStart(range.startContainer, range.startOffset - 1);
 						}
 						//if this is the last character in the last node, add zwsp so the block does not collapse
+						//if(range.startContainer.length == 1){
 						if(range.startContainer.length == 1){
+							//console.log(range);
 							var empty = document.createTextNode('\u200B');
 							$(range.startContainer).before(empty);
 						}

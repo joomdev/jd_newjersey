@@ -43,7 +43,8 @@ defined("GCORE_SITE") or die;
 		'coupon' => $this->Parser->parse($function['coupon'], true),
 	];
 	
-	if(!\GApp::extension()->valid('2checkout') AND empty($function['market'])){
+	//if(!\GApp::extension()->valid('2checkout') AND empty($function['market'])){
+	if(!\GApp::extension()->valid() AND empty($function['market'])){
 		$vars['demo'] = 'Y';
 	}
 	

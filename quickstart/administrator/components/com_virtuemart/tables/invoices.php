@@ -58,5 +58,14 @@ class TableInvoices extends VmTable {
 		$this->setTableShortCut('inv');
 	}
 
+	function check(){
+
+		if(empty($this->virtuemart_order_id)){
+			vmTrace('Table invoices check virtuemart_order_id missing');
+			return false;
+		}
+
+		return parent::check();
+	}
 }
 

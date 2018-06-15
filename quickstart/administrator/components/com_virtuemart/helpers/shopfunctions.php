@@ -11,7 +11,7 @@ defined ('_JEXEC') or die('Direct Access to ' . basename (__FILE__) . ' is not a
  * @author Max Milbers
  * @author Patrick Kohl
  * @copyright Copyright (c) 2004-2008 Soeren Eberhardt-Biermann, 2009 VirtueMart Team. All rights reserved.
- * @version $Id: shopfunctions.php 9673 2017-11-16 14:16:16Z Milbo $
+ * @version $Id: shopfunctions.php 9772 2018-02-28 21:16:40Z Milbo $
  */
 class ShopFunctions {
 
@@ -165,7 +165,7 @@ class ShopFunctions {
 		$shoppergrps = $shopperModel->getShopperGroups (FALSE, TRUE);
 
 
-		$attrs['class'] = 'vm-chzn-select vm-drop';
+		if(empty($attrs['class'])) $attrs['class'] = 'vm-chzn-select vm-drop';
 		//if(!isset($attrs['style'])) $attrs['style'] = 'min-width:150px'; //$attrs['style']='width: 200px;';
 		if ($multiple) {
 			$attrs['multiple'] = 'multiple';
@@ -178,7 +178,7 @@ class ShopFunctions {
 			array_unshift ($shoppergrps, $emptyOption);
 		}
 
-		$listHTML = JHTML::_ ('select.genericlist', $shoppergrps, $name, $attrs, 'virtuemart_shoppergroup_id', 'shopper_group_name', $shopperGroupId,false,true);
+		$listHTML = JHTML::_ ('select.genericlist', $shoppergrps, $name, $attrs, 'virtuemart_shoppergroup_id', 'shopper_group_name', $shopperGroupId,'[',true);
 		$listHTML .= '<input name="virtuemart_shoppergroup_set" value="1" type="hidden">';
 		return $listHTML;
 	}
@@ -227,7 +227,7 @@ class ShopFunctions {
 		foreach ($taxes as $tax) {
 			$taxrates[] = JHtml::_ ('select.option', $tax->virtuemart_calc_id, $tax->calc_name, $name);
 		}
-		$listHTML = JHtml::_ ('Select.genericlist', $taxrates, $name, $class, $name, 'text', $selected);
+		$listHTML = JHtml::_ ('Select.genericlist', $taxrates, $name, $class, $name, 'text', $selected,'[');
 		return $listHTML;
 	}
 
@@ -1042,12 +1042,14 @@ class ShopFunctions {
 			VmError($t);
 		} else {
 			if(!is_writable( $safePath )){
+				vmLanguage::loadJLang('com_virtuemart');
 				vmLanguage::loadJLang('com_virtuemart_config');
 				vmdebug('checkSafePath $safePath not writeable '.$safePath);
 				VmError(vmText::sprintf('COM_VIRTUEMART_WARN_SAFE_PATH_INV_NOT_WRITEABLE',vmText::_('COM_VIRTUEMART_ADMIN_CFG_MEDIA_FORSALE_PATH'),$safePath)
 				,vmText::sprintf('COM_VIRTUEMART_WARN_SAFE_PATH_INV_NOT_WRITEABLE','',''));
 			} else {
 				if(!is_writable(self::getInvoicePath($safePath) )){
+					vmLanguage::loadJLang('com_virtuemart');
 					vmLanguage::loadJLang('com_virtuemart_config');
 					vmdebug('checkSafePath $safePath/invoice not writeable '.addslashes($safePath));
 					VmError(vmText::sprintf('COM_VIRTUEMART_WARN_SAFE_PATH_INV_NOT_WRITEABLE',vmText::_('COM_VIRTUEMART_ADMIN_CFG_MEDIA_FORSALE_PATH'),htmlspecialchars($safePath))

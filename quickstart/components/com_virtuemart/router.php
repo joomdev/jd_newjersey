@@ -309,11 +309,16 @@ function virtuemartBuildRoute(&$query) {
 			//unset ($query['limit']);
 			break;
 		case 'cart';
-			if (isset($jmenu['cart'])) {
-				$query['Itemid'] = $jmenu['cart'];
+
+			$layout = (empty( $query['layout'] )) ? 0 : $query['layout'];
+			if(isset( $jmenu['cart'][$layout] )) {
+				$query['Itemid'] = $jmenu['cart'][$layout];
+			} else if ($layout!=0 and isset($jmenu['cart'][0]) ) {
+				$query['Itemid'] = $jmenu['cart'][0];
 			} else if ( isset($jmenu['virtuemart']) ) {
 				$query['Itemid'] = $jmenu['virtuemart'];
 				$segments[] = $helper->lang('cart') ;
+
 			} else {
 				// the worst
 				$segments[] = $helper->lang('cart') ;
@@ -360,6 +365,7 @@ function virtuemartParseRoute($segments) {
 	$vars = array();
 
 	$helper = vmrouterHelper::getInstance();
+
 	if ($helper->router_disabled) {
 		$total = count($segments);
 		for ($i = 0; $i < $total; $i=$i+2) {
@@ -649,6 +655,7 @@ function virtuemartParseRoute($segments) {
 		elseif ( $helper->compareKey($segments[0] ,'editpayment') ) $vars['task'] = 'editpayment' ;
 		elseif ( $helper->compareKey($segments[0] ,'delete') ) $vars['task'] = 'delete' ;
 		elseif ( $helper->compareKey($segments[0] ,'checkout') ) $vars['task'] = 'checkout' ;
+		elseif ( $helper->compareKey($segments[0] ,'orderdone') ) $vars['layout'] = 'orderdone' ;
 		else $vars['task'] = $segments[0];
 		return $vars;
 	}
@@ -757,7 +764,10 @@ function virtuemartParseRoute($segments) {
 			$vars['virtuemart_category_id'] = $id;
 			$vars['view'] = 'category' ;
 		}
-		if(empty($vars['virtuemart_category_id'])) $vars['virtuemart_category_id'] = 0;
+		if(empty($vars['virtuemart_category_id'])) {
+			$vars['error'] = '404';
+			$vars['virtuemart_category_id'] = -2;
+		}
 		if(empty($vars['view'])) $vars['view'] = 'category';
 
 		if(!isset($vars['limit'])) $vars['limit'] = vmrouterHelper::getLimitByCategory($vars['virtuemart_category_id'],$vars['view']);
@@ -768,7 +778,7 @@ function virtuemartParseRoute($segments) {
 			$vars['task'] = $segments[1] ;
 		}
 	}
-	//vmdebug('my vars from router',$vars);
+	vmdebug('my vars from router',$vars);
 	return $vars;
 }
 
@@ -871,7 +881,7 @@ class vmrouterHelper {
 
 		if (!self::$_instance){
 			if (!class_exists( 'VmConfig' )) require(JPATH_ROOT .'/administrator/components/com_virtuemart/helpers/config.php');
-			VmConfig::loadConfig();    // this is needed in case VmConfig was not yet loaded before
+			VmConfig::loadConfig(FALSE,FALSE,true,false);    // this is needed in case VmConfig was not yet loaded before
 			$lang_code = JFactory::getApplication()->input->get('language', null);  //this is set by languageFilterPlugin
 			if (!empty($lang_code) and VmConfig::$vmlangTag!=$lang_code) {  // by default it returns a full language tag such as nl-NL
 				vmLanguage::setLanguageByTag($lang_code); //this is needed if VmConfig was called in incompatible context and thus current VmConfig::$vmlang IS INCORRECT
@@ -1007,9 +1017,9 @@ class vmrouterHelper {
 					$strings[] = $cat->slug;
 
 				} else if(!empty($id)){
-					vmdebug('router.php getCategoryNames set 404 for id '.$id,$cat);
-					$categoryNamesCache[VmLanguage::$currLangTag][$id] = '404';
-					$strings[] = '404';
+					//vmdebug('router.php getCategoryNames set 404 for id '.$id,$cat);
+					//$categoryNamesCache[VmLanguage::$currLangTag][$id] = '404';
+					//$strings[] = '404';
 				}
 			} else {
 				$strings[] = $categoryNamesCache[VmLanguage::$currLangTag][$id];
@@ -1318,6 +1328,16 @@ class vmrouterHelper {
 									$this->menu['virtuemart_'.$dbKey.'_id'][ $link['virtuemart_'.$dbKey.'_id'] ] = $item->id;
 								}
 							}
+						} else if ( $dbKey == 'cart' ){
+							$layout = empty($link['layout'])? 0:$link['layout'];
+							if(!isset($this->menu[$dbKey][$layout])){
+								$this->menu[$dbKey][$layout] = $item->id;
+							} else {
+								//vmdebug('This menu item exists two times',$item,$this->template->id);
+								if($item->template_style_id==$this->template->id){
+									$this->menu[$dbKey][$layout] = $item->id;
+								}
+							}
 						} else {
 							if(!isset($this->menu[$dbKey])){
 								$this->menu[$dbKey] = $item->id;
@@ -1377,7 +1397,7 @@ class vmrouterHelper {
 				} else $this->menu['virtuemart'] = $homeid;
 			}
 		}
-
+		vmdebug('Router parse, using Itemid',$this->Itemid);
 		$mCache[$h.$this->Itemid] = $this->menu;
 	}
 

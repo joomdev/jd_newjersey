@@ -13,7 +13,7 @@
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
- * @version $Id: product.php 9651 2017-10-18 12:16:59Z Milbo $
+ * @version $Id: product.php 9720 2018-01-09 10:21:53Z Milbo $
  */
 
 // Check to ensure this file is included in Joomla!
@@ -287,7 +287,7 @@ class VirtuemartControllerProduct extends VmController {
 	 * @author Max Milbers
 	 */
 	public function CloneProduct() {
-		$mainframe = Jfactory::getApplication();
+		$app = Jfactory::getApplication();
 
 		$model = VmModel::getModel('product');
 		$msgtype = '';
@@ -309,7 +309,7 @@ class VirtuemartControllerProduct extends VmController {
 			}
 		}
 
-		$mainframe->redirect('index.php?option=com_virtuemart&view=product&task=edit&virtuemart_product_id='.$l, $msg, $msgtype);
+		$app->redirect('index.php?option=com_virtuemart&view=product&task=edit&virtuemart_product_id='.$l, $msg, $msgtype);
 	}
 
 

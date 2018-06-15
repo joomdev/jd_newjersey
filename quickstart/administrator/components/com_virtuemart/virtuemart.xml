@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension method="upgrade" type="component" version="2.5">
     <name>VIRTUEMART</name>
-    <creationDate>December 21 2017</creationDate>
+    <creationDate>April 05 2018</creationDate>
     <author>The VirtueMart Development Team</author>
     <authorEmail>max|at|virtuemart.net</authorEmail>
     <authorUrl>https://virtuemart.net</authorUrl>
     <copyright>Copyright (C) 2004-2015 Virtuemart Team. All rights reserved.</copyright>
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
-    <version status="MAYOR">3.2.12</version>
+    <version status="MAYOR">3.2.14</version>
     <description></description>
 
     <scriptfile>install/script.virtuemart.php</scriptfile>

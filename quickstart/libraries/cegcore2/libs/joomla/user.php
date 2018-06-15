@@ -35,6 +35,10 @@ class User extends \G2\L\User{
 			//$data['password'] = \JUserHelper::hashPassword($data['password']);
 		}
 		
+		if(!empty($data['email']) AND empty(\G2\L\Validate::email($data['email']))){
+			return 11;
+		}
+		
 		if(empty($data['id']) AND empty($data['registerDate'])){
 			$data['registerDate'] = \G2\L\Dater::datetime('Y-m-d H:i:s');
 		}

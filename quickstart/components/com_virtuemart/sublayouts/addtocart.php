@@ -33,15 +33,6 @@ if(isset($viewData['position'])){
 }
 if(!is_array($positions)) $positions = array($positions);
 
-$addtoCartButton = '';
-if(!VmConfig::get('use_as_catalog', 0)){
-	if($product->addToCartButton){
-		$addtoCartButton = $product->addToCartButton;
-	} else {
-		$addtoCartButton = self::renderVmSubLayout('addtocartbtn',array('orderable'=>$product->orderable));
-	}
-
-}
 
 
 ?>

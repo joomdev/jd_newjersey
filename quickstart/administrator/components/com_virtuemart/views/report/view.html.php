@@ -3,7 +3,7 @@ if( !defined( '_JEXEC' ) ) die('Restricted access');
 
 /**
 *
-* @version $Id: view.html.php 9603 2017-07-26 06:19:09Z Milbo $
+* @version $Id: view.html.php 9802 2018-03-20 15:22:11Z Milbo $
 * @package VirtueMart
 * @subpackage Report
 * @copyright Copyright (C) VirtueMart Team - All rights reserved.
@@ -80,7 +80,9 @@ class VirtuemartViewReport extends VmViewAdmin {
 		$this->assignRef('report', $revenueBasic);
 		$this->assignRef('totalReport', $totalReport);
 
-
+		if($this->showVendors()){
+			$this->lists['vendors'] = Shopfunctions::renderVendorList($model->virtuemart_vendor_id);
+		}
 		$orderstatusM =VmModel::getModel('orderstatus');
 		$this->lists['select_date'] = $model->renderDateSelectList();
 		$orderstates = vRequest::getVar ('order_status_code', array('C','S'));

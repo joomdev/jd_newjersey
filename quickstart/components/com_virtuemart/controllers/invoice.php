@@ -183,35 +183,36 @@ class VirtueMartControllerInvoice extends JControllerLegacy
 
 		vmLanguage::loadJLang('com_virtuemart',1);
 
-		$path = VmConfig::get('forSale_path',0);
-		if(empty($path) ){
-			vmError('No path set to store invoices');
-			return false;
-		} else {
-			$path .= shopFunctionsF::getInvoiceFolderName().DS;
-			if(!file_exists($path)){
-				vmError('Path wrong to store invoices, folder invoices does not exist '.$path);
-				return false;
-			} else if(!is_writable( $path )){
-				vmError('Cannot store pdf, directory not writeable '.$path);
-				return false;
+		$invModel = VmModel::getModel('invoice');
+		$path = VirtueMartModelInvoice::getInvoicePath();
+
+		$invoiceNumber = vRequest::getString('invoiceNumber',false);
+
+		if($invoiceNumber) {
+			$invM = VmModel::getModel('invoice');
+			$storedOIds = $invM->getInvoiceEntry($orderDetails['details']['BT']->virtuemart_order_id, false, 'invoice_number');
+			if(!in_array($invoiceNumber,$storedOIds)){
+				$invoiceNumber = false;
 			}
 		}
 
-		$orderModel = VmModel::getModel('orders');
-		$invoiceNumberDate=array();
-		if (!  $orderModel->createInvoiceNumber($orderDetails['details']['BT'], $invoiceNumberDate)) {
-		    return false;
+		if(!$invoiceNumber or empty($invoiceNumber)){
+			$orderModel = VmModel::getModel('orders');
+			$invoiceNumberDate=array();
+			if (!  $orderModel->createInvoiceNumber($orderDetails['details']['BT'], $invoiceNumberDate)) {
+				return false;
+			}
+
+			if(!empty($invoiceNumberDate[0])){
+				$invoiceNumber = $invoiceNumberDate[0];
+			} else {
+				$invoiceNumber = FALSE;
+			}
 		}
 
-		if(!empty($invoiceNumberDate[0])){
-			$invoiceNumber = $invoiceNumberDate[0];
-		} else {
-			$invoiceNumber = FALSE;
-		}
 
 		if(!$invoiceNumber or empty($invoiceNumber)){
-			vmError('Cant create pdf, createInvoiceNumber failed');
+			vmError('getInvoicePDF Cant create pdf, createInvoiceNumber failed');
 			return 0;
 		}
 		if (shopFunctionsF::InvoiceNumberReserved($invoiceNumber)) {

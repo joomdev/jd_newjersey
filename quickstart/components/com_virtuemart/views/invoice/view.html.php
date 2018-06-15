@@ -131,8 +131,9 @@ class VirtuemartViewInvoice extends VmView {
 			$order_print=true;
 		}
 
+		//TODO check and remove. I think this was just an old fallback
         // if it is order print, invoice number should not be created, either it is there, either it has not been created
-		if(empty($this->invoiceNumber) and !$order_print){
+		/*if(empty($this->invoiceNumber) and !$order_print){
 		    $invoiceNumberDate = array();
 			if (  $orderModel->createInvoiceNumber($orderDetails['details']['BT'], $invoiceNumberDate)) {
                 if (shopFunctionsF::InvoiceNumberReserved( $invoiceNumberDate[0])) {
@@ -144,7 +145,8 @@ class VirtuemartViewInvoice extends VmView {
 			    $this->invoiceNumber = $invoiceNumberDate[0];
 			    $this->invoiceDate = $invoiceNumberDate[1];
 			    if(!$this->invoiceNumber or empty($this->invoiceNumber)){
-				    vmError('Cant create pdf, createInvoiceNumber failed');
+				    vmError('invoice view Cant create pdf, createInvoiceNumber failed');
+				    vmTrace('invoice view Cant create pdf');
 				    if  ($this->uselayout!='mail') {
 					    return ;
 				    }
@@ -155,7 +157,7 @@ class VirtuemartViewInvoice extends VmView {
 					return ;
 				}
 			}
-		}
+		}*/
 
 		$virtuemart_vendor_id = $orderDetails['details']['BT']->virtuemart_vendor_id;
 

@@ -13,7 +13,7 @@
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
- * @version $Id: view.html.php 9704 2017-12-20 13:33:53Z Milbo $
+ * @version $Id: view.html.php 9802 2018-03-20 15:22:11Z Milbo $
  */
 
 // Check to ensure this file is included in Joomla!
@@ -71,13 +71,11 @@ class VirtuemartViewProduct extends VmViewAdmin {
 					vmInfo('COM_VM_LOADED_WITH_LANGFALLBACK',$product->_loadedWithLangFallback);
 				}
 				$this->setOrigLang($product);
-				//$user = JFactory::getUser();
-				//$superVendor =  vmAccess::isSuperVendor();
-				//vmdebug('$superVendor by vmAccess::isSuperVendor',$superVendor);
-				$superVendor = vmAccess::getVendorId();
-				vmdebug('$superVendor by vmAccess::getVendorId',$superVendor);
-				if(!empty($product->virtuemart_vendor_id) and $superVendor !=1 and $superVendor!=$product->virtuemart_vendor_id){
-					vmdebug('Product view.html.php '.$superVendor,$product->virtuemart_vendor_id);
+
+				$superVendor =  vmAccess::isSuperVendor();
+				$vendorId = vmAccess::getVendorId();
+
+				if(!empty($product->virtuemart_vendor_id) and $superVendor !=1 and $vendorId!=$product->virtuemart_vendor_id){
 					$app->redirect( 'index.php?option=com_virtuemart&view=virtuemart', vmText::_('COM_VIRTUEMART_ALERTNOTAUTHOR'), 'error');
 				}
 				if(!empty($product->product_parent_id)){
@@ -372,12 +370,11 @@ class VirtuemartViewProduct extends VmViewAdmin {
 			$superVendor = vmAccess::isSuperVendor();
 			if(empty($superVendor)){
 				$productlist = array();
-				$this->filter_product = $model->filter_product;
 			} else {
 				//Get the list of products
 				$productlist = $model->getProductListing(false,false,false,false,true);
-				$this->filter_product = $model->filter_product;
 			}
+			$this->filter_product = $model->filter_product;
 
 			$now = getdate();
 			$nowstring = $now["hours"].":".substr('0'.$now["minutes"], -2).' '.$now["mday"].".".$now["mon"].".".$now["year"];
@@ -405,7 +402,7 @@ class VirtuemartViewProduct extends VmViewAdmin {
 
 			$this->lists['vendors'] = '';
 			if($this->showVendors()){
-				$this->lists['vendors'] = Shopfunctions::renderVendorList();
+				$this->lists['vendors'] = Shopfunctions::renderVendorList($model->virtuemart_vendor_id);
 			}
 
 
@@ -551,7 +548,7 @@ class VirtuemartViewProduct extends VmViewAdmin {
 		foreach($discounts as $discount){
 			$discountrates[] = JHtml::_('select.option', $discount->virtuemart_calc_id, $discount->calc_name, 'product_discount_id');
 		}
-		$listHTML = JHtml::_('Select.genericlist', $discountrates, $name, '', 'product_discount_id', 'text', $selected );
+		$listHTML = JHtml::_('Select.genericlist', $discountrates, $name, 'class="vm-chzn-add"', 'product_discount_id', 'text', $selected, '[' );
 		return $listHTML;
 
 	}

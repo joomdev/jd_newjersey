@@ -8,8 +8,8 @@ defined("GCORE_SITE") or die;
 	<a class="ui button green small compact right labeled icon" href="<?php echo r2('index.php?ext='.$ext.'&act=validateinstall'); ?>"><?php el('Validate Now'); ?><i class="icon right chevron"></i></a>
 </div>
 <?php endif; ?>
-<?php if(is_numeric(\GApp::extension($ext)->valid())): ?>
+<?php /*if(is_numeric(\GApp::extension($ext)->valid())): ?>
 <div class="ui message yellow">
 	Your <?php echo $name; ?> installation on <strong><?php echo \G2\L\Url::domain(false); ?></strong> is in trial mode and will expire in <?php echo \GApp::extension($ext)->valid(); ?> days.
 </div>
-<?php endif; ?>
+<?php endif;*/ ?>

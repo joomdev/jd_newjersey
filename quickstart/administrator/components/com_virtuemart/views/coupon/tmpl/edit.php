@@ -14,7 +14,7 @@
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
- * @version $Id: edit.php 9413 2017-01-04 17:20:58Z Milbo $
+ * @version $Id: edit.php 9802 2018-03-20 15:22:11Z Milbo $
  */
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
@@ -45,7 +45,7 @@ AdminUIHelper::imitateTabs('start', 'COM_VIRTUEMART_COUPON_DETAILS');
 			<?php echo VmHTML::row('raw','COM_VIRTUEMART_COUPON_START',  vmJsApi::jDate($this->coupon->coupon_start_date , 'coupon_start_date') ); ?>
 			<?php echo VmHTML::row('raw','COM_VIRTUEMART_COUPON_EXPIRY', vmJsApi::jDate($this->coupon->coupon_expiry_date,'coupon_expiry_date') ); ?>
 			<?php if($this->showVendors()){
-				echo VmHTML::row('raw','COM_VIRTUEMART_VENDOR', Shopfunctions::renderVendorList(vmAccess::getVendorId()) );
+				echo VmHTML::row('raw','COM_VIRTUEMART_VENDOR', $this->vendorList );
 			}
 			?>
 	    </table>

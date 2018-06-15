@@ -939,7 +939,6 @@ dl.article-info dd.hits span[class*=" icon-"] {
 }
 .off-canvas-menu-init {
   overflow-x: hidden;
-  position: relative;
 }
 .offcanvas .offcanvas-overlay {
   visibility: visible;

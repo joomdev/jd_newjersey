@@ -39,7 +39,7 @@ echo '<br/><br/>';
 ?>	
  
 <?php if ($this->vendor->vendor_letter_footer == 1) { ?>
-<?php if ($this->vendor->vendor_letter_footer_line == 1) { ?><hr/><?php } ?>
+<?php if ($this->vendor->vendor_letter_footer_line == 1) { ?><hr <hr style="border-top: 1px solid #CCCCCC !important;" /><?php } ?>
 <div id="vmdoc-footer" class="vmdoc-footer" style="font-size: <?php echo $this->vendor->vendor_letter_footer_font_size; ?>pt;">
 <?php echo $this->replaceVendorFields($this->vendor->vendor_letter_footer_html, $this->vendor); ?>
 </div>

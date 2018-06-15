@@ -84,11 +84,11 @@ class VirtueMartModelCoupon extends VmModel {
 	 */
 	function getCoupons($filterCoupon = false) {
 
-		$virtuemart_vendor_id = vmAccess::getVendorId();
+		$this->virtuemart_vendor_id = vmAccess::getVendorId();
 		$where = array();
 
-		if(!empty($virtuemart_vendor_id)){
-			$where[] = '`virtuemart_vendor_id`="'.$virtuemart_vendor_id.'"';
+		if(!empty($this->virtuemart_vendor_id)){
+			$where[] = '`virtuemart_vendor_id`="'.$this->virtuemart_vendor_id.'"';
 		}
 		if($filterCoupon) {
 

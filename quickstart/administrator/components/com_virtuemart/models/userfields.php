@@ -14,7 +14,7 @@
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
- * @version $Id: userfields.php 9656 2017-10-25 11:20:38Z Milbo $
+ * @version $Id: userfields.php 9768 2018-02-21 22:24:56Z Milbo $
  */
 
 // Check to ensure this file is included in Joomla!
@@ -563,7 +563,7 @@ class VirtueMartModelUserfields extends VmModel {
 	 */
 	public function getUserFields ($_sec = 'registration', $_switches=array(), $_skip = array('username', 'password', 'password2'))
 	{
-	    // stAn, we can't really create cache per sql as we want to create named array as well
+
 		if(is_array($_sec)){
 			$sec = implode ( $_sec);
 		} else {
@@ -958,16 +958,13 @@ class VirtueMartModelUserfields extends VmModel {
 							. $readonly . ' /> ';
 							$_return['fields'][$_fld->name]['hidden'] = true;
 							break;
-
-							$currentYear= date('Y');
-							$_return['fields'][$_fld->name]['formcode'] = vmJsApi::jDate($_return['fields'][$_fld->name]['value'],  $_prefix.$_fld->name,$_prefix.$_fld->name . '_field',false,$currentYear.':'. ($currentYear+1));
-							break;
 						case 'age_verification':
 							// Year range MUST start 100 years ago, for birthday
-							$yOffset = 100;
+							$yOffset = 120;
 						case 'date':
-							$currentYear= date('Y');
-							$_return['fields'][$_fld->name]['formcode'] = vmJsApi::jDate($_return['fields'][$_fld->name]['value'],  $_prefix.$_fld->name,$_prefix.$_fld->name . '_field',false,($currentYear-$yOffset).':'.$currentYear+3);
+							$currentYear = intval(date('Y'));
+							$maxmin = 'minDate: -0, maxDate: "+1Y",';
+							$_return['fields'][$_fld->name]['formcode'] = vmJsApi::jDate($_return['fields'][$_fld->name]['value'],  $_prefix.$_fld->name,$_prefix.$_fld->name . '_field',false,($currentYear-$yOffset).':'.($currentYear+1),$maxmin);
 							break;
 						case 'emailaddress':
 							if( JFactory::getApplication()->isSite()) {
@@ -997,7 +994,7 @@ class VirtueMartModelUserfields extends VmModel {
 						case 'textarea':
 							$_return['fields'][$_fld->name]['formcode'] = '<textarea id="'
 							. $_prefix.$_fld->name . '_field" name="' . $_prefix.$_fld->name . '" cols="' . $_fld->cols
-							. '" rows="'.$_fld->rows . '" class="inputbox" '
+							. '" rows="'.$_fld->rows . '" class="inputbox'.($_fld->required ? ' required': '' ).'" '
 							. ($_fld->maxlength ? ' maxlength="' . $_fld->maxlength . '"' : '')
 							. $readonly.'>'
 							. $_return['fields'][$_fld->name]['value'] .'</textarea>';

@@ -21,7 +21,7 @@ defined("GCORE_SITE") or die;
 		<?php echo $header; ?>
 	</div>
 	<?php endif; ?>
-	<div class="content" <?php if(!empty($content_id)): ?>id="<?php echo $content_id; ?>"<?php endif; ?>>
+	<div class="<?php if(!empty($scrolling)): ?>scrolling <?php endif; ?>content" <?php if(!empty($content_id)): ?>id="<?php echo $content_id; ?>"<?php endif; ?>>
 		<?php if(!empty($content)): ?><?php echo $content; ?><?php endif; ?>
 	</div>
 	

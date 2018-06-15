@@ -127,7 +127,6 @@ abstract class vmPSPlugin extends vmPlugin {
 			}
 		}
 
-
 		$mname = $this->_psType . '_name';
 		$idN = 'virtuemart_'.$this->_psType.'method_id';
 
@@ -184,7 +183,7 @@ abstract class vmPSPlugin extends vmPlugin {
 		if (!$this->checkConditions ($cart, $method, $cart_prices)) {
 			return FALSE;
 		}
-		
+
 		$cart_prices_name = $this->renderPluginName ($method);
 
 		$this->setCartPrices ($cart, $cart_prices, $method);
@@ -463,7 +462,7 @@ abstract class vmPSPlugin extends vmPlugin {
 
 	/**
 	 * Fill the array with all plugins found with this plugin for the current vendor
-	 *
+	 * Todo it would be nicer to use here the correct vmtable methods
 	 * @return True when plugins(s) was (were) found for this vendor, false otherwise
 	 * @author Oscar van Eijk
 	 * @author max Milbers
@@ -531,6 +530,7 @@ abstract class vmPSPlugin extends vmPlugin {
 		if ($this->methods) {
 			foreach ($this->methods as $method) {
 				VmTable::bindParameterable ($method, $this->_xParams, $this->_varsToPushParam);
+				$this->decryptFields($method);
 			}
 		} else if($this->methods===null or empty($this->methods)){
 			$this->methods = array();
@@ -540,6 +540,32 @@ abstract class vmPSPlugin extends vmPlugin {
 		$mC[$h] = $this->methods;
 		//vmdebug('getPluginMethods my query ',str_replace('#__',$db->getPrefix(),$db->getQuery()));
 		return count($this->methods);
+	}
+
+	function decryptFields($method){
+		if($this->_cryptedFields and is_array($this->_cryptedFields)){
+			if(!class_exists('vmCrypt')){
+				require(VMPATH_ADMIN .'/helpers/vmcrypt.php');
+			}
+			if(isset($method->modified_on) and $method->modified_on!='0000-00-00 00:00:00'){
+				$date = JFactory::getDate($method->modified_on);
+				$date = $date->toUnix();
+			} else if(isset($method->created_on) and $method->created_on!='0000-00-00 00:00:00'){
+				$date = JFactory::getDate($method->created_on);
+				$date = $date->toUnix();
+			} else {
+				$date = 0;
+			}
+
+			foreach($this->_cryptedFields as $field){
+				if(isset($method->$field)){
+					$t = $method->$field;
+					$method->$field = vmCrypt::decrypt($method->$field, $date);
+					//vmdebug(' Field '.$field.' crypted '.$t.' decrypted = '.$method->$field);
+				}
+			}
+			$this->_encrypted = false;
+		}
 	}
 
 	/**
@@ -618,7 +644,7 @@ abstract class vmPSPlugin extends vmPlugin {
 		if(!vmTable::checkTableExists($t)) return false;
 		$db = JFactory::getDBO ();
 		$q = 'SELECT * FROM `' . $this->_tablename . '` '
-			. 'WHERE `order_number`="'.$db->escape($order_number).'"';
+			. 'WHERE `order_number`="'.$db->escape($order_number).'" and payment_currency > "0"';
 
 		$db->setQuery ($q);
 		$methodData = $db->loadObjectList ();
@@ -812,12 +838,13 @@ abstract class vmPSPlugin extends vmPlugin {
 			if(strpos($t,'/')!==FALSE){
 				list($discount, $fee) = explode( '/', vmText::_( 'COM_VIRTUEMART_PLUGIN_COST_DISPLAY' ) );
 				if($pluginSalesPrice>=0) {
-					$costDisplay = '<span class="'.$this->_type.'_cost fee"> ('.$fee.' +'.$costDisplay.")</span>";
+					$costDisplay = '<span class="'.$this->_type.'_cost fee"> ('.$fee.' '.$costDisplay.")</span>";
 				} else if($pluginSalesPrice<0) {
-					$costDisplay = '<span class="'.$this->_type.'_cost discount"> ('.$discount.' -'.$costDisplay.")</span>";
+					$costDisplay = trim(strip_tags($costDisplay),'-');
+					$costDisplay = '<span class="'.$this->_type.'_cost discount"> ('.$discount.' '.$costDisplay.")</span>";
 				}
 			} else {
-				$costDisplay = '<span class="'.$this->_type.'_cost fee"> ('.$t.' +'.$costDisplay.")</span>";
+				$costDisplay = '<span class="'.$this->_type.'_cost fee"> ('.$t.' '.$costDisplay.")</span>";
 			}
 		}
 		$dynUpdate='';

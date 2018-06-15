@@ -21,12 +21,12 @@ defined ('_JEXEC') or die('Restricted access');
 
 
 ?>
-<table width="100%" border="0" cellpadding="0" cellspacing="0" class="html-email">
+<table width="100%" border="0" cellpadding="5" cellspacing="0" class="html-email" style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 12px; margin: 0 auto;">
 	<?php if ($this->vendor->vendor_letter_header>0) { ?>
 	<tr>
 		<?php if ($this->vendor->vendor_letter_header_image>0) { ?>
-			<td class="vmdoc-header-image"><img src="<?php echo JURI::root () . $this->vendor->images[0]->file_url ?>" style="width: <?php echo $this->vendor->vendor_letter_header_imagesize; ?>mm;" /></td>
-			<td colspan=1 class="vmdoc-header-vendor">
+			<td class="vmdoc-header-image" width="50%"><img src="<?php echo JURI::root () . $this->vendor->images[0]->file_url ?>" style="width: <?php echo $this->vendor->vendor_letter_header_imagesize; ?>mm;" /></td>
+			<td colspan=1 width="50%" class="vmdoc-header-vendor">
 		<?php } else { // no image ?>
 			<td colspan=2 width="100%" class="vmdoc-header-vendor">
 		<?php } ?>
@@ -36,7 +36,7 @@ defined ('_JEXEC') or die('Restricted access');
 		</td>
 	</tr>
 	<?php if ($this->vendor->vendor_letter_header_line == 1) { ?>
-	<tr><td colspan=2 width="100%" class="vmdoc-header-separator"><hr/></td></tr>
+	<tr><td colspan=2 width="100%" class="vmdoc-header-separator"></td></tr>
 	<?php } // END if header_line ?>
 			
 	<?php } // END if header ?>
@@ -45,4 +45,5 @@ defined ('_JEXEC') or die('Restricted access');
 			<strong><?php echo vmText::sprintf ('COM_VIRTUEMART_MAIL_SHOPPER_NAME', $this->civility . ' ' . $this->orderDetails['details']['BT']->first_name . ' ' . $this->orderDetails['details']['BT']->last_name); ?></strong><br/>
 		</td>
 	</tr>
+	<tr><td colspan="2" style="padding: 5px"></td></tr>
 </table>

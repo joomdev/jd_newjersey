@@ -1099,7 +1099,7 @@ class VirtueMartModelCustomfields extends VmModel {
 					}
 				}
 
-				if($fields['field_type']=='C'){
+				if(!empty($fields['field_type']) and $fields['field_type']=='C'){
 					$cM = VmModel::getModel('custom');
 					$c = $cM->getCustom($fields['virtuemart_custom_id'],'');
 

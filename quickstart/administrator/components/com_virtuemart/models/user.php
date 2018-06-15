@@ -15,7 +15,7 @@
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
- * @version $Id: user.php 9705 2017-12-20 13:55:51Z Milbo $
+ * @version $Id: user.php 9802 2018-03-20 15:22:11Z Milbo $
  */
 
 // Check to ensure this file is included in Joomla!
@@ -558,6 +558,9 @@ class VirtueMartModelUser extends VmModel {
 			$noError = false;
 		}
 
+		$data['virtuemart_vendor_id'] = $usertable->virtuemart_vendor_id;
+		$data['user_is_vendor'] = $usertable->user_is_vendor;
+
 		if(vmAccess::manager('user.edit') and !empty($data['virtuemart_shoppergroup_set'])){
 
 			$shoppergroupmodel = VmModel::getModel('ShopperGroup');
@@ -628,10 +631,28 @@ class VirtueMartModelUser extends VmModel {
 				vmdebug('Error storing vendor',$vendorModel);
 				return false;
 			}
+			//$this->setFraudProtection();
+
 		}
 
 		return true;
 	}
+
+	/**
+	 * FraudProtection to comply to the French financial Law 2018
+	 *
+	 * @author Valérie Isaksen
+	 */
+	function setFraudProtection(){
+
+		if(!class_exists('VirtueMartModelConfig')) require(VMPATH_ADMIN .'/models/config.php');
+		$res  = VirtueMartModelConfig::checkConfigTableExists();
+		if(!empty($res)){
+			$model = $this->getModel('config');
+			$model->setFraudProtection();
+		}
+	}
+
 
 	/**
 	 * Take a data array and save any address info found in the array.
@@ -807,9 +828,9 @@ class VirtueMartModelUser extends VmModel {
 					if (!$msg = VirtueMartModelState::testStateCountry($data['virtuemart_country_id'], $data['virtuemart_state_id'])) {
 						//The state is invalid, so we set the state 0 here.
 						//$data['virtuemart_state_id'] = 0;
-						vmdebug('State was not fitting to country, set virtuemart_state_id to 0');
+						//vmdebug('State was not fitting to country, set virtuemart_state_id to 0');
 					} else if(empty($data['virtuemart_state_id'])){
-						vmdebug('virtuemart_state_id is empty, but valid (country has not states, set to unrequired');
+						//vmdebug('virtuemart_state_id is empty, but valid (country has not states, set to unrequired');
 						$field->required = false;
 					} else {
 						//vmdebug('validateUserData my country '.$data['virtuemart_country_id'].' my state '.$data['virtuemart_state_id']);
@@ -1176,7 +1197,8 @@ class VirtueMartModelUser extends VmModel {
 		}
 		return false;
 	}
-	
+
+	var $searchTable = 'juser';
 	/**
 	 * Retrieve a list of users from the database.
 	 *
@@ -1188,7 +1210,9 @@ class VirtueMartModelUser extends VmModel {
 		//$select = ' * ';
 		//$joinedTables = ' FROM #__users AS ju LEFT JOIN #__virtuemart_vmusers AS vmu ON ju.id = vmu.virtuemart_user_id';
 		$search = vRequest::getString('search', false);
-		$tableToUse = vRequest::getString('searchTable','juser');
+		$app = JFactory::getApplication ();
+		$this->searchTable = $app->getUserStateFromRequest ('com_virtuemart.user.searchTable', 'searchTable', 'juser', 'string');
+		//$tableToUse = vRequest::getString('searchTable','juser');
 
 		$where = array();
 		if ($search) {
@@ -1196,7 +1220,7 @@ class VirtueMartModelUser extends VmModel {
 			$db = JFactory::getDbo();
 			$searchArray = array('ju.name','ju.username','ju.email','shopper_group_name');	// removed ,'usertype' should be handled by extra dropdown
 			$userFieldsValid = array();
-			if($tableToUse!='juser'){
+			if($this->searchTable!='juser'){
 
 				if(!class_exists('TableUserinfos'))require(VMPATH_ADMIN.DS.'tables'.DS.'userinfos.php');
 
@@ -1229,7 +1253,7 @@ class VirtueMartModelUser extends VmModel {
 			, IFNULL(sg.shopper_group_name, "") AS shopper_group_name ';
 
 		if ($search) {
-			if($tableToUse!='juser'){
+			if($this->searchTable!='juser'){
 				$select .= ' , ui.name as uiname ';
 			}
 
@@ -1242,7 +1266,7 @@ class VirtueMartModelUser extends VmModel {
 			LEFT JOIN #__virtuemart_vmusers AS vmu ON ju.id = vmu.virtuemart_user_id
 			LEFT JOIN #__virtuemart_vmuser_shoppergroups AS vx ON ju.id = vx.virtuemart_user_id
 			LEFT JOIN #__virtuemart_shoppergroups AS sg ON vx.virtuemart_shoppergroup_id = sg.virtuemart_shoppergroup_id ';
-		if ($search and $tableToUse!='juser') {
+		if ($search and $this->searchTable!='juser') {
 			$joinedTables .= ' LEFT JOIN #__virtuemart_userinfos AS ui ON ui.virtuemart_user_id = vmu.virtuemart_user_id';
 		}
 

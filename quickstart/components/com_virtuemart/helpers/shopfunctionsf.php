@@ -14,7 +14,7 @@
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
- * @version $Id: shopfunctionsf.php 9682 2017-11-30 12:16:43Z Milbo $
+ * @version $Id: shopfunctionsf.php 9736 2018-01-23 23:32:12Z Milbo $
  */
 
 // Check to ensure this file is included in Joomla!
@@ -696,7 +696,7 @@ class shopFunctionsF {
 				$recipient = array($recipient);
 			}
 			if (VmConfig::showDebug()) {
-				vmdebug('Debug mail active, no mail sent. The mail to send subject ' . $subject . ' to "' . implode(' ', $recipient) . '" from ' . $sender[0] . ' ' . $sender[1] . ' ' . vmText::$language->getTag() . '<br>' . $body);
+				vmdebug('Debug mail active, no mail sent. The mail to send subject ' . $subject . ' to "' . implode(' ', $recipient) . '" from ' . $sender[0] . ' ' . $sender[1] . ' ' . vmText::$language->getTag() . '<br>' . $body,$view->mediaToSend);
 			} else {
 				vmInfo('Debug mail active, no mail sent. The mail to send subject ' . $subject . ' to "' . implode(' ', $recipient) . '" from ' . $sender[0] . ' ' . $sender[1] . '<br>' . $body);
 			}

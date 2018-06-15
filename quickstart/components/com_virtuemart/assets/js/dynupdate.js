@@ -144,7 +144,7 @@ jQuery(function($) {
 
 					if (typeof window._klarnaCheckout !== "undefined"){
 						window._klarnaCheckout(function (api) {
-							console.log(' updateSnippet suspend');
+							//console.log(' updateSnippet suspend');
 							api.suspend();
 						});
 					}
@@ -167,7 +167,7 @@ jQuery(function($) {
 					$(this).vm2front("stopVmLoading");
 					if (typeof window._klarnaCheckout !== "undefined"){
 						window._klarnaCheckout(function (api) {
-							console.log(' updateSnippet suspend');
+							//console.log(' updateSnippet suspend');
 							api.resume();
 						});
 					}

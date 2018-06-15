@@ -3,7 +3,7 @@ if( !defined( '_JEXEC' ) ) die( 'Direct Access to '.basename(__FILE__).' is not 
 
 /**
 *
-* @version $Id: default.php 9663 2017-11-09 00:00:38Z Milbo $
+* @version $Id: default.php 9802 2018-03-20 15:22:11Z Milbo $
 * @package VirtueMart
 * @subpackage Report
 * @copyright Copyright (C) VirtueMart Team - All rights reserved.
@@ -41,8 +41,8 @@ else $addDateInfo = false;
 
 						echo vmText::_('COM_VIRTUEMART_REPORT_FROM_PERIOD') .  vmJsApi::jDate($this->from_period, 'from_period');
 						echo vmText::_('COM_VIRTUEMART_REPORT_UNTIL_PERIOD') . vmJsApi::jDate($this->until_period, 'until_period');
-						if(VmConfig::get('multix','none')!='none'){
-							echo ShopFunctions::renderVendorList();
+						if($this->showVendors()){
+							echo $this->lists['vendors'];
 						} ?>
                         <button class="btn btn-small" onclick="this.form.period.value='';this.form.submit();"><?php echo vmText::_('COM_VIRTUEMART_GO'); ?>
                         </button>
@@ -152,11 +152,12 @@ else $addDateInfo = false;
             </tbody>
             <thead>
             <tr>
-                <th  class="right"><?php echo vmText::_('COM_VIRTUEMART_TOTAL').' : '; ?></th>
-                <th class="right"><?php echo $this->totalReport['number_of_ordersTotal']?></th>
-                <th class="right"><?php echo $this->totalReport['itemsSoldTotal'];?></th>
-                <th class="right"><?php echo $this->totalReport['revenueTotal_netto'];?></th>
-                <th class="right"><?php echo $this->totalReport['revenueTotal_brutto'];?></th>
+                <td  class="right"><strong><?php echo vmText::_('COM_VIRTUEMART_TOTAL').' : '; ?></strong></td>
+                <td class="right"><strong><?php echo $this->totalReport['number_of_ordersTotal']?></strong></td>
+                <td class="right"><strong><?php echo $this->totalReport['itemsSoldTotal'];?></strong></td>
+                <td class="right"><strong><?php echo $this->totalReport['revenueTotal_netto'];?></strong></td>
+                <td class="right"><strong><?php echo $this->totalReport['revenueTotal_brutto'];?></strong></td>
+								<td></td>
             </tr>
             </thead>
             <tfoot>

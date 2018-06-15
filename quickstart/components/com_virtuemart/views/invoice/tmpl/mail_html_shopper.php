@@ -37,50 +37,44 @@ if( VmConfig::get('ordertracking','guests') == 'guestlink' or (VmConfig::get('or
 
 ?>
 
-<table width="100%" border="0" cellpadding="0" cellspacing="0" class="html-email">
-
+<table width="100%" border="0" cellpadding="5" cellspacing="0" class="html-email" style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 12px; margin: 0 auto;">
   <tr>
-    <td width="30%">
+    <td width="30%" align="left" style="border: 1px solid #CCCCCC;">
 		<?php echo vmText::_('COM_VIRTUEMART_MAIL_SHOPPER_YOUR_ORDER'); ?><br />
 		<strong><?php echo $this->orderDetails['details']['BT']->order_number ?></strong>
-
 	</td>
-    <td width="30%">
+    <td width="30%" align="left" style="border: 1px solid #CCCCCC;">
 		<?php
 		if( VmConfig::get('ordertracking','guests') == 'guestlink' or (VmConfig::get('ordertracking','guests') == 'guests' and empty($this->orderDetails['details']['BT']->virtuemart_user_id))){
 		    echo vmText::_('COM_VIRTUEMART_MAIL_SHOPPER_YOUR_PASSWORD'); ?><br />
 		    <strong><?php echo $this->orderDetails['details']['BT']->order_pass ?></strong>
 		<?php } ?>
 	</td>
-    <td width="40%">
-    	<p>
- 			<a class="default" title="<?php echo $this->vendor->vendor_store_name ?>" href="<?php echo $orderlink ?>">
+    <td width="40%" align="center" style="border: 1px solid #CCCCCC;">
+ 			<a class="default" title="<?php echo $this->vendor->vendor_store_name ?>" href="<?php echo $orderlink ?>" style="display: inline-block; padding: 5px 10px; background-color: #000000; color:#FFFFFF; text-decoration: none;">
 			<?php echo vmText::_('COM_VIRTUEMART_MAIL_SHOPPER_YOUR_ORDER_LINK'); ?></a>
-		</p>
 	</td>
   </tr>
+	<tr><td colspan="3" style="padding: 5px"></td></tr>
   <tr>
-    <td colspan="3"><p>
-				<?php echo vmText::sprintf('COM_VIRTUEMART_MAIL_SHOPPER_TOTAL_ORDER',$this->currency->priceDisplay($this->orderDetails['details']['BT']->order_total,$this->user_currency_id) ); ?></p></td>
-  </tr>
-	<tr>
-  <td colspan="3"><p>
-				<?php echo vmText::sprintf('COM_VIRTUEMART_MAIL_ORDER_STATUS',vmText::_($this->orderDetails['details']['BT']->order_status_name)) ; ?></p></td>
+    <td colspan="1" align="left">
+				<?php echo vmText::sprintf('COM_VIRTUEMART_MAIL_SHOPPER_TOTAL_ORDER',$this->currency->priceDisplay($this->orderDetails['details']['BT']->order_total,$this->user_currency_id) ); ?></td>
+				<td colspan="2" align="right"><?php echo vmText::sprintf('COM_VIRTUEMART_MAIL_ORDER_STATUS',vmText::_($this->orderDetails['details']['BT']->order_status_name)) ; ?></td>
   </tr>
   <?php $nb=count($this->orderDetails['history']);
   if($this->orderDetails['history'][$nb-1]->customer_notified && !(empty($this->orderDetails['history'][$nb-1]->comments))) { ?>
   <tr>
-    <td colspan="3">
+    <td colspan="3" align="left" style="border: 1px solid #CCCCCC;">
 		<?php echo  nl2br($this->orderDetails['history'][$nb-1]->comments); ?>
 	</td>
   </tr>
   <?php } ?>
   <?php if(!empty($this->orderDetails['details']['BT']->customer_note)){ ?>
   <tr>
-    <td colspan="3">
+    <td colspan="3" align="left" style="border: 1px solid #CCCCCC;">
 		<?php echo vmText::sprintf('COM_VIRTUEMART_MAIL_SHOPPER_QUESTION',nl2br($this->orderDetails['details']['BT']->customer_note)) ?>
-
-	</td>
+		</td>
   </tr>
   <?php } ?>
+	<tr><td colspan="3" style="padding: 5px;"></td></tr>
 </table>

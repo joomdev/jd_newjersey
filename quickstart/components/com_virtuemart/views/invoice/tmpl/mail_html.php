@@ -30,36 +30,15 @@
 defined('_JEXEC') or die('Restricted access');
 ?>
 
-<html>
-    <head>
-	<style type="text/css">
-            body, td, span, p, th {  }
-	    table.html-email {margin:10px auto;background:#fff;border:solid #dad8d8 1px;}
-	    .html-email tr{border-bottom : 1px solid #eee;}
-	    span.grey {color:#666;}
-	    span.date {color:#666; }
-	    a.default:link, a.default:hover, a.default:visited {color:#666;line-height:25px;background: #f2f2f2;margin: 10px ;padding: 3px 8px 1px 8px;border: solid #CAC9C9 1px;border-radius: 4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;text-shadow: 1px 1px 1px #f2f2f2;font-size: 12px;background-position: 0px 0px;display: inline-block;text-decoration: none;}
-	    a.default:hover {color:#888;background: #f8f8f8;}
-	    .cart-summary{ }
-	    .html-email th { background: #ccc;margin: 0px;padding: 10px;}
-	    .sectiontableentry2, .html-email th, .cart-summary th{ background: #ccc;margin: 0px;padding: 10px;}
-	    .sectiontableentry1, .html-email td, .cart-summary td {background: #fff;margin: 0px;padding: 10px;}
-	    .line-through{text-decoration:line-through}
-	    <?php if ($this->vendor->vendor_letter_header==1 || $this->vendor->vendor_letter_footer==1) { echo $this->vendor->vendor_letter_css; } ?> 
-	    /* Firefox has a hard-coded font-size style for tables, so it won't by default inherit the surrounding div's font-size! */
-	    #vmdoc-footer table, #vmdoc-header table, .vmdoc-footer table, .vmdoc-header table { font-size: inherit; }
-	    #vmdoc-header h1, #vmdoc-footer h1, #vmdoc-header p, #vmdoc-footer p { margin-top: 0; margin-bottom: 0; }
-	    .vmdoc-header-image { padding: 0; vertical-align: top; }
-	    .vmdoc-header-vendor { width: 100%; }
-	    td.vmdoc-header-separator, td.vmdoc-header-separator hr { padding: 0; margin-top: 0; margin-bottom: 0; }
-	    td.vmdoc-header-separator { padding: 0; }
-	</style>
-
-    </head>
-
-    <body style="background: #F2F2F2;word-wrap: break-word;">
-	<div style="background-color: #e6e6e6;" width="100%">
-	    <table style="margin: auto;" cellpadding="0" cellspacing="0"  ><tr><td>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title></title>
+</head>
+<body bgcolor="#EEEEEE" style="margin: 0; padding: 15px; background-color:#EEEEEE; min-height:100%">
+	    <table bgcolor="#FFFFFF" width="600" cellpadding="10" cellspacing="0" align="center" style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 12px; margin: 0 auto; border: 1px solid #CCCCCC">
+	    	<tr><td>
 			<?php
 // Shop desc for shopper and vendor
 			if ($this->recipient == 'shopper') {
@@ -78,6 +57,5 @@ defined('_JEXEC') or die('Restricted access');
 			?>
 		    </td></tr>
 	    </table>
-	</div>
-    </body>
+</body>
 </html>

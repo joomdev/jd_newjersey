@@ -4,8 +4,6 @@ $related = $viewData['related'];
 $customfield = $viewData['customfield'];
 $thumb = $viewData['thumb'];
 
-
-//juri::root() For whatever reason, we used this here, maybe it was for the mails
 ?>
 <div class="product-container">
 <div class="vm-product-media-container"><?php

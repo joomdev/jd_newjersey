@@ -44,7 +44,6 @@ class JFormFieldVmcategories extends JFormField {
 
 		$name = $this->name;
 		if($this->multiple){
-			$name = $this->name;
 			$this->multiple = ' multiple="multiple" ';
 		}
 		$id = VmHtml::ensureUniqueId('vmcategories');

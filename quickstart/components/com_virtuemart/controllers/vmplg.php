@@ -127,6 +127,11 @@ class VirtueMartControllerVmplg extends JControllerLegacy {
 	$dispatcher = JDispatcher::getInstance();
 	$dispatcher->trigger('plgVmOnUserPaymentCancel', array());
 
+	//Todo this could be useful, prevent errors and spares one sql later, but for a mayor version
+	/*
+	$cart->virtuemart_order_id = false;
+	$cart->setCartIntoSession();*/
+
 	// return to cart view
 	$view = $this->getView('cart', 'html');
 	$layoutName = vRequest::getCmd('layout', 'default');

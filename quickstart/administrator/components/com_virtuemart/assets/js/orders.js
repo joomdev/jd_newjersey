@@ -79,6 +79,13 @@ if (typeof Virtuemart === "undefined")
 				$('select').trigger('chosen:updated');
 				return false;
 			});
+            $('.selectItemStatusCode').change(function () {
+            	if ($('#updateOrderItemStatus').hasClass('viewMode')){
+                    document.orderItemForm.task.value = 'updateOrderItemStatus';
+                    document.orderItemForm.submit();
+                    return false;
+				}
+            });
 			$('.updateOrderItemStatus').click(function () {
 				document.orderItemForm.task.value = 'updateOrderItemStatus';
 				document.orderItemForm.submit();
@@ -126,9 +133,8 @@ if (typeof Virtuemart === "undefined")
 
 	jQuery(function ($) {
 
-		$('.orderedit').hide();
-		$('.ordereditI').show();
-		$('.orderedit').css('backgroundColor', 'lightgray');
+		$('.orderEdit').hide();
+		$('.orderView').show();
 
 		/*$('.updateOrderItemStatus').click(function () {
 			document.orderItemForm.task.value = 'updateOrderItemStatus';
@@ -144,16 +150,16 @@ if (typeof Virtuemart === "undefined")
 	});
 
 	Virtuemart.enableEdit = function (e) {
-		$('.orderedit').each(function () {
+		$('.orderEdit').each(function () {
 			var d = $(this).css('visibility') == 'visible';
 			$(this).toggle();
-			$('.orderedit').css('backgroundColor', d ? 'white' : 'lightgray');
-			$('.orderedit').css('color', d ? 'blue' : 'black');
-			$('.orderedit').css('width', d ? '100' : '100');
+			$('.orderEdit').addClass('orderEdit');
 		});
-		$('.ordereditI').each(function () {
+		$('.orderView').each(function () {
 			$(this).toggle();
 		});
+        $('.enableEdit').hide();
+        $("#updateOrderItemStatus").removeClass('viewMode');
 		e.preventDefault();
 	};
 
@@ -178,8 +184,10 @@ if (typeof Virtuemart === "undefined")
 		$('.selectItemStatusCode')
 			.find('option:selected').prop('selected', true)
 			.end().trigger('liszt:updated');
-		$('.orderedit').hide();
-		$('.ordereditI').show();
+		$('.orderEdit').hide();
+		$('.enableEdit').show();
+		$('.orderView').show();
+		$("#updateOrderItemStatus").addClass('viewMode');
 		e.preventDefault();
 	}
 

@@ -910,16 +910,26 @@ class VmConfig {
 	 * @author Max Milbers
 	 * @param $force boolean Forces the function to load the config from the db
 	 */
-	static public function loadConfig($force = FALSE,$fresh = FALSE, $lang = true) {
+	static public function loadConfig($force = FALSE,$fresh = FALSE, $lang = true, $exeTrig = true) {
 
+		static $execTrigger = true;
 		if($fresh){
 			self::$_jpConfig = new VmConfig();
 			if($lang)vmLanguage::initialise();
 			return self::$_jpConfig;
 		}
 		vmSetStartTime('loadConfig');
+		$app = JFactory::getApplication(vmDefines::$_appId);
 		if(!$force){
 			if(!empty(self::$_jpConfig) && !empty(self::$_jpConfig->_params)){
+				if($execTrigger and $app->isSite()){
+					// try plugins
+
+					JPluginHelper::importPlugin('vmuserfield');
+					$dispatcher = JDispatcher::getInstance();
+					$dispatcher->trigger('plgVmInitialise', array());
+					$execTrigger = false;
+				}
 				return self::$_jpConfig;
 			}
 		}
@@ -929,7 +939,7 @@ class VmConfig {
 		if(!class_exists('VirtueMartModelConfig')) require(VMPATH_ADMIN .'/models/config.php');
 		$configTable  = VirtueMartModelConfig::checkConfigTableExists();
 
-		$app = JFactory::getApplication(vmDefines::$_appId);
+
 		$db = JFactory::getDbo();
 
 		self::$installed = true;
@@ -941,7 +951,7 @@ class VmConfig {
 		if(empty($configTable) ){
 			self::$installed = false;
 			vmLanguage::initialise();
-			self::loadJLang('com_virtuemart');
+			vmLanguage::loadJLang('com_virtuemart');
 
 			$q = 'SELECT `element` FROM `#__extensions` WHERE type = "language" and enabled = "1" and state="0"';
 			$db->setQuery($q);
@@ -1008,17 +1018,8 @@ class VmConfig {
 
 		vmTime('time to load config','loadConfig');
 
-		if($app->isSite()){
-			// try plugins
-
-			JPluginHelper::importPlugin('vmuserfield');
-			$dispatcher = JDispatcher::getInstance();
-			$dispatcher->trigger('plgVmInitialise', array());
-		}
-
-
 		if(!self::$installed){
-			$user = JFactory::getUser();
+			//$user = JFactory::getUser();
 			//if($user->authorise('core.admin','com_virtuemart') and ($install or $redirected)){
 			if(vmAccess::manager('core.admin') and ($install or $redirected)){
 				VmConfig::$_jpConfig->set('dangeroustools',1);
@@ -1028,6 +1029,15 @@ class VmConfig {
 				$app->enqueueMessage(vmText::_($msg), self::$mType);
 			}
 			if(!empty($link)) $app->redirect($link);
+		}
+
+		if($exeTrig and $app->isSite()){
+			// try plugins
+
+			JPluginHelper::importPlugin('vmuserfield');
+			$dispatcher = JDispatcher::getInstance();
+			$dispatcher->trigger('plgVmInitialise', array());
+			$execTrigger = false;
 		}
 
 		return self::$_jpConfig;

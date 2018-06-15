@@ -13,7 +13,7 @@
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
-* @version $Id: updatesmigration.php 9621 2017-08-14 12:20:48Z Milbo $
+* @version $Id: updatesmigration.php 9806 2018-03-28 15:38:57Z Milbo $
 */
 
 // Check to ensure this file is included in Joomla!
@@ -65,51 +65,54 @@ class VirtueMartModelUpdatesMigration extends VmModel {
     /**
      * @author Max Milbers
      */
-    function setStoreOwner($userId=-1) {
+	function setStoreOwner($userId=-1) {
 
 		if(!vmAccess::manager('core')){
 			vmError('You have no rights to performe this action');
 			return false;
 		}
-	    $allowInsert=FALSE;
-
-	    if($userId===-1){
-		    $allowInsert = TRUE;
-		    $userId = 0;
-	    }
 
 		if (empty($userId)) {
-		    $userId = $this->determineStoreOwner();
+			vmInfo('No uer id given, can not set vendor relation');
+			return false;
+		} else if($userId===-1){
+			$userId = 0;
+		}
+
+		if (empty($userId)) {
+			$userId = $this->determineStoreOwner();
 			vmdebug('setStoreOwner $userId = '.$userId.' by determineStoreOwner');
 		}
 
 		$utable = $this->getTable('vmusers');
-		$utable->load($userId);
 
-		if(empty($utable->virtuemart_user_id)){
-			$juser=JFactory::getUser($userId);
-			if(!empty($juser->id)){
-				$allowInsert = TRUE;
+		if ( empty($userId)) return false;
+
+		$db = JFactory::getDBO();
+
+		$db->setQuery( 'SELECT `virtuemart_user_id` FROM `#__virtuemart_vmusers` WHERE `virtuemart_user_id` ="'.$userId.'" ');
+		$vmuid = $db->loadResult();
+
+		$db->setQuery( 'UPDATE `#__virtuemart_vmusers` SET `virtuemart_vendor_id` = "0", `user_is_vendor` = "0" WHERE `virtuemart_vendor_id` ="1" ');
+		if ($db->execute() == false ) {
+			vmWarn( 'UPDATE __vmusers failed for virtuemart_user_id '.$userId);
+			return false;
+		}
+
+		if($vmuid){
+			$data = array('virtuemart_user_id' => $userId, 'virtuemart_vendor_id' => "1", 'user_is_vendor' => "1");
+			if($utable->bindChecknStore($data,true)){
+				vmInfo('setStoreOwner VmUser updated new main vendor has user id  '.$userId);
 			}
 		} else {
-			$oldUserId = $utable->virtuemart_user_id;
-		}
-
-		if ( (!empty($oldUserId) and !empty($userId)) or $allowInsert) {
-			$db = JFactory::getDBO();
-			$db->setQuery( 'UPDATE `#__virtuemart_vmusers` SET `virtuemart_vendor_id` = "0", `user_is_vendor` = "0" WHERE `virtuemart_vendor_id` ="1" ');
+			//Can not use the table here, it would set the virtuemart_vendor_id to zero if there is no entry
+			$date = JFactory::getDate();
+			$today = $date->toSQL();
+			$db->setQuery('INSERT INTO `#__virtuemart_vmusers` (`virtuemart_user_id`,`virtuemart_vendor_id`,`user_is_vendor`,`created_on`)
+					VALUES ("'.$userId.'","1","1","'.$today.'") ');
 			if ($db->execute() == false ) {
-				vmWarn( 'UPDATE __vmusers failed for virtuemart_user_id '.$userId);
+				vmWarn( 'INSERT __vmusers failed for virtuemart_user_id '.$userId);
 				return false;
-			}
-		}
-
-		$data = array('virtuemart_user_id' => $userId, 'virtuemart_vendor_id' => "1", 'user_is_vendor' => "1");
-		if($utable->bindChecknStore($data)){
-			if($allowInsert){
-				//vmInfo('setStoreOwner VmUser inserted new main vendor has user id  '.$userId);
-			} else {
-				vmInfo('setStoreOwner VmUser updated new main vendor has user id  '.$userId);
 			}
 		}
 
@@ -198,27 +201,31 @@ class VirtueMartModelUpdatesMigration extends VmModel {
 	if(!$this->execSQLFile($filename)){
 		vmError(vmText::_('Problems execution of SQL File '.$filename));
 	} else {
+
+		$comdata['virtuemart_vendor_id'] = 1;
+		$comdata['ordering'] = 1;
+		$comdata['shared'] = 0;
+		$comdata['published'] = 1;
+
 		//update jplugin_id from shipment and payment
 		$db = JFactory::getDBO();
 		$q = 'SELECT `extension_id` FROM #__extensions WHERE element = "weight_countries" AND folder = "vmshipment"';
 		$db->setQuery($q);
 		$shipment_plg_id = $db->loadResult();
+
 		if(!empty($shipment_plg_id)){
-			$q = 'INSERT INTO `#__virtuemart_shipmentmethods` (`virtuemart_shipmentmethod_id`, `virtuemart_vendor_id`, `shipment_jplugin_id`, `shipment_element`, `shipment_params`, `ordering`, `shared`, `published`, `created_on`, `created_by`, `modified_on`, `modified_by`, `locked_on`, `locked_by`) VALUES
-			(1, 1, '.$shipment_plg_id.', "weight_countries", \'shipment_logos=""|countries=""|zip_start=""|zip_stop=""|weight_start=""|weight_stop=""|weight_unit="KG"|nbproducts_start=0|nbproducts_stop=0|orderamount_start=""|orderamount_stop=""|cost="0"|package_fee="2.49"|tax_id="0"|free_shipment="500"|\', 0, 0, 1, "0000-00-00 00:00:00", 0,  "0000-00-00 00:00:00", 0,  "0000-00-00 00:00:00", 0)';
-			$db->setQuery($q);
-			$db->execute();
- 			$q = 'INSERT INTO `#__virtuemart_shipmentmethods_'.$lang.'` (`virtuemart_shipmentmethod_id`, `shipment_name`, `shipment_desc`, `slug`) VALUES (1, "Self pick-up", "", "Self-pick-up")';
-			$db->setQuery($q);
-			$db->execute();
+
+			$shipdata =& $comdata;
+			$shipdata['shipment_jplugin_id'] = $shipment_plg_id;
+			$shipdata['shipment_element'] = "weight_countries";
+			$shipdata['shipment_params'] = 'shipment_logos=""|countries=""|zip_start=""|zip_stop=""|weight_start=""|weight_stop=""|weight_unit="KG"|nbproducts_start=0|nbproducts_stop=0|orderamount_start=""|orderamount_stop=""|cost="0"|package_fee="2.49"|tax_id="0"|free_shipment="500"';
+			$shipdata['shipment_name'] = "Self pick-up";
+
+			$table = $this->getTable('shipmentmethods');
+			$table->bindChecknStore($shipdata);
 
 			//Create table of the plugin
-
-			if(JVM_VERSION!=1){
-				$url = '/plugins/vmshipment/weight_countries';
-			} else{
-				$url = '/plugins/vmshipment';
-			}
+			$url = '/plugins/vmshipment/weight_countries';
 
 			if (!class_exists ('plgVmShipmentWeight_countries')) require(VMPATH_ROOT . DS . $url . DS . 'weight_countries.php');
 			$this->installPluginTable('plgVmShipmentWeight_countries','#__virtuemart_shipment_plg_weight_countries','Shipment Weight Countries Table');
@@ -228,20 +235,18 @@ class VirtueMartModelUpdatesMigration extends VmModel {
 		$db->setQuery($q);
 		$payment_plg_id = $db->loadResult();
 		if(!empty($payment_plg_id)){
-			$q='INSERT INTO `#__virtuemart_paymentmethods` (`virtuemart_paymentmethod_id`, `virtuemart_vendor_id`, `payment_jplugin_id`,  `payment_element`, `payment_params`, `shared`, `ordering`, `published`, `created_on`, `created_by`, `modified_on`, `modified_by`, `locked_on`, `locked_by`) VALUES
-			(1, 1, '.$payment_plg_id.',  "standard", \'payment_logos=""|countries=""|payment_currency="0"|status_pending="U"|send_invoice_on_order_null="1"|min_amount=""|max_amount=""|cost_per_transaction="0.10"|cost_percent_total="1.5"|tax_id="0"|payment_info=""|\', 0, 0, 1,  "0000-00-00 00:00:00", 0,  "0000-00-00 00:00:00", 0,  "0000-00-00 00:00:00", 0)';
-			$db->setQuery($q);
-			$db->execute();
 
-			$q="INSERT INTO `#__virtuemart_paymentmethods_".$lang."` (`virtuemart_paymentmethod_id`, `payment_name`, `payment_desc`, `slug`) VALUES	(1, 'Cash on delivery', '', 'Cash-on-delivery')";
-			$db->setQuery($q);
-			$db->execute();
+			$pdata =& $comdata;
+			$pdata['payment_jplugin_id'] = $payment_plg_id;
+			$pdata['payment_element'] = "standard";
+			$pdata['payment_params'] = 'payment_logos=""|countries=""|payment_currency="0"|status_pending="U"|send_invoice_on_order_null="1"|min_amount=""|max_amount=""|cost_per_transaction="0.10"|cost_percent_total="1.5"|tax_id="0"|payment_info=""';
+			$pdata['payment_name'] = "Cash on delivery";
 
-			if(JVM_VERSION!=1){
-				$url = '/plugins/vmpayment/standard';
-			} else{
-				$url = '/plugins/vmpayment';
-			}
+			$table = $this->getTable('paymentmethods');
+			$table->bindChecknStore($pdata);
+
+			$url = '/plugins/vmpayment/standard';
+
 			if (!class_exists ('plgVmPaymentStandard')) require(VMPATH_ROOT . DS . $url . DS . 'standard.php');
 			$this->installPluginTable('plgVmPaymentStandard','#__virtuemart_payment_plg_standard','Payment Standard Table');
 		}

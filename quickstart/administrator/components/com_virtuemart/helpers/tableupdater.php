@@ -201,7 +201,7 @@ class GenericTableUpdater extends VmModel{
 				$lines[1][$tblKey] = 'PRIMARY KEY (`'.$tblKey.'`)';
 			}
 
-			$table[3] = '';
+			//$table[3] = '';
 			foreach($langs as $lang){
 				// 				$lang = strtr($lang,'-','_');
 				$lang = strtolower(strtr($lang,'-','_'));

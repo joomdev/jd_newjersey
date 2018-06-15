@@ -13,7 +13,7 @@
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
-* @version $Id: view.html.php 9697 2017-12-13 10:15:58Z Milbo $
+* @version $Id: view.html.php 9755 2018-02-01 10:42:08Z Milbo $
 */
 
 // Check to ensure this file is included in Joomla!
@@ -26,9 +26,7 @@ if(!class_exists('VmView'))require(VMPATH_SITE.DS.'helpers'.DS.'vmview.php');
 * Handle the category view
 *
 * @package VirtueMart
-* @author RolandD
-* @todo set meta data
-* @todo add full path to breadcrumb
+* @author Max Milbers
 */
 class VirtuemartViewCategory extends VmView {
 
@@ -346,7 +344,7 @@ class VirtuemartViewCategory extends VmView {
 		// Add the category name to the pathway
 		if ($category->parents) {
 			foreach ($category->parents as $c){
-				if(!empty($c->virtuemart_category_id) and !empty($c->category_name)){
+				if(!empty($c->virtuemart_category_id) and !empty($c->category_name) and !empty($c->published)){
 					$pathway->addItem(strip_tags(vmText::_($c->category_name)),JRoute::_('index.php?option=com_virtuemart&view=category&virtuemart_category_id='.$c->virtuemart_category_id, FALSE));
 				} else vmdebug('parent category is empty',$category->parents);
 			}
@@ -482,7 +480,10 @@ class VirtuemartViewCategory extends VmView {
 
 		if ($virtuemart_manufacturer_id>0 and !empty($this->products['products'])){
 
-			if (!empty($this->products['products'][0])) $title .=' '.$this->products['products'][0]->mf_name ;
+			if(VmConfig::get('addManuNameToCatBrowseTitle',true)){
+				if (!empty($this->products['products'][0])) $title .=' '.$this->products['products'][0]->mf_name ;
+			}
+
 			// Override Category name when viewing manufacturers products !IMPORTANT AFTER page title.
 			if (!empty($this->products['products'][0]) and isset($category->category_name)) $category->category_name = $this->products['products'][0]->mf_name ;
 
@@ -661,14 +662,14 @@ INNER JOIN #__virtuemart_product_categories as cat ON (pc.virtuemart_product_id=
 		if(!$cat or empty($cat->slug)){
 			vmInfo(vmText::_('COM_VIRTUEMART_CAT_NOT_FOUND'));
 		} else {
-			if($cat->virtuemart_id!==0 and !$cat->published){
+			if($cat->virtuemart_id>0 and !$cat->published){
 				vmInfo('COM_VIRTUEMART_CAT_NOT_PUBL',$cat->category_name,$this->categoryId);
 			}
 		}
 
 		//Fallback
 		$catLink = '';
-		if ($cat and !empty($cat->category_parent_id)) {
+		if ($cat and !empty($cat->category_parent_id) and $this->categoryId != $cat->category_parent_id) {
 			$catLink = '&view=category&virtuemart_category_id=' .$cat->category_parent_id;
 		} else {
 			$last_category_id = shopFunctionsF::getLastVisitedCategoryId();

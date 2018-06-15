@@ -36,14 +36,23 @@ class VmTableData extends VmTable {
 
 		$this->setLoggableFieldsForStore();
 
+		if($this->_cryptedFields){
+			foreach($this->_cryptedFields as $field){
+				if(isset($this->$field)){
+					$this->$field = vmCrypt::encrypt($this->$field);
+				}
+			}
+		}
+
 		$this->storeParams();
 
 		$tblKey = $this->_tbl_key;
 		$pKey = $this->_pkey;
 
+		$res = false;
 		if($tblKey == $pKey){
 			//vmdebug('VmTableData '.get_class($this). ' need not to be a vmtabledata $tblKey == $pKey');
-			$res = false;
+
 			if(!empty($this->$tblKey)){
 				$_qry = 'SELECT `'.$this->_tbl_key.'` '
 				. 'FROM `'.$this->_tbl.'` '
@@ -51,11 +60,7 @@ class VmTableData extends VmTable {
 				$this->_db->setQuery($_qry);
 				$res = $this->_db->loadResult();
 			}
-			if($res){
-				$returnCode = $this->_db->updateObject($this->_tbl, $this, $this->_tbl_key, $updateNulls);
-			} else {
-				$returnCode = $this->_db->insertObject($this->_tbl, $this, $this->_tbl_key);
-			}
+
 		} else {
 			if(!empty($this->$pKey)){
 				$_qry = 'SELECT `'.$this->_tbl_key.'` '
@@ -66,12 +71,24 @@ class VmTableData extends VmTable {
 				$this->$tblKey = $this->_db->loadResult();
 			}
 			if ( !empty($this->$tblKey) ) {
-				$returnCode = $this->_db->updateObject($this->_tbl, $this, $this->_tbl_key, $updateNulls);
-			} else {
-				$returnCode = $this->_db->insertObject($this->_tbl, $this, $this->_tbl_key);
+				$res = true;
 			}
 		}
 
+		if($res){
+			$returnCode = $this->_db->updateObject($this->_tbl, $this, $this->_tbl_key, $updateNulls);
+		} else {
+			$p = $this->$tblKey;
+			$returnCode = $this->_db->insertObject($this->_tbl, $this, $this->_tbl_key);
+			if($returnCode and !empty($this->_hashName)){
+				$oldH= $this->{$this->_hashName};
+				if($p!=$this->$tblKey and !in_array($tblKey,$this->_omittedHashFields)){
+					$this->hashEntry();
+					$ok = $this->_db->updateObject($this->_tbl, $this, $this->_tbl_key, $updateNulls);
+					vmdebug('Updated entry with correct hash ',$this->_tbl_key,$p,$this->$tblKey,$oldH,$this->{$this->_hashName});
+				}
+			}
+		}
 
 		//reset Params
 		if(isset($this->_tmpParams) and is_array($this->_tmpParams)){

@@ -90,7 +90,11 @@ class Arr {
 			}
 			
 			if(is_null($value)){
-				eval('if(isset($array["'.implode('"]["', $indexes).'"]))unset($array["'.implode('"]["', $indexes).'"]);');
+				eval('if(isset($array["'.implode('"]["', $indexes).'"]) AND $array["'.implode('"]["', $indexes).'"] != []){
+					unset($array["'.implode('"]["', $indexes).'"]);
+				}else{
+					$array["'.implode('"]["', $indexes).'"] = $value;
+				}');
 			}else{
 				eval('$array["'.implode('"]["', $indexes).'"] = $value;');
 			}

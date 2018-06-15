@@ -27,7 +27,7 @@ jimport('joomla.form.formfield');
  */
 class JFormFieldVmLoadLang extends JFormField {
 
-	var $type = 'loadlang';
+	var $type = 'vmloadlang';
 
 	/**
 	 * Method to load vm language files, just use the name field, takes also a comma seperated list
@@ -39,4 +39,6 @@ class JFormFieldVmLoadLang extends JFormField {
 			vmLanguage::loadJLang(trim($lang));
 		}
 	}
+
+	protected function getLabel() {}
 }

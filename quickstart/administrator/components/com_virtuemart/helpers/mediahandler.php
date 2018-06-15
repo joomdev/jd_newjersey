@@ -1240,7 +1240,7 @@ class VmMediaHandler {
 
 
 		// select language for image
-		$active_languages = VmConfig::get('active_languages',array(VmConfig::$jDefLang));
+		$active_languages = VmConfig::get('active_languages',array(VmConfig::$jDefLangTag));
 		if (count($active_languages)>1) {
 			$selectedImageLangue = explode(",", $this->file_lang);
 			$configM = VmModel::getModel('config');

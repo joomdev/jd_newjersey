@@ -13,7 +13,7 @@
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
-* @version $Id: orders.php 9545 2017-05-16 13:07:19Z kkmediaproduction $
+* @version $Id: orders.php 9754 2018-02-01 10:40:16Z Milbo $
 */
 
 // Check to ensure this file is included in Joomla!
@@ -96,7 +96,7 @@ class TableOrders extends VmTableData {
 	/** @var char Order language */
 	var $order_language = NULL;
 	var $delivery_date = NULL;
-
+	var $o_hash = NULL;
 
 	/**
 	 *
@@ -109,7 +109,9 @@ class TableOrders extends VmTableData {
 
 		$this->setUniqueName('order_number');
 		$this->setLoggable();
+		$this->setHashable('o_hash');
 
+		$this->setOmittedHashFields(array('order_pass','order_create_invoice_pass'));
 		$this->setTableShortCut('o');
 	}
 

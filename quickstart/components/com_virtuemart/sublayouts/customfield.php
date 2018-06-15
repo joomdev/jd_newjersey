@@ -206,7 +206,7 @@ class VirtueMartCustomFieldRenderer {
 
 						}
 						$idTagK = '[';	//Joomla workaround to get a list without id
-						$attribs['cvsel'] = 'field' . $customfield->virtuemart_customfield_id ;
+						$attribs['data-cvsel'] = 'field' . $customfield->virtuemart_customfield_id ;
 						$fname = $fieldname.'['.$k.']';
 						$html .= JHtml::_ ($selectType, $options, $fname, $attribs , "value", "text", $selected,$idTagK);
 
@@ -239,7 +239,7 @@ class VirtueMartCustomFieldRenderer {
 
 					$jsVariants = implode(',',$jsArray);
 
-					$selector = $dom."[cvsel=\"".$attribs['cvsel']."\"]";
+					$selector = $dom."[data-cvsel=\"".$attribs['data-cvsel']."\"]";
 					$hash = md5($selector);
 					$j = "jQuery(document).ready(function($) {
 							".$BrowserNewState."
@@ -403,7 +403,38 @@ class VirtueMartCustomFieldRenderer {
 					if(empty($customfield->custom_value)) $customfield->custom_value = 'LC2';
 					//Customer selects date
 					if($customfield->is_input){
-						$customfield->display =  '<span class="product_custom_date">' . vmJsApi::jDate ($customfield->customfield_value,$customProductDataName) . '</span>'; //vmJsApi::jDate($field->custom_value, 'field['.$row.'][custom_value]','field_'.$row.'_customvalue').$priceInput;
+						$date = '';
+						if(!empty($customfield->customfield_value)){
+							try{
+								$date = new DateTime();
+								$date->add(new DateInterval($customfield->customfield_value));
+								$date = $date->format('Y-m-d');
+							} catch (Exception $e){
+								$date = $customfield->customfield_value;
+							}
+						}
+						$yearRange = '';
+						if(!empty($customfield->yearRangeStart)){
+							$d = new DateTime();
+							$d->add(new DateInterval($customfield->yearRangeStart));
+							$d = $d->format('Y');
+							$yearRange = $d;
+						} else {
+							$yearRange = date('Y');
+						}
+
+						if(!empty($customfield->yearRangePeriod)){
+							$d = new DateTime();
+							$d->add(new DateInterval($customfield->yearRangePeriod));
+							$d = $d->format('Y');
+							$yearRange .= ':'.$d;
+						} else {
+							$yearRange .= ':1';
+						}
+
+						vmdebug('Date my yearrange',$yearRange);
+						//$yearRange = '2018:2020';
+						$customfield->display =  '<span class="product_custom_date">' . vmJsApi::jDate ($date,$customProductDataName.'[' . $customfield->virtuemart_customfield_id . ']', NULL, TRUE, $yearRange) . '</span>'; //vmJsApi::jDate($field->custom_value, 'field['.$row.'][custom_value]','field_'.$row.'_customvalue').$priceInput;
 					}
 					//Customer just sees a date
 					else {
@@ -677,7 +708,7 @@ class VirtueMartCustomFieldRenderer {
 		if(empty($product->customfields)){
 
 			$productDB = VmModel::getModel('product')->getProduct($product->virtuemart_product_id);
-			if($productDB and $productDB->customfields){
+			if($productDB and !empty($productDB->customfields)){
 
 				$product->customfields = $productDB->customfields;
 			} else {
@@ -706,7 +737,7 @@ class VirtueMartCustomFieldRenderer {
 				$productCustoms[$prodcustom->virtuemart_customfield_id] = $prodcustom;
 			}
 		}
-		//vmdebug('renderCustomfieldsCart $variantmods foreach',$variantmods);
+
 		foreach ( (array)$variantmods as $i => $customfield_ids) {
 
 			if(!is_array($customfield_ids)){
@@ -792,6 +823,10 @@ class VirtueMartCustomFieldRenderer {
 							}
 
 							continue;
+						}
+						elseif (($productCustom->field_type == 'D')) {
+							vmdebug('my date product customfield',$productCustom);
+							$value = $params;
 						}
 						else {
 							$value = vmText::_($productCustom->customfield_value);

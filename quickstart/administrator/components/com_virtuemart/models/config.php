@@ -14,7 +14,7 @@
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
- * @version $Id: config.php 9683 2017-11-30 12:30:24Z Milbo $
+ * @version $Id: config.php 9808 2018-04-05 11:26:20Z Milbo $
  */
 
 // Check to ensure this file is included in Joomla!
@@ -383,6 +383,9 @@ class VirtueMartModelConfig extends VmModel {
 			vmWarn('Insufficient permissions to delete product');
 			return false;
 		}
+
+		//$this->setFraudProtection();
+
 		//$oldLangs = $config->get('active_languages');
 		$oldLangs = VmConfig::get('active_languages', array());
 
@@ -457,29 +460,6 @@ class VirtueMartModelConfig extends VmModel {
 				vmError('Do not use as safepath your virtuemart root folder');
 			}
 			$config->set('forSale_path',$safePath);
-		} else {
-			//VmWarn('COM_VIRTUEMART_WARN_SAFE_PATH_NO_INVOICE',vmText::_('COM_VIRTUEMART_ADMIN_CFG_MEDIA_FORSALE_PATH'));
-		/*	$safePath = VMPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_virtuemart'.DS.'vmfiles';
-
-			$exists = JFolder::exists($safePath);
-			if(!$exists){
-				$created = JFolder::create($safePath);
-				$safePath = $safePath.DS;
-				if($created){
-					vmInfo('COM_VIRTUEMART_SAFE_PATH_DEFAULT_CREATED',$safePath);
-					// create htaccess file
-					$fileData = "order deny, allow\ndeny from all\nallow from none";
-					JLoader::import('joomla.filesystem.file');
-					$fileName = $safePath.DS.'.htaccess';
-					$result = JFile::write($fileName, $fileData);
-					if (!$result) {
-						VmWarn('COM_VIRTUEMART_HTACCESS_DEFAULT_NOT_CREATED',$safePath,$fileData);
-					}
-					$config->set('forSale_path',$safePath);
-				} else {
-					VmWarn('COM_VIRTUEMART_WARN_SAFE_PATH_NO_INVOICE',vmText::_('COM_VIRTUEMART_ADMIN_CFG_MEDIA_FORSALE_PATH'));
-				}
-			}*/
 		}
 
 		if(!class_exists('shopfunctions')) require(VMPATH_ADMIN.DS.'helpers'.DS.'shopfunctions.php');
@@ -504,11 +484,15 @@ class VirtueMartModelConfig extends VmModel {
 			$defl = $data['vmDefLang'];
 		}
 
-		$active_langs = self::getActiveVmLanguages();
-
+		$active_langs = $data['active_languages'];
+		if(empty($active_langs)){
+			$active_langs = vmLanguage::getShopDefaultSiteLangTagByJoomla();
+			$active_langs = (array)strtolower(strtr($active_langs,'-','_'));
+		}
 		$active_langs[] = $defl;
 		$active_langs = array_unique($active_langs);
 		$config->set('active_languages',$active_langs);
+
 
 
 		//ATM we want to ensure that only one config is used
@@ -562,6 +546,26 @@ class VirtueMartModelConfig extends VmModel {
 		$langs = self::getActiveVmLanguages();
 
 		$updater->createLanguageTables($langs);
+	}
+
+	public function setVmLanguages() {
+		$db = JFactory::getDbo();
+		$db->setQuery('SELECT lang_code FROM #__languages');
+		$options = $db->loadColumn();
+
+		$config = VmConfig::loadConfig();
+		$config->set('active_languages',$options);
+
+		$lang = vmLanguage::getShopDefaultSiteLangTagByJoomla();
+		$config->set('vmDefLang',$lang);
+
+		$data['virtuemart_config_id'] = 1;
+		$data['config'] = $config->toString();
+
+		$confTable = $this->getTable('configs');
+		$confTable->bindChecknStore($data);
+
+		VmConfig::loadConfig(true);
 	}
 
 	static public function checkConfigTableExists(){
@@ -766,6 +770,71 @@ class VirtueMartModelConfig extends VmModel {
 	function deleteConfig(){
 		if($this->remove(1)){
 			return VmConfig::loadConfig(true,true);
+		} else {
+			return false;
+		}
+	}
+
+
+	/**
+	 * FraudProtection to comply to the French financial Law 2018
+	 * Those 2 params are required: ordersAddOnly=1, ChangedInvCreateNewInvNumber=1
+	 *
+	 * @author Valérie Isaksen
+	 */
+	//France, Guadeloupe, Martinique, Guyane ,La Réunion, Polynésie française et Nouvelle-Calédonie, Wallis-et-Futuna, Saint-Pierre-et-Miquelon, Saint-Barthélemy, Saint-Martin
+	static $defaultFraudProtectionCountries = array('FRA', 'GLP', 'MTQ', 'GUF', 'REU', 'PYF', 'NCL', 'WLF', 'SPM', 'BLM', 'MAF');
+	static $vendorCountry = '';
+
+	function setFraudProtection() {
+		vmLanguage::loadJLang('com_virtuemart_config',false);
+
+		$config = VmConfig::loadConfig();
+		$fraudProtectionIsRequired= $this->vendorRequireFraudProtection();
+		if ($fraudProtectionIsRequired) {
+			$config->set('ordersAddOnly',1);
+			$config->set('ChangedInvCreateNewInvNumber',1);
+		} else {
+			$config->set('ordersAddOnly',0);
+			$config->set('ChangedInvCreateNewInvNumber',0);
+		}
+
+		$data['virtuemart_config_id'] = 1;
+		$data['config'] = $config->toString();
+
+		$confTable = $this->getTable('configs');
+		$confTable->bindChecknStore($data);
+
+		VmConfig::loadConfig(true);
+		if($fraudProtectionIsRequired ) {
+			if (VmConfig::get('ordersAddOnly',false) and VmConfig::get('ChangedInvCreateNewInvNumber',false)){
+				vmInfo(vmText::_('COM_VIRTUEMART_ADMIN_CFG_FRAUD_PROTECTION_ON'));
+				if (in_array(self::$vendorCountry, self::$defaultFraudProtectionCountries)) {
+					vmInfo(vmText::_('COM_VIRTUEMART_ADMIN_CFG_FRAUD_PROTECTION_ON_FR_WARNING'));
+				}
+			} else {
+				vmError(vmText::_('COM_VIRTUEMART_ADMIN_CFG_FRAUD_PROTECTION_SHOULD_BE_ON'));
+				if (in_array(self::$vendorCountry, self::$defaultFraudProtectionCountries)) {
+					vmError(vmText::_('COM_VIRTUEMART_ADMIN_CFG_FRAUD_PROTECTION_SHOULD_BE_ON_FR_WARNING'));
+				}
+			}
+		}
+
+
+	}
+	function vendorRequireFraudProtection() {
+		if(!self::checkConfigTableExists()){ return ;}
+		$vendorModel = VmModel::getModel('vendor');
+		$vendorAddress = $vendorModel->getVendorAdressBT(1);
+		self::$vendorCountry = ShopFunctions::getCountryByID($vendorAddress->virtuemart_country_id, 'country_3_code');
+
+		$config = VmConfig::loadConfig();
+
+		$FraudProtectionCountries = $config->get('FraudProtectionCountries', array());
+		$FraudProtectionCountries = array_merge(self::$defaultFraudProtectionCountries, $FraudProtectionCountries);
+
+		if (in_array(self::$vendorCountry, $FraudProtectionCountries)) {
+			return true;
 		} else {
 			return false;
 		}

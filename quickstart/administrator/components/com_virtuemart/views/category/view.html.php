@@ -14,7 +14,7 @@
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
- * @version $Id: view.html.php 9646 2017-10-15 18:52:42Z Milbo $
+ * @version $Id: view.html.php 9802 2018-03-20 15:22:11Z Milbo $
  */
 
 // Check to ensure this file is included in Joomla!
@@ -67,12 +67,12 @@ class VirtuemartViewCategory extends VmViewAdmin {
 
 			$model->addImages($category);
 
-			if ( $category->virtuemart_category_id > 1 ) {
+			/*if ( $category->virtuemart_category_id > 1 ) {
 				$relationInfo = $model->getRelationInfo( $category->virtuemart_category_id );
 				$this->assignRef('relationInfo', $relationInfo);
 			} else {
 				$category->virtuemart_vendor_id = vmAccess::getVendorId();
-			}
+			}*/
 
 			$parent = $model->getParentCategory( $category->virtuemart_category_id );
 			$this->assignRef('parent', $parent);

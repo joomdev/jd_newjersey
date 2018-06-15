@@ -12,7 +12,7 @@
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses
- * @version $Id: coupon.php 9647 2017-10-15 19:29:12Z Milbo $
+ * @version $Id: coupon.php 9775 2018-03-06 20:49:50Z Milbo $
  */
 
 // Check to ensure this file is included in Joomla!
@@ -74,7 +74,7 @@ abstract class CouponHelper
 			return vmText::_('COM_VIRTUEMART_COUPON_CODE_NOTYET') . $couponData->coupon_start_date;
 		}
 		if ($couponData->ended) {
-			self::RemoveCoupon($_code, true);
+			//self::RemoveCoupon($_code, true);
 			return vmText::_('COM_VIRTUEMART_COUPON_CODE_EXPIRED');
 		}
 
@@ -147,7 +147,7 @@ abstract class CouponHelper
 	 * @author Valérie Isaksen
 	 * @return boolean True on success
 	 */
-	static public function setInUseCoupon($code, $in_use=true){
+	static public function setInUseCoupon($code, $in_use=true, $coupon_used = null){
 		JPluginHelper::importPlugin('vmcoupon');
 		$dispatcher = JDispatcher::getInstance();
 		$returnValues = $dispatcher->trigger('plgVmCouponInUse', array($code));
@@ -159,7 +159,7 @@ abstract class CouponHelper
 			}
 		}
 		$session = JFactory::getSession();
-		$coupon_used = $session->getId();
+		if($coupon_used===null)$coupon_used = $session->getId();
 		$db = JFactory::getDBO();
 		if (!$in_use) {
 			$db = JFactory::getDBO();

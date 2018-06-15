@@ -77,9 +77,8 @@ defined("GCORE_SITE") or die;
 					</div>
 				</th>
 				<th class="single line"><?php echo $this->Sorter->link(rl('ID'), 'connection_id'); ?></th>
-				<th class=""><?php echo $this->Sorter->link(rl('Title'), 'connection_title'); ?></th>
+				<th class="five wide"><?php echo $this->Sorter->link(rl('Title'), 'connection_title'); ?></th>
 				<th class=""><?php el('Alias'); ?></th>
-				<th class="five wide"><?php el('Description'); ?></th>
 				<th class="single line"><?php el('Data tables'); ?></th>
 				<th class="single line"><?php echo $this->Sorter->link(rl('Public'), 'connection_public'); ?></th>
 				<th class="single line"><?php echo $this->Sorter->link(rl('Published'), 'connection_published'); ?></th>
@@ -96,9 +95,21 @@ defined("GCORE_SITE") or die;
 					</div>
 				</td>
 				<td class="collapsing"><?php echo $connection['Connection']['id']; ?></td>
-				<td><?php echo $this->Html->attr('href', r2('index.php?ext=chronoforms&cont=connections&act=edit'.rp('id', $connection['Connection'])))->content($connection['Connection']['title'])->tag('a'); ?></td>
+				<?php
+					$actname = 'edit';
+					if(empty($connection['Connection']['events'])){
+						$actname = 'edit2';
+					}
+				?>
+				<td>
+					<?php echo $this->Html->attr('href', r2('index.php?ext=chronoforms&cont=connections&act='.$actname.rp('id', $connection['Connection'])))->content($connection['Connection']['title'])->tag('a'); ?>
+					<?php if(!empty($connection['Connection']['description'])): ?>
+						<br />
+						<span style="color:grey;"><?php echo nl2br($connection['Connection']['description']); ?></span>
+					<?php endif; ?>
+				</td>
+				
 				<td><?php echo $connection['Connection']['alias']; ?></td>
-				<td><?php echo nl2br($connection['Connection']['description']); ?></td>
 				<td><?php $this->view('views.connections.connected_tables', ['connection' => $connection]); ?></td>
 				<td>
 					<?php

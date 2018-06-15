@@ -13,7 +13,7 @@
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
- * @version $Id: default.php 9505 2017-04-20 07:24:48Z Milbo $
+ * @version $Id: default.php 9774 2018-03-06 20:43:19Z StefanSTS $
  */
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
@@ -33,28 +33,28 @@ if(vRequest::getInt('print',false)){ ?>
 <body onload="javascript:print();">
 <?php } ?>
 
-<div class="product-container productdetails-view productdetails" >
+<div class="product-container productdetails-view productdetails">
 
-    <?php
-    // Product Navigation
-    if (VmConfig::get('product_navigation', 1)) {
+	<?php
+	// Product Navigation
+	if (VmConfig::get('product_navigation', 1)) {
 	?>
-        <div class="product-neighbours">
-	    <?php
-	    if (!empty($this->product->neighbours ['previous'][0])) {
+		<div class="product-neighbours">
+		<?php
+		if (!empty($this->product->neighbours ['previous'][0])) {
 		$prev_link = JRoute::_('index.php?option=com_virtuemart&view=productdetails&virtuemart_product_id=' . $this->product->neighbours ['previous'][0] ['virtuemart_product_id'] . '&virtuemart_category_id=' . $this->product->virtuemart_category_id, FALSE);
 		echo JHtml::_('link', $prev_link, $this->product->neighbours ['previous'][0]
 			['product_name'], array('rel'=>'prev', 'class' => 'previous-page','data-dynamic-update' => '1'));
-	    }
-	    if (!empty($this->product->neighbours ['next'][0])) {
+		}
+		if (!empty($this->product->neighbours ['next'][0])) {
 		$next_link = JRoute::_('index.php?option=com_virtuemart&view=productdetails&virtuemart_product_id=' . $this->product->neighbours ['next'][0] ['virtuemart_product_id'] . '&virtuemart_category_id=' . $this->product->virtuemart_category_id, FALSE);
 		echo JHtml::_('link', $next_link, $this->product->neighbours ['next'][0] ['product_name'], array('rel'=>'next','class' => 'next-page','data-dynamic-update' => '1'));
-	    }
-	    ?>
-    	<div class="clear"></div>
-        </div>
-    <?php } // Product Navigation END
-    ?>
+		}
+		?>
+		<div class="clear"></div>
+		</div>
+	<?php } // Product Navigation END
+	?>
 
 	<?php // Back To Category Button
 	if ($this->product->virtuemart_category_id) {
@@ -66,59 +66,59 @@ if(vRequest::getInt('print',false)){ ?>
 	}
 	?>
 	<div class="back-to-category">
-    	<a href="<?php echo $catURL ?>" class="product-details" title="<?php echo $categoryName ?>"><?php echo vmText::sprintf('COM_VIRTUEMART_CATEGORY_BACK_TO',$categoryName) ?></a>
+		<a href="<?php echo $catURL ?>" class="product-details" title="<?php echo $categoryName ?>"><?php echo vmText::sprintf('COM_VIRTUEMART_CATEGORY_BACK_TO',$categoryName) ?></a>
 	</div>
 
-    <?php // Product Title   ?>
-    <h1 itemprop="name"><?php echo $this->product->product_name ?></h1>
-    <?php // Product Title END   ?>
+	<?php // Product Title   ?>
+	<h1><?php echo $this->product->product_name ?></h1>
+	<?php // Product Title END   ?>
 
-    <?php // afterDisplayTitle Event
-    echo $this->product->event->afterDisplayTitle ?>
+	<?php // afterDisplayTitle Event
+	echo $this->product->event->afterDisplayTitle ?>
 
-    <?php
-    // Product Edit Link
-    echo $this->edit_link;
-    // Product Edit Link END
-    ?>
-
-    <?php
-    // PDF - Print - Email Icon
-    if (VmConfig::get('show_emailfriend') || VmConfig::get('show_printicon') || VmConfig::get('pdf_icon')) {
+	<?php
+	// Product Edit Link
+	echo $this->edit_link;
+	// Product Edit Link END
 	?>
-        <div class="icons">
-	    <?php
 
-	    $link = 'index.php?tmpl=component&option=com_virtuemart&view=productdetails&virtuemart_product_id=' . $this->product->virtuemart_product_id;
+	<?php
+	// PDF - Print - Email Icon
+	if (VmConfig::get('show_emailfriend') || VmConfig::get('show_printicon') || VmConfig::get('pdf_icon')) {
+	?>
+		<div class="icons">
+		<?php
+
+		$link = 'index.php?tmpl=component&option=com_virtuemart&view=productdetails&virtuemart_product_id=' . $this->product->virtuemart_product_id;
 
 		echo $this->linkIcon($link . '&format=pdf', 'COM_VIRTUEMART_PDF', 'pdf_button', 'pdf_icon', false);
-	    //echo $this->linkIcon($link . '&print=1', 'COM_VIRTUEMART_PRINT', 'printButton', 'show_printicon');
+		//echo $this->linkIcon($link . '&print=1', 'COM_VIRTUEMART_PRINT', 'printButton', 'show_printicon');
 		echo $this->linkIcon($link . '&print=1', 'COM_VIRTUEMART_PRINT', 'printButton', 'show_printicon',false,true,false,'class="printModal"');
 		$MailLink = 'index.php?option=com_virtuemart&view=productdetails&task=recommend&virtuemart_product_id=' . $this->product->virtuemart_product_id . '&virtuemart_category_id=' . $this->product->virtuemart_category_id . '&tmpl=component';
-	    echo $this->linkIcon($MailLink, 'COM_VIRTUEMART_EMAIL', 'emailButton', 'show_emailfriend', false,true,false,'class="recommened-to-friend"');
-	    ?>
-    	<div class="clear"></div>
-        </div>
-    <?php } // PDF - Print - Email Icon END
-    ?>
-
-    <?php
-    // Product Short Description
-    if (!empty($this->product->product_s_desc)) {
+		echo $this->linkIcon($MailLink, 'COM_VIRTUEMART_EMAIL', 'emailButton', 'show_emailfriend', false,true,false,'class="recommened-to-friend"');
+		?>
+		<div class="clear"></div>
+		</div>
+	<?php } // PDF - Print - Email Icon END
 	?>
-        <div class="product-short-description">
-	    <?php
-	    /** @todo Test if content plugins modify the product description */
-	    echo nl2br($this->product->product_s_desc);
-	    ?>
-        </div>
+
 	<?php
-    } // Product Short Description END
+	// Product Short Description
+	if (!empty($this->product->product_s_desc)) {
+	?>
+		<div class="product-short-description">
+		<?php
+		/** @todo Test if content plugins modify the product description */
+		echo nl2br($this->product->product_s_desc);
+		?>
+		</div>
+	<?php
+	} // Product Short Description END
 
 	echo shopFunctionsF::renderVmSubLayout('customfields',array('product'=>$this->product,'position'=>'ontop'));
-    ?>
+	?>
 
-    <div class="vm-product-container">
+	<div class="vm-product-container">
 	<div class="vm-product-media-container">
 <?php
 echo $this->loadTemplate('images');
@@ -126,7 +126,7 @@ echo $this->loadTemplate('images');
 	</div>
 
 	<div class="vm-product-details-container">
-	    <div class="spacer-buy-area">
+		<div class="spacer-buy-area">
 
 		<?php
 		// TODO in Multi-Vendor not needed at the moment and just would lead to confusion
@@ -139,26 +139,13 @@ echo $this->loadTemplate('images');
 		<?php
 		echo shopFunctionsF::renderVmSubLayout('rating', array('showRating' => $this->showRating, 'product' => $this->product));
 
-		$productDisplayTypes = array('productDisplayShipments', 'productDisplayPayments');
-		foreach ($productDisplayTypes as $productDisplayType) {
+		foreach ($this->productDisplayTypes as $type=>$productDisplayType) {
 
-			if(empty($this->$productDisplayType)){
-				continue;
-			} else if (!is_array($this->$productDisplayType)) {
-				$this->$productDisplayType = array($this->$productDisplayType);
-			}
-
-			foreach ($this->$productDisplayType as $productDisplay) {
-
-				if(empty($productDisplay)){
-					continue;
-				} else if (!is_array($productDisplay)){
-					$productDisplay = array($productDisplay);
-				}
+			foreach ($productDisplayType as $productDisplay) {
 
 				foreach ($productDisplay as $virtuemart_method_id =>$productDisplayHtml) {
 					?>
-					<div class="<?php echo substr($productDisplayType, 0, -1) ?> <?php echo substr($productDisplayType, 0, -1).'-'.$virtuemart_method_id ?>">
+					<div class="<?php echo substr($type, 0, -1) ?> <?php echo substr($type, 0, -1).'-'.$virtuemart_method_id ?>">
 						<?php
 						echo $productDisplayHtml;
 						?>
@@ -190,16 +177,16 @@ echo $this->loadTemplate('images');
 		<?php
 		// Manufacturer of the Product
 		if (VmConfig::get('show_manufacturers', 1) && !empty($this->product->virtuemart_manufacturer_id)) {
-		    echo $this->loadTemplate('manufacturer');
+			echo $this->loadTemplate('manufacturer');
 		}
 		?>
 
-	    </div>
+		</div>
 	</div>
 	<div class="clear"></div>
 
 
-    </div>
+	</div>
 <?php
 	$count_images = count ($this->product->images);
 	if ($count_images > 1) {
@@ -213,32 +200,32 @@ echo $this->loadTemplate('images');
 	//echo ($this->product->product_in_stock - $this->product->product_ordered);
 	// Product Description
 	if (!empty($this->product->product_desc)) {
-	    ?>
-        <div class="product-description" >
+		?>
+		<div class="product-description" >
 	<?php /** @todo Test if content plugins modify the product description */ ?>
-    	<span class="title"><?php echo vmText::_('COM_VIRTUEMART_PRODUCT_DESC_TITLE') ?></span>
+		<span class="title"><?php echo vmText::_('COM_VIRTUEMART_PRODUCT_DESC_TITLE') ?></span>
 	<?php echo $this->product->product_desc; ?>
-        </div>
+		</div>
 	<?php
-    } // Product Description END
+	} // Product Description END
 
 	echo shopFunctionsF::renderVmSubLayout('customfields',array('product'=>$this->product,'position'=>'normal'));
 
-    // Product Packaging
-    $product_packaging = '';
-    if ($this->product->product_box) {
+	// Product Packaging
+	$product_packaging = '';
+	if ($this->product->product_box) {
 	?>
-        <div class="product-box">
-	    <?php
-	        echo vmText::_('COM_VIRTUEMART_PRODUCT_UNITS_IN_BOX') .$this->product->product_box;
-	    ?>
-        </div>
-    <?php } // Product Packaging END ?>
+		<div class="product-box">
+		<?php
+			echo vmText::_('COM_VIRTUEMART_PRODUCT_UNITS_IN_BOX') .$this->product->product_box;
+		?>
+		</div>
+	<?php } // Product Packaging END ?>
 
-    <?php 
+	<?php
 	echo shopFunctionsF::renderVmSubLayout('customfields',array('product'=>$this->product,'position'=>'onbot'));
 
-  echo shopFunctionsF::renderVmSubLayout('customfields',array('product'=>$this->product,'position'=>'related_products','class'=> 'product-related-products','customTitle' => true ));
+	echo shopFunctionsF::renderVmSubLayout('customfields',array('product'=>$this->product,'position'=>'related_products','class'=> 'product-related-products','customTitle' => true ));
 
 	echo shopFunctionsF::renderVmSubLayout('customfields',array('product'=>$this->product,'position'=>'related_categories','class'=> 'product-related-categories'));
 
@@ -293,11 +280,8 @@ Virtuemart.containerSelector = '.productdetails-view';
 echo vmJsApi::writeJS();
 
 if ($this->product->prices['salesPrice'] > 0) {
-  echo shopFunctionsF::renderVmSubLayout('snippets',array('product'=>$this->product, 'currency'=>$this->currency, 'showRating'=>$this->showRating));
+	echo shopFunctionsF::renderVmSubLayout('snippets',array('product'=>$this->product, 'currency'=>$this->currency, 'showRating'=>$this->showRating));
 }
 
 ?>
 </div>
-
-
-

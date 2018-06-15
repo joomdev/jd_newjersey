@@ -13,7 +13,7 @@
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
-* @version $Id: order_histories.php 9413 2017-01-04 17:20:58Z Milbo $
+* @version $Id: order_histories.php 9754 2018-02-01 10:40:16Z Milbo $
 */
 
 // Check to ensure this file is included in Joomla!
@@ -41,6 +41,7 @@ class TableOrder_histories extends VmTable {
 	var $customer_notified = 0;
 	/** @var text Comments */
 	var $comments = NULL;
+	var $o_hash = NULL;
 
 	/**
 	 * @param $db Class constructor; connect to the database
@@ -49,7 +50,8 @@ class TableOrder_histories extends VmTable {
 		parent::__construct('#__virtuemart_order_histories', 'virtuemart_order_history_id', $db);
 
 		$this->setObligatoryKeys('virtuemart_order_id');
-
+		$this->setHashable('o_hash');
+		$this->setOmittedHashFields(array('virtuemart_order_history_id'));
 		$this->setLoggable();
 	}
 }

@@ -50,6 +50,28 @@ $currency = $viewData['currency'];
 
 	echo $currency->createPriceDiv ('salesPrice', 'COM_VIRTUEMART_PRODUCT_SALESPRICE', $product->prices);
 	echo $currency->createPriceDiv ('salesPriceTt', 'COM_VIRTUEMART_PRODUCT_SALESPRICE_TT', $product->prices);
+	$infotax = vmConfig::get('vm_prices_info_tax', 0);
+	$infodelivery = vmConfig::get('vm_prices_info_delivery', 0);
+	if ($infotax == 1 OR $infodelivery == 1) { ?>
+		<div class="vm-prices-info">
+		<?php
+		if ($infotax == 1) {
+			if ($product->prices['priceWithoutTax'] == $product->prices['salesPrice']) {
+				$taxclusive = 'COM_VM_TAX_EXCLUSIVE';
+			} else {
+				$taxclusive = 'COM_VM_TAX_INCLUSIVE';
+			}
+			echo vmText::_($taxclusive);
+		}
+		if ($infotax == 1 AND $infodelivery == 1) {
+			echo vmText::_('COM_VM_PRICES_INFO_DIVIDER');
+		}
+		if ($infodelivery == 1) {
+			echo vmText::_('COM_VM_PRICES_INFO_DELIVERY');
+		} ?>
+		</div>
+		<?php
+	}
 	//echo $currency->createPriceDiv ('salesPrice', 'COM_VIRTUEMART_PRODUCT_SALESPRICE', $product->prices);
 	//echo $currency->createPriceDiv ('salesPriceQu', 'COM_VIRTUEMART_PRODUCT_SALESPRICE', $product->prices);
 	if ($product->prices['discountedPriceWithoutTax'] != $product->prices['priceWithoutTax']) {
@@ -59,7 +81,7 @@ $currency = $viewData['currency'];
 		echo $currency->createPriceDiv ('priceWithoutTax', 'COM_VIRTUEMART_PRODUCT_SALESPRICE_WITHOUT_TAX', $product->prices);
 		echo $currency->createPriceDiv ('priceWithoutTaxTt', 'COM_VIRTUEMART_PRODUCT_SALESPRICE_WITHOUT_TAX_TT', $product->prices);
 	}
-  echo $currency->createPriceDiv ('discountAmount', 'COM_VIRTUEMART_PRODUCT_DISCOUNT_AMOUNT', $product->prices);
+	echo $currency->createPriceDiv ('discountAmount', 'COM_VIRTUEMART_PRODUCT_DISCOUNT_AMOUNT', $product->prices);
 	echo $currency->createPriceDiv ('discountAmountTt', 'COM_VIRTUEMART_PRODUCT_DISCOUNT_AMOUNT_TT', $product->prices);
 	echo $currency->createPriceDiv ('taxAmount', 'COM_VIRTUEMART_PRODUCT_TAX_AMOUNT', $product->prices);
 	echo $currency->createPriceDiv ('taxAmountTt', 'COM_VIRTUEMART_PRODUCT_TAX_AMOUNT_TT', $product->prices);
@@ -68,4 +90,3 @@ $currency = $viewData['currency'];
 	}
 	?>
 </div>
-

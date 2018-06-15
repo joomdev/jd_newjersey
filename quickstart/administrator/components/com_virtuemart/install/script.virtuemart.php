@@ -89,7 +89,6 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 		 */
 		public function preflight ($type, $parent=null) {
 
-			//We want disable the redirect in the installation process
 			if(version_compare(JVERSION,'1.6.0','ge') and version_compare(JVERSION,'3.0.0','le')) {
 
 				$this->_db = JFactory::getDbo();
@@ -101,13 +100,14 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 					$this->_db -> setQuery($q);
 					$this->_db -> execute();
 				}
-				/*else {
-					$q = 'DELETE FROM `#__menu` WHERE `menutype` = "main" AND `type` = "component" AND `client_id`="1"
-						AND `link`="%option=com_virtuemart%" )';
-				}*/
-
 			}
 
+			$config = JFactory::getConfig();
+			$type = $config->get( 'dbtype' );
+			if ($type != 'mysqli') {
+				JFactory::getApplication()->enqueueMessage('To ensure seemless working with Virtuemart please use MySQLi as database type in Joomla configuration', 'warning');
+				return false;
+			}
 		}
 
 
@@ -149,8 +149,6 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 
 			$model->setStoreOwner();
 
-
-
 			$this->createIndexFolder(VMPATH_ROOT .DS. 'images');
 			$this->createIndexFolder(VMPATH_ROOT .DS. 'images'.DS.'virtuemart');
 			$this->createIndexFolder(VMPATH_ROOT .DS. 'images'.DS.'virtuemart'.DS.'shipment');
@@ -166,8 +164,8 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 			$this->createIndexFolder(VMPATH_ROOT .DS. 'images'.DS.'virtuemart'.DS.'forSale'.DS.'resized');
 			$this->createIndexFolder(VMPATH_ROOT .DS. 'images'.DS.'virtuemart'.DS.'typeless');
 
+			$this->setVmLanguages();
 			$this->installLanguageTables();
-
 
 
 			$this->checkAddDefaultShoppergroups();
@@ -328,6 +326,11 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 		private function installLanguageTables(){
 			VmModel::getModel('config');
 			VirtueMartModelConfig::installLanguageTables();
+		}
+
+		private function setVmLanguages(){
+			$m = VmModel::getModel('config');
+			$m->setVmLanguages();
 		}
 
 		private function updateOldConfigEntries(){

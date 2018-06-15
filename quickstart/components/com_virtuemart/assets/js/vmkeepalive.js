@@ -4,7 +4,7 @@ var vmKeepAlive = function() {
         var lastUpd = 0,kAlive = 0,minlps = 1,stopped = true;
         var sessMSec = 60 * 1000 * parseFloat(sessMin);
         var interval = (sessMSec - 40000) * 0.99;
-        console.log('keepAlive each '+interval/60000+' minutes and maxlps '+maxlps);
+        //console.log('keepAlive each '+interval/60000+' minutes and maxlps '+maxlps);
         var tKeepAlive = function($) {
             if(stopped){
                 kAlive = 1;
@@ -16,7 +16,7 @@ var vmKeepAlive = function() {
                         stopped = true;
                         clearInterval(loop);
                     }else{
-                        console.log('keep alive '+kAlive+' newTime '+((newTime-lastUpd)/60000)+' < '+(sessMin*(parseFloat(maxlps) + 0.99)));
+                        //console.log('keep alive '+kAlive+' newTime '+((newTime-lastUpd)/60000)+' < '+(sessMin*(parseFloat(maxlps) + 0.99)));
                         kAlive++;
                         $.ajax({
                             url: vmAliveUrl,

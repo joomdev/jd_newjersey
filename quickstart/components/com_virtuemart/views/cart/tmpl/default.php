@@ -21,7 +21,7 @@
 defined ('_JEXEC') or die('Restricted access');
 
 vmJsApi::vmValidator();
-
+//vmdebug('my cart',$this->cart);
 ?>
 
 <div class="vm-cart-header-container">
@@ -110,6 +110,7 @@ jQuery(document).ready(function() {
 }); ");
 }
 
+$orderDoneLink = JRoute::_('index.php?option=com_virtuemart&view=cart&task=orderdone');
 
 vmJsApi::addJScript('vm.checkoutFormSubmit',"
 Virtuemart.bCheckoutButton = function(e) {
@@ -121,9 +122,12 @@ Virtuemart.bCheckoutButton = function(e) {
 	jQuery(this).fadeIn( 400 );
 	var name = jQuery(this).attr('name');
 	var div = '<input name=\"'+name+'\" value=\"1\" type=\"hidden\">';
-
+    if(name=='confirm'){
+        jQuery('#checkoutForm').attr('action','".$orderDoneLink."');
+    }
 	jQuery('#checkoutForm').append(div);
 	//Virtuemart.updForm();
+	
 	jQuery('#checkoutForm').submit();
 }
 jQuery(document).ready(function($) {

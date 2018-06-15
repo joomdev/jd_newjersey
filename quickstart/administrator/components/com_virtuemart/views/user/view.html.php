@@ -13,7 +13,7 @@
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
- * @version $Id: view.html.php 9617 2017-08-07 14:04:54Z Milbo $
+ * @version $Id: view.html.php 9802 2018-03-20 15:22:11Z Milbo $
  */
 
 // Check to ensure this file is included in Joomla!
@@ -224,9 +224,8 @@ class VirtuemartViewUser extends VmViewAdmin {
 			//JToolBarHelper::addNewX();
 			$this->addStandardDefaultViewLists($model,'ju.id');
 
-			$userList = $model->getUserList();
-			$this->assignRef('userList', $userList);
-
+			$this->userList = $model->getUserList();
+			$this->searchTable = $model->searchTable;
 			$this->pagination = $model->getPagination();
 
 			$shoppergroupmodel = VmModel::getModel('shopperGroup');

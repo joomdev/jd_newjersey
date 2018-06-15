@@ -6,7 +6,7 @@ defined("GCORE_SITE") or die;
 <form action="<?php echo r2('index.php?ext=chronoforms&cont=connections'); ?>" method="post" name="admin_form" id="admin_form" class="ui form">
 
 	<h2 class="ui header"><?php echo !empty($this->data['Connection']['title']) ? $this->data['Connection']['title'] : rl('New form'); ?></h2>
-	<div class="ui">
+	<div class="ui sticky white segment" style="z-index:9999;">
 		<button type="button" class="ui button compact green icon labeled toolbar-button" data-fn="saveform" name="save" data-url="<?php echo r2('index.php?ext=chronoforms&cont=connections&act=edit'); ?>">
 			<i class="check icon"></i><?php el('Save & Close'); ?>
 		</button>
@@ -16,7 +16,7 @@ defined("GCORE_SITE") or die;
 		</button>
 		<?php else: ?>
 		<button type="button" class="ui button compact blue icon labeled toolbar-button" data-fn="saveform" name="apply" data-url="<?php echo r2('index.php?ext=chronoforms&cont=connections&act=edit&apply=1'); ?>">
-			<i class="check icon"></i><?php el('Save'); ?>
+			<i class="save icon"></i><?php el('Save'); ?>
 		</button>
 		<?php endif; ?>
 		<a class="ui button compact red icon labeled toolbar-button" href="<?php echo r2('index.php?ext=chronoforms&cont=connections'); ?>">
@@ -34,24 +34,27 @@ defined("GCORE_SITE") or die;
 		
 	</div>
 	
-	<div class="ui clearing divider"></div>
-	
-	<div class="ui top attached ordered tiny steps G2-tabs">
+	<div class="ui top attached tiny steps G2-tabs">
 		<a class="step active" data-tab="general">
-			<div class="content"><div class="title"><?php el('General'); ?></div><div class="description"><?php el('Enter form name'); ?></div></div>
+			<i class="settings icon"></i>
+			<div class="content"><div class="title"><?php el('Basics'); ?></div><div class="description"><?php el('Basic settings'); ?></div></div>
 		</a>
 		<a class="step" data-tab="sections">
-			<div class="content"><div class="title"><?php el('Designer'); ?></div><div class="description"><?php el('Add some fields'); ?></div></div>
+			<i class="object group icon"></i>
+			<div class="content"><div class="title"><?php el('Design'); ?></div><div class="description"><?php el('Build form interface'); ?></div></div>
 		</a>
 		<a class="step" data-tab="events">
+			<i class="tasks icon"></i>
 			<div class="content"><div class="title"><?php el('Setup'); ?></div><div class="description"><?php el('Select form functions'); ?></div></div>
 		</a>
 		<a class="step" data-tab="locales">
-			<div class="content"><div class="title"><?php el('Locales'); ?></div><div class="description"><?php el('Optional - translations'); ?></div></div>
+			<i class="translate icon"></i>
+			<div class="content"><div class="title"><?php el('Translate'); ?></div><div class="description"><?php el('Optional - translate form content'); ?></div></div>
 		</a>
 		<?php if($this->get('permissions_deactivated', false) === false): ?>
 		<a class="step" data-tab="permissions">
-			<div class="content"><div class="title"><?php el('Permissions'); ?></div><div class="description"><?php el('Optional - access control'); ?></div></div>
+			<i class="key icon"></i>
+			<div class="content"><div class="title"><?php el('Access control'); ?></div><div class="description"><?php el('Optional - groups permissions'); ?></div></div>
 		</a>
 		<?php endif; ?>
 	</div>

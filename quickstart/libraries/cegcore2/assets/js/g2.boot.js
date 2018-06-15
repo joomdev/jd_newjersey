@@ -73,12 +73,12 @@
 				
 				var opendays = [1,2,3,4,5,6,7];//1 for monday
 				if($(calfield).data('opendays')){
-					opendays = $(calfield).data('opendays').split(',').map(Number);
+					opendays = $(calfield).data('opendays').toString().split(',').map(Number);
 				}
 				
-				var openhours = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24];//1 for monday
+				var openhours = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24];
 				if($(calfield).data('openhours')){
-					openhours = $(calfield).data('openhours').split(',').map(Number);
+					openhours = $(calfield).data('openhours').toString().split(',').map(Number);
 				}
 				
 				$(calfield).closest('.field').calendar({
@@ -156,6 +156,10 @@
 			
 			if(jQuery.fn.embed != undefined){
 				$(this).find('.ui.embed').embed();
+			}
+			
+			if(jQuery.fn.sticky != undefined){
+				$(this).find('.ui.sticky').sticky();
 			}
 			
 			if(jQuery.fn.accordion != undefined){

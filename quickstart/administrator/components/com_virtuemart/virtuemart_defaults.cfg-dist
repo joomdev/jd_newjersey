@@ -125,9 +125,9 @@ legacylayouts=0
 
 browse_orderby_field=pc.ordering,product_name
 browse_cat_orderby_field=c.ordering,category_name
-browse_orderby_fields=array:`p`.product_sku|category_name|mf_name|product_name|pc.ordering
+browse_orderby_fields=array:`p`.product_sku|mf_name|product_name|pc.ordering
 
-browse_search_fields=array:`p`.product_sku|category_name|category_description|mf_name|product_name|product_s_desc|product_desc
+browse_search_fields=array:`p`.product_sku|mf_name|product_name|product_s_desc|product_desc
 
 
 ##Pricing

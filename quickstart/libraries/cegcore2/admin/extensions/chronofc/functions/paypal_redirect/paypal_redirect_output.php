@@ -9,8 +9,8 @@ defined("GCORE_SITE") or die;
 		$url = 'https://www.paypal.com/cgi-bin/webscr?';
 	}
 	
-	//$settings = \GApp::extension()->settings();
-	if(!\GApp::extension()->valid('paypal') AND !\GApp::extension()->valid('extras')){
+	//if(!\GApp::extension()->valid('paypal') AND !\GApp::extension()->valid('extras')){
+	if(!\GApp::extension()->valid()){
 		$url = 'https://www.sandbox.paypal.com/cgi-bin/webscr?';
 	}
 	

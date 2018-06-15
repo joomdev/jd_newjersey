@@ -8,7 +8,15 @@ defined("GCORE_SITE") or die;
 class Connections extends \G2\A\E\Chronoforms\App {
 	use \G2\A\C\T\DataOps;
 	
-	var $models = array('\G2\A\E\Chronoforms\M\Connection', '\G2\A\M\Group');
+	var $models = array(
+		'\G2\A\E\Chronoforms\M\Connection', 
+		//'\G2\A\E\Chronoforms\M\ConnectionPage', 
+		//'\G2\A\M\Page', 
+		//'\G2\A\M\PageAction', 
+		//'\G2\A\M\Action', 
+		'\G2\A\M\Group',
+	);
+	
 	var $helpers= array(
 		'\G2\A\E\Chronofc\H\Field',
 		'\G2\A\E\Chronofc\H\Parser',
@@ -25,6 +33,130 @@ class Connections extends \G2\A\E\Chronoforms\App {
 		
 		$connections = $this->Connection->select('all', ['json' => ['functions']]);
 		$this->set('connections', $connections);
+	}
+	
+	function edit2(){
+		if(!empty($this->data('save'))){
+			pr($this->data);
+			//die();
+			$result = $this->Connection->save($this->data['Connection'], ['validate' => true, 'json' => ['params', 'rules'], 'alias' => ['title' => 'alias']]);
+			
+			if($result === true){
+				$this->ConnectionPage->where('form_id', $this->Connection->id)->delete();
+				
+				foreach($this->data('Page', []) as $k => $page){
+					$result = $this->Page->save($page);
+					$this->data['Page'][$k]['id'] = $this->Page->id;
+					$this->ConnectionPage->save(['form_id' => $this->Connection->id, 'page_id' => $this->Page->id]);
+					//}
+					/*
+					if($pids = \G2\L\Arr::getVal($this->data('Page', []), '[n].id', [])){
+						$this->PageAction->where('page_id', $pids, 'in')->delete();
+					}
+					*/
+					$this->PageAction->where('page_id', $this->Page->id)->delete();
+					//foreach($this->data('Action', []) as $k => $action){
+					if(!empty($page['Actions'])){
+						foreach($page['Actions'] as $a => $action){
+							$settings = array_diff_key($action, [
+								'id' => 0, 
+								'type' => 0, 
+								'name' => 0, 
+								'title' => 0, 
+								'rules' => 0, 
+								'page_id' => 0,
+								'parent_id' => 0,
+								'sub_parent_id' => 0,
+							]);
+							
+							$action['settings'] = $settings;
+							
+							$result = $this->Action->save($action, ['json' => ['settings']]);
+							$this->data['Page'][$k]['Actions'][$a]['id'] = $this->Action->id;
+							//pr($this->Action->dbo->log);die();
+							//$page_ix = array_search($action['page_id'], $pages_names);
+							//$page_id = $this->data['Page'][$action['page_id']]['id'];
+							$parent_id = !empty($action['parent_id']) ? $action['parent_id'] : 0;
+							if(!empty($parent_id)){
+								$parent_id = $this->data['Page'][$k]['Actions'][$parent_id]['page_action_id'];
+							}
+							
+							$result = $this->PageAction->save([
+								'action_id' => $this->Action->id, 
+								//'page_id' => $page_id, 
+								'page_id' => $this->Page->id, 
+								'parent_id' => $parent_id, 
+								'sub_parent_id' => $action['sub_parent_id']
+							]);
+							
+							$this->data['Page'][$k]['Actions'][$a]['page_action_id'] = $this->PageAction->id;
+						}
+					}
+				}
+				
+				//if($result === true){
+				if(isset($this->data['apply'])){
+					$redirect = r2('index.php?ext=chronoforms&cont=connections&act=edit2&id='.$this->Connection->id);
+				}else{
+					$redirect = r2('index.php?ext=chronoforms&cont=connections');
+				}
+				
+				return ['success' => rl('Form saved successfully.'), 'redirect' => $redirect];
+			}else{
+				$this->errors['Connection'] = $this->Connection->errors;
+				unset($this->data['save']);
+				unset($this->data['apply']);
+				return ['error' => $this->Connection->errors, 'reload' => true];
+			}
+			//pr($this->data);
+			//die();
+		}
+		
+		$connection = $this->Connection->where('id', $this->data('id', null))->select('first', ['json' => ['params', 'events', 'sections', 'views', 'functions', 'locales', 'rules']]);
+		if(!empty($connection)){
+			if(empty($connection['Connection']['events'])){
+				//load form data
+				$this->ConnectionPage->belongsTo($this->Page, 'Page', 'page_id');
+				$connection['Pages'] = $this->ConnectionPage->where('form_id', $connection['Connection']['id'])->select('all');
+				
+				foreach($connection['Pages'] as $k => $page){
+					$this->PageAction->belongsTo($this->Action, 'Action', 'action_id');
+					$connection['Pages'][$k]['Actions'] = $this->PageAction
+					->where('page_id', $connection['Pages'][$k]['Page']['id'])
+					->order(['PageAction.id' => 'asc'])
+					->select('all', ['json' => ['Action.settings']]);
+				}
+			}
+			
+			$this->data = array_merge($this->data, $connection);
+		}
+		//pr($this->data);
+		if(empty($this->data['id'])){
+			$this->data['Pages'] = [
+				['Page' => ['id' => '', 'name' => 'load'.'-'.date('YmdHis'), 'title' => 'First page', 'actions' => []]],
+				['Page' => ['id' => '', 'name' => 'submit'.'-'.date('YmdHis'), 'title' => 'Last page', 'actions' => []]],
+			];
+		}
+	}
+	
+	function block(){
+		$this->set('type', $this->data('name'));
+		$this->set('name', $this->data('name'));
+		$this->set('n', $this->data('n'));
+		$this->set('pn', $this->data('pn'));
+		
+		$this->view = 'views.connections.61.'.$this->data('block');
+		
+		$name = $this->data('name').'_'.date('YmdHis');//$this->data('n');
+		
+		$this->data['Page'][$this->data('pn')]['Actions'][$this->data('n')]['name'] = $name;
+		
+		$this->set('function', ['_event' => '', 'type' => $this->data('name'), 'name' => $name]);
+		$this->set('page', ['name' => '']);
+		
+		//get users groups for permissions
+		$groups = array_merge([['Group' => ['id' => 'owner', 'title' => rl('Owner'), '_depth' => 0]]], $this->Group->select('flat'));
+		$this->set('groups', $groups);
 	}
 	
 	function edit(){
@@ -132,13 +264,6 @@ class Connections extends \G2\A\E\Chronoforms\App {
 		}
 	}
 	
-	function wizard(){
-		
-	}
-	
-	function chart(){
-		
-	}
 	
 	function createTemplates(){
 		if(!empty($this->data['Connection']['sections'])){
@@ -155,11 +280,11 @@ class Connections extends \G2\A\E\Chronoforms\App {
 	}
 	
 	function toggle(){
-		$this->toggleRecord($this->Connection);
+		return $this->toggleRecord($this->Connection);
 	}
 	
 	function delete(){
-		$this->deleteRecord($this->Connection);
+		return $this->deleteRecord($this->Connection);
 	}
 	
 	function copy(){

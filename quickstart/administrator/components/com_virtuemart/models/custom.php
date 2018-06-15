@@ -334,7 +334,7 @@ class VirtueMartModelCustom extends VmModel {
 				}
 			}
 
-			if(!$validEntry and !empty($data['custom_jplugin_id'])){
+			if(!$validEntry and empty($data['custom_element']) and !empty($data['custom_jplugin_id'])){
 				$q = 'SELECT `element` FROM `' . $tb . '` WHERE `' . $ext_id . '` = "'.$data['custom_jplugin_id'].'" AND `enabled`="1" AND `state`="0" ';
 				$db->setQuery($q);
 				$data['custom_element'] = $db->loadResult();
@@ -464,6 +464,11 @@ class VirtueMartModelCustom extends VmModel {
 				'selectoptions'	=> array(0, 'int'),
 				'clabels'   	=> array(0, 'int'),
 				'options'		=> array(0, 'int')
+			);
+		} else if($type=='D'){
+			$varsToPush = array(
+				'yearRangeStart'		=> array('', 'string'),
+				'yearRangePeriod'		=> array('', 'string')
 			);
 		} else if($type=='S' or $type=='B'){
 			$varsToPush = array(
