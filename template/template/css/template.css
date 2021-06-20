@@ -2008,6 +2008,9 @@ textarea.uneditable-input {
   font-weight: 700;
   color: #000;
 }
+.backface-visible {
+  backface-visibility: hidden;
+}
 #sp-top-bar {
   padding: 8px 0;
 }
@@ -2414,12 +2417,20 @@ article.item {
 .entry-quote {
   margin-bottom: 50px;
 }
+.pull-right.entry-image {
+  margin: 0 0 18px 20px;
+}
+.entry-status,
+.entry-quote {
+  margin-bottom: 50px;
+}
 .entry-header {
   position: relative;
   margin-bottom: 30px;
 }
 .entry-header.has-post-format {
   margin-left: 68px;
+  display: inline-block;
 }
 .entry-header h2 {
   margin: 8px 0 0;
@@ -5849,7 +5860,7 @@ div.browse-view .vm-search-custom-search-input input.button:hover {
 .view-cart .billto-shipto a.product-details,
 .view-cart .billto-shipto a.details,
 .view-cart .billto-shipto div.details {
-  border: 1px solid #1f2a30;
+  border: 1px solid #1f2a30 !important;
   background: #1f2a30;
   border: 2px solid rgba(0,0,0,0);
   border-radius: 0;
@@ -6219,7 +6230,6 @@ table.cart-summary tr td h3 {
 }
 .hikashop_products .hikashop_container .hikashop_product_stock input.button:hover,
 .hikashop_products .hikashop_container .hikashop_product_stock input.button:focus {
-  background: ;
   border: 2px solid rgba(0,0,0,0);
   color: #fff;
 }
@@ -6262,7 +6272,6 @@ table.cart-summary tr td h3 {
 }
 #hikashop_checkout_page input.button:hover,
 #hikashop_checkout_page input.button:focus {
-  background: ;
   border: 2px solid rgba(0,0,0,0);
   color: #fff;
 }
@@ -6382,7 +6391,6 @@ table.cart-summary tr td h3 {
 }
 #hikashop_product_quantity_main input.button:hover,
 #hikashop_product_quantity_main input.button:focus {
-  background: ;
   border: 2px solid rgba(0,0,0,0);
   color: #fff;
 }
@@ -6412,10 +6420,6 @@ table.cart-summary tr td h3 {
 #hikashop_product_top_part h1 span {
   font-size: 40px;
   color: #34ccff;
-}
-#hikashop_product_top_part h1 span:hover,
-#hikashop_product_top_part h1 span:focus {
-  color: ;
 }
 #hikashop_product_bottom_part {
   border: 1px solid rgba(31,42,48,0.8);
@@ -6704,7 +6708,6 @@ table.cart-summary tr td h3 {
 #kunena.layout .btn-link:hover,
 #kunena.layout .btn-linkfocus {
   background: transparent;
-  color: ;
 }
 #kunena.layout .form-control {
   float: none;
@@ -6734,7 +6737,6 @@ table.cart-summary tr td h3 {
 }
 #kunena a.btn:hover,
 #kunena a.btn:focus {
-  background: ;
   border: 2px solid rgba(0,0,0,0);
   color: #34ccff;
 }
@@ -6826,7 +6828,6 @@ table.cart-summary tr td h3 {
 }
 #ktopicsform .table .input-group-btn .btn:hover,
 #ktopicsform .table .input-group-btn .btn:focus {
-  background: ;
   border: 2px solid rgba(0,0,0,0);
   color: #fff;
 }

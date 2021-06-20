@@ -3,7 +3,7 @@
  * @package Helix3 Framework
  * Template Name - Shaper Helix3
  * @author JoomShaper http://www.joomshaper.com
- * @copyright Copyright (c) 2010 - 2017 JoomShaper
+ * @copyright Copyright (c) 2010 - 2020 JoomShaper
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or later
  */
 //no direct accees
@@ -125,22 +125,22 @@ $doc->addScriptdeclaration("\nvar sp_offanimation = '" . $this->params->get('off
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $this->language; ?>" lang="<?php echo $this->language; ?>" dir="<?php echo $this->direction; ?>">
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-                <?php
-                if ($favicon = $this->helix3->getParam('favicon')) {
-                    $doc->addFavicon(JURI::base(true) . '/' . $favicon);
-                } else {
-                    $doc->addFavicon($this->helix3->getTemplateUri() . '/images/favicon.ico');
-                }
-                ?>
-                <!-- head -->
-                <jdoc:include type="head" />
-                <?php
-                $megabgcolor = ($this->helix3->PresetParam('_megabg')) ? $this->helix3->PresetParam('_megabg') : '#ffffff';
-                $megabgtx = ($this->helix3->PresetParam('_megatx')) ? $this->helix3->PresetParam('_megatx') : '#333333';
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <?php
+            if ($favicon = $this->helix3->getParam('favicon')) {
+                $doc->addFavicon(JURI::base(true) . '/' . $favicon);
+            } else {
+                $doc->addFavicon($this->helix3->getTemplateUri() . '/images/favicon.ico');
+            }
+        ?>
+        <!-- head -->
+        <jdoc:include type="head" />
+        <?php
+            $megabgcolor = ($this->helix3->PresetParam('_megabg')) ? $this->helix3->PresetParam('_megabg') : '#ffffff';
+            $megabgtx = ($this->helix3->PresetParam('_megatx')) ? $this->helix3->PresetParam('_megatx') : '#333333';
 
-                $preloader_bg = ($this->helix3->getParam('preloader_bg')) ? $this->helix3->getParam('preloader_bg') : '#f5f5f5';
-                $preloader_tx = ($this->helix3->getParam('preloader_tx')) ? $this->helix3->getParam('preloader_tx') : '#f5f5f5';
+            $preloader_bg = ($this->helix3->getParam('preloader_bg')) ? $this->helix3->getParam('preloader_bg') : '#f5f5f5';
+            $preloader_tx = ($this->helix3->getParam('preloader_tx')) ? $this->helix3->getParam('preloader_tx') : '#f5f5f5';
 
                 // load css, less and js
                 $this->helix3->addCSS('bootstrap.min.css, font-awesome.min.css, animate.css') // CSS Files
@@ -159,13 +159,13 @@ $doc->addScriptdeclaration("\nvar sp_offanimation = '" . $this->params->get('off
                         ->addLess('legacy/bootstrap', 'legacy')
                         ->addLess('master', 'template');
 
-                //RTL
-                if ($this->direction == 'rtl') {
-                    $this->helix3->addCSS('bootstrap-rtl.min.css')
-                            ->addLess('rtl', 'rtl');
-                }
+            //RTL
+            if ($this->direction == 'rtl') {
+                $this->helix3->addCSS('bootstrap-rtl.min.css')
+                        ->addLess('rtl', 'rtl');
+            }
 
-                $this->helix3->addLess('presets', 'presets/' . $this->helix3->Preset(), array('class' => 'preset'));
+            $this->helix3->addLess('presets', 'presets/' . $this->helix3->Preset(), array('class' => 'preset'));
 
                 //Before Head
                 if ($before_head = $this->helix3->getParam('before_head')) {
@@ -176,52 +176,55 @@ $doc->addScriptdeclaration("\nvar sp_offanimation = '" . $this->params->get('off
 					new WOW().init();
 				</script>
                 </head>
-                <body class="<?php echo $this->helix3->bodyClass($body_classes); ?> off-canvas-menu-init">
+    <body class="<?php echo $this->helix3->bodyClass($body_classes); ?> off-canvas-menu-init">
 
-                    <div class="body-wrapper">
-                        <div class="body-innerwrapper">
-                            <?php $this->helix3->generatelayout(); ?>
-                        </div> <!-- /.body-innerwrapper -->
-                    </div> <!-- /.body-innerwrapper -->
+        <div class="body-wrapper">
+            <div class="body-innerwrapper">
+                <?php $this->helix3->generatelayout(); ?>
+            </div> <!-- /.body-innerwrapper -->
+        </div> <!-- /.body-innerwrapper -->
 
-                    <!-- Off Canvas Menu -->
-                    <div class="offcanvas-menu">
-                        <a href="#" class="close-offcanvas"><i class="fa fa-remove"></i></a>
-                        <div class="offcanvas-inner">
-                            <?php if ($this->helix3->countModules('offcanvas')) { ?>
-                              <jdoc:include type="modules" name="offcanvas" style="sp_xhtml" />
-                            <?php } else { ?>
-                              <p class="alert alert-warning">
-                                <?php echo JText::_('HELIX_NO_MODULE_OFFCANVAS'); ?>
-                              </p>
-                            <?php } ?>
-                        </div> <!-- /.offcanvas-inner -->
-                    </div> <!-- /.offcanvas-menu -->
+        <!-- Off Canvas Menu -->
+        <div class="offcanvas-menu">
+            <a href="#" class="close-offcanvas" aria-label="Close"><i class="fa fa-remove" aria-hidden="true" title="<?php echo JText::_('HELIX_CLOSE_MENU'); ?>"></i></a>
+            <div class="offcanvas-inner">
+                <?php if ($this->helix3->countModules('offcanvas')) { ?>
+                  <jdoc:include type="modules" name="offcanvas" style="sp_xhtml" />
+                <?php } else { ?>
+                  <p class="alert alert-warning">
+                    <?php echo JText::_('HELIX_NO_MODULE_OFFCANVAS'); ?>
+                  </p>
+                <?php } ?>
+            </div> <!-- /.offcanvas-inner -->
+        </div> <!-- /.offcanvas-menu -->
 
-                    <?php
-                    if ($this->params->get('compress_css')) {
-                        $this->helix3->compressCSS();
-                    }
+        <?php
+            if ($this->params->get('compress_css')) {
+                $this->helix3->compressCSS();
+            }
 
-                    $tempOption    = $app->input->get('option');
-                    // $tempView       = $app->input->get('view');
+            $tempOption    = $app->input->get('option');
+            // $tempView       = $app->input->get('view');
 
-                    if ( $this->params->get('compress_js') && $tempOption != 'com_config' ) {
-                        $this->helix3->compressJS($this->params->get('exclude_js'));
-                    }
+            if ( $this->params->get('compress_js') && $tempOption != 'com_config' ) {
+                $this->helix3->compressJS($this->params->get('exclude_js'));
+            }
 
-                    //before body
-                    if ($before_body = $this->helix3->getParam('before_body')) {
-                        echo $before_body . "\n";
-                    } ?>
+            //before body
+            if ($before_body = $this->helix3->getParam('before_body')) {
+                echo $before_body . "\n";
+            } 
+        ?>
 
-                    <jdoc:include type="modules" name="debug" />
-                    <!-- Preloader -->
-                    <jdoc:include type="modules" name="helixpreloader" />
-                    <!-- Go to top -->
-                    <?php if ($this->params->get('goto_top')) { ?>
-                        <a href="javascript:void(0)" class="scrollup">&nbsp;</a>
-                    <?php } ?>
+        <jdoc:include type="modules" name="debug" />
+        
+        <!-- Preloader -->
+        <jdoc:include type="modules" name="helixpreloader" />
 
-                </body>
-                </html>
+        <!-- Go to top -->
+        <?php if ($this->params->get('goto_top')) { ?>
+            <a href="javascript:void(0)" class="scrollup" aria-label="<?php echo JText::_('HELIX_GOTO_TOP'); ?>">&nbsp;</a>
+        <?php } ?>
+
+    </body>
+</html>

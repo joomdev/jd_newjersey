@@ -1,7 +1,7 @@
 /**
 * @package Helix3 Framework
 * @author JoomShaper http://www.joomshaper.com
-* @copyright Copyright (c) 2010 - 2017 JoomShaper
+* @copyright Copyright (c) 2010 - 2020 JoomShaper
 * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or Later
 */
 body.com_templates {
@@ -665,52 +665,6 @@ a.btn-ino{color:#fff}
 }
 
 .helix-options .control-group .field-media-wrapper .field-media-preview img{
-	max-height: 200px;
-	max-width: 200px;
-	height: inherit !important;
-}
-
-
-/* JoomDev Footer Area */
-
-.joomdev-footer-area {
-	background: #164D78;
-	margin-top: 40px;
-	padding: 40px 0;
-	text-align: center;
-}
-
-.joomdev-footer-area .joomdev-logo-area {
-    display: inline-block;
-    width: 362px;
-    height: 80px;
-    background: url(../images/joomdev-logo.png) no-repeat;
-    background-position: bottom;
-    border: 0;
-    text-indent: -9999px;
-}
-
-
-.joomdev-footer-area .help-links{
-	padding-top: 20px;
-}
-
-.joomdev-footer-area .help-links a{
-	color: #fff;
-	margin-right: 7px;
-	margin-left: 7px;
-	display: inline-block;
-}
-
-/* Joomla 3.7 Compatible */
-.joomdev-options .controls .field-media-wrapper[data-preview-container=".field-media-preview"] .input-append > input[type="text"]{
-	display: none;
-}
-.joomdev-options .control-group .field-media-wrapper .field-media-preview{
-	margin: 0 0 20px 0;
-}
-
-.joomdev-options .control-group .field-media-wrapper .field-media-preview img{
 	max-height: 200px;
 	max-width: 200px;
 	height: inherit !important;

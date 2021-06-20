@@ -1,7 +1,7 @@
 /**
  * @package Helix3 Framework
  * @author JoomShaper http://www.joomshaper.com
- * @copyright Copyright (c) 2010 - 2016 JoomShaper
+ * @copyright Copyright (c) 2010 - 2020 JoomShaper
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or later
  */
 
@@ -89,7 +89,7 @@ jQuery(function ($) {
     }
 
     // if sticky header
-    if ($("body.sticky-header").length > 0) {
+    if ($("body.sticky-header").length > 0 && $('#sp-header').length > 0 ) {
         var fixedSection = $('#sp-header');
         // sticky nav
         var headerHeight = fixedSection.outerHeight();
